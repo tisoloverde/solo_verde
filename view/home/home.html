@@ -1,0 +1,44 @@
+<div id="home" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <form id="loginSystem" class="centerDiv">
+    <div class="form-group">
+      <div id="colorLoginTitle" style="width: 300px; text-align: center; margin-bottom: 20px;">
+        <label style="font-size: 22pt; margin-bottom: 0px; font-weight: bold;">Inicio de sesión</label>
+        <label style="font-size: 26pt; margin-bottom: 5px; font-weight: bold;">Inmuebles</label>
+      </div>
+      <div style="width: 300px; text-align: center; margin-bottom: 20px;">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text noSelect" style="width: 120px;" disable>DNI:</span>
+          </div>
+          <input type="text" class="form-control" name="loginSystem-rut" id="loginSystem-rut" onblur="Rut();">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text noSelect" style="width: 120px;" disable>Contraseña:</span>
+          </div>
+          <input type="password" class="form-control" type="password" name="loginSystem-pass" id="loginSystem-pass">
+        </div>
+        <button style="width: 100%;" class="form-control btn btn-secondary" name="loginSystem-submit" id="loginSystem-submit"><span class="fas fa-unlock-alt"></span>&nbsp;&nbsp;Ingresar</button>
+        <br/>
+        <button style="width: 100%; margin-top: 5px;" class="form-control btn btn-info" name="buttonRecuperarContraseña" id="buttonRecuperarContraseña"><span class="fas fa-first-aid"></span>&nbsp;&nbsp;Recuperar contraseña</button>
+        <br/>
+        <span id="cerradoInactivo" style="display: none; color: red; margin-top: 10pt;">Su sesión ha expirado</span>
+      </div>
+    </div>
+  </form>
+  <img id="footerLogin" src="view/img/logo_home.png" style="height: 80px;">
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idload=7';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>

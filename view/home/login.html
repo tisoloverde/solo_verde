@@ -1,0 +1,38 @@
+<div class="cuerpo">
+  <div id="inicioCuerpo" class="row">
+    <div style="text-align: center; margin-top: 30px;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="inicioCabecera" class="tituloCentral">
+        Bienvenido
+			</div>
+		</div>
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="cuerpoCentral" id="usuarioLogin">
+
+			</div>
+      <div class="cuerpoCentral" style="margin-top: 20px;" id="mensajeLogin">
+        En el menú lateral al lado izquierdo podrás acceder a tus recursos asignados.
+			</div>
+      <div class="cuerpoCentral" style="margin-top: 20px;" id="mensajeLogin">
+        <img id="footerLoginOk" src="view/img/logo_home.png" style="height: 100px;">
+      </div>
+      <div class="cuerpoCentral" style="margin-top: 20px;" id="mensajeLogin">
+        <img src="view/img/edificio.webp" style="height: 200px; margin-top: 100pt;">
+      </div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idload=7';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
