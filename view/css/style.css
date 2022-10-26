@@ -213,7 +213,7 @@ div#body{
 #iconoLogoMenu{
   border: 1px solid white;
   padding: 7px;
-  background-color: #242a59;
+  background-color: #0E1D1A;
 }
 
 .splash_charge_logo {
@@ -344,7 +344,7 @@ div#body{
 }
 
 .celdaColor{
-  background-color: #242a59!important;
+  background-color: #0E1D1A!important;
   color: white;
 }
 
@@ -446,7 +446,7 @@ div#filtrosTarjetaCombustible,div#filtrosComprasGestion,div#filtrosComprasMateri
 }
 
 .custom-header{
-  background: #242a59!important;
+  background: #0E1D1A!important;
   color: white;
 }
 
@@ -527,7 +527,7 @@ div#filtrosTarjetaCombustible,div#filtrosComprasGestion,div#filtrosComprasMateri
 }
 
 .celdaColorCant{
-  border-bottom: 1px solid #242a59 !important;
+  border-bottom: 1px solid #0E1D1A !important;
 }
 
 .leftDataTableCant {
@@ -670,36 +670,36 @@ label.click_cubica:hover{
 }
 
 .fancy-panel-tbar{
-  background-color: #242a59 !important;
+  background-color: #0E1D1A !important;
   color: white !important;
 }
 
 .fancy-button-text{
-  background-color: #242a59 !important;
+  background-color: #0E1D1A !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-bar-button{
-  background-color: #242a59 !important;
+  background-color: #0E1D1A !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-grid-header-cell-container{
-  background-color: #242a59 !important;
+  background-color: #0E1D1A !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-bar-left-scroller{
-  background-color: #242a59 !important;
+  background-color: #0E1D1A !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-bar-right-scroller{
-  background-color: #242a59 !important;
+  background-color: #0E1D1A !important;
   color: white !important;
   border-color: white !important;
 }
@@ -830,7 +830,7 @@ label.click_cubica:hover{
 }
 
 .btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
-    background-color: #003865!important;
+    background-color: #0E1D1A!important;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {

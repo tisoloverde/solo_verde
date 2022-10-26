@@ -228,7 +228,7 @@ $(window).on("load",function(e){
                               a = a*25 + 30;
                             }
                             $(this).css("height", a + "pt");
-                            $(this).css("background-color","#004379");
+                            $(this).css("background-color","#1E3E37");
                           }
                           else{
                             $("#DivPrincipalMenu").children().css("display","block");
@@ -866,7 +866,7 @@ function esconderMenu(){
   $("#menu-lateral").css("background","rgba(30, 0, 0, 0.0)");
   $("#logoMenu").css("color","white");
   $("#iconoLogoMenu").css("border","1px solid white");
-  $("#iconoLogoMenu").css("background","rgba(0, 56, 101, 1.0)");
+  $("#iconoLogoMenu").css("background","#0E1D1A");
   if($("#sesionActiva").val() == 1){
     $("#lineaMenu").hide();
     $(".contenedor-logos").css("display","none");

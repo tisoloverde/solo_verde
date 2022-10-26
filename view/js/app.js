@@ -99,6 +99,8 @@ app.controller("loginController", function(){
 
     var url = window.location.origin;
 
+    $("#imgLogin").attr("src","controller/cargarLogo.php?url=" + url);
+
     var margH = $(window).height()/2 - 200;
 
     $("#msgDatos").css("margin-top",margH);
@@ -242,7 +244,7 @@ app.controller("loginController", function(){
                             a = a*25 + 30;
                           }
                           $(this).css("height", a + "pt");
-                          $(this).css("background-color","#004379");
+                          $(this).css("background-color","#1E3E37");
                         }
                         else{
                           $("#DivPrincipalMenu").children().css("display","block");
