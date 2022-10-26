@@ -1,0 +1,42 @@
+<div class="row cuerpo">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-edit">&nbsp;&nbsp;Mantenedor Días</span>
+		</font>
+  </div>
+	<div id="divTablaMantenedorDiasObra" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaMantenedorDiasObra" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IDRango">ID Rango Días</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Dias">Días</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Rango Diass">Rango Días</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Semaforo">Semáforo</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaMantenedorDiasObra" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div id="accionesMantenedorDiasObra" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+  </div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+$('#tablaMantenedorDiasObra tbody').on( 'click', 'tr', function () {
+    setTimeout(async function(){
+      var table = $('#tablaMantenedorDiasObra').DataTable();
+      var datos = table.rows('.selected').data();
+			if(datos[0].COLOR_RANGO == "<b class='fa fa-circle' style='color: #ebd606; font-size: 10pt;'></b>"){
+				$("#editarRangoDiasObra").removeAttr("disabled");
+			}
+      else{
+        $("#editarRangoDiasObra").attr("disabled", "disabled");
+      }
+			//console.log(datos[0]);
+    },100);
+});
+</script>

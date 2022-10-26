@@ -1,0 +1,31 @@
+<div class="row cuerpo">
+	<div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fa fa-sitemap">&nbsp;&nbsp;Organigrama corporativo</span>
+		</font>
+  </div>
+	<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-1 col-lg-1 col-md-4 col-sm-12 col-xs-12">
+		<label class="labelComun" id="labelNivelesOrganigrama">Niveles</label>
+		<select id="idNivelesOrganigrama" class="form-control" title="Niveles" disabled>
+			<option value="1">1</option>
+			<option value="2">2</option>
+		</select>
+  </div>
+  <div id="divOrganigramaCorporativo" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -20pt;">
+
+  </div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>

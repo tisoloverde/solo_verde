@@ -1,0 +1,71 @@
+<div class="cuerpo">
+  <div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-business-time">&nbsp;&nbsp;Órdenes Asignadas</span>
+		</font>
+  </div>
+  <div class="row">
+    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+  		<label class="labelComun">Fecha Agenda</label>
+  		<input id="fechaOrdenesAsignadas" type="text" class="form-control" title="Fecha" onfocus="blur();">
+  	</div>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+  		<label class="labelComun">Proyecto</label>
+  		<select id="proyectoOrdenAsignada" class="form-control" title="Comuna">
+  		</select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+  		<label class="labelComun">Comuna</label>
+  		<select id="comunaOrdenAsignada" class="form-control" title="Comuna">
+  		</select>
+    </div>
+  	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+  		<label class="labelComun">Categoria</label>
+  		<select id="categoriaOrdenAsignada" class="form-control" title="Tipo">
+  		</select>
+    </div>
+  	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+  		<label class="labelComun">Tipo</label>
+  		<select id="tipoOrdenAsignada" class="form-control" title="Tipo Ticket">
+  		</select>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+  		<label class="labelComun">Técnico</label>
+  		<select id="técnicoOrdenAsignada" class="form-control" title="Técnico">
+  		</select>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10pt; text-align: left;">
+      <button style="margin-top: 30px;" class="form-control btn btn-secondary botonComun" id="verMapaOrdenesTecnicoAsignadas">
+        <span class="fas fa-map-marked-alt"></span>&nbsp;&nbsp;Mapa
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <hr class="hr-separador">
+    </div>
+    <div id="padreColoresOrdenAsignadas" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+      <!-- Se trae dinamicamente de BBDD -->
+    </div>
+    <div id="divOrdenesAsignadas" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!-- <div id="filterOrdenesAsignadas">
+      </div> -->
+  		<div id="timelineOrdenesAsignadas">
+  		</div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    var js = document.createElement('script');
+    js.src = 'view/js/funciones.js?idLoad=205';
+    document.getElementsByTagName('head')[0].appendChild(js);
+
+    var js2 = document.createElement('script');
+    js2.src = 'https://www.gstatic.com/charts/loader.js';
+    document.getElementsByTagName('head')[0].appendChild(js2);
+  },500);
+</script>

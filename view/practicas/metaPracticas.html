@@ -1,0 +1,67 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 0pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="fas fa-file-signature">&nbsp;&nbsp;Establecer Metas</span>
+      </font>
+  </div>
+
+  <div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row" id="filtrosMetaPractica">
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Periodo</label>
+    		<select id="periodoMetaPractica" class="form-control" title="Periodo">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Perfil</label>
+    		<select id="perfilMetaPractica" class="form-control" title="Periodo">
+    		</select>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <hr class="hr-separador">
+      </div>
+    </div>
+  </div>
+
+  <div id="divTablaMetaPractica" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaMetaPractica" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Perfil">Perfil</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Auditoria">Auditoria</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Meta">Meta</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Ciclo">Ciclo</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Tipo">Tipo</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Observacion">Observación</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="idPerfil">idPerfil</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="idAuditoria">idAuditoria</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaMetaPractica" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+	<div id="accionesMetaPractica" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+	</div>
+</div>
+
+<script>
+  //Para interactuar con la tabla de productos
+  $('#tablaMetaPractica tbody').on( 'click', 'tr', function () {
+			setTimeout(async function(){
+				var table = $('#tablaMetaPractica').DataTable();
+				var datos = table.rows('.selected').data();
+        if(table.rows('.selected').data().length > 0){
+          $("#eliminarrMetaPractica").removeAttr("disabled");
+          $("#editarMetaPractica").removeAttr("disabled");
+        }
+        else{
+          $("#eliminarrMetaPractica").attr("disabled", "disabled");
+          $("#editarMetaPractica").attr("disabled", "disabled");
+        }
+			},100);
+	});
+</script>

@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='ISO-8859-1'?><cubicacion><cabecera>
+<codigo>1083307</codigo>
+<nombre>	COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ</nombre>
+<contrato>71</contrato>
+<agencia>37     </agencia>
+</cabecera>
+<detalle>
+<codigo>1083307</codigo>
+<linea>10</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 001 </codclave>
+<tarea>0000</tarea>
+<codmo>J758</codmo>
+<coduo>H592</coduo>
+<canmocub>77</canmocub>
+<canmoinf>77</canmoinf>
+<canmoapr>77</canmoapr>
+<canuocub>77</canuocub>
+<canuoinf>77</canuoinf>
+<canuoapr>77</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>20</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 012 </codclave>
+<tarea>0000</tarea>
+<codmo>J753</codmo>
+<coduo>H592</coduo>
+<canmocub>70</canmocub>
+<canmoinf>70</canmoinf>
+<canmoapr>70</canmoapr>
+<canuocub>70</canuocub>
+<canuoinf>70</canuoinf>
+<canuoapr>70</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>30</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>C</codesp>
+<codact>D</codact>
+<codclave>C 014 </codclave>
+<tarea>2010</tarea>
+<codmo>R060</codmo>
+<coduo>R230</coduo>
+<canmocub>9</canmocub>
+<canmoinf>9</canmoinf>
+<canmoapr>9</canmoapr>
+<canuocub>9</canuocub>
+<canuoinf>9</canuoinf>
+<canuoapr>9</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>40</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>L</codesp>
+<codact>D</codact>
+<codclave>C 012 </codclave>
+<tarea>2002</tarea>
+<codmo>J259</codmo>
+<coduo>0   </coduo>
+<canmocub>70</canmocub>
+<canmoinf>70</canmoinf>
+<canmoapr>70</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>50</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 002 </codclave>
+<tarea>6010</tarea>
+<codmo>J765</codmo>
+<coduo>H486</coduo>
+<canmocub>3</canmocub>
+<canmoinf>3</canmoinf>
+<canmoapr>3</canmoapr>
+<canuocub>1</canuocub>
+<canuoinf>1</canuoinf>
+<canuoapr>1</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>60</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 012 </codclave>
+<tarea>0000</tarea>
+<codmo>J768</codmo>
+<coduo>0   </coduo>
+<canmocub>2</canmocub>
+<canmoinf>2</canmoinf>
+<canmoapr>2</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>70</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 022 </codclave>
+<tarea>0000</tarea>
+<codmo>J770</codmo>
+<coduo>0   </coduo>
+<canmocub>2</canmocub>
+<canmoinf>2</canmoinf>
+<canmoapr>2</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>80</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 002 </codclave>
+<tarea>6010</tarea>
+<codmo>J791</codmo>
+<coduo>H372</coduo>
+<canmocub>2</canmocub>
+<canmoinf>2</canmoinf>
+<canmoapr>2</canmoapr>
+<canuocub>5</canuocub>
+<canuoinf>5</canuoinf>
+<canuoapr>5</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>90</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>F</codact>
+<codclave>C 002 </codclave>
+<tarea>7000</tarea>
+<codmo>J659</codmo>
+<coduo>0   </coduo>
+<canmocub>1</canmocub>
+<canmoinf>1</canmoinf>
+<canmoapr>1</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>100</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>N</codesp>
+<codact>D</codact>
+<codclave>C 002 </codclave>
+<tarea>7000</tarea>
+<codmo>J402</codmo>
+<coduo>0   </coduo>
+<canmocub>1</canmocub>
+<canmoinf>1</canmoinf>
+<canmoapr>1</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>110</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>N</codesp>
+<codact>D</codact>
+<codclave>C 002 </codclave>
+<tarea>2005</tarea>
+<codmo>J158</codmo>
+<coduo>C999</coduo>
+<canmocub>60</canmocub>
+<canmoinf>60</canmoinf>
+<canmoapr>60</canmoapr>
+<canuocub>60</canuocub>
+<canuoinf>60</canuoinf>
+<canuoapr>60</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>120</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>F</codesp>
+<codact>T</codact>
+<codclave>C 022 </codclave>
+<tarea>6030</tarea>
+<codmo>J772</codmo>
+<coduo>H326</coduo>
+<canmocub>1</canmocub>
+<canmoinf>1</canmoinf>
+<canmoapr>1</canmoapr>
+<canuocub>1</canuocub>
+<canuoinf>1</canuoinf>
+<canuoapr>1</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>130</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>P</codesp>
+<codact>I</codact>
+<codclave>DIBUJ </codclave>
+<tarea>0000</tarea>
+<codmo>D022</codmo>
+<coduo>0   </coduo>
+<canmocub>1</canmocub>
+<canmoinf>1</canmoinf>
+<canmoapr>1</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+<detalle>
+<codigo>1083307</codigo>
+<linea>140</linea>
+<dirdesde>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirdesde>
+<altdesde>NULL</altdesde>
+<dirhasta>COMERCIALIZADORA DE ART PROTECCION Y SEG IND MANQ(</dirhasta>
+<althasta>NULL</althasta>
+<plano>1-1   </plano>
+<codesp>P</codesp>
+<codact>I</codact>
+<codclave>DIBUJ </codclave>
+<tarea>0000</tarea>
+<codmo>D210</codmo>
+<coduo>0   </coduo>
+<canmocub>2</canmocub>
+<canmoinf>2</canmoinf>
+<canmoapr>2</canmoapr>
+<canuocub>0</canuocub>
+<canuoinf>0</canuoinf>
+<canuoapr>0</canuoapr>
+<origen>Falso</origen>
+</detalle>
+</cubicacion>

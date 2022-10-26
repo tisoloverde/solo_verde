@@ -1,0 +1,94 @@
+<div class="row cuerpo">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Personal Interno</span>
+		</font>
+  </div>
+	<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<label class="labelComun">Mano de obra</label>
+		<select id="manoPersonalInterno" class="form-control" title="Mano de obra">
+		</select>
+  </div>
+	<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<label class="labelComun">Centro de costo</label>
+		<select id="cecoPersonalInterno" class="form-control" title="Centro de costo">
+		</select>
+  </div>
+	<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<label class="labelComun">Estado RRHH</label>
+		<select id="estadoPersonalInterno" class="form-control" title="Estado personal">
+		</select>
+  </div>
+	<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<label class="labelComun">Estado control</label>
+		<select id="controlPersonalInterno" class="form-control" title="Estado control">
+		</select>
+  </div>
+	<div id="divTablaPersonalInterno" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaPersonalInterno" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+	      	<th class="celdaColor" style="border: 1pt solid white;" title="Imagen de perfil">IMG</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="DNI" >DNI</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Nombre completo" >Nombre</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Nivel jerárquico" >N</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Área" >Area</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Temperatura AM" >T° AM</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Temperatura PM">T° PM</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Turno asignado" >Turno</th>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado control">EC</th>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado asistencia">EA</tH>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado RRHH">ER</th>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado operacional">EO</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Marca entrada" >Entrada</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Marca salida" >Salida</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Permiso asignado" >Permiso</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Función que desempeña" >Función</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Inicio de contrato" >I. Contrato</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Tipo clasificación" >Tipo</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Centro de costo" >C. Costo</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Contrato ó departamento" >Servicio/Depto</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Cliente" >Cliente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Actividad" >Actividad</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Comuna" >Comuna</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Región" >Región</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Empresa" >Empresa</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Jefe directo" >Jefatura</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Cargos asignados" >Cargos</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Saldo de vacaciones" >Saldo vac</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Fecha nac</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >DNI 2</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado Praxis</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado control</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado RRHH</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado operacional</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaPersonalInterno" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+	<div id="accionesPersonalInterno" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+	</div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+	$('#tablaPersonalInterno tbody').on( 'click', 'tr', function () {
+		setTimeout(async function(){
+      var table = $('#tablaPersonalInterno').DataTable();
+      var datos = table.rows('.selected').data();
+			if(table.rows('.selected').data().length > 0){
+				$("#cargasPersonalInterno").removeAttr("disabled");
+				$("#estadoPersonalInternoB").removeAttr("disabled");
+      }
+      else{
+				$("#cargasPersonalInterno").attr("disabled","disabled");
+				$("#estadoPersonalInternoB").attr("disabled","disabled");
+      }
+    },100);
+	});
+</script>

@@ -1,0 +1,41 @@
+	<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+				<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+						<span style="color: gray;" class="fas fa-tachometer-alt">&nbsp;&nbsp;Listado Marca-Modelo</span>
+					</font>
+			  </div>
+				<div id="divTablaListadoMarcaModelo" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+				  <table id="tablaListadoMarcaModelo" class="cell-border compact" style="width: 100%;">
+				    <thead>
+				      <tr>
+								<th class="celdaColor" style="border: 1pt solid white;">S</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">Marca</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Modelo</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Litros</th>
+				      </tr>
+				    </thead>
+				    <tbody id="cuerpoTablaListadoMarcaModelo" style="text-align: left;">
+
+				    </tbody>
+				  </table>
+				</div>
+      <!-- Botones -->
+			<div id="accionesMarcaModelo" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+			</div>
+    </div>
+
+	<script>
+		//Para interactuar con los botones
+			$('#tablaListadoMarcaModelo tbody').on( 'click', 'tr', function () {
+				var table = $('#tablaListadoMarcaModelo').DataTable();
+				if ( $(this).hasClass('selected') ) {
+				$("#editarMarcaModelo").attr("disabled","disabled");
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+				$("#editarMarcaModelo").removeAttr("disabled");
+				}
+			});
+
+		</script>

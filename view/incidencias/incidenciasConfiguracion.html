@@ -1,0 +1,101 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="text-align: right; margin-bottom: 10pt;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="far fa-edit">&nbsp;&nbsp;Configuración de Incidencias</span>
+      </font>
+  </div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Item</label>
+    <select id="itemFiltroConfiguracion" class="form-control" title="Item">
+		</select>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Departamento</label>
+    <select id="departamentoFiltroConfiguracion" class="form-control" title="Departamento">
+		</select>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Servicio</label>
+    <select id="servicioFiltroConfiguracion" class="form-control" title="Servicio">
+		</select>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Cliente</label>
+    <select id="clienteFiltroConfiguracion" class="form-control" title="Servicio">
+		</select>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Actividad</label>
+    <select id="actividadFiltroConfiguracion" class="form-control" title="Servicio">
+		</select>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Sucursal</label>
+    <select id="sucursalFiltroConfiguracion" class="form-control" title="Servicio">
+		</select>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+		<label class="labelComun">Comuna</label>
+    <select id="comunaFiltroConfiguracion" class="form-control" title="Servicio">
+		</select>
+	</div>
+  <div id="divTablaIncidenciaSinConfiguracion" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+    <table id="tablaIncidenciaSinConfiguracion" class="cell-border compact" style="width: 100%;">
+      <thead>
+        <tr>
+          <th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Area">Area</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Item">Item</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Departamento">Departamento</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Servicio" >Servicio</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Cliente" >Cliente</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Actividad" >Actividad</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Sucursal" >Sucursal</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Comuna" >Comuna</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="SLA" >SLA</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="DNI Resolutor" >DNI Resolutor</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Nombre Resolutor" >Nombre Resolutor</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTablaIncidenciaSinConfiguracion" style="text-align: left;">
+
+      </tbody>
+    </table>
+  </div>
+  <div id="accionesConfigIncidencias" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+  </div>
+</div>
+
+<script>
+  $('#tablaIncidenciaSinConfiguracion tbody').on( 'click', 'tr', function () {
+  	setTimeout(async function(){
+      var table = $('#tablaIncidenciaSinConfiguracion').DataTable();
+  		var datos = table.rows('.selected').data();
+      if(table.rows('.selected').data().length > 0){
+        $("#nuevaConfiguracion").removeAttr("disabled");
+        var flag = true;
+        for (var i=0; i<datos.length; i++) {
+          if (!datos[i].IDINCIDENCIA_CONFIGURACION) flag = false;
+        }
+        if (flag) $("#eliminarConfiguracion").removeAttr("disabled");
+        else $("#eliminarConfiguracion").attr("disabled", "disabled");
+      } else {
+        $("#nuevaConfiguracion").attr("disabled", "disabled");
+        $("#eliminarConfiguracion").attr("disabled", "disabled");
+      }
+    });
+  });
+</script>
+
+<style>
+  .accordion > .card > .card-header {
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  /*.accordion > .card:not(:last-of-type) {
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px!important;
+  }*/
+</style>

@@ -1,0 +1,41 @@
+<div class="cuerpo">
+  <div id="inicioCuerpo" class="row" style="margin-top: 60pt;">
+    <div style="text-align: center; margin-top: 10pt;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="inicioCabecera" style="font-weight: bold;">
+        <h2>Web Integrada</h2>
+			</div>
+		</div>
+		<div style="text-align: center; margin-top: 20pt; font-size: 40pt;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<span class="fas fa-chart-line"></span>
+      &nbsp;&nbsp;
+      <span class="fas fa-chart-pie"></span>
+      <br>
+      <span class="fas fa-chart-bar"></span>
+      &nbsp;&nbsp;
+      <span class="fas fa-chart-area"></span>
+		</div>
+    <div id="msgDatos" style="text-align: center; margin-bottom: 10pt;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="inicioCabecera">
+        <img id='imgLogin' style='width: 140px; min-width: 140px; max-width: 140px; margin-bottom: 10pt;' src=''>
+        <h6 style="font-style: italic;">“El producto más valioso que conozco es la información.”
+          <br>
+          Gordon Gekko, Wall Street
+        </h6>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>

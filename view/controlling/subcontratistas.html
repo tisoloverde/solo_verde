@@ -1,0 +1,39 @@
+<div class="row cuerpo">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-building">&nbsp;&nbsp;Empresas</span>
+		</font>
+  </div>
+	<div id="divTablaSubcontratista" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaSubcontratista" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+	      	<th class="celdaColor" style="border: 1pt solid white;" title="Rut">Rut</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Subcontratista" >Empresa</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Estado" >Estado</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Tipo" >Tipo</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaSubcontratista" style="text-align: left;">
+	    </tbody>
+	  </table>
+	</div>
+	<div id="accionesSubcontratistas" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+	</div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+	$('#tablaSubcontratista tbody').on( 'click', 'tr', function () {
+		var table = $('#tablaSubcontratista').DataTable();
+		if ( $(this).hasClass('selected') ) {
+    	$("#editarSubcontratista").attr("disabled","disabled");
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+      $("#editarSubcontratista").removeAttr("disabled");
+		}
+	});
+</script>

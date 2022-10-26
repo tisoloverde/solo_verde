@@ -1,0 +1,76 @@
+<div class="row cuerpo">
+  <div style="margin-bottom: 10pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+    			<span style="color: gray;" class="fas fa-edit">&nbsp;&nbsp;Crear/Config. clave 2FA</span>
+    		</font>
+      </div>
+    </div>
+  </div>
+	<div id="createPass2FA" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <label id="titleGA" style="display: none;">
+      <h6>1. Escanea el código QR con la app Google Authenticator</h6>
+      <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es_CL&gl=US" target="_blank">Descargar Google Authenticator</a>
+    </label>
+    <br>
+    <br>
+    <img id="qrGA" src="" alt="">
+    <br>
+    <label id="messageGA" style="display: none;">
+      Su clave 2FA ya ha sido creada, si desea modificarla, por favor comuníquese con soporte.
+      <br>
+      <a href="mailto:rodrigo.riverosr@equans.com">rodrigo.riverosr@equans.com</a>
+    </label>
+    <br>
+    <label id="messageGAValid" style="display: none;">
+      2. Ingrese el código que proporciona la app y presione guardar
+    </label>
+    <br>
+    <br>
+    <input id="codeGA" type="text" name="" value="" style="display: none;">
+    <br>
+    <br>
+    <button id="validaCodeGA" type="button" name="button" class="btn btn-primary" style="display: none;">Guardar</button>
+	</div>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <hr class="hr-separador">
+  </div>
+  <div id="optionsFirma" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20pt; margin-bottom: 30pt; display: none;">
+    <label style="font-weight: bold;">
+      Configure el uso de su clave 2fa
+    </label>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <label for="firmaLogin">Acceso a sistema</label>&nbsp;&nbsp;
+        <label class="switch" style="padding-right: 20pt;">
+          <input id="optionFirmaLogin" type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <label for="firmaPDF" style="padding-left: 20pt;">Firma de documentos</label>&nbsp;&nbsp;
+        <label class="switch">
+          <input id="optionFirmaPDF" type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>

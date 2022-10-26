@@ -1,0 +1,58 @@
+<div class="row cuerpo">
+	<div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fa fa-sitemap">&nbsp;&nbsp;Test GA</span>
+		</font>
+  </div>
+	<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-1 col-lg-1 col-md-4 col-sm-12 col-xs-12">
+
+  </div>
+  <div id="divTestGA" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -20pt; text-align: center;">
+    <h6>Escanea el QR</h6>
+    <br>
+    <img id="qrTestGA" src="" alt="">
+    <br>
+    <br>
+    <input id="codigoTestGA" type="text" name="" value="">
+    <br>
+    <input disabled id="resultadoTestGA" type="text" name="" value="">
+    <br>
+    <br>
+    <button id="validaTestGA" type="button" name="button" class="btn btn-primary">Valida</button>
+  </div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+
+  $("#validaTestGA").unbind('click').click(function(){
+    var parametros = {
+      "codigo": $("#codigoTestGA").val()
+    }
+
+    $.ajax({
+      url:   'controller/validaTestGA.php',
+      type:  'post',
+      data:  parametros,
+      success: function (response) {
+        console.log(response);
+        if(response != 'Error'){
+          $("#resultadoTestGA").val("2FA correcto");
+        }
+        else{
+          $("#resultadoTestGA").val("2FA inválido");
+        }
+      }
+    });
+  });
+</script>

@@ -1,0 +1,138 @@
+<div style="row cuerpo">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="far fa-edit">&nbsp;&nbsp;Incidencias Asignadas</span>
+      </font>
+  </div>
+
+  <div id="filtrosTablaFormularios" style="margin-bottom: 20pt; text-align: right;" class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Periodo</label>
+    		<select id="periodoTablaIncidencias" class="form-control" title="Periodo">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Estado</label>
+    		<select id="estadoTablaIncidencias" class="form-control" title="Auditoría">
+    		</select>
+      </div>
+    </div>
+  </div>
+
+  <div id="divTablaIncidencia" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+    <table id="tablaIncidencia" class="cell-border compact" style="width: 100%;">
+      <thead>
+        <tr>
+          <th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Folio">Folio</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Estado">Estado</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Fecha" >Fecha</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Hora" >Hora</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="SLA">SLA</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="DIFF">DIFF</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Area">Area</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Item">Item</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Elemento">Elemento</tH>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Anomalia">Anomal&iacute;a</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Departamento">Departamento</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Alerta" >Alerta</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Prioridad">Prioridad</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Servicio" >Servicio</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Cliente" >Cliente</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Actividad" >Actividad</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Generador" >Generador</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Resolutor" >Resolutor</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Evidencia" >Evidencia</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTablaIncidencia" style="text-align: left;">
+
+      </tbody>
+    </table>
+  </div>
+
+  <div id="accionesIncidencia" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+  </div>
+
+</div>
+
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<script>
+  //Para interactuar con la tabla de productos
+  $('#tablaIncidencia tbody').on( 'click', 'tr', function () {
+      setTimeout(async function(){
+        var table = $('#tablaIncidencia').DataTable();
+        var datos = table.rows('.selected').data();
+        if(datos.length === 1) {
+          $("#historialIncidencia").removeAttr("disabled");
+          switch (datos[0].ESTADO) {
+            case 'Generada':
+              $("#cambiarEstadoIncidencia").removeAttr("disabled");
+              $("#derivarIncidencia").removeAttr("disabled");
+              $("#confirmarIncidencia").attr("disabled", "disabled");
+              $("#reactivarIncidencia").attr("disabled", "disabled");
+              break;
+            case 'Resuelta':
+              $("#confirmarIncidencia").removeAttr("disabled");
+              $("#cambiarEstadoIncidencia").attr("disabled", "disabled");
+              $("#derivarIncidencia").attr("disabled", "disabled");
+              $("#reactivarIncidencia").attr("disabled", "disabled");
+              break;
+            case 'Rechazada':
+              $("#reactivarIncidencia").removeAttr("disabled");
+              $("#cambiarEstadoIncidencia").attr("disabled", "disabled");
+              $("#derivarIncidencia").attr("disabled", "disabled");
+              $("#confirmarIncidencia").attr("disabled", "disabled");
+              break;
+            case 'Confirmada':
+              $("#cambiarEstadoIncidencia").attr("disabled", "disabled");
+              $("#derivarIncidencia").attr("disabled", "disabled");
+              $("#confirmarIncidencia").attr("disabled", "disabled");
+              $("#reactivarIncidencia").attr("disabled", "disabled");
+              break;
+            case 'No confirmada':
+              $("#cambiarEstadoIncidencia").removeAttr("disabled");
+              $("#derivarIncidencia").removeAttr("disabled");
+              $("#confirmarIncidencia").attr("disabled", "disabled");
+              $("#reactivarIncidencia").attr("disabled", "disabled");
+              break;
+            default:
+              break;
+          }
+        } else{
+          $("#historialIncidencia").attr("disabled", "disabled");
+          $("#cambiarEstadoIncidencia").attr("disabled", "disabled");
+          $("#derivarIncidencia").attr("disabled", "disabled");
+          $("#confirmarIncidencia").attr("disabled", "disabled");
+          $("#reactivarIncidencia").attr("disabled", "disabled");
+        }
+      },100);
+  });
+</script>
+
+<style>
+  .accordion > .card > .card-header {
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  /*.accordion > .card:not(:last-of-type) {
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px!important;
+  }*/
+</style>

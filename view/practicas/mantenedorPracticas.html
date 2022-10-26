@@ -1,0 +1,65 @@
+<div style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="far fa-edit">&nbsp;&nbsp;Mantenedor Prácticas</span>
+      </font>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;">
+      <label class="labelComun">Auditoría</label>
+      <select id="auditoriaMantenedorPracticas" class="form-control">
+    	</select>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;">
+      <button style="margin-top: 30px;"  id="btnFormularioAuditoriaAdd" class="form-control btn btn-secondary botonComun">
+        <span class="fas fa-plus-circle"></span>&nbsp;&nbsp;
+        Agregar
+      </button>
+    </div>
+
+    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;">
+      <button style="margin-top: 30px;" id="btnFormularioAuditoriaDel" class="form-control btn btn-secondary botonComun">
+        <span class="fas fa-minus-circle"></span>&nbsp;&nbsp;
+        Eliminar
+      </button>
+    </div>
+
+  </div>
+
+  <br/>
+
+  <div class="row">
+    <div id="parentTablaMantenedorPracticas" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;">
+      <div id="tablaMantenedorPracticas">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<style>
+  .accordion > .card > .card-header {
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  /*.accordion > .card:not(:last-of-type) {
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px!important;
+  }*/
+</style>

@@ -1,0 +1,46 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+    <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+            <span style="color: gray;" class="fas fa-wrench">&nbsp;&nbsp;Listado de Mano de Obra</span>
+        </font>
+  </div>
+    <div id="divTablaListadoManoObra" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+      <table id="tablaListadoManoObra" class="cell-border compact" style="width: 100%;">
+        <thead>
+          <tr>
+            <th class="celdaColor" style="border: 1pt solid white;">S</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Folio</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Especialidad</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Cód. MO</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Descripción</th>
+            <th class="celdaColor" style="border: 1pt solid white;">UM</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Cantidad</th>
+            <th class="celdaColor" style="border: 1pt solid white;">PB</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaListadoManoObra" style="text-align: left;">
+
+        </tbody>
+      </table>
+    </div>
+<!-- Botones -->
+<div id="accionesManoObra" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+</div>
+</div>
+
+<script>
+//Para interactuar con los botones
+$('#tablaListadoManoObra tbody').on( 'click', 'tr', function () {
+    var table = $('#tablaListadoManoObra').DataTable();
+    if ( $(this).hasClass('selected') ) {
+        $("#editarManoObra").attr("disabled","disabled");
+        $("#eliminarManoObra").attr("disabled","disabled");
+    }
+    else {
+        table.$('tr.selected').removeClass('selected');
+        $("#editarManoObra").removeAttr("disabled");
+        $("#eliminarManoObra").removeAttr("disabled");
+    }
+});
+</script>

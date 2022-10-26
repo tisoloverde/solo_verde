@@ -1,0 +1,42 @@
+	<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+				<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+						<span style="color: gray;" class="fab fa-product-hunt">&nbsp;&nbsp;Listado Proveedores</span>
+					</font>
+			  </div>
+				<div id="divTablaListadoProveedores" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+				  <table id="tablaListadoProveedores" class="cell-border compact" style="width: 100%;">
+				    <thead>
+				      <tr>
+								<th class="celdaColor" style="border: 1pt solid white;">S</th>
+								<th class="celdaColor" style="border: 1pt solid white;">RUT</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">Nombre</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">Propiedad</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">Nro. Contrato</th>
+				      </tr>
+				    </thead>
+				    <tbody id="cuerpoTablaProveedores" style="text-align: left;">
+
+				    </tbody>
+				  </table>
+				</div>
+      <!-- Botones -->
+			<div id="accionesProveedores" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+			</div>
+    </div>
+
+	<script>
+		//Para interactuar con los botones
+			$('#tablaListadoProveedores tbody').on( 'click', 'tr', function () {
+				var table = $('#tablaListadoProveedores').DataTable();
+				if ( $(this).hasClass('selected') ) {
+				$("#editarProveedores").attr("disabled","disabled");
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+				$("#editarProveedores").removeAttr("disabled");
+				}
+			});
+
+		</script>

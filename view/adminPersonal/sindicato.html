@@ -1,0 +1,43 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+    <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+            <span style="color: gray;" class="fas fa-users">&nbsp;&nbsp;Listado de Sindicatos</span>
+        </font>
+    </div>
+    <div id="divtablaListadoSindicato" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+        style="margin-top: 10pt; text-align: left;">
+        <table id="tablaListadoSindicato" class="cell-border compact" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="celdaColor" style="border: 1pt solid white;">S</th>
+                    <th class="celdaColor" style="border: 1pt solid white;">Sindicato</th>
+                    <th class="celdaColor" style="border: 1pt solid white;">Descripcion</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpotablaListadoSindicato" style="text-align: left;">
+
+            </tbody>
+        </table>
+    </div>
+    <!-- Botones -->
+    <div id="accionesSindicato" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+    </div>
+</div>
+
+<script>
+    //Para interactuar con la tabla de productos
+    $('#tablaListadoSindicato tbody').on('click', 'tr', function () {
+        var table = $('#tablaListadoSindicato').DataTable();
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            $("#editarSindicato").attr("disabled", "disabled");
+            $("#eliminarSindicato").attr("disabled", "disabled");
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            $("#editarSindicato").removeAttr("disabled");
+            $("#eliminarSindicato").removeAttr("disabled");
+        }
+    });
+</script>

@@ -1,0 +1,239 @@
+ <div class="row cuerpo">
+	<div style="margin-bottom: 10pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-headset">&nbsp;&nbsp;Órdenes Trabajo</span>
+		</font>
+  </div>
+  <div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row" id="filtrosOrden">
+	    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;"	>
+    		<label class="labelComun">Fecha Agenda</label>
+    		<input id="fechaOrden" type="text" class="form-control" title="Fecha" onfocus="blur();">
+    	</div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Comuna</label>
+    		<select id="comunaOrden" class="form-control" title="Comuna">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Categoria</label>
+    		<select id="categoriaOrden" class="form-control" title="Tipo">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Tipo</label>
+    		<select id="tipoOrden" class="form-control" title="Tipo Ticket">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Estado</label>
+    		<select id="estadoOrden" class="form-control" title="Estado">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Sub Estado</label>
+    		<select id="subEstadoOrden" class="form-control" title="Sub Estado">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Tramo</label>
+    		<select id="tramoOrden" class="form-control" title="Tramo">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun"># Agendas</label>
+    		<select id="reagendamientoOrden" class="form-control" title="# Agendas">
+    		</select>
+      </div>
+    	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label class="labelComun">Proyecto</label>
+    		<select id="proyectoOrden" class="form-control" title="Proyecto">
+    		</select>
+      </div>
+    	<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label style="font-weight: bold;">Sin agenda</label>
+    		<br>
+    		<label class="switch" style="margin-top: 5pt; text-align: center;">
+    			<input id="sinAgendaOrden" type="checkbox" title="Ordenes sin agenda">
+    			<span class="slider round"></span>
+    		</label>
+    	</div>
+      <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
+    		<label style="font-weight: bold;">Completadas</label>
+    		<br>
+    		<label class="switch" style="margin-top: 5pt; text-align: center;">
+    			<input id="completadasOrden" type="checkbox" title="Ordenes completadas">
+    			<span class="slider round"></span>
+    		</label>
+    	</div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <hr class="hr-separador">
+      </div>
+    </div>
+  </div>
+	<div id="divTablaOrdenes" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;">
+	  <table id="tablaOrdenes" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Folio">Folio</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Proyecto">Proyecto</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Comuna">Comuna</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Categoría">Categoría</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Tipo">Tipo</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Sub Tipo">Sub Tipo</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Tecnología">Tecnología</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Estado">Estado</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Sub Estado">Sub Estado</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="# Agendas"># Agendas</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="F. Creación">F. Creación</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="F. Agenda">F. Agenda</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="H. Agenda">H. Agenda</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Tramo Agenda">Tramo Agenda</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="F. Atención">F. Atención</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Hora Inicio">Hora Ini</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Hora Fin">Hora Fin</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Dirección">Dirección</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="DNI Cliente">DNI Cliente</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Nombre Cliente">Nombre Cliente</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fono Cliente">Fono Cliente</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Empresa">Empresa</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Despacho">Despacho</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Técnico">Técnico</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IRORDEN">IDORDEN</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="LATITUD">LATITUD</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="LONGITUD">LONGITUD</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="ESTADO_TEXTO">ESTADO_TEXTO</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="SUB_ESTADO_TEXTO">SUB_ESTADO_TEXTO</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="DNI_DESPACHO">DNI_DESPACHO</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="DNI_TECNICO">DNI_TECNICO</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IDESTRUCTURA_OPERACION">IDESTRUCTURA_OPERACION</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IDAREAFUNCIONAL">IDAREAFUNCIONAL</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="DIRECCIONLIMPIA">DIRECCIONLIMPIA</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IDORDEN_ESTADO">IDORDEN_ESTADO</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="OBSERVACION">OBSERVACION</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaOrdenes" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div id="accionesOrdenes" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+  </div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+$('#tablaOrdenes tbody').on( 'click', 'tr', function () {
+    setTimeout(async function(){
+      var table = $('#tablaOrdenes').DataTable();
+      var datos = table.rows('.selected').data();
+      var ar = [];
+      var es = [];
+      for(var i = 0; i < datos.length; i++){
+        ar.push(datos[i].IDAREAFUNCIONAL);
+        es.push(datos[i].IDESTRUCTURA_OPERACION);
+      }
+      console.log(datos);
+			if(table.rows('.selected').data().length > 1){
+        if($("#completadasOrden").prop("checked")){
+          $("#agendarOrden").attr("disabled", "disabled");
+          $("#asignarDespachoOrden").attr("disabled", "disabled");
+          $("#asignarTecnicoOrden").attr("disabled", "disabled");
+          $("#botonEstadoOrden").attr("disabled", "disabled");
+          $("#completarOrden").attr("disabled", "disabled");
+          $("#observacionOrden").attr("disabled", "disabled");
+          $("#historialOrden").attr("disabled", "disabled");
+        }
+        else{
+          $("#agendarOrden").attr("disabled", "disabled");
+          $("#botonEstadoOrden").attr("disabled", "disabled");
+          $("#completarOrden").attr("disabled", "disabled");
+          $("#observacionOrden").attr("disabled", "disabled");
+          $("#historialOrden").attr("disabled", "disabled");
+          let resultAR = ar.filter((item,index)=>{
+            return ar.indexOf(item) === index;
+          })
+          let resultES = es.filter((item,index)=>{
+            return es.indexOf(item) === index;
+          })
+          if(resultAR.length == 1 && resultES.length == 1){
+            if($("#sinAgendaOrden").prop("checked")){
+              $("#asignarDespachoOrden").attr("disabled", "disabled");
+              $("#asignarTecnicoOrden").attr("disabled", "disabled");
+            }
+            else{
+              $("#asignarDespachoOrden").removeAttr("disabled");
+              $("#asignarTecnicoOrden").removeAttr("disabled");
+            }
+          }
+          else{
+            $("#asignarDespachoOrden").attr("disabled", "disabled");
+            $("#asignarTecnicoOrden").attr("disabled", "disabled");
+          }
+        }
+			}
+      else if(table.rows('.selected').data().length > 0){
+        if($("#completadasOrden").prop("checked")){
+          $("#agendarOrden").attr("disabled", "disabled");
+          $("#asignarDespachoOrden").attr("disabled", "disabled");
+          $("#asignarTecnicoOrden").attr("disabled", "disabled");
+          $("#botonEstadoOrden").attr("disabled", "disabled");
+          $("#completarOrden").attr("disabled", "disabled");
+          $("#observacionOrden").attr("disabled", "disabled");
+          $("#historialOrden").removeAttr("disabled");
+        }
+        else{
+          $("#historialOrden").removeAttr("disabled");
+          if($("#sinAgendaOrden").prop("checked")){
+            if(datos[0].SUB_ESTADO_TEXTO === 'Confirmada' || datos[0].SUB_ESTADO_TEXTO === 'Suspendida' || datos[0].SUB_ESTADO_TEXTO === 'Programación'){
+              $("#agendarOrden").removeAttr("disabled");
+            }
+            else{
+              $("#agendarOrden").attr("disabled", "disabled");
+            }
+            if(datos[0].SUB_ESTADO_TEXTO === 'Iniciada'){
+              $("#completarOrden").removeAttr("disabled");
+            }
+            else{
+              $("#completarOrden").attr("disabled", "disabled");
+            }
+            $("#asignarDespachoOrden").attr("disabled", "disabled");
+            $("#asignarTecnicoOrden").attr("disabled", "disabled");
+            $("#botonEstadoOrden").attr("disabled", "disabled");
+            $("#observacionOrden").attr("disabled", "disabled");
+          }
+          else{
+            if(datos[0].SUB_ESTADO_TEXTO === 'Confirmada' || datos[0].SUB_ESTADO_TEXTO === 'Suspendida' || datos[0].SUB_ESTADO_TEXTO === 'Programación'){
+              $("#agendarOrden").removeAttr("disabled");
+            }
+            else{
+              $("#agendarOrden").attr("disabled", "disabled");
+            }
+            if(datos[0].SUB_ESTADO_TEXTO === 'Iniciada'){
+              $("#completarOrden").removeAttr("disabled");
+            }
+            else{
+              $("#completarOrden").attr("disabled", "disabled");
+            }
+            $("#asignarDespachoOrden").removeAttr("disabled");
+            $("#asignarTecnicoOrden").removeAttr("disabled");
+            $("#botonEstadoOrden").removeAttr("disabled");
+            $("#observacionOrden").removeAttr("disabled");
+          }
+        }
+      }
+      else{
+        $("#agendarOrden").attr("disabled", "disabled");
+        $("#asignarDespachoOrden").attr("disabled", "disabled");
+        $("#asignarTecnicoOrden").attr("disabled", "disabled");
+        $("#botonEstadoOrden").attr("disabled", "disabled");
+        $("#completarOrden").attr("disabled", "disabled");
+        $("#observacionOrden").attr("disabled", "disabled");
+        $("#historialOrden").attr("disabled", "disabled");
+      }
+    },100);
+});
+</script>

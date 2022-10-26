@@ -1,0 +1,45 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+    <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+            <span style="color: gray;" class="fas fa-money-bill-wave">&nbsp;&nbsp;Listado de Componentes de Remuneraciones</span>
+        </font>
+    </div>
+    <div id="divtablaListadoComponenteRemuneracion" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+        style="margin-top: 10pt; text-align: left;">
+        <table id="tablaListadoComponenteRemuneracion" class="cell-border compact" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="celdaColor" style="border: 1pt solid white;">S</th>
+                    <th class="celdaColor" style="border: 1pt solid white;">Concepto</th>
+                    <th class="celdaColor" style="border: 1pt solid white;">Tipo</th>
+                    <th class="celdaColor" style="border: 1pt solid white;">Liquidacion</th>
+                    <th class="celdaColor" style="border: 1pt solid white;">Orden</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpotablaListadoComponenteRemuneracion" style="text-align: left;">
+
+            </tbody>
+        </table>
+    </div>
+    <!-- Botones -->
+    <div id="accionesCompRemuneracion" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+    </div>
+</div>
+
+<script>
+    //Para interactuar con la tabla de productos
+    $('#tablaListadoComponenteRemuneracion tbody').on('click', 'tr', function () {
+        var table = $('#tablaListadoComponenteRemuneracion').DataTable();
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            $("#editarComponenteRemuneracion").attr("disabled", "disabled");
+            $("#eliminarComponenteRemuneracion").attr("disabled", "disabled");
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            $("#editarComponenteRemuneracion").removeAttr("disabled");
+            $("#eliminarComponenteRemuneracion").removeAttr("disabled");
+        }
+    });
+</script>

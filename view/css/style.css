@@ -1,0 +1,733 @@
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+/* header{
+  width: 100%;
+  min-width: 100%;
+} */
+.blink_me {
+  animation: blinker 1.0s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+body {
+  margin: 0;
+  margin-bottom: 0pt;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  min-width: 100%;
+  height: 10pt;
+  min-height: 10pt;
+  max-height: 10pt;
+  background-color: rgba(0, 56, 101, 1.0);
+  color: white;
+  /* top: 0; */
+}
+
+img {
+    image-orientation: from-image;
+}
+
+/* menu lateral */
+div#logo-menu{
+	width:200px;
+	height:25px;
+	margin-left:-5px;
+  margin-top: 10px;
+  transition: height 0.1s linear 0.1s;
+  background: rgba(30, 0, 0, 0.0);
+  /* position: fixed; */
+  z-index: 1000;
+}
+
+div#espacioMenu{
+  margin-bottom: 50px;
+}
+
+div#menu-lateral::-webkit-scrollbar {
+  display: none;
+}
+
+div#menu-lateral{
+	position:fixed;
+	width:45px;
+	height:100%;
+	background: rgba(30, 0, 0, 0.0);
+	overflow-y: hidden;
+  overflow-x: hidden;
+  z-index: 1000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select:none;
+  scrollbar-color: #1e0000 #1e0000 !important;
+  scrollbar-width: 1em !important;
+  transition-property: width, background;
+  transition-duration: 0.8s;
+  transition-delay: 0s;
+}
+span#logoMenu{
+  margin-top: 40px;
+  display: none;
+  color: white;
+}
+
+span#logoMenu:hover{
+	color: #e3e3e3;
+  cursor: pointer;
+}
+
+a#logoLinkWeb {
+  margin-right: 5px;
+  margin-left: 20px;
+  margin-top: 100px;
+  color: white;
+  display: none;
+}
+
+div.contenedor-logos{
+  padding-bottom: 10px;
+  padding-top: 10px;
+	margin-top:10px;
+	margin-left:0px;
+	width:200px;
+	height:45px;
+  vertical-align: middle;
+  transition: height 0.1s linear 0.1s;
+}
+
+.imgMenu{
+  font-size: 22px;
+  margin-top: -2pt;
+  margin-left: -3pt;
+}
+
+.imgMenu-sub{
+  font-size: 15px;
+  margin-left: 0;
+}
+
+li{
+  margin-left: -10px;
+  margin-bottom: -10px;
+}
+
+div.logo{
+	width: 25px;
+	height: 25px;
+  margin-left: 14px;
+	float: left;
+  color: white;
+  text-align: center;
+}
+
+span.logo2{
+  margin-left: 7px;
+	width: 25px;
+	height: 25px;
+  color: black;
+  text-align: center;
+}
+
+p.title-menu{
+	margin-left: 33pt;
+	/* line-height: 30pt; */
+  color: white;
+  font-size: 12px !important;
+  text-align: left !important;
+  vertical-align: center;
+}
+
+a.title-menu:hover{
+  text-decoration:none;
+}
+
+p.title-menu2{
+	margin-left: 30pt;
+	line-height: 30pt;
+  color: white;
+  font-size: 10pt !important;
+  text-align: left !important;
+  vertical-align: center;
+}
+
+a.title-menu-sub{
+	/* line-height: 30pt; */
+  margin-left: 10px;
+  color: white;
+  font-size: 12px !important;
+  text-align: left !important;
+  vertical-align: center;
+  text-decoration-line: none;
+}
+
+div.div-sub-menu{
+  margin-bottom: 0px;
+}
+/* menu lateral */
+
+div#body{
+	position:absolute;
+	right:0px;
+	min-height:200pt;
+	left:200px;
+}
+
+#home, #changePass{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#contenido, #header {
+  text-align: center;
+  display: none;
+}
+
+#footer {
+  text-align: center;
+  display: none;
+  margin-top: -15pt;
+  background-color: rgba(0, 56, 101, 1.0);
+  color: white;
+  margin-bottom: 0px;
+}
+
+#contenido{
+  /* margin-left:1px; */
+  margin-top: 0pt;
+  margin-left: 0pt;
+  transition-property: margin-left, margin-right;
+  transition-duration: 0.8s;
+  transition-delay: 0s;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#cargando{
+  text-align: center;
+}
+
+#iconoLogoMenu{
+  border: 1px solid #003865;
+  padding: 7px;
+  background-color: #003865;
+}
+
+.splash_charge_logo {
+  display: block;
+  margin:0 auto 0 auto;
+  width: 50pt;
+  margin-bottom:10pt;
+}
+
+/* Modales */
+.modal {
+  text-align: center;
+  background-color: rgba(0,0,0,.0001) !important;
+  border: 0;
+}
+
+.modal-body{
+  border: 0;
+}
+
+.alerta-modal-body {
+  text-align: center;
+  opacity: 1;
+  border: 0;
+}
+
+.modal-backdrop {
+  background-color: white !important;
+  opacity: 0.98 !important;
+}
+
+@media screen and (min-width: 200pt) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 768pt) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-fullscreen .modal-dialog {
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+@media (min-width: 300px) {
+  .modal-fullscreen .modal-dialog {
+    width: 290px;
+  }
+  #loginSystem{
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-fullscreen .modal-dialog {
+    width: 750px;
+  }
+  #loginSystem{
+    margin-top: 50px;
+  }
+}
+@media (min-width: 992px) {
+  .modal-fullscreen .modal-dialog {
+    width: 970px;
+  }
+  #loginSystem{
+    margin-top: 70px;
+  }
+}
+@media (min-width: 1200px) {
+  .modal-fullscreen .modal-dialog {
+     width: 1170px;
+  }
+  #loginSystem{
+    margin-top: 100px;
+  }
+}
+
+.modal-content-t {
+  border: 0;
+  background-color: transparent !important;
+}
+
+.modal-dialog-box {
+  -webkit-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.56);
+  -moz-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.56);
+  box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.56);
+}
+
+.celdaColor{
+  background-color: #003865!important;
+  color: white;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: none;
+  color: black!important;
+  border-radius: 4px;
+  border: 0px solid #828282;
+  font-weight: bold!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background: none;
+  color: #c1c1c1!important;
+  border-radius: 4px;
+  border: 0px solid #828282;
+  font-weight: bold!important;
+}
+
+td {
+  font-size: 10pt;
+}
+
+th {
+  font-size: 10pt;
+}
+
+.datatable td, th, tr {
+    overflow: hidden; /* this is what fixes the expansion */
+    text-overflow: ellipsis; /* not supported in all browsers, but I accepted the tradeoff */
+    white-space: nowrap;
+}
+
+.toolbar{
+  color: black!important;
+  text-decoration: none;
+}
+
+.dataTables_filter{
+  color: black!important;
+  text-decoration: none;
+}
+
+.dataTables_info{
+  color: black!important;
+  text-decoration: none;
+  font-weight: bold!important;
+}
+
+.centerDataTable {
+  text-align: center;
+}
+
+.splash_load{
+  display: block;
+  margin:0 auto 0 auto;
+  width: 80px;
+}
+
+.select2-results__option{
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+svg > g > g:last-child { pointer-events: none }
+
+#loginSystem-submit:hover{
+  opacity: 0.4;
+}
+
+.botonComun{
+  margin-top: 20pt;
+}
+
+.cuerpo{
+  padding-left: 20pt;
+  padding-right: 20pt;
+}
+
+.cuerpo_filtros{
+  padding-left: 10pt;
+  padding-right: 10pt;
+}
+
+div#filtrosTarjetaCombustible,div#filtrosComprasGestion,div#filtrosComprasMaterial,div#filtrosOrden,div#filtrosFormulariosRealizados,div#filtrosPersonal,div#filtrosListadoVehiculo,div#filtrosOcultPracticaMeta,div#filtrosListadoAsignaciones,div#filtrosMetaPractica,div#filtrosComprasServicio{
+  transition: height 0.3s linear 0.1s;
+}
+
+.labelComun{
+  font-weight: bold;
+}
+
+.hr-separador{
+  height: 2px;
+  color: gray;
+  width: 100%;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+    background-color: #003865!important;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #6C757D!important;
+}
+
+.custom-header{
+  background: #003865!important;
+  color: white;
+}
+
+.ms-elem-selectable{
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 5px;
+}
+
+.ms-elem-selection.ms-selected{
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 5px;
+}
+
+@import 'https://code.highcharts.com/css/highcharts.css';
+#divOrganigramaCorporativo {
+  min-width: 300px;
+  margin: 1em auto;
+ /* border: 1px solid silver;*/
+}
+
+#divOrganigramaCorporativo h4 {
+  font-size: 11pt;
+}
+
+#divOrganigramaCorporativo p {
+  font-size: 9pt;
+}
+
+.highcharts-credits{
+  display: none !important;
+}
+
+.highcharts-background{
+  width: 100% !important;
+}
+
+.ui-datepicker-div{
+  z-index: 2000 !important;
+}
+
+.hoverPDF:hover{
+  color: blue !important;
+  cursor: pointer !important;
+}
+
+.pac-container:after {
+    /* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+    background-image: none !important;
+    height: 0px;
+}
+
+.ui-autocomplete {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 200px;
+    z-index: 2000;
+}
+.pac-container {
+  z-index: 1051 !important;
+}
+
+.videoCap {
+  -webkit-box-shadow: 10px 10px 24px -12px rgba(0,0,0,0.82);
+  -moz-box-shadow: 10px 10px 24px -12px rgba(0,0,0,0.82);
+  box-shadow: 10px 10px 24px -12px rgba(0,0,0,0.82);
+  background-color: #000000;
+}
+
+/* .ng-scope{
+  padding-left: 35px !important;
+} */
+
+.centerDataTableCant {
+  text-align: center;
+  font-size: 10px;
+}
+
+.celdaColorCant{
+  border-bottom: 1px solid #003865 !important;
+}
+
+.leftDataTableCant {
+  text-align: left;
+  font-size: 10px;
+  padding-left: 150px;
+}
+
+.pq-grid td.chart{
+  padding: 0px;
+}
+
+.progress-bar {
+    background-color: #095700;
+}
+
+.progress-bar-striped {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 1rem 1rem;
+}
+
+body.modal-open {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.fancy-grid-cell{
+  padding-top: 5pt;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 22px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 22px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+table {
+  cursor: pointer !important;
+}
+
+span[name="dirOrden"]:hover{
+  color: red;
+}
+
+.hoverDel:hover{
+  color: red !important;
+}
+
+label.click_cubica:hover{
+	color: blue;
+  cursor: pointer;
+}
+
+.select2-error {
+  border:1px solid #DC3545 !important;
+}
+
+/* .select2-selection__rendered {
+    line-height: 34px !important;
+}
+.select2-container .select2-selection--single {
+    height: 38px !important;
+}
+.select2-selection__arrow {
+    height: 36px !important;
+} */
+
+.celdaColorCub1{
+  background-color: rgba(0,56,101,0.8) !important;
+  color: white;
+}
+
+.celdaColorCub2{
+  background-color: rgba(0,56,101,0.6) !important;
+  color: white;
+}
+
+.sombraDiv{
+  -webkit-box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.41);
+  -moz-box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.41);
+  box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.41);
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+}
+
+.fancy-panel-tbar{
+  background-color: #003865 !important;
+  color: white !important;
+}
+
+.fancy-button-text{
+  background-color: #003865 !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.fancy-bar-button{
+  background-color: #003865 !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.fancy-grid-header-cell-container{
+  background-color: #003865 !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.fancy-bar-left-scroller{
+  background-color: #003865 !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.fancy-bar-right-scroller{
+  background-color: #003865 !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.fancy-button-image{
+  color: white!important;
+}
+
+.hoverTABLA:hover{
+  color: red !important;
+  cursor: pointer !important;
+}
+
+.nav-link:hover{
+  color: blue !important;
+  cursor: pointer !important;
+}
+
+span[name="dirSucursal"]:hover{
+  color: red;
+  text-decoration: underline red;
+}
+
+/* .dataTables_processing {
+  z-index: 11000;
+	position: absolute;
+	margin-top: -80px !important;
+	padding-top: 20px !important;
+	text-align: center !important;
+	font-size: 1.2em !important;
+	background-color: rgba(255,255,255, 1) !important;
+  height: 160px !important;
+  min-height: 160px !important;
+} */

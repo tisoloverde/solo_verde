@@ -1,0 +1,165 @@
+<div style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="far fa-edit">&nbsp;&nbsp;Ingreso de Formulario</span>
+      </font>
+  </div>
+
+  <div class="row">
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+
+    <!-- Begin - Section 1 -->
+    <label class="labelComun">Tipo de Auditor&iacute;as</label>
+		<select id="selectTiposAuditorias" class="form-control" title="Tipos de Auditorías">
+		</select>
+    <br />
+    <!-- End - Section 1 -->
+
+    <!-- Begin - Section 2 -->
+    <label class="labelComun">Tipo de Prestación</label>
+		<select id="selectTiposServicios" class="form-control" title="Tipos de Servicios">
+		</select>
+    <br />
+    <!-- End - Section 2 -->
+  </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+      <!-- Begin - Section 3 -->
+      <label style="font-weight: bold;">Datos de Identificaci&oacute;n de la Tarea</label>
+
+      <div class="form-group row">
+        <label for="numTarea" class="col-sm-4 col-form-label">N° Tarea</label>
+        <div class="col-sm-8">
+          <input id="numTarea" class="form-control" type="text" value="">
+        </div>
+      </div>
+
+      <script>
+        var input = document.getElementById('direccionCliente');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+        });
+        $("#direccionCliente").attr("placeholder","");
+      </script>
+
+      <div class="form-group row">
+        <label for="direccionCliente" class="col-sm-4 col-form-label">Direcci&oacute;n Cliente</label>
+        <div class="col-sm-8">
+          <input id="direccionCliente" class="form-control" type="text" value="">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="rutCliente" class="col-sm-4 col-form-label">DNI Cliente</label>
+        <div class="col-sm-8">
+          <input id="rutCliente" class="form-control" type="text" value="">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="fechaInstalacion" class="col-sm-4 col-form-label">Fecha de Instalaci&oacute;n</label>
+        <div class="col-sm-8">
+          <input id="fechaInstalacion" class="form-control" type="text" value="" readonly>
+        </div>
+      </div>
+      <!-- End - Section 3 -->
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+      <!-- Begin - Section 4 -->
+      <label style="font-weight: bold;">Identificaci&oacute;n del Auditor</label>
+
+      <div class="form-group row">
+        <label for="rutAuditor" class="col-sm-4 col-form-label">DNI Auditor</label>
+        <div class="col-sm-8">
+          <input id="rutAuditor" class="form-control" type="text" value="" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="nombreAuditor" class="col-sm-4 col-form-label">Nombre Auditor</label>
+        <div class="col-sm-8">
+          <input id="nombreAuditor" class="form-control" type="text" value="" readonly>
+        </div>
+      </div>
+      <!-- End - Section 4 -->
+
+      <label style="font-weight: bold; margin-top: 20pt;">Identificaci&oacute;n de Trabajadores</label>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <input id="selectPersonal" class="form-control" type="text" value="" hidden>
+          <select id="selectMultiPersonal" class="form-control" title="DNI Técnico / Nombre" multiple>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <input id="show" style="display: none;">
+  </div>
+  <div>
+    <input id="show2" style="display: none;">
+  </div>
+
+  <!-- Begin - Camara -->
+  <!--<button id="abrirCamara">Abrir Cámara</button>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="camaraFormulario" style="width: 320px; height: 240px; border: 1px solid black;"></div>
+    </div>
+    <div class="col-md-6">
+      <div id="fotografias"></div>
+    </div>
+  </div>-->
+  <!-- End - Camara -->
+
+  <div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 0pt; text-align: left;">
+    <div id="formulario">
+    </div>
+    <!--<center><div id="esperandoFormulario" class="spinner-border" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div></center>-->
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-bottom: 10pt; margin-top: -30pt;">
+    <div id="errorFormulario"></div>
+    <button class="form-control btn btn-secondary botonComun" id="enviarFormulario">
+      <span class="fas fa-exchange-alt"></span>&nbsp;&nbsp;Enviar Formulario
+    </button>
+  </div>
+  </div>
+
+</div>
+
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<style>
+  .accordion > .card > .card-header {
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  /*.accordion > .card:not(:last-of-type) {
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px!important;
+  }*/
+</style>

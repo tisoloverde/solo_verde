@@ -1,0 +1,37 @@
+<div>
+  <div style="margin-bottom: 10pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+    			<span style="color: gray;" class="fas fa-edit">&nbsp;&nbsp;Cambio de contraseña</span>
+    		</font>
+      </div>
+    </div>
+  </div>
+	<div id="changePass" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="form-group" style="margin-top: 40pt;">
+			<img id="imgLlave" src="view/img/changePass.png" style="height: 100pt; margin-bottom: 0pt; display:block;
+	margin:auto;" class="img-fluid">
+			<br />
+			<input id="passNuevo" class="form-control" type="password" value="" placeholder="Nueva contraseña">
+			<br />
+			<input id="passNuevoConfirmar" class="form-control" type="password" placeholder="Repita su nueva contraseña">
+			<br />
+			<button id="guardarChangePass" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Cambiar</button>
+		</div>
+	</div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>

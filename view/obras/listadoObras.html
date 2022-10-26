@@ -1,0 +1,64 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+    <div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+            <span style="color: gray;" class="fas fa-list-ul">&nbsp;&nbsp;Listado de órdenes de ejecución</span>
+        </font>
+  </div>
+    <div id="divTablaListadoObras" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+      <table id="tablaListadoObras" class="cell-border compact" style="width: 100%;">
+        <thead>
+          <tr>
+            <th class="celdaColor" style="border: 1pt solid white;">S</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Folio</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Orden de ejecución</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Estado</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Estado permisos</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Fecha de emisión</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Fecha de término</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Días faltantes</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Cliente</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Dirección</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Comuna</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Agencia</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Oficina central</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Tipo</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Red</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Gestor cliente</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Proyecto</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Proyecto interno</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaListadoObras" style="text-align: left;">
+
+        </tbody>
+      </table>
+    </div>
+<!-- Botones -->
+  <div id="accionesListadoObras" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+  </div>
+</div>
+<script>
+//Para interactuar con la tabla de productos
+$('#tablaListadoObras tbody').on( 'click', 'tr', function () {
+    setTimeout(async function(){
+      var table = $('#tablaListadoObras').DataTable();
+      var datos = table.rows('.selected').data();
+			if(table.rows('.selected').data().length > 0){
+        $("#detalleObraCaratula").removeAttr("disabled");
+        $("#cubicacionObra").removeAttr("disabled");
+        $("#usuariosRolesObra").removeAttr("disabled");
+        $("#documentosObra").removeAttr("disabled");
+        $("#asignarProyInternoObra").removeAttr("disabled");
+        $("#anticiparMaterialesObra").removeAttr("disabled");
+      }
+      else{
+        $("#detalleObraCaratula").attr("disabled", "disabled");
+        $("#cubicacionObra").attr("disabled", "disabled");
+        $("#usuariosRolesObra").attr("disabled", "disabled");
+        $("#documentosObra").attr("disabled", "disabled");
+        $("#asignarProyInternoObra").attr("disabled", "disabled");
+        $("#anticiparMaterialesObra").attr("disabled", "disabled");
+      }
+    },100);
+});
+</script>

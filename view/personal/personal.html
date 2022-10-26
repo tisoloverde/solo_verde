@@ -1,0 +1,249 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Mi Equipo</span>
+		</font>
+  </div>
+	<div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row" id="filtrosPersonal">
+			<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10pt;">
+				<div class="row">
+					<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<label class="labelComun">Mano de obra</label>
+						<select id="manoPersonal" class="form-control" title="Mano de obra">
+						</select>
+				  </div>
+					<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<label class="labelComun">Centro de costo</label>
+						<select id="cecoPersonal" class="form-control" title="Centro de costo">
+						</select>
+				  </div>
+					<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<label class="labelComun">Estado RRHH</label>
+						<select id="estadoPersonal" class="form-control" title="Estado personal">
+						</select>
+				  </div>
+					<div style="margin-bottom: 20pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<label class="labelComun">Estado control</label>
+						<select id="controlPersonal" class="form-control" title="Estado control">
+						</select>
+				  </div>
+				</div>
+			</div>
+			<div style="margin-bottom: 10pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+				<div id="datoSubordinadosDirectos" style="border: 1px solid gray; border-radius: 25px; padding-top: 5pt; width: 100%; height: 80px; text-align: center; -webkit-box-shadow: 7px 7px 5px -6px rgba(0,0,0,0.41); -moz-box-shadow: 7px 7px 5px -6px rgba(0,0,0,0.41); box-shadow: 7px 7px 5px -6px rgba(0,0,0,0.41);">
+					<label style="font-size: 10pt;">Personal directo</label>
+					<p id="qDirectos" style="font-weight: bold;"></p>
+				</div>
+				<div id="datoSubordinadosOtros" style="border: 1px solid gray; border-radius: 25px; padding-top: 5pt; width: 100%; height: 80px; text-align: center; margin-top: 10pt; -webkit-box-shadow: 7px 7px 5px -6px rgba(0,0,0,0.41); -moz-box-shadow: 7px 7px 5px -6px rgba(0,0,0,0.41); box-shadow: 7px 7px 5px -6px rgba(0,0,0,0.41);">
+					<label style="font-size: 10pt;">Personal en otros niveles</label>
+					<p id="qOtros" style="font-weight: bold;"></p>
+				</div>
+			</div>
+			<div id="divInfoInformePersonal" style="margin-bottom: 10pt; text-align: right;" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+		    <table id="infoInformePersonal" class="row-border compact" style="width: 100%;">
+		      <thead>
+		        <tr>
+		          <th class="celdaColorCant" style="border: 1pt solid white;" title="Estado Control">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EC</th>
+		          <th class="celdaColorCant" style="border: 1pt solid white;" title="Cantidad">&nbsp;&nbsp;&nbsp;&nbsp;#</th>
+		        </tr>
+		      </thead>
+		      <tbody id="cueropInfoInformePersonal" style="text-align: left;">
+
+		      </tbody>
+		      <tfoot>
+			      <tr>
+			      	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;Total</td>
+			        <td></td>
+			  	  </tr>
+			  	</tfoot>
+		    </table>
+		  </div>
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <hr class="hr-separador">
+      </div>
+		</div>
+	</div>
+	<div id="divTablaPersonal" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;">
+	  <table id="tablaPersonal" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="DNI" >DNI</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Nombre completo" >Nombre</th>
+	      	<th class="celdaColor" style="border: 1pt solid white;" title="Imagen de perfil">IMG</th>
+					<th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado control">EC</th>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado asistencia">EA</tH>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado RRHH">ER</th>
+	        <th class="celdaColor" style="border: 1pt solid white; text-align: center;" title="Estado operacional">EO</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Nivel jerárquico" >N</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Área" >Area</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Turno asignado" >Turno</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Marca entrada" >Entrada</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Marca salida" >Salida</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Permiso asignado" >Permiso</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Función que desempeña" >Función</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Inicio de contrato" >I. Contrato</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Tipo clasificación" >Tipo</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Centro de costo" >C. Costo</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Gerencia" >Gerencia</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Subgerencia" >Subgerencia</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Cliente" >Cliente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Comuna" >Comuna</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Región" >Región</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Empresa" >Empresa</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Jefe directo" >Jefatura</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Celular" >Celular</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Patente" >Patente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Saldo de vacaciones" >Saldo vac</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Fecha nac</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >DNI</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado control</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado asistencia</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado RRHH</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Fecha de nacimiento" >Estado operacional</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Email" >Email</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="RUTJEFEDIRECTO" >RUTJEFEDIRECTO</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="IDPERSONAL" >IDPERSONAL</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaPersonal" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button disabled class="form-control btn btn-secondary botonComun" id="disponiblePersonal">
+			<span class="far fa-check-square"></span>&nbsp;&nbsp;Disponible
+		</button>
+	</div>
+	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button disabled class="form-control btn btn-secondary botonComun" id="ausentePersonal">
+			<span class="far fa-window-close"></span>&nbsp;&nbsp;Ausente
+		</button>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button disabled class="form-control btn btn-secondary botonComun" id="transferirJefatura">
+      <span class="fas fa-exchange-alt"></span>&nbsp;&nbsp;Transferir Personal
+    </button>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button disabled class="form-control btn btn-secondary botonComun" id="transferirJefaturaRespuesta">
+      <span class="fas fa-user-check"></span>&nbsp;&nbsp;Aceptar/Rechazar
+    </button>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button class="form-control btn btn-secondary botonComun" id="solicitarJefatura">
+      <span class="fas fa-exchange-alt"></span>&nbsp;&nbsp;Solicitar Personal
+    </button>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button disabled class="form-control btn btn-secondary botonComun" id="solicitarJefaturaRespuesta">
+      <span class="fas fa-user-check"></span>&nbsp;&nbsp;Liberar/Rechazar
+    </button>
+	</div>
+	<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+		<button disabled class="form-control btn btn-secondary botonComun" id="desasignarJefaturaRespuesta">
+      <span class="fas fa-user-minus"></span>&nbsp;&nbsp;Desasignar
+    </button>
+	</div>
+</div>
+<input id="nombreUsuarioPersonal" type="hidden" name="" value="">
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<script>
+//Para interactuar con la tabla de productos
+	$('#tablaPersonal tbody').on( 'click', 'tr', function () {
+			setTimeout(async function(){
+				var table = $('#tablaPersonal').DataTable();
+				var datos = table.rows('.selected').data();
+				var continua = 'NO';
+				var continuaDes = 'NO';
+				function ciclo(){
+					for(var i = 0; i < datos.length; i++){
+						if(datos[i].NOMBRE.indexOf("*") > -1){
+							continua = 'NO';
+							break;
+						}
+						else{
+							continua = 'SI';
+						}
+						if(datos[i].ASIGNACION2.indexOf("Transferido") > -1 || datos[i].ASIGNACION2.indexOf("Solicitado") > -1){
+							continuaDes = 'NO';
+							break;
+						}
+						else{
+							continuaDes = 'SI';
+						}
+					}
+				}
+				await ciclo();
+				if(continua === 'SI'){
+					if(table.rows('.selected').data().length === 1){
+						var foundTransfer = datos.filter((dato) => dato.ASIGNACION2.includes('Transferido'));
+	          if(foundTransfer.length) {
+	            $("#transferirJefaturaRespuesta").removeAttr("disabled");
+							$("#transferirJefatura").attr("disabled", "disabled");
+							$("#desasignarJefaturaRespuesta").attr("disabled", "disabled");
+	          } else {
+	            $("#transferirJefaturaRespuesta").attr("disabled", "disabled");
+							$("#transferirJefatura").removeAttr("disabled");
+							$("#desasignarJefaturaRespuesta").removeAttr("disabled");
+	          }
+						var foundSolicit = datos.filter((dato) => dato.ASIGNACION2.includes('Solicitado'));
+	          if(foundSolicit.length) {
+	            $("#solicitarJefaturaRespuesta").removeAttr("disabled");
+							$("#desasignarJefaturaRespuesta").attr("disabled", "disabled");
+	          } else {
+	            $("#solicitarJefaturaRespuesta").attr("disabled", "disabled");
+							$("#desasignarJefaturaRespuesta").removeAttr("disabled");
+	          }
+						$("#disponiblePersonal").removeAttr("disabled");
+						$("#ausentePersonal").removeAttr("disabled");
+					}
+					else if(table.rows('.selected').data().length > 1){
+						$("#disponiblePersonal").removeAttr("disabled");
+						$("#ausentePersonal").attr("disabled","disabled");
+						$("#transferirJefatura").attr("disabled");
+						$("#transferirJefaturaRespuesta").attr("disabled", "disabled");
+						$("#solicitarJefaturaRespuesta").attr("disabled", "disabled");
+						if(continuaDes === 'NO'){
+							$("#desasignarJefaturaRespuesta").attr("disabled", "disabled");
+						}
+						else{
+							$("#desasignarJefaturaRespuesta").removeAttr("disabled");
+						}
+					}
+					else{
+						$("#disponiblePersonal").attr("disabled","disabled");
+						$("#ausentePersonal").attr("disabled","disabled");
+						$("#transferirJefatura").attr("disabled", "disabled");
+						$("#transferirJefaturaRespuesta").attr("disabled", "disabled");
+						$("#solicitarJefaturaRespuesta").attr("disabled", "disabled");
+						$("#desasignarJefaturaRespuesta").attr("disabled", "disabled");
+					}
+				}
+				else{
+					$("#disponiblePersonal").attr("disabled","disabled");
+					$("#ausentePersonal").attr("disabled","disabled");
+					$("#transferirJefatura").attr("disabled", "disabled");
+					$("#solicitarJefaturaRespuesta").attr("disabled", "disabled");
+					$("#transferirJefaturaRespuesta").attr("disabled", "disabled");
+					$("#desasignarJefaturaRespuesta").attr("disabled", "disabled");
+				}
+			},100);
+	});
+
+</script>

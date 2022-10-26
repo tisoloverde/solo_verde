@@ -1,0 +1,45 @@
+	<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+				<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+						<span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Listado de usuarios</span>
+					</font>
+			  </div>
+				<div id="divTablaListadoUsuarios" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+				  <table id="tablaListadoUsuarios" class="cell-border compact" style="width: 100%;">
+				    <thead>
+				      <tr>
+								<th class="celdaColor" style="border: 1pt solid white;">S</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">DNI</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Nombre</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">E-Mail</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Perfil</th>
+						<th class="celdaColor" style="border: 1pt solid white;">Estado</th>
+				      </tr>
+				    </thead>
+				    <tbody id="cuerpoTablaListadoUsuarios" style="text-align: left;">
+
+				    </tbody>
+				  </table>
+				</div>
+      <!-- Botones -->
+		<div id="accionesUsuarios" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+		</div>
+    </div>
+
+	<script>
+		//Para interactuar con la tabla de productos
+			$('#tablaListadoUsuarios tbody').on( 'click', 'tr', function () {
+				var table = $('#tablaListadoUsuarios').DataTable();
+				if ( $(this).hasClass('selected') ) {
+				$("#editarUsuario").attr("disabled","disabled");
+				$("#usuarioResetPass").attr("disabled","disabled");
+				}
+				else {
+						table.$('tr.selected').removeClass('selected');
+				$("#editarUsuario").removeAttr("disabled");
+				$("#usuarioResetPass").removeAttr("disabled");
+				}
+			});
+
+		</script>

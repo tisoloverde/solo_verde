@@ -1,0 +1,44 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+    <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+            <span style="color: gray;" class="fas fa-wrench">&nbsp;&nbsp;Valor Mano de Obra</span>
+        </font>
+  </div>
+    <div id="divTablaListadoManoObraValor" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+      <table id="tablaListadoManoObraValor" class="cell-border compact" style="width: 100%;">
+        <thead>
+          <tr>
+            <th class="celdaColor" style="border: 1pt solid white;">S</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Folio</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Comuna</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Agencia</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Especialidad</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Valor</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaListadoManoObraValor" style="text-align: left;">
+
+        </tbody>
+      </table>
+    </div>
+<!-- Botones -->
+<div id="accionesManoObraValor" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+</div>
+</div>
+
+<script>
+//Para interactuar con los botones
+$('#tablaListadoManoObraValor tbody').on( 'click', 'tr', function () {
+    var table = $('#tablaListadoManoObraValor').DataTable();
+    if ( $(this).hasClass('selected') ) {
+        $("#editarManoValor").attr("disabled","disabled");
+        $("#eliminarManoValor").attr("disabled","disabled");
+    }
+    else {
+        table.$('tr.selected').removeClass('selected');
+        $("#editarManoValor").removeAttr("disabled");
+        $("#eliminarManoValor").removeAttr("disabled");
+    }
+});
+</script>

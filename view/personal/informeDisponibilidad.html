@@ -1,0 +1,148 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 10pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="fas fa-chart-pie">&nbsp;&nbsp;Informe Disponibilidad</span>
+      </font>
+  </div>
+  <div id="filtrosInformeDisponibilidad" style="margin-bottom: 20pt; text-align: right;" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Fecha</label>
+    		<input id="fechaInformeDisponibilidad" type="text" class="form-control" title="Fecha" onfocus="blur();">
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Jefatura</label>
+    		<select id="jefaturaInformeDisponibilidad" class="form-control" title="Jefatura">
+    		</select>
+      </div>
+    </div>
+  </div>
+  <div id="divGraficaInformeDisponibilidad" style="margin-bottom: 20pt; text-align: right;" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <div id="graficaInformeDisponibilidad" class="" style="margin-top: 15pt;">
+
+    </div>
+  </div>
+  <div id="divInfoInformeDisponibilidad" style="margin-bottom: 20pt; text-align: right;" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <table id="infoInformeDisponibilidad" class="row-border compact" style="width: 100%;">
+      <thead>
+        <tr>
+          <th class="celdaColorCant" style="border: 1pt solid white;" title="Estado Control">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EC</th>
+          <th class="celdaColorCant" style="border: 1pt solid white;" title="Cantidad">&nbsp;&nbsp;&nbsp;&nbsp;#</th>
+        </tr>
+      </thead>
+      <tbody id="cueropInfoInformeDisponibilidad" style="text-align: left;">
+
+      </tbody>
+      <tfoot>
+	      <tr>
+	      	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;Total</td>
+	        <td></td>
+	  	  </tr>
+	  	</tfoot>
+    </table>
+  </div>
+  <div id="divInformeDisponibilidad" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="InformeDisponibilidad" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="DNI">DNI</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Nombre">Nombre</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Estado Control">EC</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Servicio">Servicio</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Cliente">Cliente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Actividad" >Actividad</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Comuna">Comuna</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Empresa" >Empresa</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Función" >Función</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Jefatura" >Jefatura</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Estado Control" >EC</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoInformeDisponibilidad" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div style="margin-top: 10pt;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <hr class="hr-separador">
+  </div>
+  <div style="margin-bottom: 10pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+        <span style="color: gray; font-weight: bold;" class="far fa-chart-bar">&nbsp;&nbsp;Evolución</span>
+    </font>
+  </div>
+  <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <label class="labelComun">Rango</label>
+    <input id="rangoEvoluInformeDisponibilidad" type="text" class="form-control" title="Rango" onfocus="blur();">
+  </div>
+  <div id="divEvoluInformDisponibilidad" style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div id="evoluInformDisponibilidad" class="">
+
+    </div>
+  </div>
+  <div style="margin-top: 10pt;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <hr class="hr-separador">
+  </div>
+  <div style="margin-bottom: 10pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+        <span style="color: gray; font-weight: bold;" class="fas fa-users">&nbsp;&nbsp;Jefaturas</span>
+    </font>
+  </div>
+  <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <label class="labelComun">Fecha</label>
+    <input id="fechaInformeDisponibilidadJefatura" type="text" class="form-control" title="Fecha" onfocus="blur();">
+  </div>
+  <div id="divInformeDisponibilidadJefatura" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="InformeDisponibilidadJefatura" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Empresa">Empresa</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Jefatura">Jefatura</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Vacaciones">Vacaciones</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Licencia">Licencia</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Desvinculado">Desvinculado</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Presente" >Presente</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Renuncia">Renuncia</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Permiso" >Permiso</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Ausente" >Ausente</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Sin marca" >Sin marca</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Total" >Total</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoInformeDisponibilidadJefatura" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<script>
+    //Para interactuar con la tabla de productos
+    $('#InformeDisponibilidad tbody').on( 'click', 'tr', function () {
+  			setTimeout(async function(){
+  				var table = $('#InformeDisponibilidad').DataTable();
+  				var datos = table.rows('.selected').data();
+          /*if(table.rows('.selected').data().length > 0){
+            $("#cambiarJefatura").removeAttr("disabled");
+          }
+          else{
+            $("#cambiarJefatura").attr("disabled", "disabled");
+          }*/
+  			},100);
+  	});
+</script>

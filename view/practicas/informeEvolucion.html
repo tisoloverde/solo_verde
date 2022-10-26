@@ -1,0 +1,89 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 0pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="fas fa-chart-line">&nbsp;&nbsp;Informe de Evolución</span>
+      </font>
+  </div>
+  <div id="divGraficaTablaEvolucion" style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div id="graficaTablaEvolucion" class="">
+
+    </div>
+  </div>
+  <div id="filtrosTablaEvolucion" style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Rango</label>
+    		<input id="rangoTablaEvolucion" type="text" class="form-control" title="Rango" onfocus="blur();">
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Auditoría</label>
+    		<select id="auditoriaTablaEvolucionComun" class="form-control" title="Auditoría">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Prestación</label>
+    		<select id="servicioTablaEvolucionComun" class="form-control" title="Servicio">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Jefatura</label>
+    		<select id="jefaturaTablaEvolucion" class="form-control" title="Jefatura">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Personal</label>
+    		<select id="personalTablaEvolucion" class="form-control" title="Personal">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Comuna</label>
+    		<select id="comunaProTablaEvolucion" class="form-control" title="Coumna">
+        </select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Servicio</label>
+    		<select id="servicioProTablaEvolucion" class="form-control" title="Servicio">
+        </select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Cliente</label>
+    		<select id="clienteProTablaEvolucion" class="form-control" title="Cliente" >
+        </select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Actividad</label>
+    		<select id="actividadProTablaEvolucion" class="form-control" title="Actividad">
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<script>
+    //Para interactuar con la tabla de productos
+    $('#TablaEvolucion tbody').on( 'click', 'tr', function () {
+  			setTimeout(async function(){
+  				var table = $('#TablaEvolucion').DataTable();
+  				var datos = table.rows('.selected').data();
+          /*if(table.rows('.selected').data().length > 0){
+            $("#cambiarJefatura").removeAttr("disabled");
+          }
+          else{
+            $("#cambiarJefatura").attr("disabled", "disabled");
+          }*/
+  			},100);
+  	});
+</script>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+    <link  rel="icon"   href="view/img/favicon.ico" type="image/png" />
+
+    <!-- Css -->
+    <link rel="stylesheet" href="view/css/OverlayScrollbars.css">
+    <link rel="stylesheet" href="view/css/os-theme-round-dark.css">
+    <link rel="stylesheet" href="view/css/os-theme-thin-dark.css">
+    <link rel="stylesheet" href="view/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="view/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="view/css/responsive.dataTables.min.css"/>
+    <link rel="stylesheet" href="view/css/rowReorder.dataTables.min.css"/>
+    <link rel="stylesheet" href="view/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" href="view/css/jquery.fancybox.min.css"/>
+    <link rel="stylesheet" href="view/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="view/css/select2-bootstrap4.min.css" />
+    <link rel="stylesheet" href="view/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="view/css/fixedColumns.dataTables.min.css">
+    <link rel="stylesheet" href="view/css/multi-select.css">
+    <!-- <link rel="stylesheet" href="view/css/daterangepicker.css"> -->
+    <link rel="stylesheet" href="view/css/daterangepicker.min2.css">
+    <link rel="stylesheet" href="view/css/fancy.min.css">
+    <link rel="stylesheet" href="view/css/bootstrap.min.css">
+    <link rel="stylesheet" href="view/css/toastr.min.css">
+    <link href="view/css/jquery.datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="view/css/style.css?idLoad=205">
+
+    <!--Prueba Calendar-->
+    <link rel="stylesheet" href="view/css/fullcalendar5.css">
+    <!--Fin Prueba Calendar-->
+
+    <!-- JavaScript -->
+    <script src="view/js/jquery-3.4.1.min.js"></script>
+    <script src="view/js/jquery-ui.min.js"></script>
+    <script src="view/js/jquery.fancybox.min.js"></script>
+    <script src="view/js/jquery.dataTables.min.js"></script>
+    <script src="view/js/dataTables.responsive.min.js"></script>
+    <script src="view/js/dataTables.rowReorder.min.js"></script>
+    <script src="view/js/dataTables.select.min.js"></script>
+    <script src="view/js/dataTables.buttons.min.js"></script>
+    <script src="view/js/dataTables.fixedColumns.min.js"></script>
+    <script src="view/js/dataTables.rowReorder.min.js"></script>
+    <script src="view/js/sum().js"></script>
+    <script src="view/js/jszip.min.js"></script>
+    <script src="view/js/pdfmake.min.js"></script>
+    <script src="view/js/vfs_fonts.js"></script>
+    <script src="view/js/buttons.html5.min.js"></script>
+    <script src="view/js/buttons.print.min.js"></script>
+    <script src="view/js/buttons.flash.min.js"></script>
+    <script src="view/js/popper.min.js"></script>
+    <script src="view/js/bootstrap.min.js"></script>
+    <script src="view/js/angular.min.js"></script>
+    <script src="view/js/angular-route.min.js"></script>
+    <script src="view/js/angular-animate.min.js"></script>
+    <script src='view/js/a076d05399.js'></script>
+    <script src="view/js/datetime.js"></script>
+    <script src="view/js/moment.min.js"></script>
+    <script src="view/js/datetime-moment.js"></script>
+    <script src="view/js/ResizeSensor.js"></script>
+    <script src="view/js/select2.min.js"></script>
+    <script src="view/js/accounting.js"></script>
+    <script src="view/js/jquery.rut.min.js"></script>
+    <script src="view/js/jquery.quicksearch.js"></script>
+    <script src="view/js/jquery.multi-select.js"></script>
+    <script src="view/js/jquery.daterangepicker.min2.js"></script>
+    <script src="view/js/toastr.min.js"></script>
+    <script src="view/js/jquery.datetimepicker.full.js"></script>
+
+    <script src="view/js/highcharts.js"></script>
+    <script src="view/js/sankey.js"></script>
+    <script src="view/js/organization.js"></script>
+    <script src="view/js/accessibility.js"></script>
+
+    <script src="view/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="view/js/fancy.min.js"></script>
+
+    <script src="view/js/jquery.overlayScrollbars.js"></script>
+
+    <!-- Prueba -->
+
+    <script src="view/js/funciones.js?idLoad=205"></script>
+    <script src="view/js/app.js?idLoad=205"></script>
+
+    <script src="view/js/moment.min.js"></script>
+
+    <!-- Prueba Calendar-->
+    <script src="view/js/fullcalendar5.js"></script>
+    <script src="view/js/locales/es.js"></script>
+    <!--Fin Prueba Calendar-->
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb15rFHKSkFxmZbQIo6KVes2-GR3N-LcQ&libraries=places&callback">
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <title>Integración y control operacional</title>
+  </head>
+  <header>
+  </header>
+  <body ng-app="WPApp">
+    <div id="menu-lateral" style="display: none;" ng-include="'view/estructura/menu.php'">
+    </div>
+    <div id="modales" ng-include="'view/estructura/modales.php?idLoad=205'">
+  	</div>
+  	<br />
+  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: -10pt; padding-left: 10px; padding-right: 5px;">
+   	</div>
+  	<br />
+  </body>
+  <footer style="display: none;">
+    <div style="display: none;" id="footer" ng-include="'view/estructura/footer.html'" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  	</div>
+  </footer>
+</html>

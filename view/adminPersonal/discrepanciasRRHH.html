@@ -1,0 +1,50 @@
+	<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+				<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+						<span style="color: gray;" class="fas fa-users-cog">&nbsp;&nbsp;Discrepancias RRHH</span>
+					</font>
+			  </div>
+				<div id="divTablaDiscrepanciasRRHH" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+				  <table id="tablaDiscrepanciasRRHH" class="cell-border compact" style="width: 100%;">
+				    <thead>
+				      <tr>
+								<th class="celdaColor" style="border: 1pt solid white;">S</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">DNI</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Nombre</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Definición</th>
+								<th class="celdaColor" style="border: 1pt solid white;">PEP</th>
+								<th class="celdaColor" style="border: 1pt solid white;">Proyecto</th>
+								<th class="celdaColor" style="border: 1pt solid white;">Denominación</th>
+								<th class="celdaColor" style="border: 1pt solid white;">Gerencia</th>
+								<th class="celdaColor" style="border: 1pt solid white;">Subgerencia</th>
+								<th class="celdaColor" style="border: 1pt solid white;">Jefe</th>
+								<th class="celdaColor" style="border: 1pt solid white;">Jefe_RRHH</th>
+				      </tr>
+				    </thead>
+				    <tbody id="cuerpoTablaDiscrepanciasRRHH" style="text-align: left;">
+
+				    </tbody>
+				  </table>
+				</div>
+      <!-- Botones -->
+		<div id="accionesSucursales" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+		</div>
+    </div>
+
+	<script>
+		//Para interactuar con los botones
+			$('#tablaDiscrepanciasRRHH tbody').on( 'click', 'tr', function () {
+				var table = $('#tablaDiscrepanciasRRHH').DataTable();
+				if ( $(this).hasClass('selected') ) {
+					$("#editarSucursal").attr("disabled","disabled");
+					$("#eliminarSucursal").attr("disabled","disabled");
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+					$("#editarSucursal").removeAttr("disabled");
+					$("#eliminarSucursal").removeAttr("disabled");
+				}
+			});
+
+		</script>

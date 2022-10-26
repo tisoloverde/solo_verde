@@ -1,0 +1,87 @@
+<div class="row cuerpo">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="far fa-file-pdf">&nbsp;&nbsp;Listado de Prácticas</span>
+      </font>
+  </div>
+  <div style="text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row" id="filtrosFormulariosRealizados">
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Periodo</label>
+    		<select id="periodoTablaFormularios" class="form-control" title="Periodo">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Auditoría</label>
+    		<select id="auditoriaTablaFormularios" class="form-control" title="Auditoría">
+    		</select>
+      </div>
+      <div style="margin-bottom: 10pt; text-align: left;" class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    		<label class="labelComun">Prestación</label>
+    		<select id="servicioTablaFormularios" class="form-control" title="Servicio">
+    		</select>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <hr class="hr-separador">
+      </div>
+    </div>
+  </div>
+  <div id="divTablaFormulario" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;">
+	  <table id="tablaFormulario" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Folio">Folio</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Auditoria">Auditoria</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Servicio">Prestación</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="DNI">DNI</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Nombre">Nombre</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Fecha" >Fecha</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Hora">Hora</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Tarea" >Tarea</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Direccion Cliente" >Direccion Cliente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="DNI Cliente" >DNI Cliente</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Fecha Instalación" >Fecha Instalación</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Fecha Instalación" >DNI Audit.</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Fecha Instalación" >Nombre Audit.</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Nota" >Nota</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="PDF" >PDF</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaFormulario" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+	</div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
+<script>
+    //Para interactuar con la tabla de productos
+    $('#tablaFormulario tbody').on( 'click', 'tr', function () {
+  			setTimeout(async function(){
+  				var table = $('#tablaJefatura').DataTable();
+  				var datos = table.rows('.selected').data();
+          /*if(table.rows('.selected').data().length > 0){
+            $("#cambiarJefatura").removeAttr("disabled");
+          }
+          else{
+            $("#cambiarJefatura").attr("disabled", "disabled");
+          }*/
+  			},100);
+  	});
+</script>

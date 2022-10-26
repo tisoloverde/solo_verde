@@ -1,0 +1,88 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray;" class="fas fa-project-diagram">&nbsp;&nbsp;Lista Personal</span>
+      </font>
+  </div>
+
+  <div id="divTablaJefatura" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaJefatura" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="S">S</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IMG">IMG</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="DNI">DNI</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Nombres">Nombres</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Apellidos">Apellidos</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Empresa">Empresa</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Tipo">Tipo</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Nivel">N</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Gerencia">Gerencia</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Subgerencia">Subgerencia</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Cliente">Cliente</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="C. Costos">CECO/PEP</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="C. Costos">Proyecto</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Comuna">Comuna</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Región">Región</tH>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Función" >Función</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Patente" >Patente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="E-Mail" >E-Mail</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Fono" >Fono</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Estado operacional">EO</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Jefe" >Jefe</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="ID" >ID</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Externo" >Externo</th>
+          <th class="celdaColor" style="border: 1pt solid white;" title="Sucursal" >Sucursal</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaJefatura" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div id="accionesGestionOperativa" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding-right: 0;">
+
+  </div>
+</div>
+<script>
+    //Para interactuar con la tabla de productos
+    $('#tablaJefatura tbody').on( 'click', 'tr', function () {
+  			setTimeout(async function(){
+  				var table = $('#tablaJefatura').DataTable();
+  				var datos = table.rows('.selected').data();
+          if(table.rows('.selected').data().length > 0){
+            if(table.rows('.selected').data().length > 1){
+              $("#cambiarJefatura").removeAttr("disabled");
+              $("#imagenJefatura").attr("disabled", "disabled");
+              $("#editarJefatura").attr("disabled", "disabled");
+            }
+            else{
+              $("#cambiarJefatura").removeAttr("disabled");
+              $("#imagenJefatura").removeAttr("disabled");
+              $("#editarJefatura").removeAttr("disabled");
+            }
+          }
+          else{
+            $("#cambiarJefatura").attr("disabled", "disabled");
+            $("#imagenJefatura").attr("disabled", "disabled");
+            $("#editarJefatura").attr("disabled", "disabled");
+          }
+
+          // Transferir Jefatura || Solicitar Jefatura
+          /*if(datos.length === 1 && datos[0].SOLICITUD.includes('Asignado')) {
+            $("#transferirJefatura").removeAttr("disabled");
+            $("#solicitarJefatura").removeAttr("disabled");
+          } else {
+            $("#transferirJefatura").attr("disabled", "disabled");
+            $("#solicitarJefatura").attr("disabled", "disabled");
+          }
+
+          // Aceptar/Rechazar Transferencia
+          if(datos.length === 1 && datos[0].SOLICITUD.includes('Transferido')) {
+            $("#transferirJefaturaRespuesta").removeAttr("disabled");
+          } else {
+            $("#transferirJefaturaRespuesta").attr("disabled", "disabled");
+          }*/
+  			},100);
+  	});
+</script>

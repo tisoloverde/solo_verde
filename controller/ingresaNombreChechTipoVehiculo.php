@@ -1,0 +1,24 @@
+<?php
+    require('../model/consultas.php');
+    session_start();
+
+    if(count($_POST) > 0){
+        $row = '';
+
+        $nombre = $_POST['nombre'];
+
+        $row = ingresaNombreCheckTipoVehiculo($nombre);
+
+        if($row != "Error" )
+        {
+            echo "OK";
+
+        }
+        else{
+            echo "Sin datos";
+        }
+    }
+    else{
+        echo "Sin datos";
+    }
+?>

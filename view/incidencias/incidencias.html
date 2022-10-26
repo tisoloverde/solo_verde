@@ -1,0 +1,134 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+          <span style="color: gray; font-weight: bold;" class="far fa-edit">&nbsp;&nbsp;Incidencias</span>
+      </font>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Tipo de &Aacute;rea</label>
+		<select id="selectTiposAreas" class="form-control" title="Tipos de Áreas">
+		</select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Item</label>
+    <select id="selectIncidenciaItem" class="form-control" title="Item">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Elemento</label>
+    <select id="selectIncidenciaElemento" class="form-control" title="Elemento">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Anomal&iacute;a</label>
+    <select id="selectIncidenciaAnomalia" class="form-control" title="Anomalia">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Departamento</label>
+    <input disabled id='inputIncidenciaDepartamento' type="text" class="form-control" readonly>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Alerta</label>
+    <input disabled id='inputIncidenciaAlerta' type="text" class="form-control" readonly>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Servicio</label>
+    <select id="selectIncidenciaServicio" class="form-control" title="Servicio">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Cliente</label>
+    <select id="selectIncidenciaCliente" class="form-control" title="Cliente">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Actividad</label>
+    <select id="selectIncidenciaActividad" class="form-control" title="Actividad">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Sucursal</label>
+    <select id="selectIncidenciaSucursal" class="form-control" title="Sucursal">
+    </select>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Personal</label>
+    <input id="selectIncidenciaPersonal" class="form-control" type="text" value="">
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;" >
+    <label class="labelComun">Patente</label>
+    <input id="selectIncidenciaPatente" class="form-control" type="text" value="">
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="text-align: left;">
+    <label class="labelComun">Detalles:</label>
+    <textarea class="form-control my-opinion" name="notaIncidencia" id="notaIncidencia" rows="3" style="margin-bottom: 5pt; resize: none;" maxlength="4000"></textarea>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20pt; text-align: left;">
+    <label class="labelComun">Evidencias:</label>
+    <div class="input-group">
+      <label class="input-group-btn">
+        <span id="incidenciasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+          <span class="fas fa-camera"></span>&nbsp;&nbsp;Cargar<input type="file" id='fotoIncidencia' accept="image/*" style="display: none;">
+        </span>
+      </label>
+      <input disabled id='valueFotoIncidencia' type="text" class="form-control" readonly>
+      </div>
+  </div>
+
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="text-align: left;">
+    <div id="errorIncidencia">
+      <label style="color: red;">Debe seleccionar una patente o un personal</label>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
+      <button class="form-control btn btn-secondary botonComun" id="enviarIncidencia">
+        <span class="fas fa-exchange-alt"></span>&nbsp;&nbsp;Enviar Incidencia
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++)
+	  {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idLoad=205';
+  document.getElementsByTagName('head')[0].appendChild(js);
+
+  $("#errorIncidencia").css("display", "none");
+</script>
+<style>
+  .accordion > .card > .card-header {
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  .fix-width {
+    padding-right: 18pt !important;
+  }
+  /*.accordion > .card:not(:last-of-type) {
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px!important;
+  }*/
+</style>

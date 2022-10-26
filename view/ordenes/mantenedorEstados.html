@@ -1,0 +1,55 @@
+<div class="row cuerpo">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-map-marked-alt">&nbsp;&nbsp;Mantenedor Estados</span>
+		</font>
+  </div>
+	<div id="divTablaMantenedorColoresOrdenes" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaMantenedorColoresOrdenes" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Folio">Folio</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Servicio">Servicio</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Cliente">Cliente</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Actividad">Actividad</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Comuna">Comuna</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Activa">Activa</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IDESTRUCTURA">IDESTRUCTURA</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="IDAREAFUNCIONAL">IDAREAFUNCIONAL</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaMantenedorColoresOrdenes" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div id="accionesMantenedorColoresOrdenes" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+  </div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+$('#tablaMantenedorColoresOrdenes tbody').on( 'click', 'tr', function () {
+    setTimeout(async function(){
+      var table = $('#tablaMantenedorColoresOrdenes').DataTable();
+      var datos = table.rows('.selected').data();
+			if(table.rows('.selected').data().length > 1){
+				$("#eliminarZonaOrden").removeAttr("disabled");
+        $("#activarZonaOrden").attr("disabled", "disabled");
+				$("#asignarPersonalZonaOrden").attr("disabled","disabled");
+			}
+      else if(table.rows('.selected').data().length > 0){
+        $("#eliminarZonaOrden").removeAttr("disabled");
+        $("#activarZonaOrden").removeAttr("disabled");
+				$("#asignarPersonalZonaOrden").removeAttr("disabled");
+      }
+      else{
+        $("#eliminarZonaOrden").attr("disabled", "disabled");
+        $("#activarZonaOrden").attr("disabled", "disabled");
+				$("#asignarPersonalZonaOrden").attr("disabled","disabled");
+      }
+    },100);
+});
+</script>
