@@ -3233,3 +3233,113 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
     }
   });
 });
+
+function initScreen() {
+  $("body").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height());
+  var path = window.location.href.split('#/')[1];
+  return path;
+}
+
+function loading(flag) {
+  if (flag) {
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  } else {
+    $('#modalAlertasSplash').modal('hide');
+  }
+}
+
+function restricted() {
+  alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+  setTimeout(function() {
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    window.location.href = "?idLog=" + random + "#/login";
+  }, 1500);
+}
+
+async function listDotacion() {
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+  var table = $("#tablaListadoDotacion");
+
+  await table.DataTable({
+    ajax: {
+      url: "controller/datosListadoDotacion.php",
+      type: 'POST'
+    },
+    columns: [
+      { data: 'p1'},
+      { data: 'p2' },
+      { data: 'p3' },
+      { data: 'p4' },
+      { data: 'p5' },
+      { data: 'p6' },
+      { data: 'p7' },
+      { data: 'p8' },
+      { data: 'p9' },
+      { data: 'p10' },
+      { data: 'p11' },
+      { data: 'p12' },
+      { data: 'p13' },
+      { data: 'p14' },
+      { data: 'p15' },
+      { data: 'p16' },
+      { data: 'p17' },
+      { data: 'p18' },
+      { data: 'p19' },
+    ],
+    columnDefs: [
+      {
+        width: "5px",
+        targets: 0,
+      },
+      {
+        orderable: false,
+        className: 'select-checkbox',
+        targets: [ 0 ],
+      },
+      {
+        visible: false,
+        searchable: false,
+        targets: [ 2 ],
+      },
+    ],
+    select: {
+      style: 'single'
+    },
+    scrollX: true,
+    paging: true,
+    ordering: true,
+    scrollCollapse: true,
+    // "order": [[ 3, "asc" ]],
+    info: true,
+    lengthMenu: [[largo], [largo]],
+    dom: 'Bfrtip',
+    language: {
+      zeroRecords: "No hay datos disponibles",
+      info: "Registro _START_ de _END_ de _TOTAL_",
+      infoEmpty: "No hay datos disponibles",
+      paginate: {
+        previous: "Anterior",
+        next: "Siguiente",
+      },
+      search: "Buscar: ",
+      select: {
+        rows: "- %d registros seleccionados",
+      },
+      infoFiltered: "(Filtrado de _MAX_ registros)",
+    },
+    destroy: true,
+    autoWidth: false,
+    initComplete: function (settings, json) {
+      $('#contenido').show();
+      $('#menu-lateral').show();
+      $('#footer').parent().show();
+      $('#footer').show();
+      setTimeout(function() {
+        table.DataTable().columns.adjust();
+      },500);
+    }
+  });
+}

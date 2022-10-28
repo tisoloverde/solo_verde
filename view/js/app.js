@@ -735,40 +735,23 @@ app.controller("perfilesController", function(){
 });
 
 app.controller("dotacionController", function(){
-  $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height());
-
-  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
-  $('#modalAlertasSplash').modal('show');
-
-  var path = window.location.href.split('#/')[1];
-  var parametros = {
-    "path": path
-  }
+  var path = initScreen();
+  loading(true);
   $.ajax({
     url:   'controller/accesoCorrecto.php',
     type:  'post',
-    data: parametros,
+    data: { path },
     success: function (response) {
       if (response === "NO") {
-        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
-        setTimeout(function(){
-          var random = Math.round(Math.random() * (1000000 - 1) + 1);
-          window.location.href = "?idLog=" + random + "#/login";
-        }, 1500);
+        restricted();
       } else if (response === "DESCONECTADO") {
         window.location.href = "#/home";
       } else {
         setTimeout(async function(){
-          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-
-          setTimeout(function() {
-            $('#modalAlertasSplash').modal('hide');
-            esconderMenu();
-            menuElegant();
-          }, 2000);
-
+          await listDotacion();
+          esconderMenu();
+          menuElegant();
+          loading(false);
         }, 200);
       }
     }
