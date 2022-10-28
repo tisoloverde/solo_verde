@@ -34,6 +34,11 @@ app.config(function($routeProvider, $locationProvider) {
         controllerAs: "vm",
         templateUrl : "view/usuario/perfiles.html?idload=9"
     })
+    .when("/dotacion", {
+        controller: "dotacionController",
+        controllerAs: "vm",
+        templateUrl : "view/personal/dotacion.html?idload=9"
+    })
     .otherwise({redirectTo: '/home'});
 
     $locationProvider.hashPrefix('');
@@ -724,6 +729,47 @@ app.controller("perfilesController", function(){
           });
           await esconderMenu();
         },200);
+      }
+    }
+  });
+});
+
+app.controller("dotacionController", function(){
+  $("body").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height());
+
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      if (response === "NO") {
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        }, 1500);
+      } else if (response === "DESCONECTADO") {
+        window.location.href = "#/home";
+      } else {
+        setTimeout(async function(){
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+
+          setTimeout(function() {
+            $('#modalAlertasSplash').modal('hide');
+            esconderMenu();
+            menuElegant();
+          }, 2000);
+
+        }, 200);
       }
     }
   });

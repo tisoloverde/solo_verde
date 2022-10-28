@@ -1,0 +1,16 @@
+<div id="dotacion" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <h1>Dotacion</h1>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++) {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idload=9';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
