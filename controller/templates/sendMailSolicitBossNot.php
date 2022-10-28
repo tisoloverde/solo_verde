@@ -14,7 +14,7 @@
       <br />
       <img src='cid:firmaPng' alt='Ezentis' style='width: 180px;'>
       <br />
-      Bases de inmuebles
+      Aportando calidad de vida en espacios urbanos
       <br />
       ..........................................................................................................................................................................
       <br>
@@ -91,7 +91,7 @@
 
   function sendToOneOldBoss($mail, $emailExJefe, $lstNamesPersonal, $nombreNuevoJefe) {
     $mail = init($mail);
-    $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Bases de inmuebles - Favor no responder este e-mail</u></span></em></p><br>
+    $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
       <div style='width: 100%; text-align: justify; margin: 0 auto;'>
         <font style='font-size: 14px;'>
           Estimado(a):,

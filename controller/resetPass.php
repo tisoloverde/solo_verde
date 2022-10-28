@@ -42,7 +42,7 @@
 	                <br />
 	                <img src='cid:firmaPng' alt='E-Gestiontech' style='width: 180px;'>
 	                <br />
-	                Bases de inmuebles
+	                Aportando calidad de vida en espacios urbanos
 	                <br />
 	                ..........................................................................................................................................................................
 	                <br>
@@ -59,13 +59,13 @@
 
 					$rowUrl = datosHost($_SERVER['SERVER_NAME']);
 
-	        $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Bases de inmuebles - Favor no responder este e-mail</u></span></em></p><br>
+	        $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
 									<div style='width: 100%; text-align: justify; margin: 0 auto;'>
 			    <font style='font-size: 14px;'>
 			    Estimado " . $nombre . ",
 			    <br />
 			    <br />
-			    Le informamos que su contraseña a sido restablecida en el sistema de bases de inmuebles.<br /><br />
+			    Le informamos que su contraseña a sido restablecida en el sistema de Aportando calidad de vida en espacios urbanos.<br /><br />
 	        A continuación le indicamos sus credenciales de acceso:<br /><br />
 	        URL: <a href='" . $rowUrl[0]['domain'] . "'>" . $rowUrl[0]['domain'] . "</a>
 			    <br />
