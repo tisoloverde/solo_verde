@@ -7,32 +7,32 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idload=8"
+        templateUrl : "view/home/login.html?idload=9"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=8"
+        templateUrl : "view/home/home.html?idload=9"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=8"
+        templateUrl : "view/home/home.html?idload=9"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idload=8"
+        templateUrl : "view/home/changePass.html?idload=9"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idload=8"
+        templateUrl : "view/usuario/usuarios.html?idload=9"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idload=8"
+        templateUrl : "view/usuario/perfiles.html?idload=9"
     })
     .otherwise({redirectTo: '/home'});
 
@@ -563,7 +563,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idload=8';
+                      js.src = 'view/js/funciones.js?idload=9';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
