@@ -3289,6 +3289,7 @@ async function listDotacion() {
       { data: 'p18' },
       { data: 'p19' },
     ],
+    buttons: [],
     columnDefs: [
       {
         width: "5px",
@@ -3342,4 +3343,20 @@ async function listDotacion() {
       },500);
     }
   });
+}
+
+async function listDotacionLugares() {
+  $.ajax({
+    url: 'controller/datosLugares.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option selected value='Todos'>Todos</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.id}">${item.code} - ${item.title}</option>`;
+      });
+      $('#selectListaLugares').html(html);
+    },
+  })
 }
