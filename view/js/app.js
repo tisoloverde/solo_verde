@@ -7,37 +7,32 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idload=7"
+        templateUrl : "view/home/login.html?idload=9"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=7"
+        templateUrl : "view/home/home.html?idload=9"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=7"
+        templateUrl : "view/home/home.html?idload=9"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idload=7"
+        templateUrl : "view/home/changePass.html?idload=9"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idload=7"
+        templateUrl : "view/usuario/usuarios.html?idload=9"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idload=7"
-    })
-    .when("/listadoInmuebles", {
-        controller: "listadoInmueblesController",
-        controllerAs: "vm",
-        templateUrl : "view/inmueble/unidades.html?idload=7"
+        templateUrl : "view/usuario/perfiles.html?idload=9"
     })
     .otherwise({redirectTo: '/home'});
 
@@ -568,7 +563,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idload=7';
+                      js.src = 'view/js/funciones.js?idload=9';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -728,253 +723,6 @@ app.controller("perfilesController", function(){
               }
           });
           await esconderMenu();
-        },200);
-      }
-    }
-  });
-});
-
-app.controller("listadoInmueblesController", function(){
-  $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height());
-  splashOpen();
-  setTimeout(function(){
-    splashOpen();
-  },5);
-  var path = window.location.href.split('#/')[1];
-  var parametros = {
-    "path": path
-  }
-  $.ajax({
-    url:   'controller/accesoCorrecto.php',
-    type:  'post',
-    data: parametros,
-    success: function (response) {
-      // console.log(response);
-      if(response === "NO"){
-        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
-        setTimeout(function(){
-          var random = Math.round(Math.random() * (1000000 - 1) + 1);
-          window.location.href = "?idLog=" + random + "#/login";
-        },1500);
-      }
-      else if(response === "DESCONECTADO"){
-          window.location.href = "#/home";
-      }
-      else{
-        setTimeout(async function(){
-          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
-          $('#modalAlertasSplash').modal('show');
-
-          await $("#rangoFechasListadoInmuebles").daterangepicker({
-            timePicker: true,
-            startDate: moment().startOf('hour'),
-            endDate: moment().startOf('hour'),
-            locale: {
-              format: 'Y-M-D'
-            }
-          });
-
-          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/25);
-
-          var parametros = {
-            "fechaIni": $("#rangoFechasListadoInmuebles").val().split(' - ')[0],
-            "fechaFin": $("#rangoFechasListadoInmuebles").val().split(' - ')[1]
-          }
-
-          await $('#tablaListadoInmuebles').DataTable( {
-              ajax: {
-                  url: "controller/datosListaInmuebles.php",
-                  type: 'POST',
-                  data: parametros
-              },
-              columns: [
-                { data: 'S'},
-                { data: 'Folio', className: "centerDataTable"},
-                { data: 'FechaDespliegue', className: "centerDataTable"},
-                { data: 'Habitacional'},
-                { data: 'TipoContacto'},
-                { data: 'TipoOperacion'},
-                { data: 'Nombre'},
-                { data: 'Email'},
-                { data: 'Telefono'},
-                { data: 'NombreCorredora'},
-                { data: 'TipoPropiedad'},
-                { data: 'Comuna'},
-                { data: 'Region'},
-                { data: 'MetrosUtiles', className: "centerDataTable"},
-                { data: 'MetrosTerraza', className: "centerDataTable"},
-                { data: 'MetrosTerreno', className: "centerDataTable"},
-                { data: 'Dormitorios', className: "centerDataTable"},
-                { data: 'Banos', className: "centerDataTable"},
-                { data: 'PrecioPesos'},
-                { data: 'PrecioUF'},
-                { data: 'MonedaDespliegue', className: "centerDataTable"},
-                { data: 'DireccionCalle'},
-                { data: 'DireccionDepto'},
-                { data: 'DireccionNumero'},
-                { data: 'URL', className: "centerDataTable"},
-                { data: 'Observaciones', className: "centerDataTable"},
-                { data: 'Titulo'},
-                { data: 'UriFicha'}
-              ],
-              buttons: [
-                  {
-                    extend: 'excel',
-                    exportOptions: {
-                      columns: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,27,25,26 ]
-                    },
-                    title: null,
-                    text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
-                  }
-              ],
-              "columnDefs": [
-                {
-                  "width": "5px",
-                  "targets": 0
-                },
-                {
-                  "orderable": false,
-                  "className": 'select-checkbox',
-                  "targets": [ 0 ]
-                },
-                {
-                  "visible": false,
-                  "searchable": false,
-                  "targets": [ 27 ]
-                },
-              ],
-              "select": {
-                  style: 'single',
-                  selector: 'td:not(:nth-child(25))'
-              },
-              "scrollX": true,
-              "paging": true,
-              "ordering": true,
-              "scrollCollapse": true,
-              "info":     true,
-              "lengthMenu": [[largo], [largo]],
-              "dom": 'Bfrtip',
-              "language": {
-                "zeroRecords": "No hay datos disponibles",
-                "info": "Registro _START_ de _END_ de _TOTAL_",
-                "infoEmpty": "No hay datos disponibles",
-                "paginate": {
-                    "previous": "Anterior",
-                    "next": "Siguiente"
-                  },
-                  "search": "Buscar: ",
-                  "select": {
-                      "rows": "- %d registros seleccionados"
-                  },
-                  "infoFiltered": "(Filtrado de _MAX_ registros)"
-              },
-              "destroy": true,
-              "autoWidth": false,
-              "initComplete": function( settings, json){
-                $('#contenido').show();
-                $('#menu-lateral').show();
-                $('#footer').parent().show();
-                $('#footer').show();
-
-
-
-                setTimeout(async function(){
-                  var path = window.location.href.split('#/')[1];
-                  var parametros = {
-                    "path": path,
-                    "fechaIni": $("#rangoFechasListadoInmuebles").val().split(' - ')[0],
-                    "fechaFin": $("#rangoFechasListadoInmuebles").val().split(' - ')[1]
-                  }
-
-                  await $.ajax({
-                    url:   'controller/datosListaComunas.php',
-                    type:  'post',
-                    data: parametros,
-                    success: function (response) {
-                      var p = jQuery.parseJSON(response);
-                      console.log(p);
-                      if(p.aaData.length !== 0){
-                        var cuerpoComuna = '<option selected value="Todas">Todas</option>';
-                        for(var i = 0; i < p.aaData.length; i++){
-                          cuerpoComuna += '<option value="' + p.aaData[i].Comuna + '">' + p.aaData[i].Comuna + '</option>';
-                        }
-                        $("#comunaListadoInmuebles").html(cuerpoComuna);
-                      }
-                    }
-                  });
-
-                  await $.ajax({
-                    url:   'controller/datosListaRegion.php',
-                    type:  'post',
-                    data: parametros,
-                    success: function (response) {
-                      var p = jQuery.parseJSON(response);
-                      console.log(p);
-                      if(p.aaData.length !== 0){
-                        var cuerpoRegion = '<option selected value="Todas">Todas</option>';
-                        for(var i = 0; i < p.aaData.length; i++){
-                          cuerpoRegion += '<option value="' + p.aaData[i].Region + '">' + p.aaData[i].Region + '</option>';
-                        }
-                        $("#regionListadoInmuebles").html(cuerpoRegion);
-                      }
-                    }
-                  });
-
-                  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                    $("#comunaListadoInmuebles").select2({
-                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-                    });
-                    $("#regionListadoInmuebles").select2({
-                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-                    });
-                    $("#tipoContactoListadoInmuebles").select2({
-                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-                    });
-                  }
-
-                  setTimeout(async function(){
-                    await $.ajax({
-                      url:   'controller/datosAccionesVisibles.php',
-                      type:  'post',
-                      data: parametros,
-                      success: function (response) {
-                        var p = jQuery.parseJSON(response);
-                        if(p.aaData.length !== 0){
-                          for(var i = 0; i < p.aaData.length; i++) {
-                            if(p.aaData[i].VISIBLE == 1){
-                              if(p.aaData[i].ENABLE == 1){
-                                $("#accionesInmuebles").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
-                              }
-                              else{
-                                $("#accionesInmuebles").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
-                              }
-                            }
-                          }
-                        }
-                      }
-                    });
-
-                    setTimeout(function(){
-                      var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idload=7';
-                      document.getElementsByTagName('head')[0].appendChild(js);
-                    },500);
-                  },100);
-                  setTimeout(function(){
-                    $('#modalAlertasSplash').modal('hide');
-                    setTimeout(function(){
-                      $('#tablaListadoInmuebles').DataTable().columns.adjust();
-                    },500);
-                  },2000);
-                },1000);
-                menuElegant();
-              }
-          });
-
-          await esconderMenu();
-          menuElegant();
         },200);
       }
     }
