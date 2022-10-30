@@ -3259,16 +3259,44 @@ function restricted() {
   }, 1500);
 }
 
+var tableDotacion = $("#tablaListadoDotacion");
+var editorDotacion = new $.fn.dataTable.Editor({
+  ajax: "controller/datosListadoDotacion.php",
+  table: "#tablaListadoDotacion",
+  idSrc: 'ID',
+  fields: [
+    { label: "offeredPersonnel", name: 'offeredPersonnel'},
+    { label: "clientPosition", name: 'clientPosition' },
+    { label: "unifiedGenericCharge", name: 'unifiedGenericCharge' },
+    { label: "family", name: 'family' },
+    { label: "jeasOrGeas", name: 'jeasOrGeas' },
+    { label: "ref1", name: 'ref1' },
+    { label: "ref2", name: 'ref2' },
+    { label: "jan22", name: 'jan22' },
+    { label: "feb22", name: 'feb22' },
+    { label: "mar22", name: 'mar22' },
+    { label: "apr22", name: 'apr22' },
+    { label: "may22", name: 'may22' },
+    { label: "jun22", name: 'jun22' },
+    { label: "jul22", name: 'jul22' },
+    { label: "ago22", name: 'ago22' },
+    { label: "sep22", name: 'sep22' },
+    { label: "oct22", name: 'oct22' },
+    { label: "nov22", name: 'nov22' },
+    { label: "dec22", name: 'dec22' },
+  ]
+});
+
 async function listDotacion() {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-  var table = $("#tablaListadoDotacion");
 
-  await table.DataTable({
+  await tableDotacion.DataTable({
     ajax: {
       url: "controller/datosListadoDotacion.php",
       type: 'POST'
     },
     columns: [
+      { data: 'ID' },
       { data: 'offeredPersonnel'},
       { data: 'clientPosition' },
       { data: 'unifiedGenericCharge' },
@@ -3294,6 +3322,7 @@ async function listDotacion() {
       { width: "5px", targets: 0 },
       /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
       { visible: false, searchable: false, targets: [ 2 ] },
+      { targets: "_all", className: "dt-center" }
     ],
     select: { style: 'single' },
     scrollX: true,
@@ -3326,11 +3355,15 @@ async function listDotacion() {
       $('#footer').parent().show();
       $('#footer').show();
       setTimeout(function() {
-        table.DataTable().columns.adjust();
+        tableDotacion.DataTable().columns.adjust();
       },500);
     }
   });
 }
+
+$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child)', function (e) {
+  editorDotacion.inline(this);
+});
 
 async function listDotacionLugares() {
   $.ajax({

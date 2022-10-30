@@ -6,6 +6,7 @@ if (count($_POST) >= 0) {
   $row = [];
   for ($i=0; $i < 100; $i++) {
     $row[] = [
+      "ID" => $i,
       "code" => 173 + $i,
       "costCenterName" => "VALDIVIA",
       "offeredPersonnel" => "Ofertal Inicial",
