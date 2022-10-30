@@ -3233,3 +3233,150 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
     }
   });
 });
+
+function initScreen() {
+  $("body").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height());
+  var path = window.location.href.split('#/')[1];
+  return path;
+}
+
+function loading(flag) {
+  if (flag) {
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  } else {
+    $('#modalAlertasSplash').modal('hide');
+  }
+}
+
+function restricted() {
+  alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+  setTimeout(function() {
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    window.location.href = "?idLog=" + random + "#/login";
+  }, 1500);
+}
+
+var tableDotacion = $("#tablaListadoDotacion");
+var editorDotacion = new $.fn.dataTable.Editor({
+  ajax: "controller/datosListadoDotacion.php",
+  table: "#tablaListadoDotacion",
+  idSrc: 'ID',
+  fields: [
+    { label: "offeredPersonnel", name: 'offeredPersonnel'},
+    { label: "clientPosition", name: 'clientPosition' },
+    { label: "unifiedGenericCharge", name: 'unifiedGenericCharge' },
+    { label: "family", name: 'family' },
+    { label: "jeasOrGeas", name: 'jeasOrGeas' },
+    { label: "ref1", name: 'ref1' },
+    { label: "ref2", name: 'ref2' },
+    { label: "jan22", name: 'jan22' },
+    { label: "feb22", name: 'feb22' },
+    { label: "mar22", name: 'mar22' },
+    { label: "apr22", name: 'apr22' },
+    { label: "may22", name: 'may22' },
+    { label: "jun22", name: 'jun22' },
+    { label: "jul22", name: 'jul22' },
+    { label: "ago22", name: 'ago22' },
+    { label: "sep22", name: 'sep22' },
+    { label: "oct22", name: 'oct22' },
+    { label: "nov22", name: 'nov22' },
+    { label: "dec22", name: 'dec22' },
+  ]
+});
+
+async function listDotacion() {
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+
+  await tableDotacion.DataTable({
+    ajax: {
+      url: "controller/datosListadoDotacion.php",
+      type: 'POST'
+    },
+    columns: [
+      { data: 'ID' },
+      { data: 'offeredPersonnel'},
+      { data: 'clientPosition' },
+      { data: 'unifiedGenericCharge' },
+      { data: 'family' },
+      { data: 'jeasOrGeas' },
+      { data: 'ref1' },
+      { data: 'ref2' },
+      { data: 'jan22' },
+      { data: 'feb22' },
+      { data: 'mar22' },
+      { data: 'apr22' },
+      { data: 'may22' },
+      { data: 'jun22' },
+      { data: 'jul22' },
+      { data: 'ago22' },
+      { data: 'sep22' },
+      { data: 'oct22' },
+      { data: 'nov22' },
+      { data: 'dec22' },
+    ],
+    buttons: [],
+    columnDefs: [
+      { width: "5px", targets: 0 },
+      /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
+      { visible: false, searchable: false, targets: [ 2 ] },
+      { targets: "_all", className: "dt-center" }
+    ],
+    select: { style: 'single' },
+    scrollX: true,
+    paging: true,
+    ordering: true,
+    scrollCollapse: true,
+    // "order": [[ 3, "asc" ]],
+    info: true,
+    lengthMenu: [[largo], [largo]],
+    dom: 'Bfrtip',
+    language: {
+      zeroRecords: "No hay datos disponibles",
+      info: "Registro _START_ de _END_ de _TOTAL_",
+      infoEmpty: "No hay datos disponibles",
+      paginate: {
+        previous: "Anterior",
+        next: "Siguiente",
+      },
+      search: "Buscar: ",
+      select: {
+        rows: "- %d registros seleccionados",
+      },
+      infoFiltered: "(Filtrado de _MAX_ registros)",
+    },
+    destroy: true,
+    autoWidth: false,
+    initComplete: function (settings, json) {
+      $('#contenido').show();
+      $('#menu-lateral').show();
+      $('#footer').parent().show();
+      $('#footer').show();
+      setTimeout(function() {
+        tableDotacion.DataTable().columns.adjust();
+      },500);
+    }
+  });
+}
+
+$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child)', function (e) {
+  editorDotacion.inline(this);
+});
+
+async function listDotacionLugares() {
+  $.ajax({
+    url: 'controller/datosLugares.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option selected value='Todos'>Todos</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.id}">${item.code} - ${item.title}</option>`;
+      });
+      $('#selectListaLugares').html(html);
+    },
+  })
+}

@@ -34,6 +34,11 @@ app.config(function($routeProvider, $locationProvider) {
         controllerAs: "vm",
         templateUrl : "view/usuario/perfiles.html?idload=9"
     })
+    .when("/dotacion", {
+        controller: "dotacionController",
+        controllerAs: "vm",
+        templateUrl : "view/personal/dotacion.html?idload=9"
+    })
     .otherwise({redirectTo: '/home'});
 
     $locationProvider.hashPrefix('');
@@ -724,6 +729,47 @@ app.controller("perfilesController", function(){
           });
           await esconderMenu();
         },200);
+      }
+    }
+  });
+});
+
+app.controller("dotacionController", function(){
+  var path = initScreen();
+  var theme = {
+    theme: 'bootstrap4',
+    width: $(this).data('width')
+      ? $(this).data('width')
+      : $(this).hasClass('w-100')
+        ? '100%'
+        : 'style',
+    placeholder: $(this).data('placeholder'),
+    allowClear: Boolean($(this).data('allow-clear')),
+    closeOnSelect: !$(this).attr('multiple')
+  }
+  loading(true);
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaLugares").select2(theme);
+  }
+
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: { path },
+    success: function (response) {
+      if (response === "NO") {
+        restricted();
+      } else if (response === "DESCONECTADO") {
+        window.location.href = "#/home";
+      } else {
+        setTimeout(async function() {
+          await listDotacionLugares();
+          await listDotacion();
+          esconderMenu();
+          menuElegant();
+          loading(false);
+        }, 200);
       }
     }
   });
