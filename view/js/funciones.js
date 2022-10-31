@@ -3259,9 +3259,10 @@ function restricted() {
   }, 1500);
 }
 
+var dotacionListUpdated = {};
 var tableDotacion = $("#tablaListadoDotacion");
 var editorDotacion = new $.fn.dataTable.Editor({
-  ajax: "controller/datosListadoDotacion.php",
+  // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoDotacion",
   idSrc: 'ID',
   fields: [
@@ -3284,7 +3285,8 @@ var editorDotacion = new $.fn.dataTable.Editor({
     { label: "oct22", name: 'oct22' },
     { label: "nov22", name: 'nov22' },
     { label: "dec22", name: 'dec22' },
-  ]
+  ],
+  formOptions: { inline: { submit: 'all' } },
 });
 
 async function listDotacion() {
@@ -3361,10 +3363,6 @@ async function listDotacion() {
   });
 }
 
-$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child)', function (e) {
-  editorDotacion.inline(this);
-});
-
 async function listDotacionLugares() {
   $.ajax({
     url: 'controller/datosLugares.php',
@@ -3380,3 +3378,20 @@ async function listDotacionLugares() {
     },
   })
 }
+
+$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child)', function (e) {
+  editorDotacion.inline(this);
+});
+
+editorDotacion.on('preSubmit', function (e, o, action) {
+  if (o.action == 'edit') {
+    var [[k, v]] = Object.entries(o.data);
+    dotacionListUpdated[k] = v;
+  }
+});
+
+$("#saveDotacion").on('click', (e) => {
+  e.preventDefault();
+  console.log('---dotacionListUpdated--')
+  console.log(dotacionListUpdated)
+})
