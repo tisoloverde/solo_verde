@@ -3390,8 +3390,21 @@ editorDotacion.on('preSubmit', function (e, o, action) {
   }
 });
 
-$("#saveDotacion").on('click', (e) => {
+$("#saveDotacion").on('click', async (e) => {
   e.preventDefault();
-  console.log('---dotacionListUpdated--')
-  console.log(dotacionListUpdated)
+  var keys = Object.keys(dotacionListUpdated);
+  var data = [];
+  keys.forEach((key) => {
+    var json = { id: key, ...dotacionListUpdated[key] }
+    data.push(json);
+  });
+  loading(true);
+  await $.ajax({
+    url:   'controller/actualizarListadoDotacion.php',
+    type:  'post',
+    data:  { data },
+    success:  function (response) {
+      loading(false);
+    }
+  })
 })

@@ -19328,4 +19328,50 @@ WHERE U.RUT = '{$rutUser}'";
 			return "Error";
 		}
 	}
+
+	function actualizarDotacion(
+		$id,
+		$personalOfertado,
+		$cargoMandante,
+		$cargoGenericoUnificado,
+		$familia,
+		$jeasGeas,
+		$ref1,
+		$ref2,
+		$ene22, $feb22, $mar22, $abr22, $may22, $jun22, $jul22, $ago22, $set22, $oct22, $nov22, $dic22
+	) {
+		$con = conectar();
+		if($con != 'No conectado'){
+			$sql = "UPDATE DOTACION SET
+							personalOfertado = '$personalOfertado',
+							cargoMandante = '$cargoMandante',
+							cargoGenericoUnificado = '$cargoGenericoUnificado',
+							familia = '$familia',
+							jeasGeas = '$jeasGeas',
+							ref1 = '$ref1',
+							ref2 = '$ref2',
+							ene22 = '$ene22',
+							feb22 = '$feb22',
+							mar22 = '$mar22',
+							abr22 = '$abr22',
+							may22 = '$may22',
+							jun22 = '$jun22',
+							jul22 = '$jul22',
+							ago22 = '$ago22',
+							nov22 = '$nov22',
+							oct22 = '$oct22',
+							dic22 = '$dic22'
+							WHERE id = $id";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return "Ok";
+			} else {
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
 ?>
