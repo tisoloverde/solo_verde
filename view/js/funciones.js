@@ -3405,6 +3405,7 @@ $("#saveDotacion").on('click', async (e) => {
     data:  { data },
     success:  function (response) {
       loading(false);
+      alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Dotación actualizada correctamente");
     }
   })
 })
