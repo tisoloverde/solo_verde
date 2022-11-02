@@ -3,7 +3,7 @@ require('../model/consultas.php');
 session_start();
 
 if (count($_POST) >= 0) {
-  $row = consultaListadoDotacion();
+  $row = consultaListadoDotacion($_POST['codigoCC']);
 
   if (is_array($row)) {
     $results = [

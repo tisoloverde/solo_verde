@@ -19311,10 +19311,10 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListadoDotacion() {
+	function consultaListadoDotacion($codigoCC) {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT * FROM DOTACION";
+			$sql = "SELECT * FROM DOTACION WHERE codigoCC = '{$codigoCC}'";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

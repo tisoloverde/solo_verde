@@ -3289,13 +3289,17 @@ var editorDotacion = new $.fn.dataTable.Editor({
   formOptions: { inline: { submit: 'all' } },
 });
 
-async function listDotacion() {
+async function listDotacion(codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-
+  loading(true);
   await tableDotacion.DataTable({
     ajax: {
       url: "controller/datosListadoDotacion.php",
-      type: 'POST'
+      type: 'POST',
+      data: { codigoCC },
+      /*dataSrc: function (json) {
+        return json.data;
+      },*/
     },
     columns: [
       { data: 'id' },
@@ -3358,6 +3362,7 @@ async function listDotacion() {
       $('#footer').show();
       setTimeout(function() {
         tableDotacion.DataTable().columns.adjust();
+        loading(false);
       },500);
     }
   });
@@ -3370,14 +3375,22 @@ async function listDotacionLugares() {
     dataType: 'json',
     success: function (response) {
       var data = response.aaData;
-      var html = "<option selected value='Todos'>Todos</option>";
+      var html = "<option selected value='select'>Seleccione</option>";
       data.forEach((item) => {
-        html += `<option value="${item.id}">${item.code} - ${item.title}</option>`;
+        html += `<option value="${item.code}">${item.code} - ${item.title}</option>`;
       });
       $('#selectListaLugares').html(html);
     },
   })
 }
+
+$('#selectListaLugares').on('change', function (e) {
+  e.stopImmediatePropagation();
+  var codigoCC = $('#selectListaLugares').val();
+  if (codigoCC != 'select') {
+    listDotacion(codigoCC);
+  }
+})
 
 $('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child)', function (e) {
   editorDotacion.inline(this);
@@ -3391,6 +3404,7 @@ editorDotacion.on('preSubmit', function (e, o, action) {
 });
 
 $("#saveDotacion").on('click', async (e) => {
+  e.stopImmediatePropagation();
   e.preventDefault();
   var keys = Object.keys(dotacionListUpdated);
   var data = [];
