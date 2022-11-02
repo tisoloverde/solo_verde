@@ -765,10 +765,10 @@ app.controller("dotacionController", function(){
       } else {
         setTimeout(async function() {
           await listDotacionLugares();
-          // await listDotacion();
+          loading(false);
+          await listDotacion('null');
           esconderMenu();
           menuElegant();
-          loading(false);
         }, 200);
       }
     }
