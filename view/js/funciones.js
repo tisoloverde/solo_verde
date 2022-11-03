@@ -3384,12 +3384,19 @@ async function listDotacionLugares() {
   })
 }
 
+function getCodigoYNombreCC() {
+  var id = $('#selectListaLugares').val();
+  var opt = $('#selectListaLugares option:selected').text();
+  var aux = opt.split(" - ");
+  return [id, aux[aux.length - 1]];
+}
+
 $('#selectListaLugares').on('change', function (e) {
   e.stopImmediatePropagation();
   var codigoCC = $('#selectListaLugares').val();
   if (codigoCC != 'select') {
     $("#newDotacion").removeAttr("disabled");
-    $("#saveDotacion").removeAttr("disabled");
+    // $("#saveDotacion").removeAttr("disabled");
     listDotacion(codigoCC);
   }
 })
@@ -3402,6 +3409,8 @@ editorDotacion.on('preSubmit', function (e, o, action) {
   if (o.action == 'edit') {
     var [[k, v]] = Object.entries(o.data);
     dotacionListUpdated[k] = v;
+
+    $("#saveDotacion").removeAttr("disabled");
   }
 });
 
@@ -3409,27 +3418,41 @@ $("#saveDotacion").on('click', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
   var keys = Object.keys(dotacionListUpdated);
-  var data = [];
+  var dataUpd = [];
+  var dataAdd = [];
   keys.forEach((key) => {
-    var json = { id: key, ...dotacionListUpdated[key] }
-    data.push(json);
+    var json = dotacionListUpdated[key];
+    if (key.includes('*')) {
+      var aux = getCodigoYNombreCC();
+      json.codigoCC = aux[0];
+      json.nombreCC = aux[1];
+      dataAdd.push(json);
+    } else {
+      json.id = key;
+      dataUpd.push(json);
+    }
   });
+
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoDotacion.php',
     type:  'post',
-    data:  { data },
+    data:  { dataAdd, dataUpd },
     success:  function (response) {
-      loading(false);
+      // loading(false);
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Dotación actualizada correctamente");
     }
   })
+
+  await listDotacion($('#selectListaLugares').val());
+
+  loading(false);
 })
 
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
   tableDotacion.DataTable().row.add({
-    id: `${tableDotacion.DataTable().data().count() + 1}`,
+    id: `${tableDotacion.DataTable().data().count() + 1}*`,
     personalOfertado: ' ',
     cargoMandante: '',
     cargoGenericoUnificado: '',
