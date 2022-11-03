@@ -3388,6 +3388,8 @@ $('#selectListaLugares').on('change', function (e) {
   e.stopImmediatePropagation();
   var codigoCC = $('#selectListaLugares').val();
   if (codigoCC != 'select') {
+    $("#newDotacion").removeAttr("disabled");
+    $("#saveDotacion").removeAttr("disabled");
     listDotacion(codigoCC);
   }
 })
@@ -3423,3 +3425,29 @@ $("#saveDotacion").on('click', async (e) => {
     }
   })
 })
+
+$('#newDotacion').on('click', function (e) {
+  e.stopImmediatePropagation();
+  tableDotacion.DataTable().row.add({
+    id: `${tableDotacion.DataTable().data().count() + 1}`,
+    personalOfertado: ' ',
+    cargoMandante: '',
+    cargoGenericoUnificado: '',
+    familia: '',
+    jeasGeas: '',
+    ref1: '',
+    ref2: '',
+    ene22: '',
+    feb22: '',
+    mar22: '',
+    abr22: '',
+    may22: '',
+    jun22: '',
+    jul22: '',
+    ago22: '',
+    set22: '',
+    oct22: '',
+    nov22: '',
+    dic22: '',
+  }).draw(true);
+});
