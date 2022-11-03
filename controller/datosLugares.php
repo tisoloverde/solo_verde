@@ -3,6 +3,8 @@ require('../model/consultas.php');
 session_start();
 
 if (count($_POST) >= 0) {
+  $last_id_dotacion = consultaLastIDDotacion();
+
   $row = [
     [ "id" => 1, "code" => "173", "title" => "AV. VALDIVIA BARRIDO" ],
     [ "id" => 2, "code" => "173-1", "title" => "AV. VALDIVIA BARRIDO 2" ],
@@ -18,6 +20,7 @@ if (count($_POST) >= 0) {
       "sEcho" => 1,
       "iTotalRecords" => count($row),
       "iTotalDisplayRecords" => count($row),
+      "idLastDotacion" => $last_id_dotacion[0]['LAST_ID'],
       "aaData" => $row,
     ];
     echo json_encode($results);

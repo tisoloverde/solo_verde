@@ -3259,6 +3259,7 @@ function restricted() {
   }, 1500);
 }
 
+var lastIdDotacionToUse = 0;
 var dotacionListUpdated = {};
 var tableDotacion = $("#tablaListadoDotacion");
 var editorDotacion = new $.fn.dataTable.Editor({
@@ -3374,6 +3375,8 @@ async function listDotacionLugares() {
     type: 'get',
     dataType: 'json',
     success: function (response) {
+      lastIdDotacionToUse = Number(response.idLastDotacion);
+
       var data = response.aaData;
       var html = "<option selected value='select' disabled>Seleccione</option>";
       data.forEach((item) => {
@@ -3451,8 +3454,9 @@ $("#saveDotacion").on('click', async (e) => {
 
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
+  lastIdDotacionToUse++;
   tableDotacion.DataTable().row.add({
-    id: `${tableDotacion.DataTable().data().count() + 1}*`,
+    id: `${lastIdDotacionToUse}*`,
     personalOfertado: ' ',
     cargoMandante: '',
     cargoGenericoUnificado: '',

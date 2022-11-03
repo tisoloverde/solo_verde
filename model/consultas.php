@@ -19311,6 +19311,24 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaLastIDDotacion() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT MAX(id) AS LAST_ID FROM DOTACION";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaListadoDotacion($codigoCC) {
 		$con = conectar();
 		if ($con != 'No conectado') {
