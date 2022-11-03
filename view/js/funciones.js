@@ -3340,7 +3340,7 @@ async function listDotacion(codigoCC) {
     lengthMenu: [[largo], [largo]],
     dom: 'Bfrtip',
     language: {
-      zeroRecords: "No hay datos disponibles",
+      zeroRecords: "Seleccionar centro de costo",
       info: "Registro _START_ de _END_ de _TOTAL_",
       infoEmpty: "No hay datos disponibles",
       paginate: {
@@ -3375,7 +3375,7 @@ async function listDotacionLugares() {
     dataType: 'json',
     success: function (response) {
       var data = response.aaData;
-      var html = "<option selected value='select'>Seleccione</option>";
+      var html = "<option selected value='select' disabled>Seleccione</option>";
       data.forEach((item) => {
         html += `<option value="${item.code}">${item.code} - ${item.title}</option>`;
       });

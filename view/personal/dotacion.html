@@ -1,7 +1,12 @@
-<div id="dotacion" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 20pt; padding-right: 20pt;">
-  <h1>Dotacion</h1>
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+      <span style="color: gray; margin-left: 10pt; margin-top: 20pt;" class="fas fa-user-friends">&nbsp;&nbsp;Dotaci&oacute;n</span>
+    </font>
+  </div>
   
   <div style="margin-bottom: 20pt; text-align: lefT;" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <label>Centro de Costo</label>
     <select id="selectListaLugares" class="form-control">
     </select>
   </div>
@@ -37,8 +42,13 @@
     </table>
   </div>
 
-  <div id="accionesDotacion" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
-    <button id="saveDotacion" class="btn btn-primary">Guardar</button>
+  <div id="accionesDotacion" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;">
+      <button id="saveDotacion" class="form-control btn btn-secondary botonComun">
+        <span class="fas fa-save"></span>
+        Grabar
+      </button>
+    </div>
   </div>
 </div>
 <script>
