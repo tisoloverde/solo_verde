@@ -7,37 +7,37 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idload=9"
+        templateUrl : "view/home/login.html?idload=10"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=9"
+        templateUrl : "view/home/home.html?idload=10"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=9"
+        templateUrl : "view/home/home.html?idload=10"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idload=9"
+        templateUrl : "view/home/changePass.html?idload=10"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idload=9"
+        templateUrl : "view/usuario/usuarios.html?idload=10"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idload=9"
+        templateUrl : "view/usuario/perfiles.html?idload=10"
     })
     .when("/dotacion", {
         controller: "dotacionController",
         controllerAs: "vm",
-        templateUrl : "view/personal/dotacion.html?idload=9"
+        templateUrl : "view/personal/dotacion.html?idload=10"
     })
     .otherwise({redirectTo: '/home'});
 
@@ -568,7 +568,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idload=9';
+                      js.src = 'view/js/funciones.js?idload=10';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
