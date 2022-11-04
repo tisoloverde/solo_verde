@@ -3380,7 +3380,7 @@ async function listDotacionLugares() {
       var data = response.aaData;
       var html = "<option selected value='select' disabled>Seleccione</option>";
       data.forEach((item) => {
-        html += `<option value="${item.code}">${item.code} - ${item.title}</option>`;
+        html += `<option value="${item.codigo}">${item.codigo} - ${item.nombre}</option>`;
       });
       $('#selectListaLugares').html(html);
     },
