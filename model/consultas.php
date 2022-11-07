@@ -19311,10 +19311,28 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaPersonalOfertados() {
+	function consultaListaCentrosDeCosto() {
 		$con = conectar();
 		if ($con != 'No conectado') {
 			$sql = "SELECT id, codigo, nombre FROM CENTROS_DE_COSTO";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaPersonalOfertados() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT id, codigo, nombre FROM PERSONAL_OFERTADOS";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
