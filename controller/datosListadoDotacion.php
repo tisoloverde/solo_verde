@@ -8,7 +8,7 @@ if (count($_POST) >= 0) {
 
   if (is_array($row)) {
     for ($i=0; $i < count($row); $i++) {
-      $select = "<select id='dotacion-select-" . $i . "' class='dotacion-select'>";
+      $select = "<select id='dotacion-select-" . $row[$i]['id'] . "' class='dotacion-select'>";
       foreach ($pofs as $pof) {
         $code = $pof['codigo'];
         $name = $pof['nombre'];

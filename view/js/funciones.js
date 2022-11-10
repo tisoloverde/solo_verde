@@ -3418,15 +3418,10 @@ function dotacionGetId(strid) {
 $(document).on('change', '.dotacion-select', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
-  var listIds = dotacionData.map((item) => item.id);
-  var idDotacion = listIds[dotacionGetId(this.id)];
+  var idDotacion = dotacionGetId(this.id);
   var dotacionValue = this.value;
   var dotacionText = $(`#${this.id} option:selected`).text();
-  console.log(idDotacion)
-  console.log(dotacionValue)
-  console.log(dotacionText)
-
-  dotacionSelects[`${idDotacion}`] = { personalOfertado: dotacionText };
+  dotacionSelects[`${idDotacion}`] = { idPersonalOfertado: dotacionValue, personalOfertado: dotacionText };
 
   $("#saveDotacion").removeAttr("disabled");
 });
@@ -3444,10 +3439,12 @@ editorDotacion.on('preSubmit', function (e, o, action) {
   }
 });
 
-/*editorDotacion.on('postEdit', function (e, o, action) {
-  console.log('---event---')
-  $("#dotacion-select-10").val('6');
-});*/
+editorDotacion.on('postEdit', function (e, o, action) {
+  var index = dotacionData.findIndex((item) => Number(item.id) === Number(action.id))
+  if (index >= 0) {
+    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id].idPersonalOfertado);
+  }
+});
 
 $("#saveDotacion").on('click', async (e) => {
   e.stopImmediatePropagation();
