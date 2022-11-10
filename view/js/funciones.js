@@ -3264,6 +3264,7 @@ var dotacionData = [];
 var dotacionSelects = {};
 var dotacionListUpdated = {};
 var tableDotacion = $("#tablaListadoDotacion");
+var comunesDotacion = {};
 var editorDotacion = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoDotacion",
@@ -3370,6 +3371,17 @@ async function listDotacion(codigoCC) {
       },500);
     }
   });
+}
+
+async function listComunesDotacion() {
+  $.ajax({
+    url: 'controller/datosComunesDotacion.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      comunesDotacion = response.aaData;
+    },
+  })
 }
 
 async function listDotacionLugares() {
@@ -3489,12 +3501,23 @@ $("#saveDotacion").on('click', async (e) => {
   loading(false);
 })
 
+function modelarSelectDotacion(id, items) {
+  var select = "<select id='dotacion-select-" + id + "' class='dotacion-select'>";
+  items.forEach((item) => {
+    var code = item['codigo'];
+    var name = item['nombre'];
+    select += `<option value='${code}'>${name}</option>`;
+  })
+  select += "</select>";
+  return select;
+}
+
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
   lastIdDotacionToUse++;
   tableDotacion.DataTable().row.add({
     id: `${lastIdDotacionToUse}*`,
-    personalOfertado: ' ',
+    personalOfertado: modelarSelectDotacion(lastIdDotacionToUse, comunesDotacion.personalOfertado),
     cargoMandante: '',
     cargoGenericoUnificado: '',
     familia: '',

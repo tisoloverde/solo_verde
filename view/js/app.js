@@ -765,6 +765,7 @@ app.controller("dotacionController", function(){
       } else {
         setTimeout(async function() {
           await listDotacionLugares();
+          await listComunesDotacion();
           loading(false);
           await listDotacion('null');
           esconderMenu();
