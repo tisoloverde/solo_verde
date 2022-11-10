@@ -5,7 +5,7 @@ session_start();
 if (count($_POST) >= 0) {
   $last_id_dotacion = consultaLastIDDotacion();
 
-  $row = consultaListaPersonalOfertados();
+  $row = consultaListaCentrosDeCosto();
 
   if (is_array($row)) {
     $results = [

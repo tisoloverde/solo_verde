@@ -3260,14 +3260,17 @@ function restricted() {
 }
 
 var lastIdDotacionToUse = 0;
+var dotacionData = [];
+var dotacionSelects = {};
 var dotacionListUpdated = {};
 var tableDotacion = $("#tablaListadoDotacion");
+var comunesDotacion = {};
 var editorDotacion = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoDotacion",
   idSrc: 'id',
   fields: [
-    { label: 'personalOfertado', name: 'personalOfertado' },
+    { label: 'personalOfertado', name: 'personalOfertado' }, //, type: "select" },
     { label: 'cargoMandante', name: 'cargoMandante' },
     { label: 'cargoGenericoUnificado', name: 'cargoGenericoUnificado' },
     { label: 'familia', name: 'familia' },
@@ -3304,7 +3307,7 @@ async function listDotacion(codigoCC) {
     },
     columns: [
       { data: 'id' },
-      { data: 'personalOfertado'},
+      { data: 'personalOfertado' }, // editField: 'personalOfertado' },
       { data: 'cargoMandante' },
       { data: 'cargoGenericoUnificado' },
       { data: 'familia' },
@@ -3362,11 +3365,23 @@ async function listDotacion(codigoCC) {
       $('#footer').parent().show();
       $('#footer').show();
       setTimeout(function() {
+        dotacionData = json.aaData;
         tableDotacion.DataTable().columns.adjust();
         loading(false);
       },500);
     }
   });
+}
+
+async function listComunesDotacion() {
+  $.ajax({
+    url: 'controller/datosComunesDotacion.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      comunesDotacion = response.aaData;
+    },
+  })
 }
 
 async function listDotacionLugares() {
@@ -3404,7 +3419,26 @@ $('#selectListaLugares').on('change', function (e) {
   }
 })
 
-$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child)', function (e) {
+function dotacionGetId(strid) {
+  var splitted = strid.split('-');
+  if (splitted.length > 2) {
+    return Number(splitted[2]);
+  }
+  return 0;
+}
+
+$(document).on('change', '.dotacion-select', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  var idDotacion = dotacionGetId(this.id);
+  var dotacionValue = this.value;
+  var dotacionText = $(`#${this.id} option:selected`).text();
+  dotacionSelects[`${idDotacion}`] = { idPersonalOfertado: dotacionValue, personalOfertado: dotacionText };
+
+  $("#saveDotacion").removeAttr("disabled");
+});
+
+$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child, :nth-child(2))', function (e) {
   editorDotacion.inline(this);
 });
 
@@ -3417,10 +3451,25 @@ editorDotacion.on('preSubmit', function (e, o, action) {
   }
 });
 
+editorDotacion.on('postEdit', function (e, o, action) {
+  var index = dotacionData.findIndex((item) => `${item.id}` === `${action.id}`)
+  if (index >= 0) {
+    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id].idPersonalOfertado);
+  }
+});
+
 $("#saveDotacion").on('click', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
   var keys = Object.keys(dotacionListUpdated);
+
+  keys.forEach((key) => {
+    var selectsWithChanges = Object.keys(dotacionSelects);
+    if (selectsWithChanges.includes(key)) {
+      dotacionListUpdated[key].personalOfertado = dotacionSelects[key].personalOfertado;
+    }
+  })
+
   var dataUpd = [];
   var dataAdd = [];
   keys.forEach((key) => {
@@ -3452,12 +3501,24 @@ $("#saveDotacion").on('click', async (e) => {
   loading(false);
 })
 
+function modelarSelectDotacion(id, items) {
+  var select = "<select id='dotacion-select-" + id + "' class='dotacion-select'>";
+  items.forEach((item) => {
+    var code = item['codigo'];
+    var name = item['nombre'];
+    select += `<option value='${code}'>${name}</option>`;
+  })
+  select += "</select>";
+  return select;
+}
+
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
   lastIdDotacionToUse++;
-  tableDotacion.DataTable().row.add({
-    id: `${lastIdDotacionToUse}*`,
-    personalOfertado: ' ',
+  var cId = `${lastIdDotacionToUse}*`;
+  var dt = {
+    id: cId,
+    personalOfertado: modelarSelectDotacion(cId, comunesDotacion.personalOfertado),
     cargoMandante: '',
     cargoGenericoUnificado: '',
     familia: '',
@@ -3476,5 +3537,8 @@ $('#newDotacion').on('click', function (e) {
     oct22: '',
     nov22: '',
     dic22: '',
-  }).draw(true);
+  };
+
+  dotacionData.push(dt);
+  tableDotacion.DataTable().row.add(dt).draw(true);
 });
