@@ -3452,7 +3452,7 @@ editorDotacion.on('preSubmit', function (e, o, action) {
 });
 
 editorDotacion.on('postEdit', function (e, o, action) {
-  var index = dotacionData.findIndex((item) => Number(item.id) === Number(action.id))
+  var index = dotacionData.findIndex((item) => `${item.id}` === `${action.id}`)
   if (index >= 0) {
     $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id].idPersonalOfertado);
   }
@@ -3515,9 +3515,10 @@ function modelarSelectDotacion(id, items) {
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
   lastIdDotacionToUse++;
-  tableDotacion.DataTable().row.add({
-    id: `${lastIdDotacionToUse}*`,
-    personalOfertado: modelarSelectDotacion(lastIdDotacionToUse, comunesDotacion.personalOfertado),
+  var cId = `${lastIdDotacionToUse}*`;
+  var dt = {
+    id: cId,
+    personalOfertado: modelarSelectDotacion(cId, comunesDotacion.personalOfertado),
     cargoMandante: '',
     cargoGenericoUnificado: '',
     familia: '',
@@ -3536,5 +3537,8 @@ $('#newDotacion').on('click', function (e) {
     oct22: '',
     nov22: '',
     dic22: '',
-  }).draw(true);
+  };
+
+  dotacionData.push(dt);
+  tableDotacion.DataTable().row.add(dt).draw(true);
 });
