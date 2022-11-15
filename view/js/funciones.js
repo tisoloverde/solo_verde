@@ -3542,3 +3542,1633 @@ $('#newDotacion').on('click', function (e) {
   dotacionData.push(dt);
   tableDotacion.DataTable().row.add(dt).draw(true);
 });
+
+$("#agregarSubcontratista").unbind("click").click(async function(){
+  $("#modalIngresoSubcontratista").find("input,textarea,select").val("");
+  $("#rutIngresoSubcontratista").removeClass("is-invalid");
+  $("#nombreIngresoSubcontratista").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+
+  setTimeout(function(){
+    $("#modalIngresoSubcontratista").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#modalIngresoSubcontratista').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("input#rutIngresoSubcontratista").rut({
+  formatOn: 'blur',
+  minimumLength: 8,
+  validateOn: 'change'
+}).on('rutInvalido', function(e) {
+  if($("#rutIngresoSubcontratista").val() !== ''){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El RUT ingresado no es válido");
+    $("#rutIngresoSubcontratista").val("");
+    $("#rutIngresoSubcontratista").addClass("is-invalid");
+  }
+});
+
+$("#guardarIngresoSubcontratista").unbind('click').click(function(){
+  if($("#rutIngresoSubcontratista").val().length == 0 || $("#nombreIngresoSubcontratista").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#rutIngresoSubcontratista").val().length == 0){
+      $("#rutIngresoSubcontratista").addClass("is-invalid");
+    }
+    else if ($("#nombreIngresoSubcontratista").val().length == 0){
+      $("#nombreIngresoSubcontratista").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalIngresoSubcontratista").modal("hide");
+    var interno = 0;
+    if($("#esSubcontratoIngresoSubcontratista").prop("checked") === true){
+      interno = 0;
+    }
+    else{
+      interno  = 1;
+    }
+    parametros = {
+      "rutIngreso":   $.trim($("#rutIngresoSubcontratista").val().replace('.','').replace('.','')),
+      "nombre":  $("#nombreIngresoSubcontratista").val(),
+      "interno": interno
+    }
+    //console.log(parametros);
+    $.ajax({
+      url:   'controller/datosChequeaSubcontratista.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El rut de la empresa ya existe");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalIngresoSubcontratista").modal("show");
+            },500);
+          }
+        }
+        else {
+          $.ajax({
+            url: "controller/ingresaSubcontratista.php",
+            type: 'POST',
+            data: parametros,
+            success:  function (response) {
+              var p = response.split(",");
+              if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaSubcontratista').DataTable();
+                  //table.rows('.selected').remove().draw();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Empresa creada correctamente");
+                  $("#editarSubcontratista").attr("disabled","disabled");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear la empresa, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear la empresa, si el problema persiste favor comuniquese con soporte");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#nombreIngresoSubcontratista").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarSubcontratista").unbind('click').click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaSubcontratista').DataTable();
+  var rutSubcontratista = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT;
+  });
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE_SUBCONTRATO;
+  });
+  var estado = $.map(table.rows('.selected').data(), function (item) {
+      return item.ESTADO;
+  });
+  var tipo = $.map(table.rows('.selected').data(), function (item) {
+      return item.TIPO;
+  });
+  $("#rutEditarSubcontratista").val(rutSubcontratista);
+  $("#nombreEditarSubcontratista").val(nombre);
+  $("#estadoEditarSubcontratista").val(estado);
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#estadoEditarSubcontratista").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  if(tipo[0] == 'Subcontratista'){
+    $("#esSubcontratoEditarSubcontratista").prop("checked",true);
+  }
+  else{
+    $("#esSubcontratoEditarSubcontratista").prop("checked",false);
+  }
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $('#modalEditarSubcontratista').modal('show');
+  },500);
+});
+
+$("#guardarEditarSubcontratista").unbind('click').click(async function(){
+  $("#modalEditarSubcontratista").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  var interno = 0;
+  if($("#esSubcontratoEditarSubcontratista").prop("checked") == true){
+    interno = 0;
+  }
+  else{
+    interno = 1;
+  }
+  parametros = {
+    "rutEditar":   $("#rutEditarSubcontratista").val(),
+    "nombre":  $("#nombreEditarSubcontratista").val(),
+    "estado": $("#estadoEditarSubcontratista").val(),
+    "interno": interno
+  }
+  //console.log(parametros);
+  await $.ajax({
+    url: "controller/editarSubcontratista.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaSubcontratista').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Subcontratista editado correctamente");
+          $("#editarSubcontratista").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar subcontratista, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar al subcontratista, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#crearGerencia").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+
+  $("#gerenciaCrearGerenciaControlling").val("");
+  $("#subGerenciaCrearGerenciaControlling").val("");
+  $("#gerenciaCrearGerenciaControlling").removeClass("is-invalid");
+  $("#subGerenciaCrearGerenciaControlling").removeClass("is-invalid");
+
+  await $.ajax({
+    url:   'controller/datosPersonalParaAsignar.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      var cuerpoGer = '<option selected value="0">Sin seleccionar</option>';
+      var cuerpoSubGer = '<option selected value="0">Sin seleccionar</option>';
+      for(var i = 0; i < p.aaData.length; i++){
+        cuerpoGer += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        cuerpoSubGer += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+      }
+      $("#gerenteCrearGerenciaControlling").html(cuerpoGer);
+      $("#subgerenteCrearGerenciaControlling").html(cuerpoSubGer);
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#gerenteCrearGerenciaControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#subgerenteCrearGerenciaControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalCrearGerenciaControlling").modal("show");
+  },2000);
+});
+
+$("#editarGerencia").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaGerencia').DataTable();
+  var idGerencia = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDGERENCIA;
+  });
+  var idGerente = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDGERENTE;
+  });
+  var idSubgerente = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDSUBGERENTE;
+  });
+  var gerencia = $.map(table.rows('.selected').data(), function (item) {
+      return item.GERENCIA;
+  });
+  var subGerencia = $.map(table.rows('.selected').data(), function (item) {
+      return item.SUBGERENCIA;
+  });
+  var estado = $.map(table.rows('.selected').data(), function (item) {
+      return item.ESTADO;
+  });
+
+  $("#tituloEditarGerenciaControlling").html("<br>Identificador de gerencia: " + idGerencia);
+  $("#idEditarGerenciaControlling").val(idGerencia);
+  $("#gerenciaEditarGerenciaControlling").val(gerencia);
+  $("#subGgerenciaEditarGerenciaControlling").val(subGerencia);
+
+  await $.ajax({
+    url:   'controller/datosPersonalParaAsignar.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      var cuerpoGer = '<option selected value="0">Sin seleccionar</option>';
+      var cuerpoSubGer = '<option selected value="0">Sin seleccionar</option>';
+      for(var i = 0; i < p.aaData.length; i++){
+        if(idGerente[0] === p.aaData[i].IDPERSONAL){
+          cuerpoGer += '<option selected value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+        else{
+          cuerpoGer += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+        if(idSubgerente[0] === p.aaData[i].IDPERSONAL){
+          cuerpoSubGer += '<option selected value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+        else{
+          cuerpoSubGer += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+      }
+      $("#gerenteEditarGerenciaControlling").html(cuerpoGer);
+      $("#subgerenteEditarGerenciaControlling").html(cuerpoSubGer);
+    }
+  });
+
+  $("#estadoEditarGerenciaControlling").val(estado);
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#gerenteEditarGerenciaControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#subgerenteEditarGerenciaControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#estadoEditarGerenciaControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalEditarGerenciaControlling").modal("show");
+  },2000);
+});
+
+$("#guardarCrearGerenciaControlling").unbind("click").click(async function(){
+  if($("#gerenciaCrearGerenciaControlling").val() === "" || $("#subGerenciaCrearGerenciaControlling").val() === ""){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Debe ingresar la gerencia y subgerencia");
+    $("#gerenciaCrearGerenciaControlling").addClass("is-invalid");
+    $("#subGerenciaCrearGerenciaControlling").addClass("is-invalid");
+  }
+  else{
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalCrearGerenciaControlling").modal("hide");
+
+    var gerencia = $("#gerenciaCrearGerenciaControlling").val();
+    var subGerencia = $("#subGerenciaCrearGerenciaControlling").val();
+    var idGerente = $("#gerenteCrearGerenciaControlling").val();
+    var idSubgerente = $("#subgerenteCrearGerenciaControlling").val();
+
+    var parametros = {
+      "gerencia": gerencia,
+      "subGerencia": subGerencia,
+      "idGerente": idGerente,
+      "idSubgerente": idSubgerente
+    }
+
+    await $.ajax({
+      url:   'controller/datosGerenciaSubgerencia.php',
+      type:  'post',
+      data: parametros,
+      success: function (response) {
+        var p = jQuery.parseJSON(response);
+        if(p.aaData[0].CANTIDAD === '0'){
+          $.ajax({
+              url: "controller/ingresarGerenciaSubgerencia.php",
+              type: 'POST',
+              data: parametros,
+              success:  function (response) {
+                  var p = response.split(",");
+                  if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                      if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                          var table = $('#tablaGerencia').DataTable();
+                          table.ajax.reload();
+                          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Gerencia ingresada correctamente");
+                          setTimeout(function(){
+                            $('#modalAlertasSplash').modal('hide');
+                          },500);
+                      }
+                      else{
+                          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar la gerencia");
+                          setTimeout(function(){
+                            $('#modalAlertasSplash').modal('hide');
+                          },500);
+                      }
+                  }else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el estado");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+              }
+          });
+        }
+        else{
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>La gerencia ingresada ya existe");
+          setTimeout(function(){
+            $("#modalCrearGerenciaControlling").modal("show");
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#guardarEditarGerenciaControlling").unbind("click").click(function(){
+  if($("#gerenciaEditarGerenciaControlling").val() === "" || $("#subGgerenciaEditarGerenciaControlling").val() === ""){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Debe ingresar la gerencia y subgerencia");
+    $("#gerenciaEditarGerenciaControlling").addClass("is-invalid");
+    $("#subGgerenciaEditarGerenciaControlling").addClass("is-invalid");
+  }
+  else{
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalEditarGerenciaControlling").modal("hide");
+
+    var gerencia = $("#gerenciaEditarGerenciaControlling").val();
+    var subGerencia = $("#subGgerenciaEditarGerenciaControlling").val();
+    var idGerente = $("#gerenteEditarGerenciaControlling").val();
+    var idSubgerente = $("#subgerenteEditarGerenciaControlling").val();
+    var idGerencia = $("#idEditarGerenciaControlling").val();
+    var estado = $("#estadoEditarGerenciaControlling").val();
+
+    var parametros = {
+      "gerencia": gerencia,
+      "subGerencia": subGerencia,
+      "idGerente": idGerente,
+      "idSubgerente": idSubgerente,
+      "idGerencia": idGerencia,
+      "estado": estado
+    }
+
+    $.ajax({
+        url: "controller/actualizaGerenciaSubgerencia.php",
+        type: 'POST',
+        data: parametros,
+        success:  function (response) {
+            var p = response.split(",");
+            if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaGerencia').DataTable();
+                    table.ajax.reload();
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Gerencia actualizada correctamente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+                else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar la gerencia");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+            }else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar la gerencia");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            }
+        }
+    });
+  }
+});
+
+$("#asignarGerenteSub").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  var table = $('#tablaGerencia').DataTable();
+  var idGerencia = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDGERENCIA;
+  });
+
+  var gerencias = "";
+  var gerenciasBD = "";
+
+  for(var i = 0; i < idGerencia.length; i++){
+    if(i == idGerencia.length - 1){
+      gerencias = gerencias + idGerencia[i];
+    }
+    else{
+      gerencias = gerencias + idGerencia[i] + ",";
+    }
+  }
+
+  for(var i = 0; i < idGerencia.length; i++){
+    if(i == idGerencia.length - 1){
+      gerenciasBD = gerenciasBD + "'" + idGerencia[i] + "'";
+    }
+    else{
+      gerenciasBD = gerenciasBD + "'" + idGerencia[i] + "',";
+    }
+  }
+
+  $("#idAsignarGerenteControlling").val(gerenciasBD);
+  $("#tituloAsignarGerenteControlling").html("<br>Identificador de gerencias a asignar: " + gerencias);
+
+  await $.ajax({
+    url:   'controller/datosPersonalParaAsignar.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      var cuerpoGer = '<option selected value="0">Sin seleccionar</option>';
+      var cuerpoSubGer = '<option selected value="0">Sin seleccionar</option>';
+      for(var i = 0; i < p.aaData.length; i++){
+        cuerpoGer += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        cuerpoSubGer += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+      }
+      $("#gerenteAsignarGerenteControlling").html(cuerpoGer);
+      $("#subgerenteAsignarGerenteControlling").html(cuerpoSubGer);
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#gerenteAsignarGerenteControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#subgerenteAsignarGerenteControlling").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalAsignarGerenteControlling").modal("show");
+  },2000);
+});
+
+$("#guardarAsignarGerenteControlling").unbind("click").click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalAsignarGerenteControlling").modal("hide");
+
+  var idGerente = $("#gerenteAsignarGerenteControlling").val();
+  var idSubgerente = $("#subgerenteAsignarGerenteControlling").val();
+  var gerencias = $("#idAsignarGerenteControlling").val();
+
+  var parametros = {
+    "gerencias": gerencias,
+    "idGerente": idGerente,
+    "idSubgerente": idSubgerente
+  }
+
+  $.ajax({
+      url: "controller/actualizaGerenteSubgerenteMasivo.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+          var p = response.split(",");
+          if(response.localeCompare("Sin datos")!= 0 && response != ""){
+              if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaGerencia').DataTable();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Gerencias actualizadas correctamente");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+              }
+              else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar las gerencias");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+              }
+          }else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar las gerencias");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+      }
+  });
+});
+
+$("#crearEstadoProyecto").unbind("click").click(function(){
+  $("#estadoEditarEstadoProyecto").val('');
+  $("#descripcionEditarEstadoProyecto").val('');
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalCrearEstadoProyecto").modal("show");
+  },2000);
+});
+
+$("#editarEstadoProyecto").unbind("click").click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaEstadoProyecto').DataTable();
+  var idEstado = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDESTRUCTURA_OPERACION_ESTADO;
+  });
+  var estado = $.map(table.rows('.selected').data(), function (item) {
+      return item.ESTADO;
+  });
+  var description = $.map(table.rows('.selected').data(), function (item) {
+      return item.DESCRIPCION;
+  });
+
+  $("#tituloEditarEstadoProyecto").html("<br>Identificador de estado: " + idEstado);
+  $("#estadoEditarEstadoProyecto").val(estado);
+  $("#descripcionEditarEstadoProyecto").val(description);
+  $("#idEditarEstadoProyecto").val(idEstado);
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalEditarEstadoProyecto").modal("show");
+  },2000);
+});
+
+$("#guardarCrearEstadoProyecto").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalCrearEstadoProyecto").modal("hide");
+
+  var estado = $("#estadoCrearEstadoProyecto").val();
+  var descripcion = $("#descripcionCrearEstadoProyecto").val();
+
+  var parametros = {
+    "estado": estado,
+    "descripcion": descripcion
+  }
+
+  await $.ajax({
+    url:   'controller/datosEstadoProyectoNombre.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      if(p.aaData[0].CANTIDAD === '0'){
+        $.ajax({
+            url: "controller/ingresarEstadoProyecto.php",
+            type: 'POST',
+            data: parametros,
+            success:  function (response) {
+                var p = response.split(",");
+                if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                    if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                        var table = $('#tablaEstadoProyecto').DataTable();
+                        table.ajax.reload();
+                        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                        alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Estado ingresado correctamente");
+                        setTimeout(function(){
+                          $('#modalAlertasSplash').modal('hide');
+                        },500);
+                    }
+                    else{
+                        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el estado");
+                        setTimeout(function(){
+                          $('#modalAlertasSplash').modal('hide');
+                        },500);
+                    }
+                }else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el estado");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+            }
+        });
+      }
+      else{
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>El estado ingresado ya existe");
+        setTimeout(function(){
+          $("#modalCrearEstadoProyecto").modal("show");
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#guardarEditarEstadoProyecto").unbind("click").click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalEditarEstadoProyecto").modal("hide");
+
+  var estado = $("#estadoEditarEstadoProyecto").val();
+  var descripcion = $("#descripcionEditarEstadoProyecto").val();
+  var idEstado = $("#idEditarEstadoProyecto").val();
+
+  var parametros = {
+    "estado": estado,
+    "descripcion": descripcion,
+    "idEstado": idEstado
+  }
+
+  $.ajax({
+      url: "controller/actualizarEstadoProyecto.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+          var p = response.split(",");
+          if(response.localeCompare("Sin datos")!= 0 && response != ""){
+              if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaEstadoProyecto').DataTable();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Estado actualizado correctamente");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+              }
+              else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar el estado");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+              }
+          }else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar el estado");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+      }
+  });
+});
+
+$("#crearClienteProyecto").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+
+  $("#rutCrearClienteProyecto").val("");
+  $("#clienteCrearClienteProyecto").val("");
+  $("#holdingCrearClienteProyecto").val("");
+  $("#rutCrearClienteProyecto").removeClass("is-invalid");
+  $("#clienteCrearClienteProyecto").removeClass("is-invalid");
+  $("#holdingCrearClienteProyecto").removeClass("is-invalid");
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalCrearClienteProyecto").modal("show");
+  },2000);
+});
+
+$("#rutCrearClienteProyecto").rut({
+  formatOn: 'blur',
+  minimumLength: 8,
+  validateOn: 'change'
+}).on('rutInvalido', function(e) {
+  if($("#rutCrearClienteProyecto").val() !== ''){rutIngOrden
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El RUT ingresado no es válido");
+    $("#rutCrearClienteProyecto").val("");
+    $("#rutCrearClienteProyecto").addClass("is-invalid");
+  }
+});
+
+$("#gerenciaCrearGerenciaControlling").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#subGerenciaCrearGerenciaControlling").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#gerenciaEditarGerenciaControlling").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#subGgerenciaEditarGerenciaControlling").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#rutCrearClienteProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#clienteCrearClienteProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#holdingCrearClienteProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#guardarCrearClienteProyecto").unbind("click").click(async function(){
+  if($("#rutCrearClienteProyecto").val() === "" || $("#clienteCrearClienteProyecto").val() === "" || $("#holdingCrearClienteProyecto").val() === ""){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Debe ingresar rut, cliente y holding");
+    $("#rutCrearClienteProyecto").addClass("is-invalid");
+    $("#clienteCrearClienteProyecto").addClass("is-invalid");
+    $("#holdingCrearClienteProyecto").addClass("is-invalid");
+  }
+  else{
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalCrearClienteProyecto").modal("hide");
+
+    var rut = $("#rutCrearClienteProyecto").val().replace('.','').replace('.','');
+    var cliente = $("#clienteCrearClienteProyecto").val();
+    var holding = $("#holdingCrearClienteProyecto").val();
+
+    var parametros = {
+      "rut": rut,
+      "cliente": cliente,
+      "holding": holding
+    }
+
+    await $.ajax({
+      url:   'controller/datosClienteProyectoRut.php',
+      type:  'post',
+      data: parametros,
+      success: function (response) {
+        var p = jQuery.parseJSON(response);
+        if(p.aaData[0].CANTIDAD === '0'){
+          $.ajax({
+              url: "controller/ingresarClienteProyecto.php",
+              type: 'POST',
+              data: parametros,
+              success:  function (response) {
+                  var p = response.split(",");
+                  if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                      if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                          var table = $('#tablaCliente').DataTable();
+                          table.ajax.reload();
+                          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Cliente ingresado correctamente");
+                          setTimeout(function(){
+                            $('#modalAlertasSplash').modal('hide');
+                          },500);
+                      }
+                      else{
+                          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el cliente");
+                          setTimeout(function(){
+                            $('#modalAlertasSplash').modal('hide');
+                          },500);
+                      }
+                  }else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el cliente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+              }
+          });
+        }
+        else{
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>El cliente ingresado ya existe");
+          setTimeout(function(){
+            $("#modalCrearClienteProyecto").modal("show");
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#editarClienteProyecto").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#modalAlertasSplash").modal("show");
+  $("#rutEditarClienteProyecto").removeClass("is-invalid");
+  $("#clienteEditarClienteProyecto").removeClass("is-invalid");
+  $("#holdingEditarClienteProyecto").removeClass("is-invalid");
+
+  var table = $('#tablaCliente').DataTable();
+  var idCliente = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDCLIENTE;
+  });
+  var rut = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT_CLIENTE;
+  });
+  var cliente = $.map(table.rows('.selected').data(), function (item) {
+      return item.SUB_CLIENTE;
+  });
+  var holding = $.map(table.rows('.selected').data(), function (item) {
+      return item.CLIENTE;
+  });
+
+  $("#rutEditarClienteProyecto").val(rut);
+  $("#clienteEditarClienteProyecto").val(cliente);
+  $("#holdingEditarClienteProyecto").val(holding);
+  $("#tituloEditarClienteProyecto").html("Identificador de cliente: " + idCliente);
+  $("#idEditarClienteProyecto").val(idCliente);
+
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalEditarClienteProyecto").modal("show");
+  },2000);
+});
+
+$("#rutEditarClienteProyecto").rut({
+  formatOn: 'blur',
+  minimumLength: 8,
+  validateOn: 'change'
+}).on('rutInvalido', function(e) {
+  if($("#rutEditarClienteProyecto").val() !== ''){rutIngOrden
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El RUT ingresado no es válido");
+    $("#rutEditarClienteProyecto").val("");
+    $("#rutEditarClienteProyecto").addClass("is-invalid");
+  }
+});
+
+$("#rutEditarClienteProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#clienteEditarClienteProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#holdingEditarClienteProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#guardarEditarClienteProyecto").unbind("click").click(function(){
+  if($("#rutEditarClienteProyecto").val() === "" || $("#clienteEditarClienteProyecto").val() === "" || $("#holdingEditarClienteProyecto").val() === ""){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Debe ingresar rut, cliente y holding");
+    $("#rutEditarClienteProyecto").addClass("is-invalid");
+    $("#clienteEditarClienteProyecto").addClass("is-invalid");
+    $("#holdingEditarClienteProyecto").addClass("is-invalid");
+  }
+  else{
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalEditarClienteProyecto").modal("hide");
+
+    var rut = $("#rutEditarClienteProyecto").val();
+    var cliente = $("#clienteEditarClienteProyecto").val();
+    var holding = $("#holdingEditarClienteProyecto").val();
+    var idCliente = $("#idEditarClienteProyecto").val();
+
+    var parametros = {
+      "rut": rut,
+      "cliente": cliente,
+      "holding": holding,
+      "idCliente": idCliente
+    }
+
+    $.ajax({
+        url: "controller/actualizarClienteProyecto.php",
+        type: 'POST',
+        data: parametros,
+        success:  function (response) {
+            var p = response.split(",");
+            if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaCliente').DataTable();
+                    table.ajax.reload();
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Cliente actualizado correctamente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+                else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar el cliente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+            }else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar el cliente");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            }
+        }
+    });
+  }
+});
+
+$("#agregarProyecto").unbind('click').click(async function(){
+  $("#defProyectoIngresoProyecto").val("");
+  $("#pepIngresoProyecto").val("");
+  $("#crmIngresoProyecto").val("");
+  $("#proyectoIngresoProyecto").val("");
+  $("#denominacionIngresoProyecto").val("");
+  $("#fechaIniContratoIngresoProyecto").val("");
+  $("#fechaFinContratoIngresoProyecto").val("");
+  $("#fechaIniProyectoIngresoProyecto").val("");
+  $("#fechaFinProyectoIngresoProyecto").val("");
+
+  $("#modalEditarPerfil").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+
+  await $.ajax({
+    url:   'controller/datosSubcontratistasVehiculoInterno.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoSub = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+        }
+        $("#sociedadIngresoProyecto").html(cuerpoSub);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosGerenciaProyecto.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoGer = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoGer += '<option value="' + p2.aaData[i].IDGERENCIA + '">' + p2.aaData[i].GERENCIA + ' - ' + p2.aaData[i].SUBGERENCIA +  '</option>';
+        }
+        $("#gerSubIngresoProyecto").html(cuerpoGer);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPersonalParaAsignar.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      var cuerpoController = '';
+      var cuerpoAdmin = '';
+      for(var i = 0; i < p.aaData.length; i++){
+        cuerpoController += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        cuerpoAdmin += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+      }
+      $("#controllerIngresoProyecto").html(cuerpoController);
+      $("#adminContratoIngresoProyecto").html(cuerpoAdmin);
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosClientesProyectos.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoCl = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoCl += '<option value="' + p2.aaData[i].IDCLIENTE + '">' + p2.aaData[i].CLIENTE + ' - ' + p2.aaData[i].SUB_CLIENTE +  '</option>';
+        }
+        $("#clienteSubIngresoProyecto").html(cuerpoCl);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosEstadosProyectos.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEst = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEst += '<option value="' + p2.aaData[i].IDESTADO + '">' + p2.aaData[i].ESTADO + '</option>';
+        }
+        $("#estadoIngresoProyecto").html(cuerpoEst);
+      }
+    }
+  });
+
+  $("#fechaIniContratoIngresoProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaFinContratoIngresoProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaIniProyectoIngresoProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaFinProyectoIngresoProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#estadoIngresoProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#clienteSubIngresoProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#sociedadIngresoProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#gerSubIngresoProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#controllerIngresoProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#adminContratoIngresoProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+  }
+
+  setTimeout(function(){
+    var h = $(window).height() - 200;
+    $("#bodyIngresoProyecto").css("height",h);
+    $("#modalIngresoProyecto").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+  },500);
+});
+
+$("#guardarIngresoProyecto").unbind("click").click(function(){
+  if($("#defProyectoIngresoProyecto").val() === "" || $("#pepIngresoProyecto").val() === "" || $("#proyectoIngresoProyecto").val() === "" || $("#denominacionIngresoProyecto").val() === ""){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Debe ingresar def. Proyecto, PEP, Proyecto y Denominación");
+    $("#defProyectoIngresoProyecto").addClass("is-invalid");
+    $("#pepIngresoProyecto").addClass("is-invalid");
+    $("#proyectoIngresoProyecto").addClass("is-invalid");
+    $("#denominacionIngresoProyecto").addClass("is-invalid");
+  }
+  else{
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalIngresoProyecto").modal("hide");
+
+    var definicion = $("#defProyectoIngresoProyecto").val();
+    var pep = $("#pepIngresoProyecto").val();
+    var crm = $("#crmIngresoProyecto").val();
+    var proyecto = $("#proyectoIngresoProyecto").val();
+    var denominacion = $("#denominacionIngresoProyecto").val();
+    var sociedad = $("#sociedadIngresoProyecto").val();
+    var gerencia = $("#gerSubIngresoProyecto").val();
+    var controller = $("#controllerIngresoProyecto").val();
+    var adminContrato = $("#adminContratoIngresoProyecto").val();
+    var cliente = $("#clienteSubIngresoProyecto").val();
+    var fechaIniContrato = $("#fechaIniContratoIngresoProyecto").val();
+    var fechaFinContrato = $("#fechaFinContratoIngresoProyecto").val();
+    var fechaIniProyecto = $("#fechaIniProyectoIngresoProyecto").val();
+    var fechaFinProyecto = $("#fechaFinProyectoIngresoProyecto").val();
+    var estado = $("#estadoIngresoProyecto").val();
+
+    var parametros = {
+      "definicion": definicion,
+      "pep": pep,
+      "crm": crm,
+      "proyecto": proyecto,
+      "denominacion": denominacion,
+      "sociedad": sociedad,
+      "gerencia": gerencia,
+      "controller": controller,
+      "adminContrato": adminContrato,
+      "cliente": cliente,
+      "fechaIniContrato": fechaIniContrato,
+      "fechaFinContrato": fechaFinContrato,
+      "fechaIniProyecto": fechaIniProyecto,
+      "fechaFinProyecto": fechaFinProyecto,
+      "estado": estado
+    }
+
+    $.ajax({
+        url: "controller/ingresarProyectoControlling.php",
+        type: 'POST',
+        data: parametros,
+        success:  function (response) {
+            var p = response.split(",");
+            if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaListadoProyecto').DataTable();
+                    table.ajax.reload();
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Proyecto ingresado correctamente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+                else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el proyecto");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+            }else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar el proyecto");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            }
+        }
+    });
+  }
+});
+
+$("#defProyectoIngresoProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#pepIngresoProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#proyectoIngresoProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#denominacionIngresoProyecto").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarProyecto").unbind('click').click(async function(){
+  $("#defProyectoIngresoProyecto").val("");
+  $("#pepEditarProyecto").val("");
+  $("#crmEditarProyecto").val("");
+  $("#proyectoEditarProyecto").val("");
+  $("#denominacionEditarProyecto").val("");
+  $("#fechaIniContratoEditarProyecto").val("");
+  $("#fechaFinContratoEditarProyecto").val("");
+  $("#fechaIniProyectoEditarProyecto").val("");
+  $("#fechaFinProyectoEditarProyecto").val("");
+
+  $("#modalEditarPerfil").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+
+  var table = $('#tablaListadoProyecto').DataTable();
+  var folio = $.map(table.rows('.selected').data(), function (item) {
+      return item.FOLIO;
+  });
+  var definicion = $.map(table.rows('.selected').data(), function (item) {
+      return item.PEP_PADRE;
+  });
+  var pep = $.map(table.rows('.selected').data(), function (item) {
+      return item.PEP;
+  });
+  var crm = $.map(table.rows('.selected').data(), function (item) {
+      return item.COD_CRM;
+  });
+  var proyecto = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE_PADRE;
+  });
+  var denominacion = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE;
+  });
+  var idSociedad = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDSOCIEDAD;
+  });
+  var idSubgerencia = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDSUBGERENCIA;
+  });
+  var idController = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDCONTROLLER;
+  });
+  var idAdmin = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDADMINCONTRATO;
+  });
+  var idCliente = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDCLIENTE;
+  });
+  var idEstado = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDESTADO;
+  });
+  var f_ini_contrato = $.map(table.rows('.selected').data(), function (item) {
+      return item.FECHA_INICIO_CONTRATO;
+  });
+  var f_fin_contrato = $.map(table.rows('.selected').data(), function (item) {
+      return item.FECHA_FIN_CONTRATO;
+  });
+  var f_ini_ope = $.map(table.rows('.selected').data(), function (item) {
+      return item.FECHA_INICIO_OPERACION;
+  });
+  var f_fin_ope = $.map(table.rows('.selected').data(), function (item) {
+      return item.FECHA_FIN_OPERACION;
+  });
+
+  $("#tituloEditarProyecto").html("<br>Identificador de proyecto: " + folio);
+  $("#idEditarProyecto").val(folio);
+
+  $("#defProyectoEditarProyecto").val(definicion);
+  $("#pepEditarProyecto").val(pep);
+  $("#crmEditarProyecto").val(crm);
+  $("#proyectoEditarProyecto").val(proyecto);
+  $("#denominacionEditarProyecto").val(denominacion);
+
+  await $.ajax({
+    url:   'controller/datosSubcontratistasVehiculoInterno.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoSub = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(idSociedad[0] == p2.aaData[i].IDSUBCONTRATO){
+              cuerpoSub += '<option selected value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+          }
+          else{
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+          }
+        }
+        $("#sociedadEditarProyecto").html(cuerpoSub);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosGerenciaProyecto.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoGer = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(idSubgerencia[0] == p2.aaData[i].IDGERENCIA){
+              cuerpoGer += '<option selected value="' + p2.aaData[i].IDGERENCIA + '">' + p2.aaData[i].GERENCIA + ' - ' + p2.aaData[i].SUBGERENCIA +  '</option>';
+          }
+          else{
+              cuerpoGer += '<option value="' + p2.aaData[i].IDGERENCIA + '">' + p2.aaData[i].GERENCIA + ' - ' + p2.aaData[i].SUBGERENCIA +  '</option>';
+          }
+        }
+        $("#gerSubEditarProyecto").html(cuerpoGer);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPersonalParaAsignar.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      var cuerpoController = '';
+      var cuerpoAdmin = '';
+      for(var i = 0; i < p.aaData.length; i++){
+        if(idController[0] == p.aaData[i].IDPERSONAL){
+            cuerpoController += '<option selected value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+        else{
+            cuerpoController += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+        if(idAdmin[0] == p.aaData[i].IDPERSONAL){
+            cuerpoAdmin += '<option selected value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+        else{
+            cuerpoAdmin += '<option value="' + p.aaData[i].IDPERSONAL + '">' + p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRES + ' ' + p.aaData[i].APELLIDOS + ' - ' + p.aaData[i].CARGO + '</option>';
+        }
+      }
+      $("#controllerEditarProyecto").html(cuerpoController);
+      $("#adminContratoEditarProyecto").html(cuerpoAdmin);
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosClientesProyectos.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoCl = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(idCliente[0] == p2.aaData[i].IDCLIENTE){
+              cuerpoCl += '<option selected value="' + p2.aaData[i].IDCLIENTE + '">' + p2.aaData[i].CLIENTE + ' - ' + p2.aaData[i].SUB_CLIENTE +  '</option>';
+          }
+          else{
+              cuerpoCl += '<option value="' + p2.aaData[i].IDCLIENTE + '">' + p2.aaData[i].CLIENTE + ' - ' + p2.aaData[i].SUB_CLIENTE +  '</option>';
+          }
+        }
+        $("#clienteSubEditarProyecto").html(cuerpoCl);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosEstadosProyectos.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEst = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(idEstado[0] == p2.aaData[i].IDESTADO){
+              cuerpoEst += '<option selected value="' + p2.aaData[i].IDESTADO + '">' + p2.aaData[i].ESTADO + '</option>';
+          }
+          else{
+              cuerpoEst += '<option value="' + p2.aaData[i].IDESTADO + '">' + p2.aaData[i].ESTADO + '</option>';
+          }
+        }
+        $("#estadoEditarProyecto").html(cuerpoEst);
+      }
+    }
+  });
+
+  $("#fechaIniContratoEditarProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaFinContratoEditarProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaIniProyectoEditarProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaFinProyectoEditarProyecto").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#fechaIniContratoEditarProyecto").val(f_ini_contrato);
+  $("#fechaFinContratoEditarProyecto").val(f_fin_contrato);
+  $("#fechaIniProyectoEditarProyecto").val(f_ini_ope);
+  $("#fechaFinProyectoEditarProyecto").val(f_fin_ope);
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#estadoEditarProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#clienteSubEditarProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#sociedadEditarProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#gerSubEditarProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#controllerEditarProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+    $("#adminContratoEditarProyecto").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple'), sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+    });
+  }
+
+  setTimeout(function(){
+    var h = $(window).height() - 200;
+    $("#bodyEditarProyecto").css("height",h);
+    $("#modalEditarProyecto").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+  },500);
+});
+
+$("#guardarEditarProyecto").unbind("click").click(function(){
+  if($("#defProyectoEditarProyecto").val() === "" || $("#pepEditarProyecto").val() === "" || $("#proyectoEditarProyecto").val() === "" || $("#denominacionEditarProyecto").val() === ""){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Debe ingresar def. Proyecto, PEP, Proyecto y Denominación");
+    $("#defProyectoEditarProyecto").addClass("is-invalid");
+    $("#pepEditarProyecto").addClass("is-invalid");
+    $("#proyectoEditarProyecto").addClass("is-invalid");
+    $("#denominacionEditarProyecto").addClass("is-invalid");
+  }
+  else{
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalEditarProyecto").modal("hide");
+
+    var idProyecto = $("#idEditarProyecto").val();
+    var definicion = $("#defProyectoEditarProyecto").val();
+    var pep = $("#pepEditarProyecto").val();
+    var crm = $("#crmEditarProyecto").val();
+    var proyecto = $("#proyectoEditarProyecto").val();
+    var denominacion = $("#denominacionEditarProyecto").val();
+    var sociedad = $("#sociedadEditarProyecto").val();
+    var gerencia = $("#gerSubEditarProyecto").val();
+    var controller = $("#controllerEditarProyecto").val();
+    var adminContrato = $("#adminContratoEditarProyecto").val();
+    var cliente = $("#clienteSubEditarProyecto").val();
+    var fechaIniContrato = $("#fechaIniContratoEditarProyecto").val();
+    var fechaFinContrato = $("#fechaFinContratoEditarProyecto").val();
+    var fechaIniProyecto = $("#fechaIniProyectoEditarProyecto").val();
+    var fechaFinProyecto = $("#fechaFinProyectoEditarProyecto").val();
+    var estado = $("#estadoEditarProyecto").val();
+
+    var parametros = {
+      "idProyecto": idProyecto,
+      "definicion": definicion,
+      "pep": pep,
+      "crm": crm,
+      "proyecto": proyecto,
+      "denominacion": denominacion,
+      "sociedad": sociedad,
+      "gerencia": gerencia,
+      "controller": controller,
+      "adminContrato": adminContrato,
+      "cliente": cliente,
+      "fechaIniContrato": fechaIniContrato,
+      "fechaFinContrato": fechaFinContrato,
+      "fechaIniProyecto": fechaIniProyecto,
+      "fechaFinProyecto": fechaFinProyecto,
+      "estado": estado
+    }
+
+    $.ajax({
+        url: "controller/editarProyectoControlling.php",
+        type: 'POST',
+        data: parametros,
+        success:  function (response) {
+            var p = response.split(",");
+            if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaListadoProyecto').DataTable();
+                    table.ajax.reload();
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Proyecto actualizado correctamente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+                else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar el proyecto");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                }
+            }else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar el proyecto");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            }
+        }
+    });
+  }
+});

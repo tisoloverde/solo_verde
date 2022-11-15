@@ -39,6 +39,36 @@ app.config(function($routeProvider, $locationProvider) {
         controllerAs: "vm",
         templateUrl : "view/personal/dotacion.html?idload=10"
     })
+    .when("/subcontratistas", {
+        controller: "subcontratistasController",
+        controllerAs: "vm",
+        templateUrl : "view/controlling/subcontratistas.html?idLoad=10"
+    })
+    .when("/gerencia", {
+        controller: "gerenciaController",
+        controllerAs: "vm",
+        templateUrl : "view/controlling/gerencia.html?idLoad=10"
+    })
+    .when("/estadoProyecto", {
+        controller: "estadoProyectoController",
+        controllerAs: "vm",
+        templateUrl : "view/controlling/estadoProyecto.html?idLoad=209"
+    })
+    .when("/clienteProyecto", {
+        controller: "clienteController",
+        controllerAs: "vm",
+        templateUrl : "view/controlling/cliente.html?idLoad=209"
+    })
+    .when("/proyectos",{
+        controller: "proyectosController",
+        controllerAs: "wm",
+        templateUrl: "view/controlling/proyecto.html?idLoad=209"
+    })
+    .when("/gestionJefatura", {
+      controller: "jefaturaController",
+      controllerAs: "vm",
+      templateUrl : "view/adminPersonal/gestionJefatura.html?idLoad=209"
+    })
     .otherwise({redirectTo: '/home'});
 
     $locationProvider.hashPrefix('');
@@ -769,6 +799,1113 @@ app.controller("dotacionController", function(){
           loading(false);
           await listDotacion('null');
           esconderMenu();
+          menuElegant();
+        }, 200);
+      }
+    }
+  });
+});
+
+app.controller("subcontratistasController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $('#modalAlertasSplash').modal('show');
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+
+          await $('#tablaSubcontratista').DataTable( {
+            ajax: {
+                url: "controller/datosSubcontratistas.php",
+                type: 'POST'
+            },
+            columns: [
+                { data: 'S'},
+                { data: 'RUT' } ,
+                { data: 'NOMBRE_SUBCONTRATO' } ,
+                { data: 'ESTADO' },
+                { data: 'TIPO' }
+            ],
+            buttons: [
+              {
+                extend: 'excel',
+                exportOptions: {
+                  columns: [ 1,2,3]
+
+                },
+                title: null,
+                text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+              }
+            ],
+            "columnDefs": [
+              {
+                "width": "5px",
+                "targets": 0
+              },
+              {
+                "orderable": false,
+                "className": 'select-checkbox',
+                "targets": [ 0 ]
+              }
+            ],
+            "select": {
+              style: 'single',
+            },
+            "scrollX": true,
+            "paging": true,
+            "ordering": true,
+            "scrollCollapse": true,
+            "info":     true,
+            "lengthMenu": [[largo], [largo]],
+            "dom": 'Bfrtip',
+            "language": {
+                "zeroRecords": "No hay registros de subcontratistas",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No hay registros de subcontratistas",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "search": "Buscar: ",
+                "select": {
+                    "rows": "- %d registros seleccionados"
+                },
+                "infoFiltered": "(Filtrado de _MAX_ registros)"
+            },
+            "destroy": true,
+            "autoWidth": false,
+            "initComplete": function(){
+              $('#contenido').show();
+              $('#menu-lateral').show();
+              $('#footer').parent().show();
+              $('#footer').show();
+
+              setTimeout(function(){
+                var path = window.location.href.split('#/')[1];
+                var parametros = {
+                  "path": path
+                }
+
+                setTimeout(async function(){
+                  await $.ajax({
+                    url:   'controller/datosAccionesVisibles.php',
+                    type:  'post',
+                    data: parametros,
+                    success: function (response) {
+                      var p = jQuery.parseJSON(response);
+                      if(p.aaData.length !== 0){
+                        for(var i = 0; i < p.aaData.length; i++) {
+                          if(p.aaData[i].VISIBLE == 1){
+                            if(p.aaData[i].ENABLE == 1){
+                              $("#accionesSubcontratistas").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                            }
+                            else{
+                              $("#accionesSubcontratistas").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                            }
+                          }
+                        }
+                      }
+                    }
+                  });
+
+                  setTimeout(function(){
+                    var js = document.createElement('script');
+                    js.src = 'view/js/funciones.js?idLoad=209';
+                    document.getElementsByTagName('head')[0].appendChild(js);
+                  },500);
+                },100);
+              },1000);
+              menuElegant();
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+                setTimeout(function(){
+                  $('#tablaSubcontratista').DataTable().columns.adjust();
+                },500);
+              },2000);
+            }
+          });
+          await esconderMenu();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("gerenciaController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $('#modalAlertasSplash').modal('show');
+
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+
+          await $('#tablaGerencia').DataTable( {
+              ajax: {
+                  url: "controller/datosGerencias.php",
+                  type: 'POST'
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'IDGERENCIA', className: "centerDataTable"},
+                  { data: 'GERENCIA' },
+                  { data: 'SUBGERENCIA' },
+                  { data: 'RUT_GERENTE' },
+                  { data: 'GERENTE' },
+                  { data: 'RUT_SUBGERENTE' },
+                  { data: 'SUBGERENTE' },
+                  { data: 'ESTADO' }
+              ],
+              buttons: [
+                {
+                  extend: 'excel',
+                  exportOptions: {
+                    columns: [ 1,2,3,4,5,6,7,8 ]
+                  },
+                  title: null,
+                  text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                },
+                {
+                  text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                  action: function ( e, dt, node, config ) {
+                    var table = $('#tablaGerencia').DataTable();
+                    $("#editarGerencia").attr("disabled", "disabled");
+            				$("#asignarGerenteSub").attr("disabled", "disabled");
+                    table.rows().deselect();
+                  }
+                },
+            ],
+            "columnDefs": [
+              {
+                "width": "5px",
+                "targets": 0
+              },
+              {
+                "orderable": false,
+                "className": 'select-checkbox',
+                "targets": [ 0 ]
+              },
+              {
+                "width": "15px",
+                "targets": 1
+              }
+            ],
+            "select": {
+              style: 'multi'
+            },
+            "scrollX": true,
+            "paging": true,
+            "ordering": true,
+            "scrollCollapse": true,
+            // "order": [[ 3, "asc" ]],
+            "info":     true,
+            "lengthMenu": [[largo], [largo]],
+            "dom": 'Bfrtip',
+            "language": {
+                "zeroRecords": "No tiene personal bajo su cargo",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No tiene personal bajo su cargo",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "search": "Buscar: ",
+                "select": {
+                    "rows": "- %d registros seleccionados"
+                },
+                "infoFiltered": "(Filtrado de _MAX_ registros)"
+            },
+            "destroy": true,
+            "autoWidth": false,
+            "initComplete": function(){
+            }
+          });
+
+          $('#contenido').show();
+          $('#menu-lateral').show();
+          $('#footer').parent().show();
+          $('#footer').show();
+
+          setTimeout(function(){
+            var path = window.location.href.split('#/')[1];
+            var parametros = {
+              "path": path
+            }
+
+            setTimeout(async function(){
+              await $.ajax({
+                url:   'controller/datosAccionesVisibles.php',
+                type:  'post',
+                data: parametros,
+                success: function (response) {
+                  var p = jQuery.parseJSON(response);
+                  if(p.aaData.length !== 0){
+                    for(var i = 0; i < p.aaData.length; i++) {
+                      if(p.aaData[i].VISIBLE == 1){
+                        if(p.aaData[i].ENABLE == 1){
+                          $("#accionesGerencias").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                        else{
+                          $("#accionesGerencias").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+
+              setTimeout(function(){
+                var js = document.createElement('script');
+                js.src = 'view/js/funciones.js?idLoad=209';
+                document.getElementsByTagName('head')[0].appendChild(js);
+              },500);
+            },100);
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              setTimeout(function(){
+                $('#tablaGerencia').DataTable().columns.adjust();
+              },1000);
+            },2000);
+          },1000);
+
+          await esconderMenu();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("estadoProyectoController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $('#modalAlertasSplash').modal('show');
+
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+
+          await $('#tablaEstadoProyecto').DataTable( {
+              ajax: {
+                  url: "controller/datosEstadoProyecto.php",
+                  type: 'POST'
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'IDESTRUCTURA_OPERACION_ESTADO', className: "centerDataTable"},
+                  { data: 'ESTADO' },
+                  { data: 'DESCRIPCION' }
+              ],
+              buttons: [
+                {
+                  extend: 'excel',
+                  exportOptions: {
+                    columns: [ 1,2,3 ]
+                  },
+                  title: null,
+                  text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                },
+                {
+                  text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                  action: function ( e, dt, node, config ) {
+                    var table = $('#tablaGerencia').DataTable();
+                    $("#editarGerencia").attr("disabled", "disabled");
+            				$("#asignarGerenteSub").attr("disabled", "disabled");
+                    table.rows().deselect();
+                  }
+                },
+            ],
+            "columnDefs": [
+              {
+                "width": "5px",
+                "targets": 0
+              },
+              {
+                "orderable": false,
+                "className": 'select-checkbox',
+                "targets": [ 0 ]
+              },
+              {
+                "width": "15px",
+                "targets": 1
+              }
+            ],
+            "select": {
+              style: 'multi'
+            },
+            "scrollX": true,
+            "paging": true,
+            "ordering": true,
+            "scrollCollapse": true,
+            // "order": [[ 3, "asc" ]],
+            "info":     true,
+            "lengthMenu": [[largo], [largo]],
+            "dom": 'Bfrtip',
+            "language": {
+                "zeroRecords": "No tiene personal bajo su cargo",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No tiene personal bajo su cargo",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "search": "Buscar: ",
+                "select": {
+                    "rows": "- %d registros seleccionados"
+                },
+                "infoFiltered": "(Filtrado de _MAX_ registros)"
+            },
+            "destroy": true,
+            "autoWidth": false,
+            "initComplete": function(){
+              setTimeout(function(){
+                $('#tablaEstadoProyecto').DataTable().columns.adjust();
+              },500);
+            }
+          });
+
+          $('#contenido').show();
+          $('#menu-lateral').show();
+          $('#footer').parent().show();
+          $('#footer').show();
+
+          setTimeout(function(){
+            var path = window.location.href.split('#/')[1];
+            var parametros = {
+              "path": path
+            }
+
+            setTimeout(async function(){
+              await $.ajax({
+                url:   'controller/datosAccionesVisibles.php',
+                type:  'post',
+                data: parametros,
+                success: function (response) {
+                  var p = jQuery.parseJSON(response);
+                  if(p.aaData.length !== 0){
+                    for(var i = 0; i < p.aaData.length; i++) {
+                      if(p.aaData[i].VISIBLE == 1){
+                        if(p.aaData[i].ENABLE == 1){
+                          $("#accionesEstadoProyecto").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                        else{
+                          $("#accionesEstadoProyecto").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+
+              setTimeout(function(){
+                var js = document.createElement('script');
+                js.src = 'view/js/funciones.js?idLoad=209';
+                document.getElementsByTagName('head')[0].appendChild(js);
+              },500);
+            },100);
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },2000);
+          },1000);
+
+          await esconderMenu();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("clienteController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $('#modalAlertasSplash').modal('show');
+
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+
+          await $('#tablaCliente').DataTable( {
+              ajax: {
+                  url: "controller/datosClientes.php",
+                  type: 'POST'
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'IDCLIENTE', className: "centerDataTable"},
+                  { data: 'RUT_CLIENTE' } ,
+                  { data: 'SUB_CLIENTE' },
+                  { data: 'CLIENTE' },
+              ],
+              buttons: [
+                {
+                  extend: 'excel',
+                  exportOptions: {
+                    columns: [ 1,2,3,4 ]
+                  },
+                  title: null,
+                  text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+              },
+              {
+                text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                action: function ( e, dt, node, config ) {
+                  var table = $('#tablaCliente').DataTable();
+                  $("#editarClienteProyecto").attr("disabled", "disabled");
+                  table.rows().deselect();
+                }
+              },
+            ],
+            "columnDefs": [
+              {
+                "width": "5px",
+                "targets": 0
+              },
+              {
+                "orderable": false,
+                "className": 'select-checkbox',
+                "targets": [ 0 ]
+              },
+              {
+                "width": "15px",
+                "targets": 1
+              }
+            ],
+            "select": {
+              style: 'single'
+            },
+            "scrollX": true,
+            "paging": true,
+            "ordering": true,
+            "scrollCollapse": true,
+            // "order": [[ 3, "asc" ]],
+            "info":     true,
+            "lengthMenu": [[largo], [largo]],
+            "dom": 'Bfrtip',
+            "language": {
+                "zeroRecords": "No existen clientes cargados",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No tiene personal bajo su cargo",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+                "search": "Buscar: ",
+                "select": {
+                    "rows": "- %d registros seleccionados"
+                },
+                "infoFiltered": "(Filtrado de _MAX_ registros)"
+            },
+            "destroy": true,
+            "autoWidth": false,
+            "initComplete": function(){
+
+            }
+          });
+
+          $('#contenido').show();
+          $('#menu-lateral').show();
+          $('#footer').parent().show();
+          $('#footer').show();
+
+          setTimeout(function(){
+            var path = window.location.href.split('#/')[1];
+            var parametros = {
+              "path": path
+            }
+
+            setTimeout(async function(){
+              await $.ajax({
+                url:   'controller/datosAccionesVisibles.php',
+                type:  'post',
+                data: parametros,
+                success: function (response) {
+                  var p = jQuery.parseJSON(response);
+                  if(p.aaData.length !== 0){
+                    for(var i = 0; i < p.aaData.length; i++) {
+                      if(p.aaData[i].VISIBLE == 1){
+                        if(p.aaData[i].ENABLE == 1){
+                          $("#accionesClientes").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                        else{
+                          $("#accionesClientes").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+
+              setTimeout(function(){
+                var js = document.createElement('script');
+                js.src = 'view/js/funciones.js?idLoad=209';
+                document.getElementsByTagName('head')[0].appendChild(js);
+              },500);
+            },100);
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              setTimeout(function(){
+                $('#tablaCliente').DataTable().columns.adjust();
+              },1000);
+            },2000);
+          },1000);
+
+          await esconderMenu();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("proyectosController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $('#modalAlertasSplash').modal('show');
+            var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/24);
+            await $('#tablaListadoProyecto').DataTable( {
+                ajax: {
+                    url: "controller/datosEstructuraOperacionSide.php",
+                    type: 'POST'
+                },
+                processing: true,
+                search: {
+                    return: true,
+                },
+                serverSide: true,
+                columns: [
+                    { data: 'S'},
+                    { data: 'FOLIO' , className: "centerDataTable" },
+                    { data: 'PEP_PADRE' },
+                    { data: 'PEP' },
+                    { data: 'COD_CRM' },
+                    { data: 'NOMBRE_PADRE' },
+                    { data: 'NOMBRE' },
+                    { data: 'COD_SOCIEDAD' , className: "centerDataTable" },
+                    { data: 'NOM_SOCIEDAD' },
+                    { data: 'CLIENTE' },
+                    { data: 'SUB_CLIENTE' },
+                    { data: 'ESTADO' },
+                    { data: 'GERENCIA' },
+                    { data: 'SUBGERENCIA' },
+                    { data: 'GERENTE' },
+                    { data: 'SUBGERENTE' },
+                    { data: 'ADMIN_CONTRATO' },
+                    { data: 'CONTROLLER' },
+                    { data: 'FECHA_INICIO_CONTRATO' },
+                    { data: 'FECHA_FIN_CONTRATO' },
+                    { data: 'FECHA_INICIO_OPERACION' },
+                    { data: 'FECHA_FIN_OPERACION' },
+                    { data: 'Q_PERSONAL' , className: "centerDataTable" },
+                ],
+                buttons: [
+                    {
+                      extend: 'excel',
+                      exportOptions: {
+                        columns: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 ]
+                      },
+                      title: null,
+                      text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                    },
+                    {
+                      text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                      action: function ( e, dt, node, config ) {
+                        var table = $('#tablaListadoProyecto').DataTable();
+                        $("#editarProyecto").attr("disabled", "disabled");
+                        table.rows().deselect();
+                      }
+                    }
+                ],
+                "columnDefs": [
+                    {
+                      "width": "5px",
+                      "targets": 0
+                    },
+                    // {
+                    //   "orderable": false,
+                    //   "className": 'select-checkbox',
+                    //   "targets": [ 0 ]
+                    // }
+                ],
+                "select": {
+                    style: 'single'
+                },
+                "scrollX": false,
+                "responsive": {
+                    details: {
+                        renderer: function ( api, rowIdx, columns ) {
+                            var data = $.map( columns, function ( col, i ) {
+                                return col.hidden ?
+                                    '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                                        '<td style="font-weight: bold; min-width: 150px;">'+col.title+':'+'</td> '+
+                                        '<td style="min-width: 150px; text-align: center;">'+col.data+'</td>'+
+                                    '</tr>' :
+                                    '';
+                            } ).join('');
+
+                            return data ?
+                                $('<table/>').append( data ) :
+                                false;
+                        }
+                    }
+                },
+                "paging": true,
+                "ordering": true,
+                "scrollCollapse": true,
+                "order": [[ 1, "asc" ]],
+                "info":     true,
+                "lengthMenu": [[largo], [largo]],
+                "dom": 'Bfrtip',
+                "language": {
+                    "zeroRecords": "No hay datos disponibles",
+                    "info": "Registro _START_ de _END_ de _TOTAL_",
+                    "infoEmpty": "No hay datos disponibles",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    },
+                    "search": "Buscar: ",
+                    "searchPlaceholder": "Presione enter para buscar",
+                    "select": {
+                        "rows": "- %d registros seleccionados"
+                    },
+                    "infoFiltered": "(Filtrado de _MAX_ registros)"
+                },
+                "destroy": true,
+                "autoWidth": false,
+                "initComplete": function( settings, json){
+
+                }
+            });
+            await esconderMenu();
+            setTimeout(async function(){
+              var path = window.location.href.split('#/')[1];
+              var parametros = {
+                "path": path
+              }
+
+              await $.ajax({
+                url:   'controller/datosAccionesVisibles.php',
+                type:  'post',
+                data: parametros,
+                success: function (response) {
+                  var p = jQuery.parseJSON(response);
+                  if(p.aaData.length !== 0){
+                    for(var i = 0; i < p.aaData.length; i++) {
+                      if(p.aaData[i].VISIBLE == 1){
+                        if(p.aaData[i].ENABLE == 1){
+                          $("#accionesProyectos").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                        else{
+                          $("#accionesProyectos").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+
+              setTimeout(function(){
+                var js = document.createElement('script');
+                js.src = 'view/js/funciones.js?idLoad=209';
+                document.getElementsByTagName('head')[0].appendChild(js);
+              },500);
+
+              $('#contenido').show();
+              $('#menu-lateral').show();
+              $('#footer').parent().show();
+              $('#footer').show();
+
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+                setTimeout(function(){
+                  $('#tablaListadoProyecto').DataTable().columns.adjust();
+                },500);
+              },2000);
+            },1000);
+            menuElegant();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("jefaturaController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $('#modalAlertasSplash').modal('show');
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/22);
+          await $('#tablaJefatura').DataTable( {
+            ajax: {
+              url: "controller/datosJefaturaSide.php",
+              type: 'POST'
+            },
+            processing: true,
+            search: {
+                return: true,
+            },
+            serverSide: true,
+            columns: [
+              { data: 'S'},
+              { data: 'RUTA_IMG_PERFIL', className: "centerDataTable" },
+              { data: 'DNI'},
+              { data: 'NOMBRES' },
+              { data: 'APELLIDOS' },
+              { data: 'EMPRESA'},
+              { data: 'CLASIFICACION', className: "centerDataTable" },
+              { data: 'NIVEL', className: "centerDataTable" },
+              { data: 'GERENCIA'},
+              { data: 'SUBGERENCIA'},
+              { data: 'CLIENTE'},
+              { data: 'NOMENCLATURA'},
+              { data: 'DENOMINACION'},
+              { data: 'COMUNA'},
+              { data: 'REGION'},
+              { data: 'CARGO' },
+              { data: 'PATENTE' },
+              { data: 'EMAIL' },
+              { data: 'TELEFONO' },
+              { data: 'SOLICITUD'},
+              { data: 'JEFE' },
+              { data: 'IDPERSONAL' },
+              { data: 'EXTERNO' },
+              { data: 'SUCURSAL' }
+            ],
+            buttons: [
+              {
+                text: 'Excel',
+                action: function ( e, dt, node, config ){
+                  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+                  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'><span class='fas fa-file-excel'></span>&nbsp;&nbsp;Generando documento Excel</font>");
+                  $('#modalAlertasSplash').modal('show');
+
+                  $.ajax({
+                    url:   'controller/generaExcelGestionOperativa.php',
+                    type:  'post',
+                    data:  parametros,
+                    success:  function (response) {
+                      $('#modalAlertasSplash').modal('hide');
+                      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Documento generado correctamente<br><font style='font-size: 9pt;'>(Si el documento no es descargado, favor verifique no tener bloqueadas las ventanas emergentes)</font>");
+                      window.open(window.location.toString().split("#/")[0].split('?')[0] + '/controller/repositorio/temp/' + response, '_blank');
+                    }
+                  });
+                }
+              },
+              {
+                text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                action: function ( e, dt, node, config ) {
+                  var table = $('#tablaJefatura').DataTable();
+                  $("#cambiarJefatura").attr("disabled", "disabled");
+                  $("#transferirJefatura").attr("disabled", "disabled");
+                  $("#transferirJefaturaRespuesta").attr("disabled", "disabled");
+                  table.rows().deselect();
+                }
+              }
+            ],
+            "columnDefs": [
+              // {
+              //   "width": "5px",
+              //   "targets": 0
+              // },
+              // {
+              //   "orderable": false,
+              //   "className": 'select-checkbox',
+              //   "targets": [ 0 ]
+              // },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 21 ]
+              },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 22 ]
+              },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 23 ]
+              },
+            ],
+            "select": {
+              style: 'multi',
+              selector: 'td:not(:nth-child(2))'
+            },
+            "scrollX": false,
+            "paging": true,
+            "ordering": true,
+            "scrollCollapse": true,
+            "responsive": {
+                details: {
+                    renderer: function ( api, rowIdx, columns ) {
+                        var data = $.map( columns, function ( col, i ) {
+                            return col.hidden ?
+                                '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                                    '<td style="font-weight: bold; min-width: 150px;">'+col.title+':'+'</td> '+
+                                    '<td style="min-width: 150px; text-align: center;">'+col.data+'</td>'+
+                                '</tr>' :
+                                '';
+                        } ).join('');
+
+                        return data ?
+                            $('<table/>').append( data ) :
+                            false;
+                    }
+                }
+            },
+            "info": true,
+            "lengthMenu": [[largo], [largo]],
+            "dom": 'Bfrtip',
+            "language": {
+              "zeroRecords": "No hay datos disponibles",
+              "info": "Registro _START_ de _END_ de _TOTAL_",
+              "infoEmpty": "No hay datos disponibles",
+              "paginate": {
+                  "previous": "Anterior",
+                  "next": "Siguiente"
+                },
+                "search": "Buscar: ",
+                "searchPlaceholder": "Presione enter para buscar",
+                "select": {
+                    "rows": "- %d registros seleccionados"
+                },
+                "infoFiltered": "(Filtrado de _MAX_ registros)"
+            },
+            "destroy": true,
+            "autoWidth": false,
+            "initComplete": function( settings, json) {
+
+            }
+          });
+
+          await esconderMenu();
+          setTimeout(async function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+            await $.ajax({
+              url:   'controller/datosAccionesVisibles.php',
+              type:  'post',
+              data: parametros,
+              success: function (response) {
+                var p = jQuery.parseJSON(response);
+                if(p.aaData.length !== 0){
+                  for(var i = 0; i < p.aaData.length; i++) {
+                    if(p.aaData[i].VISIBLE == 1){
+                      if(p.aaData[i].ENABLE == 1){
+                        $("#accionesGestionOperativa").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                      else{
+                        $("#accionesGestionOperativa").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                    }
+                  }
+                }
+              }
+            });
+
+            setTimeout(function(){
+              var js = document.createElement('script');
+              js.src = 'view/js/funciones.js?idLoad=209';
+              document.getElementsByTagName('head')[0].appendChild(js);
+            },500);
+
+            var table = $('#tablaJefatura').DataTable();
+
+            $('#contenido').show();
+            $('#menu-lateral').show();
+            $('#footer').parent().show();
+            $('#footer').show();
+
+            $('#modalAlertasSplash').modal('hide');
+            setTimeout(function(){
+              $('#tablaJefatura').DataTable().columns.adjust();
+            },500);
+          },1000);
           menuElegant();
         }, 200);
       }

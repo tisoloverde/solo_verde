@@ -1,0 +1,53 @@
+<div class="row cuerpo">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-house-user">&nbsp;&nbsp;Gerencia</span>
+		</font>
+  </div>
+	<div id="divTablaGerencia" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaGerencia" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+	      	<th class="celdaColor" style="border: 1pt solid white;" title="ID gerencia">ID gerencia</th>
+	      	<th class="celdaColor" style="border: 1pt solid white;" title="Gerencia">Gerencia</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Subgerencia/UNG">Subgerencia/UNG</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="RUT Gerente" >RUT Gerente</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Gerente" >Gerente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="RUT Subgerente" >RUT Subgerente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Subgerente" >Subgerente</th>
+	        <th class="celdaColor" style="border: 1pt solid white;" title="Estado" >Estado</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaGerencia" style="text-align: left;">
+	    </tbody>
+	  </table>
+	</div>
+	<div id="accionesGerencias" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+	</div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+$('#tablaGerencia tbody').on( 'click', 'tr', function () {
+		setTimeout(async function(){
+			var table = $('#tablaGerencia').DataTable();
+			var datos = table.rows('.selected').data();
+			if(table.rows('.selected').data().length > 0){
+				if(table.rows('.selected').data().length > 1){
+					$("#asignarGerenteSub").removeAttr("disabled");
+					$("#editarGerencia").attr("disabled", "disabled");
+				}
+				else{
+					$("#editarGerencia").removeAttr("disabled");
+					$("#asignarGerenteSub").removeAttr("disabled");
+				}
+			}
+			else{
+				$("#editarGerencia").attr("disabled", "disabled");
+				$("#asignarGerenteSub").attr("disabled", "disabled");
+			}
+		},100);
+});
+</script>
