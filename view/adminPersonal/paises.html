@@ -1,0 +1,43 @@
+<div class="row cuerpo">
+	<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+			<span style="color: gray;" class="fas fa-flag">&nbsp;&nbsp;Listado Países</span>
+		</font>
+  </div>
+	<div id="divTablaMantenedorPaises" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+	  <table id="tablaMantenedorPaises" class="cell-border compact" style="width: 100%;">
+	    <thead>
+	      <tr>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="ID">ID País</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="Abreviatura">Abreviatura</th>
+					<th class="celdaColor" style="border: 1pt solid white;" title="País">País</th>
+	      </tr>
+	    </thead>
+	    <tbody id="cuerpoTablaMantenedorPaises" style="text-align: left;">
+
+	    </tbody>
+	  </table>
+	</div>
+  <div id="accionesMantenedorPaises" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+  </div>
+</div>
+
+<script>
+//Para interactuar con la tabla de productos
+$('#tablaMantenedorPaises tbody').on( 'click', 'tr', function () {
+    setTimeout(async function(){
+      var table = $('#tablaMantenedorPaises').DataTable();
+      var datos = table.rows('.selected').data();
+			if(table.rows('.selected').data().length > 1){
+				$("#editarPais").removeAttr("disabled");
+			}
+      else if(table.rows('.selected').data().length > 0){
+        $("#editarPais").removeAttr("disabled");
+      }
+      else{
+        $("#editarPais").attr("disabled", "disabled");
+      }
+    },100);
+});
+</script>
