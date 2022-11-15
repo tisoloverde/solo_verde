@@ -3454,7 +3454,7 @@ editorDotacion.on('preSubmit', function (e, o, action) {
 editorDotacion.on('postEdit', function (e, o, action) {
   var index = dotacionData.findIndex((item) => `${item.id}` === `${action.id}`)
   if (index >= 0) {
-    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id].idPersonalOfertado);
+    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id]?.idPersonalOfertado);
   }
 });
 
