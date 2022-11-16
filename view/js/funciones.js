@@ -3422,9 +3422,10 @@ $('#selectListaLugares').on('change', function (e) {
 function dotacionGetId(strid) {
   var splitted = strid.split('-');
   if (splitted.length > 2) {
-    return Number(splitted[2]);
+    // return Number(splitted[2]);
+    return splitted[2];
   }
-  return 0;
+  return "0";
 }
 
 $(document).on('change', '.dotacion-select', function(e){
@@ -3454,7 +3455,7 @@ editorDotacion.on('preSubmit', function (e, o, action) {
 editorDotacion.on('postEdit', function (e, o, action) {
   var index = dotacionData.findIndex((item) => `${item.id}` === `${action.id}`)
   if (index >= 0) {
-    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id]?.idPersonalOfertado);
+    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id]?.idPersonalOfertado ?? '0');
   }
 });
 
@@ -3474,7 +3475,7 @@ $("#saveDotacion").on('click', async (e) => {
   var dataAdd = [];
   keys.forEach((key) => {
     var json = dotacionListUpdated[key];
-    if (key.includes('*')) {
+    if (key.includes('__')) {
       var aux = getCodigoYNombreCC();
       json.codigoCC = aux[0];
       json.nombreCC = aux[1];
@@ -3515,7 +3516,7 @@ function modelarSelectDotacion(id, items) {
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
   lastIdDotacionToUse++;
-  var cId = `${lastIdDotacionToUse}*`;
+  var cId = `${lastIdDotacionToUse}__`;
   var dt = {
     id: cId,
     personalOfertado: modelarSelectDotacion(cId, comunesDotacion.personalOfertado),
