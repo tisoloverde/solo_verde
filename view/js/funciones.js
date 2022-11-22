@@ -631,7 +631,7 @@ function revisarDigito( crut )
 //Guarda codigo 2FA según QR
 $("#guardarCrear2fa").unbind('click').click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalCrear2fa").modal("hide");
   $.ajax({
@@ -680,7 +680,7 @@ $("#loginSystem-submit").unbind('click').click(function(e){
     e.preventDefault();
     e.stopImmediatePropagation();
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     var URLactual = window.location;
     var gc = 0;
@@ -797,7 +797,7 @@ async function valida2faEnter(){
   if($("#codigoLogin2fa").val().length == 6){
     $('#modalLogin2fa').modal('hide');
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     var URLactual = window.location;
     var gc = 0;
@@ -926,7 +926,7 @@ function addCambiaPass(){
                                   beforeSend: function(){
                                       $("#modalChangePass").modal("hide");
                                       $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-                                      $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+                                      $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
                                       $('#modalAlertasSplash').modal('show');
                                   },
                                   success:  function (response) {
@@ -1028,7 +1028,7 @@ $("#guardarIngresoPerfil").unbind('click').click(async function(){
   else{
     $("#modalIngresoPerfil").modal("hide");
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     if($("#perfilInformeDisponibilidad").prop("checked") == true && $("#perfilInformeMetas").prop("checked") == true){
       informeDisponibilidad = 1;
@@ -1178,7 +1178,7 @@ $("#guardarEditarPerfil").unbind('click').click(async function(){
   else{
     $("#modalEditarPerfil").modal("hide");
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     if($("#perfilEditInformeDisponibilidad").prop("checked") == true && $("#perfilEditInformeMetas").prop("checked") == true){
       informeDisponibilidad = 1;
@@ -1244,7 +1244,7 @@ $("#guardarEditarPerfil").unbind('click').click(async function(){
 
 $("#asignarAreasPerfil").unbind('click').click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#asignarPermisosPerfil").attr("disabled","disabled");
   var table = $('#tablaListadoPerfiles').DataTable();
@@ -1360,7 +1360,7 @@ $("#asignarAreasPerfil").unbind('click').click(function(){
 $("#asignarAreaPerfil").unbind('click').click(async function(){
   $("#modalAreasPerfil").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#selectArea").removeAttr("disabled");
   $("#dispoArea").removeAttr("disabled");
@@ -1449,7 +1449,7 @@ $("#asignarAreaPerfil").unbind('click').click(async function(){
 
 $("#guardarAgregarAreaPerfil").unbind('click').click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalAgregarAreaPerfil").modal('hide');
   var table = $('#tablaListadoPerfiles').DataTable();
@@ -1531,7 +1531,7 @@ $("#cancelarAgregarAreaPerfil").unbind("click").click(function(){
 
 $("#asignarPermisosPerfil").unbind('click').click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalAreasPerfil").modal('hide');
   $("#divAccionesPerfil").html('');
@@ -2444,7 +2444,7 @@ $("#guardarPermisoPerfil").unbind('click').click(async function(){
   else{
     $("#modalPermisosPerfil").modal("hide");
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     if($("#checkJefaturaPermisos").prop('checked')){
       var parametros = {
@@ -2696,7 +2696,7 @@ $("#agregarUsuario").unbind("click").click(async function(){
   $("#nombresIngresoUsuario").removeClass("is-invalid");
   $("#emailUsuario").removeClass("is-invalid");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   await $.ajax({
     url:   'controller/datosPersonalUsuario.php',
@@ -2791,7 +2791,7 @@ $("#guardarIngresoUsuario").unbind('click').click(function(){
   else {
     $("#modalIngresoUsuario").modal("hide");
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     parametros = {
       "rutIngreso":   $.trim($("#rutIngresoUsuario").val().replace('.','').replace('.','')),
@@ -2906,7 +2906,7 @@ $("#desactivarUsuario").unbind('click').click(function(){
 $("#guardarDesactivarUsuario").unbind('click').click(async function(){
   $("#modalDesactivarUsuario").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoUsuarios').DataTable();
   var rutUsuario = $.map(table.rows('.selected').data(), function (item) {
@@ -2958,7 +2958,7 @@ $("#guardarDesactivarUsuario").unbind('click').click(async function(){
 
 $("#editarUsuario").unbind('click').click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoUsuarios').DataTable();
   var rutUsuario = $.map(table.rows('.selected').data(), function (item) {
@@ -3029,7 +3029,7 @@ $("input#rutEditarUsuario").rut({
 $("#guardarEditarUsuario").unbind('click').click(async function(){
   $("#modalEditarUsuario").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   parametros = {
     "rutEditar":   $("#rutEditarUsuario").val(),
@@ -3091,7 +3091,7 @@ $("#usuarioResetPass").unbind('click').click(async function(){
 $("#guardarResetPassUsuario").unbind('click').click(async function(){
   $('#modalResetPassUsuario').modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoUsuarios').DataTable();
   var rutUsuario = $.map(table.rows('.selected').data(), function (item) {
@@ -3186,7 +3186,7 @@ $("#dniRecuperarContraseña").on('input', function(){
 $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },100);
   parametros = {
@@ -3244,7 +3244,7 @@ function initScreen() {
 function loading(flag) {
   if (flag) {
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   } else {
     $('#modalAlertasSplash').modal('hide');
@@ -3549,7 +3549,7 @@ $("#agregarSubcontratista").unbind("click").click(async function(){
   $("#rutIngresoSubcontratista").removeClass("is-invalid");
   $("#nombreIngresoSubcontratista").removeClass("is-invalid");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   setTimeout(function(){
@@ -3587,7 +3587,7 @@ $("#guardarIngresoSubcontratista").unbind('click').click(function(){
   }
   else {
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalIngresoSubcontratista").modal("hide");
     var interno = 0;
@@ -3667,7 +3667,7 @@ $("#nombreIngresoSubcontratista").on('input', function(){
 
 $("#editarSubcontratista").unbind('click').click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaSubcontratista').DataTable();
   var rutSubcontratista = $.map(table.rows('.selected').data(), function (item) {
@@ -3705,7 +3705,7 @@ $("#editarSubcontratista").unbind('click').click(async function(){
 $("#guardarEditarSubcontratista").unbind('click').click(async function(){
   $("#modalEditarSubcontratista").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var interno = 0;
   if($("#esSubcontratoEditarSubcontratista").prop("checked") == true){
@@ -3759,7 +3759,7 @@ $("#guardarEditarSubcontratista").unbind('click').click(async function(){
 
 $("#crearGerencia").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
 
   $("#gerenciaCrearGerenciaControlling").val("");
   $("#subGerenciaCrearGerenciaControlling").val("");
@@ -3799,7 +3799,7 @@ $("#crearGerencia").unbind("click").click(async function(){
 
 $("#editarGerencia").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaGerencia').DataTable();
   var idGerencia = $.map(table.rows('.selected').data(), function (item) {
@@ -3881,7 +3881,7 @@ $("#guardarCrearGerenciaControlling").unbind("click").click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalCrearGerenciaControlling").modal("hide");
 
@@ -3958,7 +3958,7 @@ $("#guardarEditarGerenciaControlling").unbind("click").click(function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalEditarGerenciaControlling").modal("hide");
 
@@ -4015,7 +4015,7 @@ $("#guardarEditarGerenciaControlling").unbind("click").click(function(){
 
 $("#asignarGerenteSub").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   var table = $('#tablaGerencia').DataTable();
   var idGerencia = $.map(table.rows('.selected').data(), function (item) {
       return item.IDGERENCIA;
@@ -4078,7 +4078,7 @@ $("#asignarGerenteSub").unbind("click").click(async function(){
 
 $("#guardarAsignarGerenteControlling").unbind("click").click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalAsignarGerenteControlling").modal("hide");
 
@@ -4130,7 +4130,7 @@ $("#crearEstadoProyecto").unbind("click").click(function(){
   $("#estadoEditarEstadoProyecto").val('');
   $("#descripcionEditarEstadoProyecto").val('');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   setTimeout(function(){
@@ -4141,7 +4141,7 @@ $("#crearEstadoProyecto").unbind("click").click(function(){
 
 $("#editarEstadoProyecto").unbind("click").click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaEstadoProyecto').DataTable();
   var idEstado = $.map(table.rows('.selected').data(), function (item) {
@@ -4167,7 +4167,7 @@ $("#editarEstadoProyecto").unbind("click").click(function(){
 
 $("#guardarCrearEstadoProyecto").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalCrearEstadoProyecto").modal("hide");
 
@@ -4232,7 +4232,7 @@ $("#guardarCrearEstadoProyecto").unbind("click").click(async function(){
 
 $("#guardarEditarEstadoProyecto").unbind("click").click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalEditarEstadoProyecto").modal("hide");
 
@@ -4282,7 +4282,7 @@ $("#guardarEditarEstadoProyecto").unbind("click").click(function(){
 
 $("#crearClienteProyecto").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
 
   $("#rutCrearClienteProyecto").val("");
   $("#clienteCrearClienteProyecto").val("");
@@ -4347,7 +4347,7 @@ $("#guardarCrearClienteProyecto").unbind("click").click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalCrearClienteProyecto").modal("hide");
 
@@ -4415,7 +4415,7 @@ $("#guardarCrearClienteProyecto").unbind("click").click(async function(){
 
 $("#editarClienteProyecto").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $("#modalAlertasSplash").modal("show");
   $("#rutEditarClienteProyecto").removeClass("is-invalid");
   $("#clienteEditarClienteProyecto").removeClass("is-invalid");
@@ -4481,7 +4481,7 @@ $("#guardarEditarClienteProyecto").unbind("click").click(function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalEditarClienteProyecto").modal("hide");
 
@@ -4545,7 +4545,7 @@ $("#agregarProyecto").unbind('click').click(async function(){
 
   $("#modalEditarPerfil").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   await $.ajax({
@@ -4724,7 +4724,7 @@ $("#guardarIngresoProyecto").unbind("click").click(function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalIngresoProyecto").modal("hide");
 
@@ -4826,7 +4826,7 @@ $("#editarProyecto").unbind('click').click(async function(){
 
   $("#modalEditarPerfil").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   var table = $('#tablaListadoProyecto').DataTable();
@@ -5099,7 +5099,7 @@ $("#guardarEditarProyecto").unbind("click").click(function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalEditarProyecto").modal("hide");
 
@@ -5183,7 +5183,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
   $("#emailIngresarPersonalOperaciones").val('');
   $("#esSubcontratistaIngresarPersonalOperaciones").prop("checked",false);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#rutIngresarPersonalOperaciones").removeClass("is-invalid");
   $("#nombresIngresarPersonalOperaciones").removeClass("is-invalid");
@@ -5321,7 +5321,7 @@ $("input#rutIngresarPersonalOperaciones").rut({
 
 $("#empresaIngresarPersonalOperaciones").unbind("click").change(async function(e){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalIngresarPersonalOperaciones").modal("hide");
   e.stopImmediatePropagation();
@@ -5525,7 +5525,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
   else{
     $('#modalIngresarPersonalOperaciones').modal('hide');
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     var sucursal = $("#sucursalIngresarPersonalOperaciones").val();
     var funcion = $("#funcionIngresarPersonalOperaciones").val();
@@ -5651,7 +5651,7 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
   else{
     $('#modalEditaPersonalOperaciones').modal('hide');
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     var sucursal = $("#sucursalEditaPersonalOperaciones").val();
     var funcion = $("#funcionEditaPersonalOperaciones").val();
@@ -5743,7 +5743,7 @@ $("#apellidosEditaPersonalOperaciones").on('input', function(){
 
 $("#editarJefatura").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#rutEditaPersonalOperaciones").removeClass("is-invalid");
   $("#nombresEditaPersonalOperacionestPersonalOperaciones").removeClass("is-invalid");
@@ -5969,7 +5969,7 @@ $("#editarJefatura").unbind("click").click(async function(){
 
 $("#servicioEditaPersonalOperaciones").unbind("click").change(async function(e){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalEditaPersonalOperaciones").modal("hide");
   e.stopImmediatePropagation();
@@ -6028,7 +6028,7 @@ $("#servicioEditaPersonalOperaciones").unbind("click").change(async function(e){
 
 $("#clienteEditaPersonalOperaciones").unbind("click").change(async function(e){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalEditaPersonalOperaciones").modal("hide");
   e.stopImmediatePropagation();
@@ -6067,7 +6067,7 @@ $("#clienteEditaPersonalOperaciones").unbind("click").change(async function(e){
 
 $("#empresaEditaPersonalOperaciones").unbind("click").change(async function(e){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalEditaPersonalOperaciones").modal("hide");
   e.stopImmediatePropagation();
@@ -6178,7 +6178,7 @@ $("#empresaEditaPersonalOperaciones").unbind("click").change(async function(e){
 
 $("#esSubcontratistaEditaPersonalOperaciones").unbind("click").change(async function(e){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#modalEditaPersonalOperaciones").modal("hide");
   e.stopImmediatePropagation();
@@ -6411,7 +6411,7 @@ $("#guardarCargarImgPersonal").unbind("click").click(function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalCargaImgPersonal").modal("hide");
     var table = $('#tablaJefatura').DataTable();
@@ -6497,7 +6497,7 @@ $("#fotoCargarImgPersonal" ).on('change', function(e){
 
 $("#cambiarJefatura").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   await $.ajax({
@@ -6535,7 +6535,7 @@ $("#cambiarJefatura").unbind("click").click(async function(){
 $("#guardarCambiarJefatura").unbind('click').click(async function() {
   $("#modalCambiarJefatura").modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $("#tablaJefatura").DataTable();
   var datos = table.rows('.selected').data();
@@ -6611,7 +6611,7 @@ $("#agregarSucursal").unbind("click").click(async function(){
   $("#sucursalIngresoSucursal").removeClass("is-invalid");
   $("#bodegaIngresoSucursal").html('<option value="SI">SI</option>,<option value="NO">NO</option>');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   // Funcion para desplegar selector de Comuna desde BD
   await $.ajax({
@@ -6656,7 +6656,7 @@ $("#guardarIngresoSucursal").unbind('click').click(function(){
   else {
   $("#modalIngresoSucursal").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   parametros = {
     "sucursalIngreso": $("#sucursalIngresoSucursal").val(),
@@ -6731,7 +6731,7 @@ $("#sucursalIngresoSucursal").on('input', function(){   // Removemos el is-inval
 // FUNCION PARA MODAL EDITAR SUCURSAL
 $("#editarSucursal").unbind('click').click( async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoSucursal').DataTable();
   var sucursal = $.map(table.rows('.selected').data(), function (item) {
@@ -6799,7 +6799,7 @@ $("#guardarEditarSucursal").unbind('click').click(function(){
   }
   $("#modalEditarSucursal").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $.ajax({
     url: "controller/editarSucursal.php",
@@ -6842,7 +6842,7 @@ $("#guardarEditarSucursal").unbind('click').click(function(){
 // FUNCION PARA MODAL DESACTIVAR SUCURSAL
 $("#eliminarSucursal").unbind('click').click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoSucursal').DataTable();
   var sucursal = $.map(table.rows('.selected').data(), function (item) {
@@ -6894,7 +6894,7 @@ $("#eliminarSucursal").unbind('click').click(function(){
 $("#guardarDesactivarSucursal").unbind('click').click(async function(){
   $("#modalDesactivarSucursal").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoSucursal').DataTable();
   var idSucursal = $.map(table.rows('.selected').data(), function (item) {
@@ -6953,7 +6953,7 @@ $("#guardarDesactivarSucursal").unbind('click').click(async function(){
 $("#agregarAreaFuncional").unbind('click').click(async function(){
   $("#modalAgregarAreaFuncional").find("input,textarea,select").val("");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   await $.ajax({
     url:   'controller/datosListadoPaises.php',
@@ -7004,7 +7004,7 @@ $("#guardarAgregarAreaFuncional").unbind('click').click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalAgregarAreaFuncional").modal("hide");
     parametros = {
@@ -7058,7 +7058,7 @@ $("#editarAreaFuncional").unbind('click').click(async function(){
   var table = $('#tablaAreaFuncional').DataTable();
   var datos = table.rows('.selected').data();
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   $("#comunaEditarAreaFuncional").val(datos[0].COMUNA);
@@ -7121,7 +7121,7 @@ $("#guardarEditarAreaFuncional").unbind('click').click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalEditarAreaFuncional").modal("hide");
     parametros = {
@@ -7175,7 +7175,7 @@ $("#codigoEditarPostalAreaFuncional").on('input', function(){
 $("#agregarPais").unbind('click').click(function(){
   $("#modalAgregarPais").find("input,textarea,select").val("");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   setTimeout(async function(){
@@ -7197,7 +7197,7 @@ $("#guardarAgregarPais").unbind('click').click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalAgregarPais").modal("hide");
     parametros = {
@@ -7240,7 +7240,7 @@ $("#editarPais").unbind('click').click(function(){
   var table = $('#tablaMantenedorPaises').DataTable();
   var datos = table.rows('.selected').data();
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   $("#abreviaturaEditarPais").val(datos[0].ABREVIATURA);
@@ -7266,7 +7266,7 @@ $("#guardarEditarPais").unbind('click').click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalEditarPais").modal("hide");
     parametros = {
@@ -7308,7 +7308,7 @@ $("#nombreEditarPais").on('input', function(){
 
 $("#disponiblePersonal").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $("#tablaPersonal").DataTable()
   var datos = table.rows('.selected').data();
@@ -7344,7 +7344,7 @@ $("#guardarDisponibilidad").unbind("click").click(async function(e){
   e.stopImmediatePropagation();
   $("#modalDisponibilidad").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   //initialize the plugin and get its instance
@@ -7584,7 +7584,7 @@ $("#guardarDisponibilidad").unbind("click").click(async function(e){
 
 $("#ausentePersonal").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $("#tablaPersonal").DataTable()
   var datos = table.rows('.selected').data();
@@ -7706,7 +7706,7 @@ $("#guardarAusencia").unbind("click").click(async function(){
   }
   else{
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
     $("#modalAusencia").modal("hide");
 
@@ -7987,7 +7987,7 @@ function ingresaModificacionPersonal(p){
 
 $("#transferirJefatura").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   await $.ajax({
     url:   'controller/datosJefes.php',
@@ -8063,7 +8063,7 @@ $('#selectJefesTransfer').change(function (e) {
 $("#guardarTransferirJefatura").unbind('click').click(async function() {
   $("#modalTransferirJefatura").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   //initialize the plugin and get its instance
@@ -8284,7 +8284,7 @@ $("#guardarTransferirJefatura").unbind('click').click(async function() {
 
 $("#transferirJefaturaRespuesta").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   var table = $("#tablaPersonal").DataTable();
@@ -8303,7 +8303,7 @@ $("#transferirJefaturaRespuesta").unbind("click").click(async function(){
 $("#aceptarTransferirJefaturaRespuesta").unbind("click").click(async function(){
   $('#modalTransferirJefaturaRespuesta').modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   var table = $("#tablaPersonal").DataTable();
@@ -8363,7 +8363,7 @@ $("#aceptarTransferirJefaturaRespuesta").unbind("click").click(async function(){
 $("#rechazarTransferirJefaturaRespuesta").unbind("click").click(async function(){
   $('#modalTransferirJefaturaRespuesta').modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   var table = $("#tablaPersonal").DataTable();
@@ -8422,7 +8422,7 @@ $("#rechazarTransferirJefaturaRespuesta").unbind("click").click(async function()
 
 $("#solicitarJefatura").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   $("#guardarSolicitarJefatura").attr("disabled", "disabled");
 
@@ -8540,7 +8540,7 @@ $('#tablaPersonalSolicitar tbody').on( 'click', 'tr', function () {
 $("#guardarSolicitarJefatura").unbind('click').click(async function() {
   $("#modalSolicitarJefatura").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   //initialize the plugin and get its instance
@@ -8929,7 +8929,7 @@ $("#guardarSolicitarJefatura").unbind('click').click(async function() {
 
 $("#solicitarJefaturaRespuesta").unbind("click").click(async function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   var table = $("#tablaPersonal").DataTable();
@@ -8948,7 +8948,7 @@ $("#solicitarJefaturaRespuesta").unbind("click").click(async function(){
 $("#aceptarSolicitarJefaturaRespuesta").unbind("click").click(async function(){
   $('#modalSolicitarJefaturaRespuesta').modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   //initialize the plugin and get its instance
@@ -9154,7 +9154,7 @@ $("#aceptarSolicitarJefaturaRespuesta").unbind("click").click(async function(){
 $("#rechazarSolicitarJefaturaRespuesta").unbind("click").click(async function(){
   $('#modalSolicitarJefaturaRespuesta').modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   var table = $("#tablaPersonal").DataTable();
@@ -9213,7 +9213,7 @@ $("#rechazarSolicitarJefaturaRespuesta").unbind("click").click(async function(){
 
 $("#desasignarJefaturaRespuesta").unbind('click').click(function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $("#tablaPersonal").DataTable();
   var datos = table.rows('.selected').data();
@@ -9236,7 +9236,7 @@ $("#cancelarDesasignarJefaturaRespuesta").unbind("click").click(function() {
 $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() {
   $("#modalDesasignarJefaturaRespuesta").modal("hide");
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
   //initialize the plugin and get its instance

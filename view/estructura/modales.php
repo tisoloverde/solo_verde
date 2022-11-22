@@ -21,7 +21,7 @@
       <div class="modal-body alerta-modal-body">
         <h4 id="textoModalSplash">
 					<img src='view/img/logo_home.png' class='splash_charge_logo'>
-					<img src='view/img/loading.gif' class='splash_charge_logo' style="margin-top: -50px;">
+					<img src='view/img/loading6.gif' class='splash_charge_logo' style="margin-top: -50px;">
 					<!-- <font style='font-size: 10pt; font-color: gray; font-style: italic;'>Cargando</font> -->
 				</h4>
         <button id="buttonAceptarAlertaSplash" style="margin-top: 10px; display: none;" type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
