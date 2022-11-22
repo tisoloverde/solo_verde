@@ -437,7 +437,7 @@ app.controller("changePassController", function(){
         else{
           setTimeout(async function(){
               $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-              $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+              $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
               $('#modalAlertasSplash').modal('show');
               $('#contenido').show();
               $('#menu-lateral').show();
@@ -489,7 +489,7 @@ app.controller("usuariosController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           // console.log(largo);
@@ -670,7 +670,7 @@ app.controller("perfilesController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           // console.log(largo);
@@ -831,11 +831,11 @@ app.controller("subcontratistasController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -861,7 +861,7 @@ app.controller("subcontratistasController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
 
@@ -986,11 +986,11 @@ app.controller("gerenciaController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1016,7 +1016,7 @@ app.controller("gerenciaController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
 
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
@@ -1160,11 +1160,11 @@ app.controller("estadoProyectoController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1190,7 +1190,7 @@ app.controller("estadoProyectoController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
 
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
@@ -1329,11 +1329,11 @@ app.controller("clienteController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1359,7 +1359,7 @@ app.controller("clienteController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
 
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
@@ -1499,11 +1499,11 @@ app.controller("proyectosController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1529,7 +1529,7 @@ app.controller("proyectosController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
             var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/24);
             await $('#tablaListadoProyecto').DataTable( {
@@ -1703,11 +1703,11 @@ app.controller("jefaturaController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1733,7 +1733,7 @@ app.controller("jefaturaController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/22);
           await $('#tablaJefatura').DataTable( {
@@ -1938,11 +1938,11 @@ app.controller("sucursalController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1968,7 +1968,7 @@ app.controller("sucursalController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           await $('#tablaListadoSucursal').DataTable( {
@@ -2100,11 +2100,11 @@ app.controller("mantenedorAreaFuncionalController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -2264,11 +2264,11 @@ app.controller("mantenedorPaisesController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -2417,11 +2417,11 @@ app.controller("mantenedorPaisesController", function(){
 
 app.controller("personalController", function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   clearInterval(lineaTiempo);
@@ -2449,7 +2449,7 @@ app.controller("personalController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           // console.log(largo);
@@ -2656,7 +2656,7 @@ app.controller("personalController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-                $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+                $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
                 $('#modalAlertasSplash').modal('show');
                 var table = $('#tablaPersonal').DataTable();
 

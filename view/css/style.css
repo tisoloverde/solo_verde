@@ -213,13 +213,13 @@ div#body{
 #iconoLogoMenu{
   border: 1px solid white;
   padding: 7px;
-  background-color: #0E1D1A;
+  background-color: #006B00;
 }
 
 .splash_charge_logo {
   display: block;
   margin:0 auto 0 auto;
-  width: 50pt;
+  width: 200pt;
   margin-bottom:10pt;
 }
 
@@ -344,7 +344,7 @@ div#body{
 }
 
 .celdaColor{
-  background-color: #0E1D1A!important;
+  background-color: #006B00!important;
   color: white;
 }
 
@@ -446,7 +446,7 @@ div#filtrosTarjetaCombustible,div#filtrosComprasGestion,div#filtrosComprasMateri
 }
 
 .custom-header{
-  background: #0E1D1A!important;
+  background: #006B00!important;
   color: white;
 }
 
@@ -527,7 +527,7 @@ div#filtrosTarjetaCombustible,div#filtrosComprasGestion,div#filtrosComprasMateri
 }
 
 .celdaColorCant{
-  border-bottom: 1px solid #0E1D1A !important;
+  border-bottom: 1px solid #006B00 !important;
 }
 
 .leftDataTableCant {
@@ -670,36 +670,36 @@ label.click_cubica:hover{
 }
 
 .fancy-panel-tbar{
-  background-color: #0E1D1A !important;
+  background-color: #006B00 !important;
   color: white !important;
 }
 
 .fancy-button-text{
-  background-color: #0E1D1A !important;
+  background-color: #006B00 !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-bar-button{
-  background-color: #0E1D1A !important;
+  background-color: #006B00 !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-grid-header-cell-container{
-  background-color: #0E1D1A !important;
+  background-color: #006B00 !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-bar-left-scroller{
-  background-color: #0E1D1A !important;
+  background-color: #006B00 !important;
   color: white !important;
   border-color: white !important;
 }
 
 .fancy-bar-right-scroller{
-  background-color: #0E1D1A !important;
+  background-color: #006B00 !important;
   color: white !important;
   border-color: white !important;
 }
@@ -830,7 +830,7 @@ label.click_cubica:hover{
 }
 
 .btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
-    background-color: #0E1D1A!important;
+    background-color: #006B00!important;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
