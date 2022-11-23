@@ -7,88 +7,88 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idLoad=11"
+        templateUrl : "view/home/login.html?idload=12"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idLoad=11"
+        templateUrl : "view/home/home.html?idload=12"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idLoad=11"
+        templateUrl : "view/home/home.html?idload=12"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idLoad=11"
+        templateUrl : "view/home/changePass.html?idload=12"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idLoad=11"
+        templateUrl : "view/usuario/usuarios.html?idload=12"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idLoad=11"
+        templateUrl : "view/usuario/perfiles.html?idload=12"
     })
     .when("/dotacion", {
         controller: "dotacionController",
         controllerAs: "vm",
-        templateUrl : "view/personal/dotacion.html?idLoad=11"
+        templateUrl : "view/personal/dotacion.html?idload=12"
     })
     .when("/subcontratistas", {
         controller: "subcontratistasController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/subcontratistas.html?idLoad=11"
+        templateUrl : "view/controlling/subcontratistas.html?idload=12"
     })
     .when("/gerencia", {
         controller: "gerenciaController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/gerencia.html?idLoad=11"
+        templateUrl : "view/controlling/gerencia.html?idload=12"
     })
     .when("/estadoProyecto", {
         controller: "estadoProyectoController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/estadoProyecto.html?idLoad=11"
+        templateUrl : "view/controlling/estadoProyecto.html?idload=12"
     })
     .when("/clienteProyecto", {
         controller: "clienteController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/cliente.html?idLoad=11"
+        templateUrl : "view/controlling/cliente.html?idload=12"
     })
     .when("/proyectos",{
         controller: "proyectosController",
         controllerAs: "wm",
-        templateUrl: "view/controlling/proyecto.html?idLoad=11"
+        templateUrl: "view/controlling/proyecto.html?idload=12"
     })
     .when("/gestionJefatura", {
       controller: "jefaturaController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/gestionJefatura.html?idLoad=11"
+      templateUrl : "view/adminPersonal/gestionJefatura.html?idload=12"
     })
     .when("/areaFuncional", {
         controller: "mantenedorAreaFuncionalController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/areaFuncional.html?idLoad=11"
+        templateUrl : "view/adminPersonal/areaFuncional.html?idload=12"
     })
     // Sucursales
     .when("/sucursales", {
       controller: "sucursalController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/sucursal.html?idLoad=11"
+      templateUrl : "view/adminPersonal/sucursal.html?idload=12"
     })
     .when("/paises", {
         controller: "mantenedorPaisesController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/paises.html?idLoad=11"
+        templateUrl : "view/adminPersonal/paises.html?idload=12"
     })
     .when("/equipo", {
         controller: "personalController",
         controllerAs: "vm",
-        templateUrl : "view/personal/personal.html?idLoad=11"
+        templateUrl : "view/personal/personal.html?idload=12"
     })
     .otherwise({redirectTo: '/home'});
 
@@ -437,7 +437,7 @@ app.controller("changePassController", function(){
         else{
           setTimeout(async function(){
               $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-              $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+              $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
               $('#modalAlertasSplash').modal('show');
               $('#contenido').show();
               $('#menu-lateral').show();
@@ -489,7 +489,7 @@ app.controller("usuariosController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           // console.log(largo);
@@ -619,7 +619,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idLoad=11';
+                      js.src = 'view/js/funciones.js?idload=12';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -670,7 +670,7 @@ app.controller("perfilesController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           // console.log(largo);
@@ -831,11 +831,11 @@ app.controller("subcontratistasController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -861,7 +861,7 @@ app.controller("subcontratistasController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
 
@@ -961,7 +961,7 @@ app.controller("subcontratistasController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=11';
+                    js.src = 'view/js/funciones.js?idload=12';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
                 },100);
@@ -986,11 +986,11 @@ app.controller("gerenciaController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1016,7 +1016,7 @@ app.controller("gerenciaController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
 
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
@@ -1137,7 +1137,7 @@ app.controller("gerenciaController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=11';
+                js.src = 'view/js/funciones.js?idload=12';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1160,11 +1160,11 @@ app.controller("estadoProyectoController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1190,7 +1190,7 @@ app.controller("estadoProyectoController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
 
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
@@ -1309,7 +1309,7 @@ app.controller("estadoProyectoController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=11';
+                js.src = 'view/js/funciones.js?idload=12';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1329,11 +1329,11 @@ app.controller("clienteController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1359,7 +1359,7 @@ app.controller("clienteController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
 
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
@@ -1476,7 +1476,7 @@ app.controller("clienteController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=11';
+                js.src = 'view/js/funciones.js?idload=12';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1499,11 +1499,11 @@ app.controller("proyectosController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1529,7 +1529,7 @@ app.controller("proyectosController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
             var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/24);
             await $('#tablaListadoProyecto').DataTable( {
@@ -1676,7 +1676,7 @@ app.controller("proyectosController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=11';
+                js.src = 'view/js/funciones.js?idload=12';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
 
@@ -1703,11 +1703,11 @@ app.controller("jefaturaController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1733,7 +1733,7 @@ app.controller("jefaturaController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/22);
           await $('#tablaJefatura').DataTable( {
@@ -1777,7 +1777,7 @@ app.controller("jefaturaController", function(){
                 text: 'Excel',
                 action: function ( e, dt, node, config ){
                   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-                  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'><span class='fas fa-file-excel'></span>&nbsp;&nbsp;Generando documento Excel</font>");
+                  $("#textoModalSplash").html("<img src='view/img/loading6.gif' class='splash_charge_logo'><font style='font-size: 12pt;'><span class='fas fa-file-excel'></span>&nbsp;&nbsp;Generando documento Excel</font>");
                   $('#modalAlertasSplash').modal('show');
 
                   $.ajax({
@@ -1911,7 +1911,7 @@ app.controller("jefaturaController", function(){
 
             setTimeout(function(){
               var js = document.createElement('script');
-              js.src = 'view/js/funciones.js?idLoad=11';
+              js.src = 'view/js/funciones.js?idload=12';
               document.getElementsByTagName('head')[0].appendChild(js);
             },500);
 
@@ -1938,11 +1938,11 @@ app.controller("sucursalController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -1968,7 +1968,7 @@ app.controller("sucursalController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           await $('#tablaListadoSucursal').DataTable( {
@@ -2075,7 +2075,7 @@ app.controller("sucursalController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idLoad=11';
+                      js.src = 'view/js/funciones.js?idload=12';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -2100,11 +2100,11 @@ app.controller("mantenedorAreaFuncionalController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -2238,7 +2238,7 @@ app.controller("mantenedorAreaFuncionalController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=11';
+                    js.src = 'view/js/funciones.js?idload=12';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -2264,11 +2264,11 @@ app.controller("mantenedorPaisesController", function(){
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   var path = window.location.href.split('#/')[1];
@@ -2393,7 +2393,7 @@ app.controller("mantenedorPaisesController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=11';
+                    js.src = 'view/js/funciones.js?idload=12';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -2417,11 +2417,11 @@ app.controller("mantenedorPaisesController", function(){
 
 app.controller("personalController", function(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
   },200);
   clearInterval(lineaTiempo);
@@ -2449,7 +2449,7 @@ app.controller("personalController", function(){
       else{
         setTimeout(async function(){
           $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-          $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
           $('#modalAlertasSplash').modal('show');
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
           // console.log(largo);
@@ -2656,7 +2656,7 @@ app.controller("personalController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-                $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+                $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
                 $('#modalAlertasSplash').modal('show');
                 var table = $('#tablaPersonal').DataTable();
 

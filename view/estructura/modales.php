@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=11';
+  js.src = 'view/js/funciones.js?idload=12';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -20,8 +20,9 @@
     <div class="modal-content-t">
       <div class="modal-body alerta-modal-body">
         <h4 id="textoModalSplash">
-					<img src='view/img/loading.gif' class='splash_charge_logo'>
-					<font style='font-size: 10pt; font-color: gray; font-style: italic;'>Cargando</font>
+					<img src='view/img/logo_home.png' class='splash_charge_logo'>
+					<img src='view/img/loading6.gif' class='splash_charge_logo' style="margin-top: -50px;">
+					<!-- <font style='font-size: 10pt; font-color: gray; font-style: italic;'>Cargando</font> -->
 				</h4>
         <button id="buttonAceptarAlertaSplash" style="margin-top: 10px; display: none;" type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
         <button id="botonAceptarCambioPassSplash" style="margin-top: 10px; display: none;" type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
