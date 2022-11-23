@@ -3,11 +3,11 @@ require('../model/consultas.php');
 session_start();
 
 if (count($_POST) >= 0) {
-  $row = consultaListadoDotacion($_POST['codigoCC']);
+  $row = consultaListadoDotacion($_POST['periodo'], $_POST['codigoCC']);
   $pofs = consultaListaPersonalOfertados();
 
   if (is_array($row)) {
-    for ($i=0; $i < count($row); $i++) {
+    /*for ($i=0; $i < count($row); $i++) {
       $select = "<select id='dotacion-select-" . $row[$i]['id'] . "' class='dotacion-select'>";
       foreach ($pofs as $pof) {
         $code = $pof['codigo'];
@@ -20,7 +20,7 @@ if (count($_POST) >= 0) {
       }
       $select = $select . "</select>";
       $row[$i]['personalOfertado'] = $select;
-    }
+    }*/
 
     $results = [
       "sEcho" => 1,
