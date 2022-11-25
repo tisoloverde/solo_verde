@@ -19408,6 +19408,29 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaReferencia2() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				R1.IDREFERENCIA1,
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2
+			FROM REFERENCIA2 R2
+			INNER JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = R2.IDREFERENCIA1;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaLastIDDotacion() {
 		$con = conectar();
 		if ($con != 'No conectado') {
@@ -19440,9 +19463,11 @@ WHERE U.RUT = '{$rutUser}'";
 				F.NOMBRE AS FAMILIA,
 				DT.IDCARGO_MANDANTE,
 				(
-					SELECT NOMBRE
-					FROM CARGO_GENERICO_UNIFICADO
-					WHERE IDCARGO_GENERICO_UNIFICADO = DT.IDCARGO_MANDANTE
+					SELECT
+						CGU.NOMBRE
+					FROM CARGO_GENERICO_UNIFICADO_FAMILIA CGUF
+					INNER JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = CGUF.IDCARGO_GENERICO_UNIFICADO
+					WHERE CGUF.IDCARGO_GENERICO_UNIFICADO_FAMILIA = DT.IDCARGO_MANDANTE
 				) AS CARGO_MANDANTE,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
 				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
