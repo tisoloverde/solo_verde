@@ -3575,6 +3575,7 @@ $('#newDotacion').on('click', function (e) {
   /* End - Select col 4 */
 
   /* Begin - Select col 5 */
+  
   /* End - Select col 5 */
 
   var dt = {
@@ -3583,8 +3584,8 @@ $('#newDotacion').on('click', function (e) {
     FAMILIA,
     CARGO_MANDANTE,
     CARGO_GENERICO_UNIFICADO: CARGO_MANDANTE,
-    CLASIFICACION: '',
-    REFERENCIA1: '',
+    CLASIFICACION: comunesDotacion.cargoMandante[0]['CLASIFICACION'],
+    REFERENCIA1: comunesDotacion.cargoMandante[0]['REFERENCIA1'],
     REFERENCIA2: '',
     ENERO: '',
     FEBRERO: '',
