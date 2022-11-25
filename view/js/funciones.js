@@ -3466,7 +3466,7 @@ $(document).on('change', '.dotacion-select', function(e){
 
 $('#tablaListadoDotacion').on(
   'click',
-  'tbody td:not(:first-child, :nth-child(2, 3, 4))',
+  'tbody td:not(:first-child, :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(8))',
   function (e) {
     editorDotacion.inline(this);
   }
