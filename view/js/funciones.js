@@ -3270,37 +3270,37 @@ var editorDotacion = new $.fn.dataTable.Editor({
   table: "#tablaListadoDotacion",
   idSrc: 'id',
   fields: [
-    { label: 'personalOfertado', name: 'personalOfertado' }, //, type: "select" },
-    { label: 'cargoMandante', name: 'cargoMandante' },
-    { label: 'cargoGenericoUnificado', name: 'cargoGenericoUnificado' },
-    { label: 'familia', name: 'familia' },
-    { label: 'jeasGeas', name: 'jeasGeas' },
-    { label: 'ref1', name: 'ref1' },
-    { label: 'ref2', name: 'ref2' },
-    { label: 'ene22', name: 'ene22' },
-    { label: 'feb22', name: 'feb22' },
-    { label: 'mar22', name: 'mar22' },
-    { label: 'abr22', name: 'abr22' },
-    { label: 'may22', name: 'may22' },
-    { label: 'jun22', name: 'jun22' },
-    { label: 'jul22', name: 'jul22' },
-    { label: 'ago22', name: 'ago22' },
-    { label: 'set22', name: 'set22' },
-    { label: 'oct22', name: 'oct22' },
-    { label: 'nov22', name: 'nov22' },
-    { label: 'dic22', name: 'dic22' },
+    { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' }, //, type: "select" },
+    { label: 'familia', name: 'FAMILIA' },
+    { label: 'cargoMandante', name: 'CARGO_MANDANTE' },
+    { label: 'cargoGenericoUnificado', name: 'CARGO_GENERICO_UNIFICADO' },
+    { label: 'jeasGeas', name: 'CLASIFICACION' },
+    { label: 'ref1', name: 'REFERENCIA1' },
+    { label: 'ref2', name: 'REFERENCIA2' },
+    { label: 'ene', name: 'ENERO' },
+    { label: 'feb', name: 'FEBRERO' },
+    { label: 'mar', name: 'MARZO' },
+    { label: 'abr', name: 'ABRIL' },
+    { label: 'may', name: 'MAYO' },
+    { label: 'jun', name: 'JUNIO' },
+    { label: 'jul', name: 'JULIO' },
+    { label: 'ago', name: 'AGOSTO' },
+    { label: 'set', name: 'SETIEMBRE' },
+    { label: 'oct', name: 'OCTUBRE' },
+    { label: 'nov', name: 'NOVIEMBRE' },
+    { label: 'dic', name: 'DICIEMBRE' },
   ],
   formOptions: { inline: { submit: 'all' } },
 });
 
-async function listDotacion(codigoCC) {
+async function listDotacion(periodo, codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   loading(true);
   await tableDotacion.DataTable({
     ajax: {
       url: "controller/datosListadoDotacion.php",
       type: 'POST',
-      data: { periodo: "2020", codigoCC: "186" },
+      data: { periodo, codigoCC },
       /*dataSrc: function (json) {
         return json.data;
       },*/
@@ -3344,7 +3344,7 @@ async function listDotacion(codigoCC) {
     lengthMenu: [[largo], [largo]],
     dom: 'Bfrtip',
     language: {
-      zeroRecords: "Seleccionar centro de costo",
+      zeroRecords: "Seleccionar periodo y centro de costo",
       info: "Registro _START_ de _END_ de _TOTAL_",
       infoEmpty: "No hay datos disponibles",
       paginate: {
@@ -3425,15 +3425,24 @@ function getCodigoYNombreCC() {
   return [id, aux[aux.length - 1]];
 }
 
+$('#selectListaPeriodos').on('change', function (e) {
+  e.stopImmediatePropagation();
+  filtrosDotacion();
+})
+
 $('#selectListaLugares').on('change', function (e) {
   e.stopImmediatePropagation();
-  var codigoCC = $('#selectListaLugares').val();
-  if (codigoCC != 'select') {
-    $("#newDotacion").removeAttr("disabled");
-    // $("#saveDotacion").removeAttr("disabled");
-    listDotacion(codigoCC);
-  }
+  filtrosDotacion();
 })
+
+function filtrosDotacion() {
+  var periodo = $('#selectListaPeriodos').val();
+  var codigoCC = $('#selectListaLugares').val();
+  if (Boolean(periodo) && Boolean(codigoCC)) {
+    $("#newDotacion").removeAttr("disabled");
+    listDotacion(periodo, codigoCC);
+  }
+}
 
 function dotacionGetId(strid) {
   var splitted = strid.split('-');
@@ -3513,7 +3522,7 @@ $("#saveDotacion").on('click', async (e) => {
     }
   })
 
-  await listDotacion($('#selectListaLugares').val());
+  await listDotacion($('#selectListaPeriodos').val(), $('#selectListaLugares').val());
 
   loading(false);
 })

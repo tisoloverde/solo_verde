@@ -823,7 +823,7 @@ app.controller("dotacionController", function(){
           await listDotacionPeriodos();
           await listComunesDotacion();
           loading(false);
-          await listDotacion('null');
+          await listDotacion('null', 'null');
           esconderMenu();
           menuElegant();
         }, 200);
