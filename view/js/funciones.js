@@ -3532,10 +3532,10 @@ $("#saveDotacion").on('click', async (e) => {
 })
 
 function modelarSelectDotacion(id, items) {
-  var select = "<select id='dotacion-select-" + id + "' class='dotacion-select'>";
+  var select = `<select id='dotacion-select-col2-${id}' class='dotacion-select'>`;
   items.forEach((item) => {
-    var code = item['codigo'];
-    var name = item['nombre'];
+    var code = item['CODIGO'];
+    var name = item['NOMBRE'];
     select += `<option value='${code}'>${name}</option>`;
   })
   select += "</select>";
@@ -3545,28 +3545,59 @@ function modelarSelectDotacion(id, items) {
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
   lastIdDotacionToUse++;
-  var cId = `${lastIdDotacionToUse}__`;
+  var IDDOTACION = `${lastIdDotacionToUse}__`;
+
+  /* Begin - Select col 2 */
+  var PERSONAL_OFERTADOS = `<select id='dotacion-select-col2-${IDDOTACION}' class='dotacion-select'>`;
+  comunesDotacion.personalOfertado.forEach((item) => {
+    PERSONAL_OFERTADOS += "<option value='" + item['IDPERSONAL_OFERTADOS'] + "'>" + item['NOMBRE'] + "</option>";
+  })
+  PERSONAL_OFERTADOS += "</select>";
+  /* End - Select col 2 */
+
+  /* Begin - Select col 3 */
+  var FAMILIA = `<select id='dotacion-select-col3-${IDDOTACION}' class='dotacion-select'>`;
+  comunesDotacion.familia.forEach((item) => {
+    FAMILIA += "<option value='" + item['IDFAMILIA'] + "'>" + item['NOMBRE'] + "</option>";
+  })
+  FAMILIA += "</select>";
+  /* End - Select col 3 */
+
+  /* Begin - Select col 4 */
+  var CARGO_MANDANTE = `<select id='dotacion-select-col3-${IDDOTACION}' class='dotacion-select'>`;
+  comunesDotacion.cargoMandante.forEach((item) => {
+    var idFamilia = comunesDotacion.familia[0]['IDFAMILIA'];
+    if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
+      CARGO_MANDANTE += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+    }
+  })
+  CARGO_MANDANTE += "</select>";
+  /* End - Select col 4 */
+
+  /* Begin - Select col 5 */
+  /* End - Select col 5 */
+
   var dt = {
-    id: cId,
-    personalOfertado: modelarSelectDotacion(cId, comunesDotacion.personalOfertado),
-    cargoMandante: '',
-    cargoGenericoUnificado: '',
-    familia: '',
-    jeasGeas: '',
-    ref1: '',
-    ref2: '',
-    ene22: '',
-    feb22: '',
-    mar22: '',
-    abr22: '',
-    may22: '',
-    jun22: '',
-    jul22: '',
-    ago22: '',
-    set22: '',
-    oct22: '',
-    nov22: '',
-    dic22: '',
+    IDDOTACION,
+    PERSONAL_OFERTADOS,
+    FAMILIA,
+    CARGO_MANDANTE,
+    CARGO_GENERICO_UNIFICADO: CARGO_MANDANTE,
+    CLASIFICACION: '',
+    REFERENCIA1: '',
+    REFERENCIA2: '',
+    ENERO: '',
+    FEBRERO: '',
+    MARZO: '',
+    ABRIL: '',
+    MAYO: '',
+    JUNIO: '',
+    JULIO: '',
+    AGOSTO: '',
+    SETIEMBRE: '',
+    OCTUBRE: '',
+    NOVIEMBRE: '',
+    DICIEMBRE: '',
   };
 
   dotacionData.push(dt);

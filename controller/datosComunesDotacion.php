@@ -3,6 +3,8 @@ require('../model/consultas.php');
 session_start();
 
 $pofs = consultaListaPersonalOfertados();
+$fams = consultaListaFamilias();
+$crgman = consultaListaCargoMandante();
 
 $results = [
   "sEcho" => 1,
@@ -10,6 +12,8 @@ $results = [
   "iTotalDisplayRecords" => 0,
   "aaData" => [
     "personalOfertado" => $pofs,
+    "familia" => $fams,
+    "cargoMandante" => $crgman,
   ],
 ];
 
