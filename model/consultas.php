@@ -19314,7 +19314,25 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaCentrosDeCosto() {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT id, codigo, nombre FROM CENTROS_DE_COSTO";
+			$sql = "SELECT IDESTRUCTURA_OPERACION, DEFINICION, NOMENCLATURA FROM ESTRUCTURA_OPERACION ORDER BY DEFINICION ASC";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaPeriodos() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT DISTINCT(ANHO) FROM PERIODO";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -19350,7 +19368,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaLastIDDotacion() {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT MAX(id) AS LAST_ID FROM DOTACION";
+			$sql = "SELECT MAX(IDDOTACION) AS LAST_ID FROM DOTACION";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

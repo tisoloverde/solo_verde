@@ -801,6 +801,10 @@ app.controller("dotacionController", function(){
   loading(true);
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaPeriodos").select2(theme);
+  }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $("#selectListaLugares").select2(theme);
   }
 
@@ -816,6 +820,7 @@ app.controller("dotacionController", function(){
       } else {
         setTimeout(async function() {
           await listDotacionLugares();
+          await listDotacionPeriodos();
           await listComunesDotacion();
           loading(false);
           await listDotacion('null');

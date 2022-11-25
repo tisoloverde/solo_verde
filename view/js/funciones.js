@@ -3384,9 +3384,25 @@ async function listComunesDotacion() {
   })
 }
 
+async function listDotacionPeriodos() {
+  $.ajax({
+    url: 'controller/datosPeriodos.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option selected value='select' disabled>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.ANHO}">${item.ANHO}</option>`;
+      });
+      $('#selectListaPeriodos').html(html);
+    },
+  })
+}
+
 async function listDotacionLugares() {
   $.ajax({
-    url: 'controller/datosLugares.php',
+    url: 'controller/datosCentrosDeCostos.php',
     type: 'get',
     dataType: 'json',
     success: function (response) {
@@ -3395,7 +3411,7 @@ async function listDotacionLugares() {
       var data = response.aaData;
       var html = "<option selected value='select' disabled>Seleccione</option>";
       data.forEach((item) => {
-        html += `<option value="${item.codigo}">${item.codigo} - ${item.nombre}</option>`;
+        html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
       });
       $('#selectListaLugares').html(html);
     },
