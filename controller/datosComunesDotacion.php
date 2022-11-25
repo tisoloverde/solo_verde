@@ -5,6 +5,7 @@ session_start();
 $pofs = consultaListaPersonalOfertados();
 $fams = consultaListaFamilias();
 $crgman = consultaListaCargoMandante();
+$refs2 = consultaListaReferencia2();
 
 $results = [
   "sEcho" => 1,
@@ -14,6 +15,7 @@ $results = [
     "personalOfertado" => $pofs,
     "familia" => $fams,
     "cargoMandante" => $crgman,
+    "referencia2" => $refs2,
   ],
 ];
 

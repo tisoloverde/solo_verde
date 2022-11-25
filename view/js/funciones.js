@@ -3564,7 +3564,7 @@ $('#newDotacion').on('click', function (e) {
   /* End - Select col 3 */
 
   /* Begin - Select col 4 */
-  var CARGO_MANDANTE = `<select id='dotacion-select-col3-${IDDOTACION}' class='dotacion-select'>`;
+  var CARGO_MANDANTE = `<select id='dotacion-select-col4-${IDDOTACION}' class='dotacion-select'>`;
   comunesDotacion.cargoMandante.forEach((item) => {
     var idFamilia = comunesDotacion.familia[0]['IDFAMILIA'];
     if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
@@ -3575,8 +3575,26 @@ $('#newDotacion').on('click', function (e) {
   /* End - Select col 4 */
 
   /* Begin - Select col 5 */
-  
+  var CARGO_MANDANTE = `<select id='dotacion-select-col5-${IDDOTACION}' class='dotacion-select'>`;
+  comunesDotacion.cargoMandante.forEach((item) => {
+    var idFamilia = comunesDotacion.familia[0]['IDFAMILIA'];
+    if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
+      CARGO_MANDANTE += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+    }
+  })
+  CARGO_MANDANTE += "</select>";
   /* End - Select col 5 */
+
+  /* Begin - Select col 8 */
+  var REFERENCIA2 = `<select id='dotacion-select-col8-${IDDOTACION}' class='dotacion-select'>`;
+  comunesDotacion.referencia2.forEach((item) => {
+    var idRef1 = comunesDotacion.cargoMandante[0]['IDREFERENCIA1'];
+    if (Number(item['IDREFERENCIA1']) == Number(idRef1)) {
+      REFERENCIA2 += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+    }
+  })
+  REFERENCIA2 += "</select>";
+  /* End - Select col 8 */
 
   var dt = {
     IDDOTACION,
@@ -3586,7 +3604,7 @@ $('#newDotacion').on('click', function (e) {
     CARGO_GENERICO_UNIFICADO: CARGO_MANDANTE,
     CLASIFICACION: comunesDotacion.cargoMandante[0]['CLASIFICACION'],
     REFERENCIA1: comunesDotacion.cargoMandante[0]['REFERENCIA1'],
-    REFERENCIA2: '',
+    REFERENCIA2,
     ENERO: '',
     FEBRERO: '',
     MARZO: '',
