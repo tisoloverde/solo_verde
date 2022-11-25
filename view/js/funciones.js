@@ -3268,7 +3268,7 @@ var comunesDotacion = {};
 var editorDotacion = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoDotacion",
-  idSrc: 'id',
+  idSrc: 'IDDOTACION',
   fields: [
     { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' }, //, type: "select" },
     { label: 'familia', name: 'FAMILIA' },
