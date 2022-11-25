@@ -19350,7 +19350,50 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaPersonalOfertados() {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT id, codigo, nombre FROM PERSONAL_OFERTADOS";
+			$sql = "SELECT IDPERSONAL_OFERTADOS, CODIGO, NOMBRE FROM PERSONAL_OFERTADOS";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaFamilias() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT IDFAMILIA, NOMBRE FROM FAMILIA";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaCargoMandante() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				CGUF.IDCARGO_GENERICO_UNIFICADO_FAMILIA,
+				F.IDFAMILIA,
+				CGU.IDCARGO_GENERICO_UNIFICADO,
+				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO
+			FROM CARGO_GENERICO_UNIFICADO_FAMILIA CGUF
+			INNER JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = CGUF.IDCARGO_GENERICO_UNIFICADO
+			INNER JOIN FAMILIA F ON F.IDFAMILIA = CGUF.IDFAMILIA;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

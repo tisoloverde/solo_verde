@@ -3331,7 +3331,7 @@ async function listDotacion(periodo, codigoCC) {
     columnDefs: [
       { width: "5px", targets: 0 },
       /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
-      { visible: false, searchable: false, targets: [ 2 ] },
+      /*{ visible: false, searchable: false, targets: [ 2 ] },*/
       { targets: "_all", className: "dt-center" }
     ],
     select: { style: 'single' },
@@ -3464,9 +3464,13 @@ $(document).on('change', '.dotacion-select', function(e){
   $("#saveDotacion").removeAttr("disabled");
 });
 
-$('#tablaListadoDotacion').on('click', 'tbody td:not(:first-child, :nth-child(2))', function (e) {
-  editorDotacion.inline(this);
-});
+$('#tablaListadoDotacion').on(
+  'click',
+  'tbody td:not(:first-child, :nth-child(2, 3, 4))',
+  function (e) {
+    editorDotacion.inline(this);
+  }
+);
 
 editorDotacion.on('preSubmit', function (e, o, action) {
   if (o.action == 'edit') {
