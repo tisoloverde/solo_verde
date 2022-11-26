@@ -3261,8 +3261,6 @@ function restricted() {
 
 var lastIdDotacionToUse = 0;
 var dotacionData = [];
-var dotacionSelects = {};
-var dotacionListUpdated = {};
 var tableDotacion = $("#tablaListadoDotacion");
 var comunesDotacion = {};
 var editorDotacion = new $.fn.dataTable.Editor({
@@ -3273,7 +3271,7 @@ var editorDotacion = new $.fn.dataTable.Editor({
     { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' }, //, type: "select" },
     { label: 'familia', name: 'FAMILIA' },
     { label: 'cargoMandante', name: 'CARGO_MANDANTE' },
-    { label: 'cargoGenericoUnificado', name: 'CARGO_GENERICO_UNIFICADO' },
+    { label: 'cargoGenericoUnificadoFamilia', name: 'CARGO_GENERICO_UNIFICADO_FAMILIA' },
     { label: 'jeasGeas', name: 'CLASIFICACION' },
     { label: 'ref1', name: 'REFERENCIA1' },
     { label: 'ref2', name: 'REFERENCIA2' },
@@ -3310,7 +3308,7 @@ async function listDotacion(periodo, codigoCC) {
       { data: 'PERSONAL_OFERTADOS' }, // editField: 'personalOfertado' },
       { data: 'FAMILIA' },
       { data: 'CARGO_MANDANTE' },
-      { data: 'CARGO_GENERICO_UNIFICADO' },
+      { data: 'CARGO_GENERICO_UNIFICADO_FAMILIA' },
       { data: 'CLASIFICACION' },
       { data: 'REFERENCIA1' },
       { data: 'REFERENCIA2' },
@@ -3453,15 +3451,26 @@ function dotacionGetId(strid) {
   return "0";
 }
 
+$(document).on('change', '.dotacion-select-col2', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  $("#saveDotacion").removeAttr("disabled");
+
+  var idDotacion = dotacionGetId(this.id);
+  var idPersonalOfertado = this.value;
+
+  var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
+  if (dotacionIdx >= 0) {
+    dotacionData[dotacionIdx]['IDPERSONAL_OFERTADOS'] = idPersonalOfertado;
+  }
+});
+
 $(document).on('change', '.dotacion-select-col3', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
-  /*var idDotacion = dotacionGetId(this.id);
-  var dotacionValue = this.value;
-  var dotacionText = $(`#${this.id} option:selected`).text();
-  dotacionSelects[`${idDotacion}`] = { idPersonalOfertado: dotacionValue, personalOfertado: dotacionText };
 
-  $("#saveDotacion").removeAttr("disabled");*/
+  $("#saveDotacion").removeAttr("disabled");
 
   var idDotacion = dotacionGetId(this.id);
   var idFamilia = this.value;
@@ -3489,6 +3498,7 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   $(`#dotacion-select-col5-${idDotacion}`).html(html);
   /* End - Select Col 5 */
 
+  var idCargoMandante = $(`#dotacion-select-col4-${idDotacion}`).val();
   var idCargoGenericoUnificadoFamilia = $(`#dotacion-select-col5-${idDotacion}`).val();
   var cargoGenericoUnificadoFamilia = comunesDotacion.cargoMandante.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO_FAMILIA']) == Number(idCargoGenericoUnificadoFamilia))
 
@@ -3510,6 +3520,29 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   html += "</select>";
   $(`#dotacion-select-col8-${idDotacion}`).html(html);
   /* End - Select Col 8 */
+  
+  var idReferencia2 = $(`#dotacion-select-col8-${idDotacion}`).val();
+
+  var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
+  if (dotacionIdx >= 0) {
+    dotacionData[dotacionIdx]['IDFAMILIA'] = idFamilia;
+    dotacionData[dotacionIdx]['IDCARGO_MANDANTE'] = idCargoMandante;
+    dotacionData[dotacionIdx]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] = idCargoGenericoUnificadoFamilia;
+    dotacionData[dotacionIdx]['IDREFERENCIA2'] = idReferencia2;
+  }
+});
+
+$(document).on('change', '.dotacion-select-col4', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var idDotacion = dotacionGetId(this.id);
+  var idCargoMandante = this.value;
+
+  var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
+  if (dotacionIdx >= 0) {
+    dotacionData[dotacionIdx]['IDCARGO_MANDANTE'] = idCargoMandante;
+  }
 });
 
 $(document).on('change', '.dotacion-select-col5', function(e){
@@ -3540,6 +3573,14 @@ $(document).on('change', '.dotacion-select-col5', function(e){
   html += "</select>";
   $(`#dotacion-select-col8-${idDotacion}`).html(html);
   /* End - Select Col 8 */
+
+  var idReferencia2 = $(`#dotacion-select-col8-${idDotacion}`).val();
+
+  var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
+  if (dotacionIdx >= 0) {
+    dotacionData[dotacionIdx]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] = idCargoGenericoUnificadoFamilia;
+    dotacionData[dotacionIdx]['IDREFERENCIA2'] = idReferencia2;
+  }
 });
 
 $('#tablaListadoDotacion').on(
@@ -3569,12 +3610,31 @@ editorDotacion.on('postEdit', function (e, o, action) {
 $("#saveDotacion").on('click', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
-  var keys = Object.keys(dotacionListUpdated);
+
+  console.log('----dotacionListUpdated---')
+  console.log(dotacionData)
+
+  var dataAdd = [];
+  dotacionData.forEach((item) => {
+    var aux = {
+      DEFINICION_ESTRUCTURA_OPERACION: '',
+      IDPERSONAL_OFERTADO: item['IDPERSONAL_OFERTADO'],
+      IDCARGO_MANDANTE: item['IDCARGO_MANDANTE'],
+      IDCARGO_GENERICO_UNIFICADO_FAMILIA: item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
+      IDREFERENCIA2: item['IDREFERENCIA2'],
+    }
+    if (item.__type == 'new') dataAdd.push(aux);
+  })
+
+  console.log('---data-Add--')
+  console.log(dataAdd)
+
+  /*var keys = Object.keys(dotacionListUpdated);
 
   keys.forEach((key) => {
-    var selectsWithChanges = Object.keys(dotacionSelects);
+    var selectsWithChanges = Object.keys(dotacionSchema);
     if (selectsWithChanges.includes(key)) {
-      dotacionListUpdated[key].personalOfertado = dotacionSelects[key].personalOfertado;
+      dotacionListUpdated[key].idPersonalOfertado = dotacionSchema[key].idPersonalOfertado;
     }
   })
 
@@ -3593,6 +3653,10 @@ $("#saveDotacion").on('click', async (e) => {
     }
   });
 
+  console.log('------sad---')
+  console.log(dataAdd)
+  console.log(dataUpd)
+
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoDotacion.php',
@@ -3606,7 +3670,7 @@ $("#saveDotacion").on('click', async (e) => {
 
   await listDotacion($('#selectListaPeriodos').val(), $('#selectListaLugares').val());
 
-  loading(false);
+  loading(false);*/
 })
 
 function modelarSelectDotacion(id, items) {
@@ -3622,6 +3686,8 @@ function modelarSelectDotacion(id, items) {
 
 $('#newDotacion').on('click', function (e) {
   e.stopImmediatePropagation();
+  $("#saveDotacion").removeAttr("disabled");
+
   lastIdDotacionToUse++;
   var IDDOTACION = `${lastIdDotacionToUse}__`;
 
@@ -3653,14 +3719,14 @@ $('#newDotacion').on('click', function (e) {
   /* End - Select col 4 */
 
   /* Begin - Select col 5 */
-  var CARGO_GENERICO_UNIFICADO = `<select id='dotacion-select-col5-${IDDOTACION}' class='dotacion-select-col5'>`;
+  var CARGO_GENERICO_UNIFICADO_FAMILIA = `<select id='dotacion-select-col5-${IDDOTACION}' class='dotacion-select-col5'>`;
   comunesDotacion.cargoMandante.forEach((item) => {
     var idFamilia = comunesDotacion.familia[0]['IDFAMILIA'];
     if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
-      CARGO_GENERICO_UNIFICADO += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+      CARGO_GENERICO_UNIFICADO_FAMILIA += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
     }
   })
-  CARGO_GENERICO_UNIFICADO += "</select>";
+  CARGO_GENERICO_UNIFICADO_FAMILIA += "</select>";
   /* End - Select col 5 */
 
   /* Begin - Text col 6 */
@@ -3687,7 +3753,7 @@ $('#newDotacion').on('click', function (e) {
     PERSONAL_OFERTADOS,
     FAMILIA,
     CARGO_MANDANTE,
-    CARGO_GENERICO_UNIFICADO,
+    CARGO_GENERICO_UNIFICADO_FAMILIA,
     CLASIFICACION,
     REFERENCIA1,
     REFERENCIA2,
@@ -3703,6 +3769,12 @@ $('#newDotacion').on('click', function (e) {
     OCTUBRE: '',
     NOVIEMBRE: '',
     DICIEMBRE: '',
+    IDPERSONAL_OFERTADOS: '1',
+    IDFAMILIA: '1',
+    IDCARGO_MANDANTE: '1',
+    IDCARGO_GENERICO_UNIFICADO_FAMILIA: '1',
+    IDREFERENCIA2: '1',
+    __type: 'new',
   };
 
   dotacionData.push(dt);

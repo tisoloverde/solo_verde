@@ -45,7 +45,7 @@ if (count($_POST) >= 0) {
         $id = $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'];
         $name = $item['CARGO_GENERICO_UNIFICADO'];
         if ($item['IDFAMILIA'] == $row[$i]['IDFAMILIA']) {
-          $select = $select . ($row[$i]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] == $id
+          $select = $select . ($row[$i]['IDCARGO_MANDANTE'] == $id
             ? "<option value='$id' selected>$name</option>"
             : "<option value='$id'>$name</option>");
         }
@@ -66,7 +66,7 @@ if (count($_POST) >= 0) {
         }
       }
       $select = $select . "</select>";
-      $row[$i]['CARGO_GENERICO_UNIFICADO'] = $select;
+      $row[$i]['CARGO_GENERICO_UNIFICADO_FAMILIA'] = $select;
       /* End - Cargo Generico Unificado */
 
       /* Begin - Clasificacion */
@@ -91,6 +91,8 @@ if (count($_POST) >= 0) {
       $select = $select . "</select>";
       $row[$i]['REFERENCIA2'] = $select;
       /* End - Referencia 2 */
+
+      $row[$i]['__type'] = 'old';
     }
 
     $results = [
