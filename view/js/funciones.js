@@ -3512,6 +3512,36 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   /* End - Select Col 8 */
 });
 
+$(document).on('change', '.dotacion-select-col5', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var idDotacion = dotacionGetId(this.id);
+  var idCargoGenericoUnificadoFamilia = this.value;
+  var html = "";
+
+  var cargoGenericoUnificadoFamilia = comunesDotacion.cargoMandante.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO_FAMILIA']) == Number(idCargoGenericoUnificadoFamilia))
+
+  /* Begin - Text Col 6 */
+  $(`#dotacion-text-col6-${idDotacion}`).text(cargoGenericoUnificadoFamilia['CLASIFICACION']);
+  /* End - Text Col 6 */
+
+  /* Begin - Text Col 7 */
+  $(`#dotacion-text-col7-${idDotacion}`).text(cargoGenericoUnificadoFamilia['REFERENCIA1']);
+  /* End - Text Col 7 */
+
+  /* Begin - Select Col 8 */
+  html = `<select id='dotacion-select-col8-${idDotacion}' class='dotacion-select-col8'>`;
+  comunesDotacion.referencia2.forEach((item) => {
+    if (Number(item['IDREFERENCIA1']) == Number(cargoGenericoUnificadoFamilia['IDREFERENCIA1'])) {
+      html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+    }
+  })
+  html += "</select>";
+  $(`#dotacion-select-col8-${idDotacion}`).html(html);
+  /* End - Select Col 8 */
+});
+
 $('#tablaListadoDotacion').on(
   'click',
   'tbody td:not(:first-child, :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6), :nth-child(7), :nth-child(8))',
