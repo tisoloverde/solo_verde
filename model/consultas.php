@@ -19523,38 +19523,22 @@ WHERE U.RUT = '{$rutUser}'";
 	}
 
 	function actualizarDotacion(
-		$id,
-		$personalOfertado,
-		$cargoMandante,
-		$cargoGenericoUnificado,
-		$familia,
-		$jeasGeas,
-		$ref1,
-		$ref2,
-		$ene22, $feb22, $mar22, $abr22, $may22, $jun22, $jul22, $ago22, $set22, $oct22, $nov22, $dic22
+		$idDotacion,
+		$idDefinicionEstructuraOperacion,
+		$idPersonalOfertado,
+		$idCargoMandante,
+		$idCargoGenericoUnificadoFamilia,
+		$idReferencia2
 	) {
 		$con = conectar();
 		if($con != 'No conectado'){
 			$sql = "UPDATE DOTACION SET
-							personalOfertado = '$personalOfertado',
-							cargoMandante = '$cargoMandante',
-							cargoGenericoUnificado = '$cargoGenericoUnificado',
-							familia = '$familia',
-							jeasGeas = '$jeasGeas',
-							ref1 = '$ref1',
-							ref2 = '$ref2',
-							ene22 = '$ene22',
-							feb22 = '$feb22',
-							mar22 = '$mar22',
-							abr22 = '$abr22',
-							may22 = '$may22',
-							jun22 = '$jun22',
-							jul22 = '$jul22',
-							ago22 = '$ago22',
-							nov22 = '$nov22',
-							oct22 = '$oct22',
-							dic22 = '$dic22'
-							WHERE id = $id";
+							DEFINICION_ESTRUCTURA_OPERACION = '$idDefinicionEstructuraOperacion',
+							IDPERSONAL_OFERTADOS = $idPersonalOfertado,
+							IDCARGO_MANDANTE = $idCargoMandante,
+							IDCARGO_GENERICO_UNIFICADO_FAMILIA = $idCargoGenericoUnificadoFamilia,
+							IDREFERENCIA2 = $idReferencia2
+							WHERE IDDOTACION = $idDotacion";
 			if ($con->query($sql)) {
 				$con->query("COMMIT");
 				return "Ok";
@@ -19575,11 +19559,9 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if($con != 'No conectado'){
 			$sql = "INSERT INTO PERIODO(
-				IDPERIODO,
 				ANHO,
 				ENERO, FEBRERO, MARZO, ABRIL, MAYO, JUNIO, JULIO, AGOSTO, SETIEMBRE, OCTUBRE, NOVIEMBRE, DICIEMBRE
 			) VALUES (
-				NULL,
 				'$anho',
 				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set','$oct', '$nov','$dic'
 			);";
@@ -19606,14 +19588,12 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if($con != 'No conectado'){
 			$sql = "INSERT INTO DOTACION(
-							IDDOTACION,
 							DEFINICION_ESTRUCTURA_OPERACION,
 							IDPERSONAL_OFERTADOS,
 							IDCARGO_MANDANTE,
 							IDCARGO_GENERICO_UNIFICADO_FAMILIA,
 							IDREFERENCIA2
 						) VALUES (
-							NULL,
 							'$codigoCC',
 							$idPersonalOfertado,
 							$idCargoMandante,

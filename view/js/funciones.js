@@ -3696,11 +3696,6 @@ $("#saveDotacion").on('click', async (e) => {
   var dataAdd = [];
   var dataUpd = [];
 
-  console.log('--dotacionData--')
-  console.log(dotacionData)
-
-  return;
-
   dotacionData.forEach(({
     IDDOTACION,
     IDPERSONAL_OFERTADOS,
@@ -3742,7 +3737,7 @@ $("#saveDotacion").on('click', async (e) => {
   await $.ajax({
     url:   'controller/actualizarListadoDotacion.php',
     type:  'post',
-    data:  { dataAdd, dataUpd: [] },
+    data:  { dataAdd, dataUpd },
     success:  function (response) {
       // loading(false);
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Dotación actualizada correctamente");
