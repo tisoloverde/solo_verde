@@ -55,7 +55,7 @@ if (count($_POST) >= 0) {
       /* End - Cargo Mandante */
 
       /* Begin - Cargo Generico Unificado */
-      $select = "<select id='dotacion-select-col4-$idDotacion' class='dotacion-select-col4'>";
+      $select = "<select id='dotacion-select-col5-$idDotacion' class='dotacion-select-col5'>";
       foreach ($crgman as $item) {
         $id = $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'];
         $name = $item['CARGO_GENERICO_UNIFICADO'];
@@ -69,8 +69,16 @@ if (count($_POST) >= 0) {
       $row[$i]['CARGO_GENERICO_UNIFICADO'] = $select;
       /* End - Cargo Generico Unificado */
 
+      /* Begin - Clasificacion */
+      $row[$i]['CLASIFICACION'] = "<span id='dotacion-text-col6-$idDotacion'>" . $row[$i]['CLASIFICACION'] . "</span>";
+      /* End - Clasificacion */
+
+      /* Begin - Referencia 1 */
+      $row[$i]['REFERENCIA1'] = "<span id='dotacion-text-col7-$idDotacion'>" . $row[$i]['REFERENCIA1'] . "</span>";
+      /* End - Referencia 1 */
+
       /* Begin - Referencia 2 */
-      $select = "<select id='dotacion-select-col4-$idDotacion' class='dotacion-select-col4'>";
+      $select = "<select id='dotacion-select-col8-$idDotacion' class='dotacion-select-col8'>";
       foreach ($refs2 as $item) {
         $id = $item['IDREFERENCIA2'];
         $name = $item['REFERENCIA2'];

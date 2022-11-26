@@ -3465,9 +3465,10 @@ $(document).on('change', '.dotacion-select-col3', function(e){
 
   var idDotacion = dotacionGetId(this.id);
   var idFamilia = this.value;
+  var html = "";
 
   /* Begin - Select Col 4 */
-  var html = `<select id='dotacion-select-col4-${idDotacion}' class='dotacion-select-col4'>`;
+  html = `<select id='dotacion-select-col4-${idDotacion}' class='dotacion-select-col4'>`;
   comunesDotacion.cargoMandante.forEach((item) => {
     if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
       html += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
@@ -3478,7 +3479,7 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   /* End - Select Col 4 */
 
   /* Begin - Select Col 5 */
-  var html = `<select id='dotacion-select-col5-${idDotacion}' class='dotacion-select-col5'>`;
+  html = `<select id='dotacion-select-col5-${idDotacion}' class='dotacion-select-col5'>`;
   comunesDotacion.cargoMandante.forEach((item) => {
     if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
       html += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
@@ -3487,6 +3488,28 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   html += "</select>";
   $(`#dotacion-select-col5-${idDotacion}`).html(html);
   /* End - Select Col 5 */
+
+  var idCargoGenericoUnificadoFamilia = $(`#dotacion-select-col5-${idDotacion}`).val();
+  var cargoGenericoUnificadoFamilia = comunesDotacion.cargoMandante.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO_FAMILIA']) == Number(idCargoGenericoUnificadoFamilia))
+
+  /* Begin - Text Col 6 */
+  $(`#dotacion-text-col6-${idDotacion}`).text(cargoGenericoUnificadoFamilia['CLASIFICACION']);
+  /* End - Text Col 6 */
+
+  /* Begin - Text Col 7 */
+  $(`#dotacion-text-col7-${idDotacion}`).text(cargoGenericoUnificadoFamilia['REFERENCIA1']);
+  /* End - Text Col 7 */
+
+  /* Begin - Select Col 8 */
+  html = `<select id='dotacion-select-col8-${idDotacion}' class='dotacion-select-col8'>`;
+  comunesDotacion.referencia2.forEach((item) => {
+    if (Number(item['IDREFERENCIA1']) == Number(cargoGenericoUnificadoFamilia['IDREFERENCIA1'])) {
+      html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+    }
+  })
+  html += "</select>";
+  $(`#dotacion-select-col8-${idDotacion}`).html(html);
+  /* End - Select Col 8 */
 });
 
 $('#tablaListadoDotacion').on(
@@ -3610,6 +3633,14 @@ $('#newDotacion').on('click', function (e) {
   CARGO_GENERICO_UNIFICADO += "</select>";
   /* End - Select col 5 */
 
+  /* Begin - Text col 6 */
+  var CLASIFICACION = `<span id='dotacion-text-col6-${IDDOTACION}'>` + comunesDotacion.cargoMandante[0]['CLASIFICACION'] + "</span>";
+  /* End - Text col 6 */
+
+  /* Begin - Text col 7 */
+  var REFERENCIA1 = `<span id='dotacion-text-col7-${IDDOTACION}'>` + comunesDotacion.cargoMandante[0]['REFERENCIA1'] + "</span>";
+  /* End - Text col 7 */
+
   /* Begin - Select col 8 */
   var REFERENCIA2 = `<select id='dotacion-select-col8-${IDDOTACION}' class='dotacion-select-col8'>`;
   comunesDotacion.referencia2.forEach((item) => {
@@ -3627,8 +3658,8 @@ $('#newDotacion').on('click', function (e) {
     FAMILIA,
     CARGO_MANDANTE,
     CARGO_GENERICO_UNIFICADO,
-    CLASIFICACION: comunesDotacion.cargoMandante[0]['CLASIFICACION'],
-    REFERENCIA1: comunesDotacion.cargoMandante[0]['REFERENCIA1'],
+    CLASIFICACION,
+    REFERENCIA1,
     REFERENCIA2,
     ENERO: '',
     FEBRERO: '',
