@@ -3268,7 +3268,7 @@ var editorDotacion = new $.fn.dataTable.Editor({
   table: "#tablaListadoDotacion",
   idSrc: 'IDDOTACION',
   fields: [
-    { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' }, //, type: "select" },
+    { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' },
     { label: 'familia', name: 'FAMILIA' },
     { label: 'cargoMandante', name: 'CARGO_MANDANTE' },
     { label: 'cargoGenericoUnificadoFamilia', name: 'CARGO_GENERICO_UNIFICADO_FAMILIA' },
@@ -3500,7 +3500,8 @@ $(document).on('change', '.dotacion-select-col3', function(e){
 
   var idCargoMandante = $(`#dotacion-select-col4-${idDotacion}`).val();
   var idCargoGenericoUnificadoFamilia = $(`#dotacion-select-col5-${idDotacion}`).val();
-  var cargoGenericoUnificadoFamilia = comunesDotacion.cargoMandante.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO_FAMILIA']) == Number(idCargoGenericoUnificadoFamilia))
+  var cargoGenericoUnificadoFamilia = comunesDotacion.cargoMandante.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO_FAMILIA']) == Number(idCargoGenericoUnificadoFamilia));
+  var idReferencia1 = cargoGenericoUnificadoFamilia['IDREFERENCIA1'];
 
   /* Begin - Text Col 6 */
   $(`#dotacion-text-col6-${idDotacion}`).text(cargoGenericoUnificadoFamilia['CLASIFICACION']);
@@ -3528,6 +3529,9 @@ $(document).on('change', '.dotacion-select-col3', function(e){
     dotacionData[dotacionIdx]['IDFAMILIA'] = idFamilia;
     dotacionData[dotacionIdx]['IDCARGO_MANDANTE'] = idCargoMandante;
     dotacionData[dotacionIdx]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] = idCargoGenericoUnificadoFamilia;
+    dotacionData[dotacionIdx]['CLASIFICACION_TEXT'] = cargoGenericoUnificadoFamilia['CLASIFICACION'];
+    dotacionData[dotacionIdx]['IDREFERENCIA1'] = idReferencia1;
+    dotacionData[dotacionIdx]['REFERENCIA1'] = cargoGenericoUnificadoFamilia['REFERENCIA1'];
     dotacionData[dotacionIdx]['IDREFERENCIA2'] = idReferencia2;
   }
 });
@@ -3554,6 +3558,7 @@ $(document).on('change', '.dotacion-select-col5', function(e){
   var html = "";
 
   var cargoGenericoUnificadoFamilia = comunesDotacion.cargoMandante.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO_FAMILIA']) == Number(idCargoGenericoUnificadoFamilia))
+  var idReferencia1 = cargoGenericoUnificadoFamilia['IDREFERENCIA1'];
 
   /* Begin - Text Col 6 */
   $(`#dotacion-text-col6-${idDotacion}`).text(cargoGenericoUnificadoFamilia['CLASIFICACION']);
@@ -3579,6 +3584,19 @@ $(document).on('change', '.dotacion-select-col5', function(e){
   var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
   if (dotacionIdx >= 0) {
     dotacionData[dotacionIdx]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] = idCargoGenericoUnificadoFamilia;
+    dotacionData[dotacionIdx]['CLASIFICACION_TEXT'] = cargoGenericoUnificadoFamilia['CLASIFICACION'];
+    dotacionData[dotacionIdx]['IDREFERENCIA1'] = idReferencia1;
+    dotacionData[dotacionIdx]['REFERENCIA1_TEXT'] = cargoGenericoUnificadoFamilia['REFERENCIA1'];
+    dotacionData[dotacionIdx]['IDREFERENCIA2'] = idReferencia2;
+  }
+});
+
+$(document).on('change', '.dotacion-select-col8', function(e){
+  var idDotacion = dotacionGetId(this.id);
+  var idReferencia2 = this.value;
+
+  var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
+  if (dotacionIdx >= 0) {
     dotacionData[dotacionIdx]['IDREFERENCIA2'] = idReferencia2;
   }
 });
@@ -3591,19 +3609,83 @@ $('#tablaListadoDotacion').on(
   }
 );
 
-editorDotacion.on('preSubmit', function (e, o, action) {
+/*editorDotacion.on('preSubmit', function (e, o, action) {
   if (o.action == 'edit') {
+    console.log('----presubmit---')
     var [[k, v]] = Object.entries(o.data);
-    dotacionListUpdated[k] = v;
+    // dotacionListUpdated[k] = v;
 
     $("#saveDotacion").removeAttr("disabled");
   }
-});
+});*/
 
 editorDotacion.on('postEdit', function (e, o, action) {
-  var index = dotacionData.findIndex((item) => `${item.id}` === `${action.id}`)
+  var idDotacion = action.IDDOTACION;
+  var index = dotacionData.findIndex((item) => `${item.IDDOTACION}` === `${idDotacion}`)
+
   if (index >= 0) {
-    $(`#dotacion-select-${action.id}`).val(dotacionSelects[action.id]?.idPersonalOfertado ?? '0');
+    var html = "";
+    var dt = dotacionData[index] ?? {};
+
+    $(`#dotacion-select-col2-${idDotacion}`).val(dt.IDPERSONAL_OFERTADOS)
+    $(`#dotacion-select-col3-${idDotacion}`).val(dt.IDFAMILIA)
+
+    /* Begin - Select Col 4 */
+    html = `<select id='dotacion-select-col4-${idDotacion}' class='dotacion-select-col4'>`;
+    comunesDotacion.cargoMandante.forEach((item) => {
+      if (Number(item['IDFAMILIA']) == Number(dt.IDFAMILIA)) {
+        html += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+      }
+    })
+    html += "</select>";
+    $(`#dotacion-select-col4-${idDotacion}`).html(html);
+    /* End - Select Col 4 */
+
+    $(`#dotacion-select-col4-${idDotacion}`).val(dt.IDCARGO_MANDANTE)
+
+    /* Begin - Select Col 5 */
+    html = `<select id='dotacion-select-col5-${idDotacion}' class='dotacion-select-col5'>`;
+    comunesDotacion.cargoMandante.forEach((item) => {
+      if (Number(item['IDFAMILIA']) == Number(dt.IDFAMILIA)) {
+        html += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+      }
+    })
+    html += "</select>";
+    $(`#dotacion-select-col5-${idDotacion}`).html(html);
+    /* End - Select Col 5 */
+
+    $(`#dotacion-select-col5-${idDotacion}`).val(dt.IDCARGO_GENERICO_UNIFICADO_FAMILIA)
+
+    $(`#dotacion-select-col6-${idDotacion}`).val(dt.CLASIFICACION_TEXT)
+    $(`#dotacion-select-col7-${idDotacion}`).val(dt.REFERENCIA1_TEXT)
+
+    /* Begin - Select Col 8 */
+    html = `<select id='dotacion-select-col8-${idDotacion}' class='dotacion-select-col8'>`;
+    comunesDotacion.referencia2.forEach((item) => {
+      if (Number(item['IDREFERENCIA1']) == Number(dt.IDREFERENCIA1)) {
+        html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+      }
+    })
+    html += "</select>";
+    $(`#dotacion-select-col8-${idDotacion}`).html(html);
+    /* End - Select Col 8 */
+
+    $(`#dotacion-select-col8-${idDotacion}`).val(dt.IDREFERENCIA2)
+
+    /* Begin - Dates */
+    dotacionData[index]['ENERO'] = action['ENERO'];
+    dotacionData[index]['FEBRERO'] = action['FEBRERO'];
+    dotacionData[index]['MARZO'] = action['MARZO'];
+    dotacionData[index]['ABRIL'] = action['ABRIL'];
+    dotacionData[index]['MAYO'] = action['MAYO'];
+    dotacionData[index]['JUNIO'] = action['JUNIO'];
+    dotacionData[index]['JULIO'] = action['JULIO'];
+    dotacionData[index]['AGOSTO'] = action['AGOSTO'];
+    dotacionData[index]['SETIEMBRE'] = action['SETIEMBRE'];
+    dotacionData[index]['OCTUBRE'] = action['OCTUBRE'];
+    dotacionData[index]['NOVIEMBRE'] = action['NOVIEMBRE'];
+    dotacionData[index]['DICIEMBRE'] = action['DICIEMBRE'];
+    /* End - Dates */
   }
 });
 
@@ -3611,57 +3693,56 @@ $("#saveDotacion").on('click', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
 
-  console.log('----dotacionListUpdated---')
+  var dataAdd = [];
+  var dataUpd = [];
+
+  console.log('--dotacionData--')
   console.log(dotacionData)
 
-  var dataAdd = [];
-  dotacionData.forEach((item) => {
+  return;
+
+  dotacionData.forEach(({
+    IDDOTACION,
+    IDPERSONAL_OFERTADOS,
+    IDCARGO_MANDANTE,
+    IDCARGO_GENERICO_UNIFICADO_FAMILIA,
+    IDREFERENCIA2,
+    ENERO, FEBRERO, MARZO, ABRIL, MAYO, JUNIO, JULIO, AGOSTO, SETIEMBRE, OCTUBRE, NOVIEMBRE, DICIEMBRE,
+    __type,
+  }) => {
     var aux = {
-      DEFINICION_ESTRUCTURA_OPERACION: '',
-      IDPERSONAL_OFERTADO: item['IDPERSONAL_OFERTADO'],
-      IDCARGO_MANDANTE: item['IDCARGO_MANDANTE'],
-      IDCARGO_GENERICO_UNIFICADO_FAMILIA: item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
-      IDREFERENCIA2: item['IDREFERENCIA2'],
+      DEFINICION_ESTRUCTURA_OPERACION: $('#selectListaLugares').val(),
+      IDPERSONAL_OFERTADOS,
+      IDCARGO_MANDANTE,
+      IDCARGO_GENERICO_UNIFICADO_FAMILIA,
+      IDREFERENCIA2,
+      PERIODO: {
+        ANHO: $('#selectListaPeriodos').val(),
+        ENERO, FEBRERO, MARZO, ABRIL, MAYO, JUNIO, JULIO, AGOSTO, SETIEMBRE, OCTUBRE, NOVIEMBRE, DICIEMBRE,
+      }
     }
-    if (item.__type == 'new') dataAdd.push(aux);
+    switch (__type) {
+      case 'new':
+        dataAdd.push(aux);
+        break;
+      case 'old':
+        aux.IDDOTACION = IDDOTACION;
+        dataUpd.push(aux);
+        break;
+      default:
+        break;
+    }
   })
 
   console.log('---data-Add--')
-  console.log(dataAdd)
-
-  /*var keys = Object.keys(dotacionListUpdated);
-
-  keys.forEach((key) => {
-    var selectsWithChanges = Object.keys(dotacionSchema);
-    if (selectsWithChanges.includes(key)) {
-      dotacionListUpdated[key].idPersonalOfertado = dotacionSchema[key].idPersonalOfertado;
-    }
-  })
-
-  var dataUpd = [];
-  var dataAdd = [];
-  keys.forEach((key) => {
-    var json = dotacionListUpdated[key];
-    if (key.includes('__')) {
-      var aux = getCodigoYNombreCC();
-      json.codigoCC = aux[0];
-      json.nombreCC = aux[1];
-      dataAdd.push(json);
-    } else {
-      json.id = key;
-      dataUpd.push(json);
-    }
-  });
-
-  console.log('------sad---')
-  console.log(dataAdd)
   console.log(dataUpd)
+  console.log(dataAdd)
 
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoDotacion.php',
     type:  'post',
-    data:  { dataAdd, dataUpd },
+    data:  { dataAdd, dataUpd: [] },
     success:  function (response) {
       // loading(false);
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Dotación actualizada correctamente");
@@ -3670,7 +3751,7 @@ $("#saveDotacion").on('click', async (e) => {
 
   await listDotacion($('#selectListaPeriodos').val(), $('#selectListaLugares').val());
 
-  loading(false);*/
+  loading(false);
 })
 
 function modelarSelectDotacion(id, items) {

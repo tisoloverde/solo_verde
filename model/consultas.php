@@ -19568,66 +19568,61 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function ingresarDotacion(
-		$codigoCC,
-		$nombreCC,
-		$personalOfertado,
-		$cargoMandante,
-		$cargoGenericoUnificado,
-		$familia,
-		$jeasGeas,
-		$ref1,
-		$ref2,
-		$ene22, $feb22, $mar22, $abr22, $may22, $jun22, $jul22, $ago22, $set22, $oct22, $nov22, $dic22
+	function ingresaPeriodo(
+		$anho,
+		$ene, $feb, $mar, $abr, $may, $jun, $jul, $ago, $set, $oct, $nov, $dic
 	) {
 		$con = conectar();
 		if($con != 'No conectado'){
-			$sql = "INSERT DOTACION(
-							codigoCC,
-							nombreCC,
-							personalOfertado,
-							cargoMandante,
-							cargoGenericoUnificado,
-							familia,
-							jeasGeas,
-							ref1,
-							ref2,
-							ene22,
-							feb22,
-							mar22,
-							abr22,
-							may22,
-							jun22,
-							jul22,
-							ago22,
-							nov22,
-							oct22,
-							dic22
+			$sql = "INSERT INTO PERIODO(
+				IDPERIODO,
+				ANHO,
+				ENERO, FEBRERO, MARZO, ABRIL, MAYO, JUNIO, JULIO, AGOSTO, SETIEMBRE, OCTUBRE, NOVIEMBRE, DICIEMBRE
+			) VALUES (
+				NULL,
+				'$anho',
+				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set','$oct', '$nov','$dic'
+			);";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return mysqli_insert_id($con);
+			} else {
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function ingresarDotacion(
+		$codigoCC,
+		$idPersonalOfertado,
+		$idCargoMandante,
+		$idCargoGenericoUnificadoFamilia,
+		$idReferencia2
+	) {
+		$con = conectar();
+		if($con != 'No conectado'){
+			$sql = "INSERT INTO DOTACION(
+							IDDOTACION,
+							DEFINICION_ESTRUCTURA_OPERACION,
+							IDPERSONAL_OFERTADOS,
+							IDCARGO_MANDANTE,
+							IDCARGO_GENERICO_UNIFICADO_FAMILIA,
+							IDREFERENCIA2
 						) VALUES (
+							NULL,
 							'$codigoCC',
-							'$nombreCC',
-							'$personalOfertado',
-							'$cargoMandante',
-							'$cargoGenericoUnificado',
-							'$familia',
-							'$jeasGeas',
-							'$ref1',
-							'$ref2',
-							'$ene22',
-							'$feb22',
-							'$mar22',
-							'$abr22',
-							'$may22',
-							'$jun22',
-							'$jul22',
-							'$ago22',
-							'$nov22',
-							'$oct22',
-							'$dic22'
+							$idPersonalOfertado,
+							$idCargoMandante,
+							$idCargoGenericoUnificadoFamilia,
+							$idReferencia2
 						)";
 			if ($con->query($sql)) {
 				$con->query("COMMIT");
-				return "Ok";
+				return mysqli_insert_id($con);
 			} else {
 				$con->query("ROLLBACK");
 				return $sql;
