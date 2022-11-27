@@ -19567,7 +19567,7 @@ WHERE U.RUT = '{$rutUser}'";
 			);";
 			if ($con->query($sql)) {
 				$con->query("COMMIT");
-				return mysqli_insert_id($con);
+				return $con->insert_id;
 			} else {
 				$con->query("ROLLBACK");
 				return $sql;
@@ -19602,7 +19602,7 @@ WHERE U.RUT = '{$rutUser}'";
 						)";
 			if ($con->query($sql)) {
 				$con->query("COMMIT");
-				return mysqli_insert_id($con);
+				return $con->insert_id;
 			} else {
 				$con->query("ROLLBACK");
 				return $sql;
