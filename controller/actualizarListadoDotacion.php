@@ -11,15 +11,13 @@
     $dataAdd = $_POST['dataAdd'];
     $dataUpd = $_POST['dataUpd'];
     foreach ($dataAdd as $item) {
-      $news['dotacionIds'][] = ingresarDotacion(
+      $periodo = $item['PERIODO'];
+      $res = ingresarDotacionPeriodo(
         $item['DEFINICION_ESTRUCTURA_OPERACION'],
         $item['IDPERSONAL_OFERTADOS'],
         $item['IDCARGO_MANDANTE'],
         $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
-        $item['IDREFERENCIA2']
-      );
-      $periodo = $item['PERIODO'];
-      $news['periodoIds'][] = ingresaPeriodo(
+        $item['IDREFERENCIA2'],
         $periodo['ANHO'],
         $periodo['ENERO'], $periodo['FEBRERO'], $periodo['MARZO'], $periodo['ABRIL'], $periodo['MAYO'], $periodo['JUNIO'], $periodo['JULIO'], $periodo['AGOSTO'], $periodo['SETIEMBRE'], $periodo['OCTUBRE'], $periodo['NOVIEMBRE'], $periodo['DICIEMBRE']
       );

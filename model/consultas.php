@@ -19552,57 +19552,30 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function ingresaPeriodo(
+	function ingresarDotacionPeriodo(
+		$codigoCC,
+		$idPersonalOfertado,
+		$idCargoMandante,
+		$idCargoGenericoUnificadoFamilia,
+		$idReferencia2,
 		$anho,
 		$ene, $feb, $mar, $abr, $may, $jun, $jul, $ago, $set, $oct, $nov, $dic
 	) {
 		$con = conectar();
 		if($con != 'No conectado'){
-			$sql = "INSERT INTO PERIODO(
-				ANHO,
-				ENERO, FEBRERO, MARZO, ABRIL, MAYO, JUNIO, JULIO, AGOSTO, SETIEMBRE, OCTUBRE, NOVIEMBRE, DICIEMBRE
-			) VALUES (
+			$sql = "CALL INSERTAR_DOTACION(
+				'$codigoCC',
+				$idPersonalOfertado,
+				$idCargoMandante,
+				$idCargoGenericoUnificadoFamilia,
+				$idReferencia2,
 				'$anho',
-				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set','$oct', '$nov','$dic'
-			);";
-			if ($con->query($sql)) {
+				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set', '$oct', '$nov','$dic'
+			)";
+			if ($row = $con->query($sql)) {
 				$con->query("COMMIT");
-				return $con->insert_id;
-			} else {
-				$con->query("ROLLBACK");
-				return $sql;
-			}
-		} else {
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-
-	function ingresarDotacion(
-		$codigoCC,
-		$idPersonalOfertado,
-		$idCargoMandante,
-		$idCargoGenericoUnificadoFamilia,
-		$idReferencia2
-	) {
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "INSERT INTO DOTACION(
-							DEFINICION_ESTRUCTURA_OPERACION,
-							IDPERSONAL_OFERTADOS,
-							IDCARGO_MANDANTE,
-							IDCARGO_GENERICO_UNIFICADO_FAMILIA,
-							IDREFERENCIA2
-						) VALUES (
-							'$codigoCC',
-							$idPersonalOfertado,
-							$idCargoMandante,
-							$idCargoGenericoUnificadoFamilia,
-							$idReferencia2
-						)";
-			if ($con->query($sql)) {
-				$con->query("COMMIT");
-				return $con->insert_id;
+				// return $row->fetch_assoc();
+				return "OK";
 			} else {
 				$con->query("ROLLBACK");
 				return $sql;
