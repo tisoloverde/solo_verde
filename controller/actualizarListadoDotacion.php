@@ -10,9 +10,10 @@
   if (count($_POST) > 0) {
     $dataAdd = $_POST['dataAdd'];
     $dataUpd = $_POST['dataUpd'];
+
     foreach ($dataAdd as $item) {
       $periodo = $item['PERIODO'];
-      $res = ingresarDotacionPeriodo(
+      ingresarDotacionPeriodo(
         $item['DEFINICION_ESTRUCTURA_OPERACION'],
         $item['IDPERSONAL_OFERTADOS'],
         $item['IDCARGO_MANDANTE'],
@@ -24,13 +25,14 @@
     }
 
     foreach ($dataUpd as $item) {
-      $row = actualizarDotacion(
+      $periodo = $item['PERIODO'];
+      actualizarDotacionPeriodo(
         $item['IDDOTACION'],
-        $item['DEFINICION_ESTRUCTURA_OPERACION'],
         $item['IDPERSONAL_OFERTADOS'],
         $item['IDCARGO_MANDANTE'],
         $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
-        $item['IDREFERENCIA2']
+        $item['IDREFERENCIA2'],
+        $periodo['ENERO'], $periodo['FEBRERO'], $periodo['MARZO'], $periodo['ABRIL'], $periodo['MAYO'], $periodo['JUNIO'], $periodo['JULIO'], $periodo['AGOSTO'], $periodo['SETIEMBRE'], $periodo['OCTUBRE'], $periodo['NOVIEMBRE'], $periodo['DICIEMBRE']
       );
     }
 
@@ -38,7 +40,7 @@
       "sEcho" => 1,
       "iTotalRecords" => 0,
       "iTotalDisplayRecords" => 0,
-      "aaData" => $news,
+      "aaData" => [],
     ];
     echo json_encode($results);
   } else {

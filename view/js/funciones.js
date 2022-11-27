@@ -3259,6 +3259,9 @@ function restricted() {
   }, 1500);
 }
 
+/* *************************************** */
+/* *************** DOTACION ************** */
+/* *************************************** */
 var lastIdDotacionToUse = 0;
 var dotacionData = [];
 var tableDotacion = $("#tablaListadoDotacion");
@@ -3729,10 +3732,6 @@ $("#saveDotacion").on('click', async (e) => {
     }
   })
 
-  console.log('---data-Add--')
-  console.log(dataUpd)
-  console.log(dataAdd)
-
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoDotacion.php',
@@ -3765,7 +3764,7 @@ $('#newDotacion').on('click', function (e) {
   $("#saveDotacion").removeAttr("disabled");
 
   lastIdDotacionToUse++;
-  var IDDOTACION = `${lastIdDotacionToUse}__`;
+  var IDDOTACION = `_${lastIdDotacionToUse}`; // Prefijo Dotacion || Sufijo Dotacion
 
   /* Begin - Select col 2 */
   var PERSONAL_OFERTADOS = `<select id='dotacion-select-col2-${IDDOTACION}' class='dotacion-select-col2'>`;
@@ -3856,6 +3855,9 @@ $('#newDotacion').on('click', function (e) {
   dotacionData.push(dt);
   tableDotacion.DataTable().row.add(dt).draw(true);
 });
+/* *************************************** */
+/* *************** DOTACION ************** */
+/* *************************************** */
 
 $("#agregarSubcontratista").unbind("click").click(async function(){
   $("#modalIngresoSubcontratista").find("input,textarea,select").val("");

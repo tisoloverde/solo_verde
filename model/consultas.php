@@ -19522,36 +19522,6 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function actualizarDotacion(
-		$idDotacion,
-		$idDefinicionEstructuraOperacion,
-		$idPersonalOfertado,
-		$idCargoMandante,
-		$idCargoGenericoUnificadoFamilia,
-		$idReferencia2
-	) {
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "UPDATE DOTACION SET
-							DEFINICION_ESTRUCTURA_OPERACION = '$idDefinicionEstructuraOperacion',
-							IDPERSONAL_OFERTADOS = $idPersonalOfertado,
-							IDCARGO_MANDANTE = $idCargoMandante,
-							IDCARGO_GENERICO_UNIFICADO_FAMILIA = $idCargoGenericoUnificadoFamilia,
-							IDREFERENCIA2 = $idReferencia2
-							WHERE IDDOTACION = $idDotacion";
-			if ($con->query($sql)) {
-				$con->query("COMMIT");
-				return "Ok";
-			} else {
-				$con->query("ROLLBACK");
-				return $sql;
-			}
-		} else {
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-
 	function ingresarDotacionPeriodo(
 		$codigoCC,
 		$idPersonalOfertado,
@@ -19570,6 +19540,38 @@ WHERE U.RUT = '{$rutUser}'";
 				$idCargoGenericoUnificadoFamilia,
 				$idReferencia2,
 				'$anho',
+				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set', '$oct', '$nov','$dic'
+			)";
+			if ($row = $con->query($sql)) {
+				$con->query("COMMIT");
+				// return $row->fetch_assoc();
+				return "OK";
+			} else {
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function actualizarDotacionPeriodo(
+		$idDotacion,
+		$idPersonalOfertado,
+		$idCargoMandante,
+		$idCargoGenericoUnificadoFamilia,
+		$idReferencia2,
+		$ene, $feb, $mar, $abr, $may, $jun, $jul, $ago, $set, $oct, $nov, $dic
+	) {
+		$con = conectar();
+		if($con != 'No conectado'){
+			$sql = "CALL ACTUALIZAR_DOTACION(
+				$idDotacion,
+				$idPersonalOfertado,
+				$idCargoMandante,
+				$idCargoGenericoUnificadoFamilia,
+				$idReferencia2,
 				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set', '$oct', '$nov','$dic'
 			)";
 			if ($row = $con->query($sql)) {
