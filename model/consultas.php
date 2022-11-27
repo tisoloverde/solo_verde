@@ -19329,6 +19329,25 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function ingresaAnhoAperturado($anho) {
+		$con = conectar();
+		$con->query("START TRANSACTION");
+		if($con != 'No conectado'){
+			$sql = "INSERT INTO ANO_APERTURADO(ANO) VALUES('$anho')";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return "Ok";
+			} else {
+				// return $con->error;
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		} else{
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
 	function consultaListaPeriodos() {
 		$con = conectar();
 		if ($con != 'No conectado') {

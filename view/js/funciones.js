@@ -3863,8 +3863,22 @@ $('#newAnho').on('click', function () {
   }, 500);
 });
 
-$('#guardarIngresoAnho').on('click', function () {
-  console.log('----asd----')
+$('#guardarIngresoAnho').on('click', async function () {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+
+  loading(true);
+  await $.ajax({
+    url:   'controller/ingresaAnhoAperturado.php',
+    type:  'post',
+    data:  { anho: $('#anhoIngresoAnho').val() },
+    success:  function (response) {
+      loading(false);
+      alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Año agregado correctamente");
+    }
+  });
+
+  listDotacionPeriodos();
 });
 /* *************************************** */
 /* *************** DOTACION ************** */
