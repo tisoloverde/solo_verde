@@ -3659,8 +3659,8 @@ editorDotacion.on('postEdit', function (e, o, action) {
 
     $(`#dotacion-select-col5-${idDotacion}`).val(dt.IDCARGO_GENERICO_UNIFICADO_FAMILIA)
 
-    $(`#dotacion-select-col6-${idDotacion}`).val(dt.CLASIFICACION_TEXT)
-    $(`#dotacion-select-col7-${idDotacion}`).val(dt.REFERENCIA1_TEXT)
+    $(`#dotacion-text-col6-${idDotacion}`).text(dt.CLASIFICACION_TEXT)
+    $(`#dotacion-text-col7-${idDotacion}`).text(dt.REFERENCIA1_TEXT)
 
     /* Begin - Select Col 8 */
     html = `<select id='dotacion-select-col8-${idDotacion}' class='dotacion-select-col8'>`;
@@ -3848,6 +3848,7 @@ $('#newDotacion').on('click', function (e) {
     IDFAMILIA: '1',
     IDCARGO_MANDANTE: '1',
     IDCARGO_GENERICO_UNIFICADO_FAMILIA: '1',
+    IDREFERENCIA1: '1',
     IDREFERENCIA2: '1',
     __type: 'new',
   };
