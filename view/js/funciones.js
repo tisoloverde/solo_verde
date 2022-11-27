@@ -3333,7 +3333,8 @@ async function listDotacion(periodo, codigoCC) {
       { width: "5px", targets: 0 },
       /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
       /*{ visible: false, searchable: false, targets: [ 2 ] },*/
-      { targets: "_all", className: "dt-center" }
+      { targets: "_all", className: "dt-center" },
+      { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" }
     ],
     select: { style: 'single' },
     scrollX: true,
@@ -3453,6 +3454,13 @@ function dotacionGetId(strid) {
   }
   return "0";
 }
+
+$(document).on('keypress', '.onlyNumbers', function (e) {
+  var charCode = (e.which) ? e.which : event?.keyCode;
+  if (String.fromCharCode(charCode).match(/[^0-9]/g)) {
+    return false;
+  }
+});
 
 $(document).on('change', '.dotacion-select-col2', function(e){
   e.preventDefault();
@@ -3864,10 +3872,10 @@ $('#newAnho').on('click', function () {
   }, 500);
 });
 
-$('#guardarIngresoAnho').on('click', async function () {
+$('#guardarIngresoAnho').on('click', async function (e) {
   e.stopImmediatePropagation();
   e.preventDefault();
-
+  $("#modalIngresoAnho").modal("hide");
   loading(true);
   await $.ajax({
     url:   'controller/ingresaAnhoAperturado.php',
@@ -3875,8 +3883,13 @@ $('#guardarIngresoAnho').on('click', async function () {
     data:  { anho: $('#anhoIngresoAnho').val() },
     success:  function (response) {
       loading(false);
-      alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Año agregado correctamente");
-    }
+      $('#anhoIngresoAnho').val('');
+      if (response == 'OK') {
+        alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Año agregado correctamente");
+      } else {
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>" + response);
+      }
+    },
   });
 
   listDotacionPeriodos();

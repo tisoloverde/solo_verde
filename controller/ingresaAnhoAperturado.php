@@ -4,11 +4,16 @@
 
     if(count($_POST) > 0){
       $anho = $_POST['anho'];
-      $row = ingresaAnhoAperturado($anho);
-      if ($row != "Error" ) {
-        echo "OK";
+      $already = consultaAnhoAperturado($anho);
+      if (count($already) > 0) {
+        echo "¡Este año ya fue registrado!";
       } else {
-        echo "Sin datos";
+        $row = ingresaAnhoAperturado($anho);
+        if ($row != "Error" ) {
+          echo "OK";
+        } else {
+          echo "Sin datos";
+        }
       }
     } else {
       echo "Sin datos";

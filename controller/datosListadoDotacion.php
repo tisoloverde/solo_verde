@@ -70,13 +70,13 @@ if (count($_POST) >= 0) {
       /* End - Cargo Generico Unificado */
 
       /* Begin - Clasificacion */
-      $row[$i]['CLASIFICACION'] = "<span id='dotacion-text-col6-$idDotacion'>" . $row[$i]['CLASIFICACION'] . "</span>";
       $row[$i]['CLASIFICACION_TEXT'] = $row[$i]['CLASIFICACION'];
+      $row[$i]['CLASIFICACION'] = "<span id='dotacion-text-col6-$idDotacion'>" . $row[$i]['CLASIFICACION'] . "</span>";
       /* End - Clasificacion */
 
       /* Begin - Referencia 1 */
-      $row[$i]['REFERENCIA1'] = "<span id='dotacion-text-col7-$idDotacion'>" . $row[$i]['REFERENCIA1'] . "</span>";
       $row[$i]['REFERENCIA1_TEXT'] = $row[$i]['REFERENCIA1'];
+      $row[$i]['REFERENCIA1'] = "<span id='dotacion-text-col7-$idDotacion'>" . $row[$i]['REFERENCIA1'] . "</span>";
       /* End - Referencia 1 */
 
       /* Begin - Referencia 2 */

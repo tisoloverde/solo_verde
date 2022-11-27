@@ -19329,6 +19329,24 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaAnhoAperturado($anho) {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT ANO AS ANHO FROM ANO_APERTURADO WHERE ANO = '$anho';";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function ingresaAnhoAperturado($anho) {
 		$con = conectar();
 		$con->query("START TRANSACTION");

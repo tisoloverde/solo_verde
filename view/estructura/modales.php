@@ -11410,7 +11410,7 @@
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <label style="font-weight: bold; color: gray; font-size: 14pt;">Año</label>
-            <input id="anhoIngresoAnho" class="form-control" type="text" value="">
+            <input id="anhoIngresoAnho" class="form-control onlyNumbers" type="text" value="">
           </div>
         </div>
       </div>
