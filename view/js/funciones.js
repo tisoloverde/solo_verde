@@ -3855,6 +3855,17 @@ $('#newDotacion').on('click', function (e) {
   dotacionData.push(dt);
   tableDotacion.DataTable().row.add(dt).draw(true);
 });
+
+$('#newAnho').on('click', function () {
+  setTimeout(function(){
+    var h = $(window).height() - 200;
+    $("#modalIngresoAnho").modal("show");
+  }, 500);
+});
+
+$('#guardarIngresoAnho').on('click', function () {
+  console.log('----asd----')
+});
 /* *************************************** */
 /* *************** DOTACION ************** */
 /* *************************************** */

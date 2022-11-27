@@ -19332,7 +19332,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaPeriodos() {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT DISTINCT(ANHO) FROM PERIODO";
+			$sql = "SELECT ANO AS ANHO FROM ANO_APERTURADO";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

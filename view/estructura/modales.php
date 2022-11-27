@@ -11398,3 +11398,27 @@
         </div>
     </div>
 </div>
+
+<!-- BEGIN - INGRESO ANHO DOTACION -->
+<div id="modalIngresoAnho" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloIngresoAnho"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Aperturar Año</h5>
+      </div>
+      <div id="bodyIngresoAnho" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Año</label>
+            <input id="anhoIngresoAnho" class="form-control" type="text" value="">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoAnho" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoAnho" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END - INGRESO ANHO DOTACION -->
