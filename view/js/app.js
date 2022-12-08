@@ -90,6 +90,11 @@ app.config(function($routeProvider, $locationProvider) {
         controllerAs: "vm",
         templateUrl : "view/personal/personal.html?idload=13"
     })
+    .when("/planillaAsistencia", {
+      controller: "planillaAsistenciaController",
+      controllerAs: "vm",
+      templateUrl : "view/personal/planillaAsistencia.html?idload=13"
+    })
     .otherwise({redirectTo: '/home'});
 
     $locationProvider.hashPrefix('');
@@ -2948,4 +2953,47 @@ app.controller("personalController", function(){
       }
     }
   });
+});
+
+app.controller("planillaAsistenciaController", function(){
+  var path = initScreen();
+  var theme = {
+    theme: 'bootstrap4',
+    width: $(this).data('width')
+      ? $(this).data('width')
+      : $(this).hasClass('w-100')
+        ? '100%'
+        : 'style',
+    placeholder: $(this).data('placeholder'),
+    allowClear: Boolean($(this).data('allow-clear')),
+    closeOnSelect: !$(this).attr('multiple')
+  }
+  loading(true);
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaPeriodos").select2(theme);
+  }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaLugares").select2(theme);
+  }
+
+  /*$.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: { path },
+    success: function (response) {
+      if (response === "NO") {
+        restricted();
+      } else if (response === "DESCONECTADO") {
+        window.location.href = "#/home";
+      } else {*/
+        setTimeout(async function() {
+          loading(false);
+          esconderMenu();
+          menuElegant();
+        }, 200);
+      /*}
+    }
+  });*/
 });

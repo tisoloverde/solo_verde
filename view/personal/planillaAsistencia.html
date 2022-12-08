@@ -1,0 +1,66 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+      <span style="color: gray; margin-left: 10pt; margin-top: 20pt;" class="fas fa-user-friends">&nbsp;&nbsp;Planilla Asistencia</span>
+    </font>
+  </div>
+  
+  <div style="margin-bottom: 20pt; text-align: lefT;" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <label>Periodo</label>
+        <select id="selectListaPeriodos" class="form-control">
+        </select>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <label>Centro de Costo</label>
+        <select id="selectListaLugares" class="form-control">
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="divTablaListadoPlanillaAsistencia" class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="margin-top: 10pt; text-align: left;">
+    <table id="tablaListadoPlanillaAsistencia" class="cell-border compact" style="width: 100%">
+      <thead>
+        <tr>
+          <th class="celdaColor" style="border: 1pt solid white;">ID</th>
+          <th class="celdaColor" style="border: 1pt solid white;">APELLIDOS Y NOMBRES</th>
+          <th class="celdaColor" style="border: 1pt solid white;">N° CONTRATO</th>
+          <th class="celdaColor" style="border: 1pt solid white;">FECHA INGRESO</th>
+          <th class="celdaColor" style="border: 1pt solid white;">FECHA EGRESO</th>
+          <th class="celdaColor" style="border: 1pt solid white;">CARGO LIQUIDACIÓN</th>
+          <th class="celdaColor" style="border: 1pt solid white;">CARGO GENÉRICO</th>
+          <th class="celdaColor" style="border: 1pt solid white;">JEA</th>
+          <th class="celdaColor" style="border: 1pt solid white;">REF 1</th>
+          <th class="celdaColor" style="border: 1pt solid white;">REF 2</th>
+          <th class="celdaColor" style="border: 1pt solid white;">INFORMACIÓN TERRENO(+)</th>
+          <th class="celdaColor" style="border: 1pt solid white;">REEMPLAZO PO(+)</th>
+          <th class="celdaColor" style="border: 1pt solid white;">lun</th>
+          <th class="celdaColor" style="border: 1pt solid white;">mar</th>
+          <th class="celdaColor" style="border: 1pt solid white;">mie</th>
+          <th class="celdaColor" style="border: 1pt solid white;">jue</th>
+          <th class="celdaColor" style="border: 1pt solid white;">vie</th>
+          <th class="celdaColor" style="border: 1pt solid white;">sáb</th>
+          <th class="celdaColor" style="border: 1pt solid white;">dom</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTablaPlanillaAsistencia" style="text-align: left;">
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+	function randomTextoLoadJs(){
+	  var str = '';
+	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+	  for (var i = 0; i < 8 ; i++) {
+	    str += ref.charAt(Math.floor(Math.random()*ref.length));
+	  }
+	  return str;
+	}
+  var js = document.createElement('script');
+  js.src = 'view/js/funciones.js?idload=13';
+  document.getElementsByTagName('head')[0].appendChild(js);
+</script>
