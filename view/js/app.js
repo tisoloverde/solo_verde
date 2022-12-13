@@ -2990,9 +2990,10 @@ app.controller("planillaAsistenciaController", function(){
       } else {*/
         setTimeout(async function() {
           loading(false);
+          await listPlanillaAsistencia('null', 'null');
           esconderMenu();
           menuElegant();
-        }, 200);
+        }, 500);
       /*}
     }
   });*/

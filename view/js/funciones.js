@@ -9782,3 +9782,122 @@ $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() 
     $("#desasignarJefaturaRespuesta").attr("disabled","disabled");
   },1500);
 });
+
+/* *************************************** */
+/* ********** PLANILLA ASISTENCIA ******** */
+/* *************************************** */
+var lastIdPlanillaToUse = 0;
+var planillaData = [];
+var tablePlanilla = $("#tablaListadoPlanillaAsistencia");
+var comunesPlanilla = {};
+/*var editorPlanilla = new $.fn.dataTable.Editor({
+  // ajax: "controller/actualizarListadoDotacion.php",
+  table: "#tablaListadoDotacion",
+  idSrc: 'IDDOTACION',
+  fields: [
+    { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' },
+    { label: 'familia', name: 'FAMILIA' },
+    { label: 'cargoMandante', name: 'CARGO_MANDANTE' },
+    { label: 'cargoGenericoUnificadoFamilia', name: 'CARGO_GENERICO_UNIFICADO_FAMILIA' },
+    { label: 'jeasGeas', name: 'CLASIFICACION' },
+    { label: 'ref1', name: 'REFERENCIA1' },
+    { label: 'ref2', name: 'REFERENCIA2' },
+    { label: 'ene', name: 'ENERO' },
+    { label: 'feb', name: 'FEBRERO' },
+    { label: 'mar', name: 'MARZO' },
+    { label: 'abr', name: 'ABRIL' },
+    { label: 'may', name: 'MAYO' },
+    { label: 'jun', name: 'JUNIO' },
+    { label: 'jul', name: 'JULIO' },
+    { label: 'ago', name: 'AGOSTO' },
+    { label: 'set', name: 'SETIEMBRE' },
+    { label: 'oct', name: 'OCTUBRE' },
+    { label: 'nov', name: 'NOVIEMBRE' },
+    { label: 'dic', name: 'DICIEMBRE' },
+  ],
+  formOptions: { inline: { submit: 'all' } },
+});*/
+
+async function listPlanillaAsistencia(periodo, codigoCC) {
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+  loading(true);
+  await tablePlanilla.DataTable({
+    ajax: {
+      url: "controller/datosListadoPlanillaAsistencia.php",
+      type: 'POST',
+      data: {}, //{ periodo, codigoCC },
+      /*dataSrc: function (json) {
+        return json.data;
+      },*/
+    },
+    columns: [
+      { data: 'RUT' },
+      { data: 'NOMBRES' }, // editField: 'personalOfertado' },
+      { data: 'CARGO_LIQUIDACION' },
+      { data: 'CARGO_GENERICO' },
+      { data: 'CLASIFICACION' },
+      { data: 'REFERENCIA1' },
+      { data: 'REFERENCIA2' },
+      { data: 'CARGO_GENERICO_B' },
+      { data: 'CLASIFICACION_B' },
+      { data: 'REFERENCIA1_B' },
+      { data: 'REFERENCIA2_B' },
+      { data: 'RUT' },
+      { data: 'FECHA' },
+      /*{ data: 'Lu' },
+      { data: 'Ma' },
+      { data: 'Mi' },
+      { data: 'Ju' },
+      { data: 'Vi' },
+      { data: 'Sá' },
+      { data: 'Do' },*/
+    ],
+    buttons: [],
+    columnDefs: [
+      { width: "5px", targets: 0 },
+      /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
+      /*{ visible: false, searchable: false, targets: [ 2 ] },*/
+      { targets: "_all", className: "dt-center" },
+      // { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" }
+    ],
+    select: { style: 'single' },
+    scrollX: true,
+    paging: true,
+    ordering: true,
+    scrollCollapse: true,
+    // "order": [[ 3, "asc" ]],
+    info: true,
+    lengthMenu: [[largo], [largo]],
+    dom: 'Bfrtip',
+    language: {
+      zeroRecords: "Seleccionar periodo y centro de costo",
+      info: "Registro _START_ de _END_ de _TOTAL_",
+      infoEmpty: "No hay datos disponibles",
+      paginate: {
+        previous: "Anterior",
+        next: "Siguiente",
+      },
+      search: "Buscar: ",
+      select: {
+        rows: "- %d registros seleccionados",
+      },
+      infoFiltered: "(Filtrado de _MAX_ registros)",
+    },
+    destroy: true,
+    autoWidth: false,
+    initComplete: function (settings, json) {
+      $('#contenido').show();
+      $('#menu-lateral').show();
+      $('#footer').parent().show();
+      $('#footer').show();
+      setTimeout(function() {
+        planillaData = json.aaData;
+        tablePlanilla.DataTable().columns.adjust();
+        loading(false);
+      },500);
+    }
+  });
+}
+/* *************************************** */
+/* ********** PLANILLA ASISTENCIA ******** */
+/* *************************************** */
