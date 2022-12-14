@@ -801,7 +801,8 @@ app.controller("dotacionController", function(){
         : 'style',
     placeholder: $(this).data('placeholder'),
     allowClear: Boolean($(this).data('allow-clear')),
-    closeOnSelect: !$(this).attr('multiple')
+    closeOnSelect: !$(this).attr('multiple'),
+    sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
   }
   loading(true);
 
@@ -2966,7 +2967,8 @@ app.controller("planillaAsistenciaController", function(){
         : 'style',
     placeholder: $(this).data('placeholder'),
     allowClear: Boolean($(this).data('allow-clear')),
-    closeOnSelect: !$(this).attr('multiple')
+    closeOnSelect: !$(this).attr('multiple'),
+    sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
   }
   loading(true);
 
