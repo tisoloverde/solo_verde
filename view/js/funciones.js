@@ -3532,7 +3532,7 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   html += "</select>";
   $(`#dotacion-select-col8-${idDotacion}`).html(html);
   /* End - Select Col 8 */
-  
+
   var idReferencia2 = $(`#dotacion-select-col8-${idDotacion}`).val();
 
   var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
@@ -3866,9 +3866,13 @@ $('#newDotacion').on('click', function (e) {
 });
 
 $('#newAnho').on('click', function () {
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
   setTimeout(function(){
     var h = $(window).height() - 200;
     $("#modalIngresoAnho").modal("show");
+    $('#modalAlertasSplash').modal('hide');
   }, 500);
 });
 
@@ -3886,8 +3890,14 @@ $('#guardarIngresoAnho').on('click', async function (e) {
       $('#anhoIngresoAnho').val('');
       if (response == 'OK') {
         alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Año agregado correctamente");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        }, 500);
       } else {
         alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>" + response);
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        }, 500);
       }
     },
   });
