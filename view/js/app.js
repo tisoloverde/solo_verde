@@ -2971,12 +2971,26 @@ app.controller("planillaAsistenciaController", function(){
   loading(true);
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    $("#selectListaPeriodos").select2(theme);
+    $("#selectListaLugares").select2(theme);
   }
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    $("#selectListaLugares").select2(theme);
+    $("#selectListaAnhos").select2(theme);
   }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaMeses").select2(theme);
+  }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaSemanas").select2(theme);
+  }
+
+  var html = "<option value='0'>Seleccione</option>";
+  $("#selectListaAnhos").html(html);
+  $("#selectListaMeses").html(html);
+  $("#selectListaSemanas").html(html);
+
 
   /*$.ajax({
     url:   'controller/accesoCorrecto.php',
@@ -2990,6 +3004,7 @@ app.controller("planillaAsistenciaController", function(){
       } else {*/
         setTimeout(async function() {
           loading(false);
+          await listCalendario('yyyy');
           await listPlanillaAsistencia('null', 'null');
           esconderMenu();
           menuElegant();

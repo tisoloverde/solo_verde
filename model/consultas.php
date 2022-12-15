@@ -19675,4 +19675,73 @@ WHERE U.RUT = '{$rutUser}'";
 			return "Error";
 		}
 	}
+
+	function consultaListaAnhos() {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				distinct(anio_calendario) as anho
+			FROM CALENDARIO;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaMesesPorAnho($anho) {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				distinct(mes_calendario) as n_mes,
+				anio_calendario as anho,
+				concat(mes_nombre, '-',anio_calendario) as mes
+			FROM CALENDARIO
+			WHERE anio_calendario = $anho";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaSemanasPorMesesAnho($anho, $mes) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				distinct(semana_del_anio) as n_semana,
+				mes_calendario as n_mes,
+				semana_inicio,
+				semana_fin,
+				concat('Semana ', semana_del_anio, ' del ', semana_inicio, ' al ', semana_fin) as semana
+			FROM CALENDARIO
+			WHERE anio_calendario = $anho
+			AND mes_calendario = $mes";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
 ?>

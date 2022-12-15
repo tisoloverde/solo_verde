@@ -9818,6 +9818,57 @@ var comunesPlanilla = {};
   formOptions: { inline: { submit: 'all' } },
 });*/
 
+async function listCalendario(type) {
+  await $.ajax({
+    url:   'controller/datosCalendario.php',
+    type:  'post',
+    data:  {
+      type,
+      anho: $('#selectListaAnhos').val(),
+      mes: $('#selectListaMeses').val(),
+    },
+    dataType: 'json',
+    success:  function (response) {
+      var data = response.aaData;
+      if (data?.length) {
+        var html = "<option value='0'>Seleccione</option>";
+        switch (type) {
+          case 'yyyy':
+            data.forEach((item) => {
+              html += `<option value='${item.anho}'>${item.anho}</option>`;
+            });
+            $('#selectListaAnhos').html(html);
+            break;
+          case 'mm':
+            data.forEach((item) => {
+              html += `<option value='${item.n_mes}'>${item.mes}</option>`;
+            });
+            $('#selectListaMeses').html(html);
+            break;
+          case 'ss':
+            data.forEach((item) => {
+              html += `<option value='${item.n_semana}'>${item.semana}</option>`;
+            });
+            $('#selectListaSemanas').html(html);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  })
+}
+
+$('#selectListaAnhos').on('change', function (e) {
+  e.stopImmediatePropagation();
+  listCalendario('mm');
+})
+
+$('#selectListaMeses').on('change', function (e) {
+  e.stopImmediatePropagation();
+  listCalendario('ss');
+})
+
 async function listPlanillaAsistencia(periodo, codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   loading(true);
