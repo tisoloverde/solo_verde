@@ -3532,7 +3532,7 @@ $(document).on('change', '.dotacion-select-col3', function(e){
   html += "</select>";
   $(`#dotacion-select-col8-${idDotacion}`).html(html);
   /* End - Select Col 8 */
-  
+
   var idReferencia2 = $(`#dotacion-select-col8-${idDotacion}`).val();
 
   var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
@@ -3866,9 +3866,11 @@ $('#newDotacion').on('click', function (e) {
 });
 
 $('#newAnho').on('click', function () {
+  loading(true);
   setTimeout(function(){
     var h = $(window).height() - 200;
     $("#modalIngresoAnho").modal("show");
+    loading(false);
   }, 500);
 });
 
@@ -3882,12 +3884,17 @@ $('#guardarIngresoAnho').on('click', async function (e) {
     type:  'post',
     data:  { anho: $('#anhoIngresoAnho').val() },
     success:  function (response) {
-      loading(false);
       $('#anhoIngresoAnho').val('');
       if (response == 'OK') {
         alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Año agregado correctamente");
+        setTimeout(function(){
+          loading(false);
+        }, 500);
       } else {
         alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>" + response);
+        setTimeout(function(){
+          loading(false);
+        }, 500);
       }
     },
   });
