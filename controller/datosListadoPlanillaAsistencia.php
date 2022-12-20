@@ -3,7 +3,7 @@
   session_start();
 
 	if (count($_POST) >= 0) {
-    $row = consultaListadoPlanillaAsistencia();
+    $row = consultaListadoPlanillaAsistencia($_POST['idEstructuraOperacion']);
     $cons = consultaListaPersonalEstadoConcepto();
     $days = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'];
 

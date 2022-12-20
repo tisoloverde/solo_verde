@@ -9826,6 +9826,33 @@ var diasPorSemana = [];
   formOptions: { inline: { submit: 'all' } },
 });*/
 
+async function listCentrosDeCostos() {
+  $.ajax({
+    url: 'controller/datosCentrosDeCostos.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option selected value='select' disabled>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+      });
+      $('#selectListaCentrosDeCostos').html(html);
+    },
+  })
+}
+
+function filtrosPlanilla() {
+  var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
+  var anho = $('#selectListaAnhos').val();
+  var month = $('#selectListaMeses').val();
+  var week = $('#selectListaSemanas').val();
+  if (idEstructuraOperacion>0 && anho>0 && month>0 && week>0) {
+    // $("#newDotacion").removeAttr("disabled");
+    listPlanillaAsistencia(idEstructuraOperacion, '');
+  }
+}
+
 async function listCalendario(type) {
   await $.ajax({
     url:   'controller/datosCalendario.php',
@@ -9884,6 +9911,7 @@ $('#selectListaMeses').on('change', function (e) {
 $('#selectListaSemanas').on('change', function (e) {
   e.stopImmediatePropagation();
   listCalendario('dd');
+  filtrosPlanilla();
 })
 
 async function listComunesPlanilla() {
@@ -9897,14 +9925,14 @@ async function listComunesPlanilla() {
   })
 }
 
-async function listPlanillaAsistencia(periodo, codigoCC) {
+async function listPlanillaAsistencia(idEstructuraOperacion, periodo) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   loading(true);
   await tablePlanilla.DataTable({
     ajax: {
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
-      data: {}, //{ periodo, codigoCC },
+      data: { idEstructuraOperacion },
       /*dataSrc: function (json) {
         return json.data;
       },*/

@@ -19625,7 +19625,7 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListadoPlanillaAsistencia() {
+	function consultaListadoPlanillaAsistencia($idEstructuraOperacion) {
 		$con = conectar();
 		if ($con != 'No conectado') {
 			$sql = "SELECT
@@ -19674,7 +19674,8 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU_B ON CGU_B.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO_B
 			LEFT JOIN CLASIFICACION CL_B ON CL_B.IDCLASIFICACION = CGU_B.IDCLASIFICACION
 			LEFT JOIN REFERENCIA1 R1_B ON R1_B.IDREFERENCIA1 = CGU_B.IDREFERENCIA1
-			LEFT JOIN REFERENCIA2 R2_B ON R2_B.IDREFERENCIA2 = PS.IDREFERENCIA2_B;";
+			LEFT JOIN REFERENCIA2 R2_B ON R2_B.IDREFERENCIA2 = PS.IDREFERENCIA2_B
+			WHERE AC.IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

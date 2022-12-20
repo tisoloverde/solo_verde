@@ -2973,7 +2973,7 @@ app.controller("planillaAsistenciaController", function(){
   loading(true);
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    $("#selectListaLugares").select2(theme);
+    $("#selectListaCentrosDeCostos").select2(theme);
   }
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -3006,6 +3006,7 @@ app.controller("planillaAsistenciaController", function(){
       } else {*/
         setTimeout(async function() {
           loading(false);
+          await listCentrosDeCostos();
           await listCalendario('yyyy');
           await listPlanillaAsistencia('null', 'null');
           await listComunesPlanilla();
