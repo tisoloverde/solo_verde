@@ -14,6 +14,9 @@ if (count($_POST) >= 0) {
     case 'ss':
       $row = consultaListaSemanasPorMesesAnho($_POST['anho'], $_POST['mes']);
       break;
+    case 'dd':
+      $row = consultaListaDiasPorSemanaMesAnho($_POST['anho'], $_POST['mes'], $_POST['semana']);
+      break;
     default:
       break;
   }

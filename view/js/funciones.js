@@ -9797,6 +9797,7 @@ var lastIdPlanillaToUse = 0;
 var planillaData = [];
 var tablePlanilla = $("#tablaListadoPlanillaAsistencia");
 var comunesPlanilla = {};
+var diasPorSemana = [];
 /*var editorPlanilla = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoDotacion",
@@ -9833,6 +9834,7 @@ async function listCalendario(type) {
       type,
       anho: $('#selectListaAnhos').val(),
       mes: $('#selectListaMeses').val(),
+      semana: $('#selectListaSemanas').val(),
     },
     dataType: 'json',
     success:  function (response) {
@@ -9858,6 +9860,9 @@ async function listCalendario(type) {
             });
             $('#selectListaSemanas').html(html);
             break;
+          case 'dd':
+            diasPorSemana = data;
+            break;
           default:
             break;
         }
@@ -9876,6 +9881,22 @@ $('#selectListaMeses').on('change', function (e) {
   listCalendario('ss');
 })
 
+$('#selectListaSemanas').on('change', function (e) {
+  e.stopImmediatePropagation();
+  listCalendario('dd');
+})
+
+async function listComunesPlanilla() {
+  $.ajax({
+    url: 'controller/datosComunesPlanilla.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      comunesPlanilla = response.aaData;
+    },
+  })
+}
+
 async function listPlanillaAsistencia(periodo, codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   loading(true);
@@ -9892,23 +9913,23 @@ async function listPlanillaAsistencia(periodo, codigoCC) {
       { data: 'RUT' },
       { data: 'NOMBRES' }, // editField: 'personalOfertado' },
       { data: 'CARGO_LIQUIDACION' },
-      { data: 'CARGO_GENERICO' },
+      { data: 'CARGO_GENERICO_UNIFICADO' },
       { data: 'CLASIFICACION' },
       { data: 'REFERENCIA1' },
       { data: 'REFERENCIA2' },
-      { data: 'CARGO_GENERICO_B' },
+      { data: 'CARGO_GENERICO_UNIFICADO_B' },
       { data: 'CLASIFICACION_B' },
       { data: 'REFERENCIA1_B' },
       { data: 'REFERENCIA2_B' },
       { data: 'RUT' },
       { data: 'FECHA' },
-      /*{ data: 'Lu' },
-      { data: 'Ma' },
-      { data: 'Mi' },
-      { data: 'Ju' },
-      { data: 'Vi' },
-      { data: 'Sá' },
-      { data: 'Do' },*/
+      { data: 'LUNES' },
+      { data: 'MARTES' },
+      { data: 'MIERCOLES' },
+      { data: 'JUEVES' },
+      { data: 'VIERNES' },
+      { data: 'SABADO' },
+      { data: 'DOMINGO' },
     ],
     buttons: [],
     columnDefs: [

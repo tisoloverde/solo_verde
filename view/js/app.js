@@ -3008,6 +3008,7 @@ app.controller("planillaAsistenciaController", function(){
           loading(false);
           await listCalendario('yyyy');
           await listPlanillaAsistencia('null', 'null');
+          await listComunesPlanilla();
           esconderMenu();
           menuElegant();
         }, 500);

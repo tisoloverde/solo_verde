@@ -19629,6 +19629,10 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != 'No conectado') {
 			$sql = "SELECT
+				AC.IDACT,
+				AC.IDESTRUCTURA_OPERACION,
+				CC.NOMENCLATURA AS CENTRO_DE_COSTO,
+				CC.DEFINICION AS CODIGO_CENTRO_DE_COSTO,
 				PS.IDPERSONAL_ESTADO,
 				P.IDPERSONAL,
 				P.DNI AS RUT,
@@ -19651,17 +19655,26 @@ WHERE U.RUT = '{$rutUser}'";
 				PS.IDREFERENCIA2_B,
 				R2_B.NOMBRE AS REFERENCIA2_B,
 				PS.RUTUSUARIO AS RUT,
-				PS.FECHA
-			FROM PERSONAL_ESTADO PS
+				PS.FECHA,
+				'1' AS SIGLA_LUNES,
+				'1' AS SIGLA_MARTES,
+				'1' AS SIGLA_MIERCOLES,
+				'1' AS SIGLA_JUEVES,
+				'1' AS SIGLA_VIERNES,
+				'1' AS SIGLA_SABADO,
+				'1' AS SIGLA_DOMINGO
+			FROM ACT AC
+			INNER JOIN ESTRUCTURA_OPERACION CC ON CC.IDESTRUCTURA_OPERACION = AC.IDESTRUCTURA_OPERACION
+			INNER JOIN PERSONAL_ESTADO PS ON PS.IDPERSONAL = AC.IDPERSONAL
 			INNER JOIN PERSONAL P ON P.IDPERSONAL = PS.IDPERSONAL
-			INNER JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO
-			INNER JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
-			INNER JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = CGU.IDREFERENCIA1
-			INNER JOIN REFERENCIA2 R2 ON R2.IDREFERENCIA2 = PS.IDREFERENCIA2
-			INNER JOIN CARGO_GENERICO_UNIFICADO CGU_B ON CGU_B.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO_B
-			INNER JOIN CLASIFICACION CL_B ON CL_B.IDCLASIFICACION = CGU_B.IDCLASIFICACION
-			INNER JOIN REFERENCIA1 R1_B ON R1_B.IDREFERENCIA1 = CGU_B.IDREFERENCIA1
-			INNER JOIN REFERENCIA2 R2_B ON R2_B.IDREFERENCIA2 = PS.IDREFERENCIA2_B;";
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO
+			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = CGU.IDREFERENCIA1
+			LEFT JOIN REFERENCIA2 R2 ON R2.IDREFERENCIA2 = PS.IDREFERENCIA2
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU_B ON CGU_B.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO_B
+			LEFT JOIN CLASIFICACION CL_B ON CL_B.IDCLASIFICACION = CGU_B.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1_B ON R1_B.IDREFERENCIA1 = CGU_B.IDREFERENCIA1
+			LEFT JOIN REFERENCIA2 R2_B ON R2_B.IDREFERENCIA2 = PS.IDREFERENCIA2_B;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -19731,6 +19744,49 @@ WHERE U.RUT = '{$rutUser}'";
 			FROM CALENDARIO
 			WHERE anio_calendario = $anho
 			AND mes_calendario = $mes";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaDiasPorSemanaMesAnho($anho, $mes, $semana) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				dia_calendario as dia,
+				mes_calendario as n_mes,
+				semana_del_anio as n_semana
+			FROM CALENDARIO
+			WHERE anio_calendario = $anho
+			AND mes_calendario = $mes
+			AND semana_del_anio = $semana;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaPersonalEstadoConcepto() {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT SIGLA FROM PERSONAL_ESTADO_CONCEPTO;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
