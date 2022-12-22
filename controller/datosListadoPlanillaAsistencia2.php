@@ -27,7 +27,7 @@
           "IDPERSONAL" => $idPersonal,
           "RUT" => $lstPersonalCC[$i]['RUT'],
           "NOMBRES" => $lstPersonalCC[$i]['NOMBRES'],
-          "CARGO_LIQUIDACION" => "",
+          "CARGO_LIQUIDACION" => $lstPersonalCC[$i]['CARGO_LIQUIDACION'],
           "CARGO_GENERICO_UNIFICADO" => "",
           "CLASIFICACION" => "",
           "REFERENCIA1" => "",
@@ -77,12 +77,12 @@
         /* End - Cargo Generico Unificado B */
 
         /* Begin - Clasificacion */
-        $row['CLASIFICACION_B_TEXT'] = $found['CLASIFICACION_B'];
+        $row['CLASIFICACION_B_TEXT'] = $found['CLASIFICACION_B'] ? $found['CLASIFICACION_B'] : $crgman[0]['CLASIFICACION'];
         $row['CLASIFICACION_B'] = "<span id='planilla-text-col9-$idPersonal'>" . $found['CLASIFICACION_B'] . "</span>";
         /* End - Clasificacion */
 
         /* Begin - Referencia 1 */
-        $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B'];
+        $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B'] ? $found['REFERENCIA1_B'] : $refs2[0]['REFERENCIA2'];
         $row['REFERENCIA1_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['REFERENCIA1_B'] . "</span>";
         /* End - Referencia 1 */
 
@@ -91,8 +91,11 @@
         foreach ($refs2 as $item) {
           $idRef2 = $item['IDREFERENCIA2'];
           $ref2 = $item['REFERENCIA2'];
-          if ($item['IDREFERENCIA1'] == $found['IDREFERENCIA1_B']) {
-            $select = $select . ($found['IDREFERENCIA2_B'] == $idRef2
+
+          $r1 = $found['IDREFERENCIA1_B'] ? $found['IDREFERENCIA1_B'] : $crgman[0]['IDREFERENCIA1'];
+          $r2 = $found['IDREFERENCIA2_B'] ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
+          if ($item['IDREFERENCIA1'] == $r1) {
+            $select = $select . ($r2 == $idRef2
               ? "<option value='$idRef2' selected>$ref2</option>"
               : "<option value='$idRef2'>$ref2</option>");
           }
@@ -116,6 +119,7 @@
 
           $col = $col + 1;
           $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-col$col'>";
+          $select = $select . "<option value='0'></option>";
           foreach ($cons as $con) {
             $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
             $pec = $con['SIGLA'];
