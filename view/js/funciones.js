@@ -9797,6 +9797,7 @@ var lastIdPlanillaToUse = 0;
 var planillaData = [];
 var tablePlanilla = $("#tablaListadoPlanillaAsistencia");
 var comunesPlanilla = {};
+var semanas = [];
 var diasPorSemana = [];
 /*var editorPlanilla = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
@@ -9848,8 +9849,9 @@ function filtrosPlanilla() {
   var month = $('#selectListaMeses').val();
   var week = $('#selectListaSemanas').val();
   if (idEstructuraOperacion>0 && anho>0 && month>0 && week>0) {
+    var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
     // $("#newDotacion").removeAttr("disabled");
-    listPlanillaAsistencia(idEstructuraOperacion, '');
+    listPlanillaAsistencia(idEstructuraOperacion, semana.semana_inicio, semana.semana_fin);
   }
 }
 
@@ -9882,6 +9884,7 @@ async function listCalendario(type) {
             $('#selectListaMeses').html(html);
             break;
           case 'ss':
+            semanas = data;
             data.forEach((item) => {
               html += `<option value='${item.n_semana}'>${item.semana}</option>`;
             });
@@ -9925,14 +9928,14 @@ async function listComunesPlanilla() {
   })
 }
 
-async function listPlanillaAsistencia(idEstructuraOperacion, periodo) {
+async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   loading(true);
   await tablePlanilla.DataTable({
     ajax: {
-      url: "controller/datosListadoPlanillaAsistencia.php",
+      url: "controller/datosListadoPlanillaAsistencia2.php",
       type: 'POST',
-      data: { idEstructuraOperacion },
+      data: { idEstructuraOperacion, fecIni, fecFin },
       /*dataSrc: function (json) {
         return json.data;
       },*/
@@ -9951,13 +9954,13 @@ async function listPlanillaAsistencia(idEstructuraOperacion, periodo) {
       { data: 'REFERENCIA2_B' },
       { data: 'RUT_REEMPLAZO' },
       { data: 'FECHA_REEMPLAZO' },
-      { data: 'LUNES' },
-      { data: 'MARTES' },
-      { data: 'MIERCOLES' },
-      { data: 'JUEVES' },
-      { data: 'VIERNES' },
-      { data: 'SABADO' },
-      { data: 'DOMINGO' },
+      { data: 'Lunes' },
+      { data: 'Martes' },
+      { data: 'Miércoles' },
+      { data: 'Jueves' },
+      { data: 'Viernes' },
+      { data: 'Sábado' },
+      { data: 'Domingo' },
     ],
     buttons: [],
     columnDefs: [

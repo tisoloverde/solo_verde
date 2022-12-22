@@ -19790,7 +19790,121 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaPersonalEstadoConcepto() {
 		$con = conectar();
 		if ($con != "No conectado") {
-			$sql = "SELECT SIGLA FROM PERSONAL_ESTADO_CONCEPTO;";
+			$sql = "SELECT IDPERSONAL_ESTADO_CONCEPTO, SIGLA FROM PERSONAL_ESTADO_CONCEPTO;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function ingresarPlanilla(
+		$idPersonal,
+    $idCargoGenericoUnificado,
+    $idReferencia2,
+    $idCargoGenericoUnificado_b,
+    $idReferencia2_b,
+    $idPersonalEstadoConcepto,
+    $fecha,
+    $rutUsuario
+	) {
+		$con = conectar();
+		if($con != 'No conectado'){
+			$sql = "CALL INSERTAR_DOTACION(
+				$idPersonal,
+				$idCargoGenericoUnificado,
+				$idReferencia2,
+				$idCargoGenericoUnificado_b,
+				$idReferencia2_b,
+				$idPersonalEstadoConcepto,
+				'$fecha',
+				'$rutUsuario'
+			)";
+			if ($row = $con->query($sql)) {
+				$con->query("COMMIT");
+				// return $row->fetch_assoc();
+				return "OK";
+			} else {
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function consultaListaACTHistorial($idEstructuraOperacion, $fechaIni, $fechaFin) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				DISTINCT(AH.IDPERSONAL),
+				P.DNI AS RUT,
+				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS NOMBRES
+			FROM ACT_HISTORIAL AH
+			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL
+			WHERE
+			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')
+			AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaPersonalEstado($fechaIni, $fechaFin) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				PE.IDPERSONAL_ESTADO,
+				PE.IDPERSONAL,
+				PE.FECHA_INICIO,
+				PE.IDPERSONAL_ESTADO_CONCEPTO,
+				PEC.SIGLA AS PERSONAL_ESTADO_CONCEPTO
+			FROM PERSONAL_ESTADO PE
+			LEFT JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
+			WHERE
+			(PE.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin')
+			AND (PE.IDPERSONAL_ESTADO_CONCEPTO IS NOT NULL)
+			ORDER BY PE.IDPERSONAL, PE.FECHA_INICIO ASC";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaSemanaCalendario($fechaIni, $fechaFin) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				fecha_calendario AS FECHA,
+				dia_nombre AS DIA
+			FROM CALENDARIO
+			WHERE fecha_calendario BETWEEN '$fechaIni' AND '$fechaFin'
+			ORDER BY fecha_calendario ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
