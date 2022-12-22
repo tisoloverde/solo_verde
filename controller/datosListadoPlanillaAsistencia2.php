@@ -47,6 +47,22 @@
           }
         }
 
+        /* Begin - Cargo Generico Unificado */
+        $row['CARGO_GENERICO_UNIFICADO'] = $found['CARGO_GENERICO_UNIFICADO'];
+        /* End - Cargo Generico Unificado */
+
+        /* Begin - Clasificacion */
+        $row['CLASIFICACION'] = $found['CLASIFICACION'];
+        /* End - Clasificacion */
+
+        /* Begin - Referencia 1 */
+        $row['REFERENCIA1'] = $found['REFERENCIA1'];
+        /* End - Referencia 1 */
+
+        /* Begin - Referencia 2 */
+        $row['REFERENCIA2'] = $found['REFERENCIA2'];
+        /* End - Referencia 2 */
+
         /* Begin - Cargo Generico Unificado B */
         $select = "<select id='planilla-select-col8-$idPersonal' class='planilla-select-col8'>";
         foreach ($crgman as $item) {
