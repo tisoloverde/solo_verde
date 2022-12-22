@@ -38,12 +38,17 @@
           "REFERENCIA2_B" => "",
           "RUT_REEMPLAZO" => "",
           "FECHA_REEMPLAZO" => "",
+          "NDIAS" => 0,
+          "HE50" => "",
+          "HE100" => "",
+          "ATRASO" => "",
         ];
 
         $found = [];
         foreach ($lstPersonalEstado as $personalEstado) {
           if ($idPersonal == $personalEstado['IDPERSONAL']) {
             $found = $personalEstado;
+            $row['NDIAS'] = $row['NDIAS'] + 1;
           }
         }
 

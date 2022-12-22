@@ -9961,6 +9961,10 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       { data: 'Viernes' },
       { data: 'Sábado' },
       { data: 'Domingo' },
+      { data: 'NDIAS' },
+      { data: 'HE50' },
+      { data: 'HE100' },
+      { data: 'ATRASO' },
     ],
     buttons: [],
     columnDefs: [
