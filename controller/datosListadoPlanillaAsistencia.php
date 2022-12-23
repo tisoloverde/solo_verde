@@ -51,7 +51,9 @@
         foreach ($lstPersonalEstado as $personalEstado) {
           if ($idPersonal == $personalEstado['IDPERSONAL']) {
             $found = $personalEstado;
-            $row['NDIAS'] = $row['NDIAS'] + 1;
+            if (isset($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'])) {
+              $row['NDIAS'] = $row['NDIAS'] + 1;
+            }
           }
         }
 

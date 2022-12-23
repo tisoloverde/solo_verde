@@ -9836,7 +9836,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   loading(true);
   await tablePlanilla.DataTable({
     ajax: {
-      url: "controller/datosListadoPlanillaAsistencia2.php",
+      url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
       data: { idEstructuraOperacion, fecIni, fecFin },
       /*dataSrc: function (json) {
