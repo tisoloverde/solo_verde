@@ -10044,19 +10044,22 @@ $(document).on('change', '.planilla-select-col8', function(e){
   var html = "";
 
   var cargoGenericoUnificado = comunesPlanilla.cargoGenericoUnificado.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO']) == Number(idCargoGenericoUnificado));
+  var idReferencia1 = cargoGenericoUnificado['IDREFERENCIA1'];
+  var referencia1 = cargoGenericoUnificado['REFERENCIA1'];
+  var clasificacion = cargoGenericoUnificado['CLASIFICACION'];
 
   /* Begin - Text Col 9 */
-  $(`#planilla-text-col9-${idPersonal}`).text(cargoGenericoUnificado['CLASIFICACION']);
+  $(`#planilla-text-col9-${idPersonal}`).text(clasificacion);
   /* End - Text Col 9 */
 
   /* Begin - Text Col 10 */
-  $(`#planilla-text-col10-${idPersonal}`).text(cargoGenericoUnificado['REFERENCIA1']);
+  $(`#planilla-text-col10-${idPersonal}`).text(referencia1);
   /* End - Text Col 10 */
 
   /* Begin - Select Col 11 */
   html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
   comunesPlanilla.referencia2.forEach((item) => {
-    if (Number(item['IDREFERENCIA1']) == Number(cargoGenericoUnificado['IDREFERENCIA1'])) {
+    if (Number(item['IDREFERENCIA1']) == Number(idReferencia1)) {
       html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
     }
   })
@@ -10064,11 +10067,14 @@ $(document).on('change', '.planilla-select-col8', function(e){
   $(`#planilla-select-col11-${idPersonal}`).html(html);
   /* End - Select Col 11 */
 
-  var idReferencia2 = $(`#planilla-select-col12-${idPersonal}`).val();
+  var idReferencia2 = $(`#planilla-select-col11-${idPersonal}`).val();
 
   var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
     planillaData[planillaIdx]['IDCARGO_GENERICO_UNIFICADO_B'] = idCargoGenericoUnificado;
+    planillaData[planillaIdx]['CLASIFICACION_B_TEXT'] = clasificacion;
+    planillaData[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
+    planillaData[planillaIdx]['REFERENCIA1_B_TEXT'] = referencia1;
     planillaData[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
   }
 });
@@ -10181,6 +10187,46 @@ $(document).on('change', '.planilla-select-col20', function(e){
   if (planillaIdx >= 0) {
     planillaData[planillaIdx]['DIA7_DOMINGO_ID'] = idPec;
     planillaData[planillaIdx]['DIA7_DOMINGO_FECHA'] = diasPorSemana[6]['fecha'];
+  }
+});
+
+editorPlanilla.on('postEdit', function (e, o, action) {
+  var idPersonal = action.IDPERSONAL;
+  var index = planillaData.findIndex((item) => `${item.IDPERSONAL}` === `${idPersonal}`)
+
+  if (index >= 0) {
+    var html = "";
+    var dt = planillaData[index] ?? {};
+
+    $(`#planilla-select-col8-${idPersonal}`).val(dt.IDCARGO_GENERICO_UNIFICADO_B)
+
+    $(`#planilla-text-col9-${idPersonal}`).text(dt.CLASIFICACION_B_TEXT)
+    $(`#planilla-text-col10-${idPersonal}`).text(dt.REFERENCIA1_B_TEXT)
+
+    html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
+    comunesPlanilla.referencia2.forEach((item) => {
+      if (Number(item['IDREFERENCIA1']) == Number(dt.IDREFERENCIA1_B)) {
+        html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+      }
+    })
+    html += "</select>";
+    $(`#planilla-select-col11-${idPersonal}`).html(html);
+    $(`#planilla-select-col11-${idPersonal}`).val(dt.IDREFERENCIA2_B)
+
+    /* Begin - Dates */
+    /*dotacionData[index]['ENERO'] = action['ENERO'];
+    dotacionData[index]['FEBRERO'] = action['FEBRERO'];
+    dotacionData[index]['MARZO'] = action['MARZO'];
+    dotacionData[index]['ABRIL'] = action['ABRIL'];
+    dotacionData[index]['MAYO'] = action['MAYO'];
+    dotacionData[index]['JUNIO'] = action['JUNIO'];
+    dotacionData[index]['JULIO'] = action['JULIO'];
+    dotacionData[index]['AGOSTO'] = action['AGOSTO'];
+    dotacionData[index]['SETIEMBRE'] = action['SETIEMBRE'];
+    dotacionData[index]['OCTUBRE'] = action['OCTUBRE'];
+    dotacionData[index]['NOVIEMBRE'] = action['NOVIEMBRE'];
+    dotacionData[index]['DICIEMBRE'] = action['DICIEMBRE'];*/
+    /* End - Dates */
   }
 });
 
