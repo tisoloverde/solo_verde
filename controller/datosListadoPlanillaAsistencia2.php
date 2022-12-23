@@ -1,5 +1,6 @@
 <?php
   require('../model/consultas.php');
+  require('./utils/functions.php');
   session_start();
 
 	if (count($_POST) >= 0) {
@@ -134,8 +135,8 @@
           }
           $select = $select . "</select>";
 
-          $row[$dia['DIA']] = $select;
-          $row[$dia['DIA'] . "__"] = $found;
+          $row[sanitizeWord($dia['DIA'])] = $select;
+          // $row[$dia['DIA'] . "__"] = $found;
         }
         /* End - Week */
 

@@ -9793,39 +9793,129 @@ $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() 
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
-var lastIdPlanillaToUse = 0;
 var planillaData = [];
 var tablePlanilla = $("#tablaListadoPlanillaAsistencia");
 var comunesPlanilla = {};
 var semanas = [];
 var diasPorSemana = [];
-/*var editorPlanilla = new $.fn.dataTable.Editor({
+var editorPlanilla = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
-  table: "#tablaListadoDotacion",
-  idSrc: 'IDDOTACION',
+  table: "#tablaListadoPlanillaAsistencia",
+  idSrc: 'RUT', //'IDPERSONAL',
   fields: [
-    { label: 'personalOfertado', name: 'PERSONAL_OFERTADOS' },
-    { label: 'familia', name: 'FAMILIA' },
-    { label: 'cargoMandante', name: 'CARGO_MANDANTE' },
-    { label: 'cargoGenericoUnificadoFamilia', name: 'CARGO_GENERICO_UNIFICADO_FAMILIA' },
-    { label: 'jeasGeas', name: 'CLASIFICACION' },
-    { label: 'ref1', name: 'REFERENCIA1' },
-    { label: 'ref2', name: 'REFERENCIA2' },
-    { label: 'ene', name: 'ENERO' },
-    { label: 'feb', name: 'FEBRERO' },
-    { label: 'mar', name: 'MARZO' },
-    { label: 'abr', name: 'ABRIL' },
-    { label: 'may', name: 'MAYO' },
-    { label: 'jun', name: 'JUNIO' },
-    { label: 'jul', name: 'JULIO' },
-    { label: 'ago', name: 'AGOSTO' },
-    { label: 'set', name: 'SETIEMBRE' },
-    { label: 'oct', name: 'OCTUBRE' },
-    { label: 'nov', name: 'NOVIEMBRE' },
-    { label: 'dic', name: 'DICIEMBRE' },
+    // { label: 'RUT', name: 'RUT' },
+    { label: 'NOMBRES', name: 'NOMBRES' }, // editField: 'personalOfertado' },
+    { label: 'CARGO_LIQUIDACION', name: 'CARGO_LIQUIDACION' },
+    { label: 'CARGO_GENERICO_UNIFICADO', name: 'CARGO_GENERICO_UNIFICADO' },
+    { label: 'CLASIFICACION', name: 'CLASIFICACION' },
+    { label: 'REFERENCIA1', name: 'REFERENCIA1' },
+    { label: 'REFERENCIA2', name: 'REFERENCIA2' },
+    { label: 'CARGO_GENERICO_UNIFICADO_B', name: 'CARGO_GENERICO_UNIFICADO_B' },
+    { label: 'CLASIFICACION_B_TEXT', name: 'CLASIFICACION_B_TEXT' },
+    { label: 'REFERENCIA1_B_TEXT', name: 'REFERENCIA1_B_TEXT' },
+    { label: 'REFERENCIA2_B', name: 'REFERENCIA2_B' },
+    { label: 'RUT_REEMPLAZO', name: 'RUT_REEMPLAZO' },
+    { label: 'FECHA_REEMPLAZO', name: 'FECHA_REEMPLAZO' },
+    { label: 'Lunes', name: 'Lunes' },
+    { label: 'Martes', name: 'Martes' },
+    { label: 'Miercoles', name: 'Miercoles' },
+    { label: 'Jueves', name: 'Jueves' },
+    { label: 'Viernes', name: 'Viernes' },
+    { label: 'Sabado', name: 'Sabado' },
+    { label: 'Domingo', name: 'Domingo' },
+    { label: 'NDIAS', name: 'NDIAS' },
+    { label: 'HE50', name: 'HE50' },
+    { label: 'HE100', name: 'HE100' },
+    { label: 'ATRASO', name: 'ATRASO' },
   ],
   formOptions: { inline: { submit: 'all' } },
-});*/
+});
+
+async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+  loading(true);
+  await tablePlanilla.DataTable({
+    ajax: {
+      url: "controller/datosListadoPlanillaAsistencia2.php",
+      type: 'POST',
+      data: { idEstructuraOperacion, fecIni, fecFin },
+      /*dataSrc: function (json) {
+        return json.data;
+      },*/
+    },
+    columns: [
+      // { data: 'IDPERSONAL' },
+      { data: 'RUT' },
+      { data: 'NOMBRES' }, // editField: 'personalOfertado' },
+      { data: 'CARGO_LIQUIDACION' },
+      { data: 'CARGO_GENERICO_UNIFICADO' },
+      { data: 'CLASIFICACION' },
+      { data: 'REFERENCIA1' },
+      { data: 'REFERENCIA2' },
+      { data: 'CARGO_GENERICO_UNIFICADO_B' },
+      { data: 'CLASIFICACION_B' },
+      { data: 'REFERENCIA1_B' },
+      { data: 'REFERENCIA2_B' },
+      { data: 'RUT_REEMPLAZO' },
+      { data: 'FECHA_REEMPLAZO' },
+      { data: 'Lunes' },
+      { data: 'Martes' },
+      { data: 'Miercoles' },
+      { data: 'Jueves' },
+      { data: 'Viernes' },
+      { data: 'Sabado' },
+      { data: 'Domingo' },
+      { data: 'NDIAS' },
+      { data: 'HE50' },
+      { data: 'HE100' },
+      { data: 'ATRASO' },
+    ],
+    buttons: [],
+    columnDefs: [
+      { width: "5px", targets: 0 },
+      /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
+      /*{ visible: false, searchable: false, targets: [ 2 ] },*/
+      { targets: "_all", className: "dt-center" },
+      // { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" }
+    ],
+    select: { style: 'single' },
+    scrollX: true,
+    paging: true,
+    ordering: true,
+    scrollCollapse: true,
+    // "order": [[ 3, "asc" ]],
+    info: true,
+    lengthMenu: [[largo], [largo]],
+    dom: 'Bfrtip',
+    language: {
+      zeroRecords: "Seleccionar semana y centro de costo",
+      info: "Registro _START_ de _END_ de _TOTAL_",
+      infoEmpty: "No hay datos disponibles",
+      paginate: {
+        previous: "Anterior",
+        next: "Siguiente",
+      },
+      search: "Buscar: ",
+      select: {
+        rows: "- %d registros seleccionados",
+      },
+      infoFiltered: "(Filtrado de _MAX_ registros)",
+    },
+    destroy: true,
+    autoWidth: false,
+    initComplete: function (settings, json) {
+      $('#contenido').show();
+      $('#menu-lateral').show();
+      $('#footer').parent().show();
+      $('#footer').show();
+      setTimeout(function() {
+        planillaData = json.aaData;
+        tablePlanilla.DataTable().columns.adjust();
+        loading(false);
+      },500);
+    }
+  });
+}
 
 async function listCentrosDeCostos() {
   $.ajax({
@@ -9928,90 +10018,64 @@ async function listComunesPlanilla() {
   })
 }
 
-async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
-  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-  loading(true);
-  await tablePlanilla.DataTable({
-    ajax: {
-      url: "controller/datosListadoPlanillaAsistencia2.php",
-      type: 'POST',
-      data: { idEstructuraOperacion, fecIni, fecFin },
-      /*dataSrc: function (json) {
-        return json.data;
-      },*/
-    },
-    columns: [
-      { data: 'RUT' },
-      { data: 'NOMBRES' }, // editField: 'personalOfertado' },
-      { data: 'CARGO_LIQUIDACION' },
-      { data: 'CARGO_GENERICO_UNIFICADO' },
-      { data: 'CLASIFICACION' },
-      { data: 'REFERENCIA1' },
-      { data: 'REFERENCIA2' },
-      { data: 'CARGO_GENERICO_UNIFICADO_B' },
-      { data: 'CLASIFICACION_B_TEXT' },
-      { data: 'REFERENCIA1_B_TEXT' },
-      { data: 'REFERENCIA2_B' },
-      { data: 'RUT_REEMPLAZO' },
-      { data: 'FECHA_REEMPLAZO' },
-      { data: 'Lunes' },
-      { data: 'Martes' },
-      { data: 'Miércoles' },
-      { data: 'Jueves' },
-      { data: 'Viernes' },
-      { data: 'Sábado' },
-      { data: 'Domingo' },
-      { data: 'NDIAS' },
-      { data: 'HE50' },
-      { data: 'HE100' },
-      { data: 'ATRASO' },
-    ],
-    buttons: [],
-    columnDefs: [
-      { width: "5px", targets: 0 },
-      /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
-      /*{ visible: false, searchable: false, targets: [ 2 ] },*/
-      { targets: "_all", className: "dt-center" },
-      // { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" }
-    ],
-    select: { style: 'single' },
-    scrollX: true,
-    paging: true,
-    ordering: true,
-    scrollCollapse: true,
-    // "order": [[ 3, "asc" ]],
-    info: true,
-    lengthMenu: [[largo], [largo]],
-    dom: 'Bfrtip',
-    language: {
-      zeroRecords: "Seleccionar periodo y centro de costo",
-      info: "Registro _START_ de _END_ de _TOTAL_",
-      infoEmpty: "No hay datos disponibles",
-      paginate: {
-        previous: "Anterior",
-        next: "Siguiente",
-      },
-      search: "Buscar: ",
-      select: {
-        rows: "- %d registros seleccionados",
-      },
-      infoFiltered: "(Filtrado de _MAX_ registros)",
-    },
-    destroy: true,
-    autoWidth: false,
-    initComplete: function (settings, json) {
-      $('#contenido').show();
-      $('#menu-lateral').show();
-      $('#footer').parent().show();
-      $('#footer').show();
-      setTimeout(function() {
-        planillaData = json.aaData;
-        tablePlanilla.DataTable().columns.adjust();
-        loading(false);
-      },500);
-    }
-  });
+$('#tablaListadoPlanillaAsistencia').on(
+  'click',
+  'tbody td:not(:first-child,:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6),:nth-child(7),:nth-child(8),:nth-child(9),:nth-child(10),:nth-child(11),:nth-child(12),:nth-child(13),:nth-child(14),:nth-child(15),:nth-child(16),:nth-child(17),:nth-child(18),:nth-child(19),:nth-child(20),:nth-child(21))',
+  function (e) {
+    editorPlanilla.inline(this);
+  }
+);
+
+function personalGetId(strid) {
+  var splitted = strid.split('-');
+  if (splitted.length > 3) {
+    // return Number(splitted[2]);
+    return splitted[3];
+  }
+  return "0";
 }
+
+$(document).on('change', '.planilla-select-col8', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var idPersonal = personalGetId(this.id);
+  var idCargoGenericoUnificado = this.value;
+  var html = "";
+
+  var cargoGenericoUnificado = comunesPlanilla.cargoGenericoUnificado.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO']) == Number(idCargoGenericoUnificado))
+  var idReferencia1 = cargoGenericoUnificado['IDREFERENCIA1'];
+
+  /* Begin - Text Col 9 */
+  $(`#planilla-text-col9-${idPersonal}`).text(cargoGenericoUnificado['CLASIFICACION']);
+  /* End - Text Col 9 */
+
+  /* Begin - Text Col 10 */
+  $(`#planilla-text-col10-${idPersonal}`).text(cargoGenericoUnificado['REFERENCIA1']);
+  /* End - Text Col 10 */
+
+  /* Begin - Select Col 11 */
+  html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
+  comunesPlanilla.referencia2.forEach((item) => {
+    if (Number(item['IDREFERENCIA1']) == Number(cargoGenericoUnificado['IDREFERENCIA1'])) {
+      html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+    }
+  })
+  html += "</select>";
+  $(`#planilla-select-col11-${idPersonal}`).html(html);
+  /* End - Select Col 11 */
+
+  /*var idReferencia2 = $(`#dotacion-select-col8-${idDotacion}`).val();
+
+  var dotacionIdx = dotacionData.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
+  if (dotacionIdx >= 0) {
+    dotacionData[dotacionIdx]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] = idCargoGenericoUnificadoFamilia;
+    dotacionData[dotacionIdx]['CLASIFICACION_TEXT'] = cargoGenericoUnificadoFamilia['CLASIFICACION'];
+    dotacionData[dotacionIdx]['IDREFERENCIA1'] = idReferencia1;
+    dotacionData[dotacionIdx]['REFERENCIA1_TEXT'] = cargoGenericoUnificadoFamilia['REFERENCIA1'];
+    dotacionData[dotacionIdx]['IDREFERENCIA2'] = idReferencia2;
+  }*/
+});
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
