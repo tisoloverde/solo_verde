@@ -19766,6 +19766,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
+				fecha_calendario as fecha,
 				dia_calendario as dia,
 				mes_calendario as n_mes,
 				semana_del_anio as n_semana
