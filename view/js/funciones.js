@@ -10211,21 +10211,20 @@ editorPlanilla.on('postEdit', function (e, o, action) {
     })
     html += "</select>";
     $(`#planilla-select-col11-${idPersonal}`).html(html);
-    $(`#planilla-select-col11-${idPersonal}`).val(dt.IDREFERENCIA2_B)
+    $(`#planilla-select-col11-${idPersonal}`).val(dt.IDREFERENCIA2_B);
+
+    $(`#planilla-select-col14-${idPersonal}`).val(dt.DIA1_LUNES_ID);
+    $(`#planilla-select-col15-${idPersonal}`).val(dt.DIA2_MARTES_ID);
+    $(`#planilla-select-col16-${idPersonal}`).val(dt.DIA3_MIERCOLES_ID);
+    $(`#planilla-select-col17-${idPersonal}`).val(dt.DIA4_JUEVES_ID);
+    $(`#planilla-select-col18-${idPersonal}`).val(dt.DIA5_VIERNES_ID);
+    $(`#planilla-select-col19-${idPersonal}`).val(dt.DIA6_SABADO_ID);
+    $(`#planilla-select-col20-${idPersonal}`).val(dt.DIA7_DOMINGO_ID);
 
     /* Begin - Dates */
-    /*dotacionData[index]['ENERO'] = action['ENERO'];
-    dotacionData[index]['FEBRERO'] = action['FEBRERO'];
-    dotacionData[index]['MARZO'] = action['MARZO'];
-    dotacionData[index]['ABRIL'] = action['ABRIL'];
-    dotacionData[index]['MAYO'] = action['MAYO'];
-    dotacionData[index]['JUNIO'] = action['JUNIO'];
-    dotacionData[index]['JULIO'] = action['JULIO'];
-    dotacionData[index]['AGOSTO'] = action['AGOSTO'];
-    dotacionData[index]['SETIEMBRE'] = action['SETIEMBRE'];
-    dotacionData[index]['OCTUBRE'] = action['OCTUBRE'];
-    dotacionData[index]['NOVIEMBRE'] = action['NOVIEMBRE'];
-    dotacionData[index]['DICIEMBRE'] = action['DICIEMBRE'];*/
+    planillaData[index]['HE50'] = action['HE50'];
+    planillaData[index]['HE100'] = action['HE100'];
+    planillaData[index]['ATRASO'] = action['ATRASO'];
     /* End - Dates */
   }
 });
@@ -10235,9 +10234,6 @@ $("#savePlanilla").on('click', async (e) => {
   e.preventDefault();
 
   var dataUpd = [];
-
-  console.log('---data----')
-  console.log(planillaData);
 
   planillaData.forEach(({
     IDPERSONAL,
@@ -10250,6 +10246,9 @@ $("#savePlanilla").on('click', async (e) => {
     DIA5_VIERNES_ID, DIA5_VIERNES_FECHA,
     DIA6_SABADO_ID, DIA6_SABADO_FECHA,
     DIA7_DOMINGO_ID, DIA7_DOMINGO_FECHA,
+    HE50,
+    HE100,
+    ATRASO,
   }) => {
     var aux = {
       IDPERSONAL,
@@ -10258,6 +10257,9 @@ $("#savePlanilla").on('click', async (e) => {
       FECHA_BASE: diasPorSemana[0]['fecha'],
       DIAS: diasPorSemana.map(({ fecha }) => fecha),
       DIAS_PLANILLA: [],
+      HE50,
+      HE100,
+      ATRASO,
     }
     if (DIA1_LUNES_ID) aux.DIAS_PLANILLA.push({ id: DIA1_LUNES_ID, fecha: DIA1_LUNES_FECHA });
     if (DIA2_MARTES_ID) aux.DIAS_PLANILLA.push({ id: DIA2_MARTES_ID, fecha: DIA2_MARTES_FECHA });
@@ -10268,9 +10270,6 @@ $("#savePlanilla").on('click', async (e) => {
     if (DIA7_DOMINGO_ID) aux.DIAS_PLANILLA.push({ id: DIA7_DOMINGO_ID, fecha: DIA7_DOMINGO_FECHA });
     dataUpd.push(aux);
   })
-
-  console.log('---dataupd---')
-  console.log(dataUpd);
 
   loading(true);
   await $.ajax({
@@ -10286,8 +10285,8 @@ $("#savePlanilla").on('click', async (e) => {
     }
   })
 
-  var week = $('#selectListaSemanas').val();
-  var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
+  // var week = $('#selectListaSemanas').val();
+  // var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
   // await listPlanillaAsistencia($('#selectListaCentrosDeCostos').val(), semana.semana_inicio, semana.semana_fin);
 
   // loading(false);
