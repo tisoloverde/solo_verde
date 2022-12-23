@@ -9833,7 +9833,7 @@ var editorPlanilla = new $.fn.dataTable.Editor({
 
 async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-  loading(true);
+  // loading(true);
   await tablePlanilla.DataTable({
     ajax: {
       url: "controller/datosListadoPlanillaAsistencia.php",
@@ -9939,6 +9939,7 @@ function filtrosPlanilla() {
   var month = $('#selectListaMeses').val();
   var week = $('#selectListaSemanas').val();
   if (idEstructuraOperacion>0 && anho>0 && month>0 && week>0) {
+    loading(true);
     var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
     // $("#newDotacion").removeAttr("disabled");
     listPlanillaAsistencia(idEstructuraOperacion, semana.semana_inicio, semana.semana_fin);
@@ -10280,14 +10281,15 @@ $("#savePlanilla").on('click', async (e) => {
     // data:  JSON.stringify({ dataUpd }),
     data: { dataUpd },
     success:  function (response) {
-      loading(false);
+      // loading(false);
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Planilla actualizada correctamente");
     }
   })
 
-  // var week = $('#selectListaSemanas').val();
-  // var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
-  // await listPlanillaAsistencia($('#selectListaCentrosDeCostos').val(), semana.semana_inicio, semana.semana_fin);
+  var week = $('#selectListaSemanas').val();
+  var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
+  var cc = $('#selectListaCentrosDeCostos').val();
+  await listPlanillaAsistencia(cc, semana.semana_inicio, semana.semana_fin);
 
   // loading(false);
 });

@@ -3005,7 +3005,6 @@ app.controller("planillaAsistenciaController", function(){
         window.location.href = "#/home";
       } else {*/
         setTimeout(async function() {
-          loading(false);
           await listCentrosDeCostos();
           await listCalendario('yyyy');
           await listPlanillaAsistencia('null', 'null');
