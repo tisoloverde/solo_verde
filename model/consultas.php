@@ -19625,74 +19625,6 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListadoPlanillaAsistencia($idEstructuraOperacion) {
-		$con = conectar();
-		if ($con != 'No conectado') {
-			$sql = "SELECT
-				AC.IDACT,
-				AC.IDESTRUCTURA_OPERACION,
-				CC.NOMENCLATURA AS CENTRO_DE_COSTO,
-				CC.DEFINICION AS CODIGO_CENTRO_DE_COSTO,
-				PS.IDPERSONAL_ESTADO,
-				P.IDPERSONAL,
-				P.DNI AS RUT,
-				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS NOMBRES,
-				P.CARGO AS CARGO_LIQUIDACION,
-				PS.IDCARGO_GENERICO_UNIFICADO,
-				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
-				CGU.IDCLASIFICACION,
-				CL.NOMBRE AS CLASIFICACION,
-				CGU.IDREFERENCIA1,
-				R1.NOMBRE AS REFERENCIA1,
-				PS.IDREFERENCIA2,
-				R2.NOMBRE AS REFERENCIA2,
-				PS.IDCARGO_GENERICO_UNIFICADO_B,
-				CGU_B.NOMBRE AS CARGO_GENERICO_UNIFICADO_B,
-				CGU_B.IDCLASIFICACION AS IDCLASIFICACION_B,
-				CL_B.NOMBRE AS CLASIFICACION_B,
-				CGU_B.IDREFERENCIA1 AS IDREFERENCIA1_B,
-				R1_B.NOMBRE AS REFERENCIA1_B,
-				PS.IDREFERENCIA2_B,
-				R2_B.NOMBRE AS REFERENCIA2_B,
-				/*PS.RUTUSUARIO AS RUT,
-				PS.FECHA,*/
-				'0000000' AS RUT_REEMPLAZO,
-				'2021-08-09' AS FECHA_REEMPLAZO,
-				PC.lunes AS SIGLA_LUNES,
-				PC.martes AS SIGLA_MARTES,
-				PC.miercoles AS SIGLA_MIERCOLES,
-				PC.jueves AS SIGLA_JUEVES,
-				PC.viernes AS SIGLA_VIERNES,
-				PC.sabado AS SIGLA_SABADO,
-				PC.domingo AS SIGLA_DOMINGO
-			FROM ACT AC
-			INNER JOIN ESTRUCTURA_OPERACION CC ON CC.IDESTRUCTURA_OPERACION = AC.IDESTRUCTURA_OPERACION
-			INNER JOIN PERSONAL_ESTADO PS ON PS.IDPERSONAL = AC.IDPERSONAL
-			INNER JOIN PERSONAL P ON P.IDPERSONAL = PS.IDPERSONAL
-			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO
-			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
-			LEFT JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = CGU.IDREFERENCIA1
-			LEFT JOIN REFERENCIA2 R2 ON R2.IDREFERENCIA2 = PS.IDREFERENCIA2
-			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU_B ON CGU_B.IDCARGO_GENERICO_UNIFICADO = PS.IDCARGO_GENERICO_UNIFICADO_B
-			LEFT JOIN CLASIFICACION CL_B ON CL_B.IDCLASIFICACION = CGU_B.IDCLASIFICACION
-			LEFT JOIN REFERENCIA1 R1_B ON R1_B.IDREFERENCIA1 = CGU_B.IDREFERENCIA1
-			LEFT JOIN REFERENCIA2 R2_B ON R2_B.IDREFERENCIA2 = PS.IDREFERENCIA2_B
-			LEFT JOIN PLANILLA_CALENDARIO PC ON PC.IDACT = AC.IDACT
-			WHERE AC.IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
-			if ($row = $con->query($sql)) {
-				$return = array();
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-			} else {
-				return "Error";
-			}
-		} else {
-			return "Error";
-		}
-	}
-
 	function consultaListaAnhos() {
 		$con = conectar();
 		if ($con != "No conectado") {
@@ -19806,32 +19738,89 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function ingresarPlanilla(
+	function validWeekForPersonal($idPersonal, $fecIni, $fecFin) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT COUNT(*) AS N FROM PERSONAL_ESTADO WHERE IDPERSONAL = $idPersonal AND (FECHA BETWEEN '$fecIni' AND '$fecFin');";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function iniciarSemanaPlanilla(
 		$idPersonal,
-    $idCargoGenericoUnificado,
-    $idReferencia2,
-    $idCargoGenericoUnificado_b,
-    $idReferencia2_b,
-    $idPersonalEstadoConcepto,
-    $fecha,
-    $rutUsuario
+		$idCargoGenericoUnificado,
+		$idReferencia2,
+		$idCargoGenericoUnificado_b,
+		$idReferencia2_b,
+		$fecha,
+		$rutUsuario
 	) {
 		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "CALL INSERTAR_DOTACION(
+		if ($con != 'No conectado') {
+			$sql = "INSERT INTO PERSONAL_ESTADO(
+				IDPERSONAL,
+				IDCARGO_GENERICO_UNIFICADO,
+				IDREFERENCIA2,
+				IDCARGO_GENERICO_UNIFICADO_B,
+				IDREFERENCIA2_B,
+				FECHA_INICIO,
+				FECHA_TERMINO,
+				RUTUSUARIO
+			) VALUES (
 				$idPersonal,
 				$idCargoGenericoUnificado,
 				$idReferencia2,
 				$idCargoGenericoUnificado_b,
 				$idReferencia2_b,
-				$idPersonalEstadoConcepto,
+				'$fecha',
 				'$fecha',
 				'$rutUsuario'
-			)";
+			);";
 			if ($row = $con->query($sql)) {
 				$con->query("COMMIT");
 				// return $row->fetch_assoc();
-				return "OK";
+				return $sql;
+			} else {
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function actualizarSemanaPlanilla(
+		$idPersonal,
+		$idCargoGenericoUnificado_b,
+		$idReferencia2_b,
+		$idPersonalEstadoConcepto,
+		$fecha,
+		$rutUsuario
+	) {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "UPDATE PERSONAL_ESTADO SET
+				IDCARGO_GENERICO_UNIFICADO_B = $idCargoGenericoUnificado_b,
+				IDREFERENCIA2_B = $idReferencia2_b,
+				IDPERSONAL_ESTADO_CONCEPTO = $idPersonalEstadoConcepto,
+				RUTUSUARIO = '$rutUsuario'
+			WHERE IDPERSONAL = $idPersonal AND FECHA_INICIO = '$fecha';
+			";
+			if ($row = $con->query($sql)) {
+				$con->query("COMMIT");
+				// return $row->fetch_assoc();
+				return $sql;
 			} else {
 				$con->query("ROLLBACK");
 				return $sql;
@@ -19904,7 +19893,7 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN REFERENCIA1 R1_B ON R1_B.IDREFERENCIA1 = CGU_B.IDREFERENCIA1
 			WHERE
 			(PE.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin')
-			AND (PE.IDPERSONAL_ESTADO_CONCEPTO IS NOT NULL)
+			/*AND (PE.IDPERSONAL_ESTADO_CONCEPTO IS NOT NULL)*/
 			ORDER BY PE.IDPERSONAL, PE.FECHA_INICIO ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();

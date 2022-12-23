@@ -10073,7 +10073,7 @@ $(document).on('change', '.planilla-select-col8', function(e){
   }
 });
 
-$(document).on('change', '.dotacion-select-col11', function(e){
+$(document).on('change', '.planilla-select-col11', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -10195,6 +10195,8 @@ $("#savePlanilla").on('click', async (e) => {
 
   planillaData.forEach(({
     IDPERSONAL,
+    IDCARGO_GENERICO_UNIFICADO_B,
+    IDREFERENCIA2_B,
     DIA1_LUNES_ID, DIA1_LUNES_FECHA,
     DIA2_MARTES_ID, DIA2_MARTES_FECHA,
     DIA3_MIERCOLES_ID, DIA3_MIERCOLES_FECHA,
@@ -10205,37 +10207,45 @@ $("#savePlanilla").on('click', async (e) => {
   }) => {
     var aux = {
       IDPERSONAL,
-      SEMANA: {
-        DIA1_LUNES_ID, DIA1_LUNES_FECHA,
-        DIA2_MARTES_ID, DIA2_MARTES_FECHA,
-        DIA3_MIERCOLES_ID, DIA3_MIERCOLES_FECHA,
-        DIA4_JUEVES_ID, DIA4_JUEVES_FECHA,
-        DIA5_VIERNES_ID, DIA5_VIERNES_FECHA,
-        DIA6_SABADO_ID, DIA6_SABADO_FECHA,
-        DIA7_DOMINGO_ID, DIA7_DOMINGO_FECHA,
-      }
+      IDCARGO_GENERICO_UNIFICADO_B,
+      IDREFERENCIA2_B,
+      FECHA_BASE: diasPorSemana[0]['fecha'],
+      DIAS: diasPorSemana.map(({ fecha }) => fecha),
+      DIAS_PLANILLA: [],
     }
+    if (DIA1_LUNES_ID) aux.DIAS_PLANILLA.push({ id: DIA1_LUNES_ID, fecha: DIA1_LUNES_FECHA });
+    if (DIA2_MARTES_ID) aux.DIAS_PLANILLA.push({ id: DIA2_MARTES_ID, fecha: DIA2_MARTES_FECHA });
+    if (DIA3_MIERCOLES_ID) aux.DIAS_PLANILLA.push({ id: DIA3_MIERCOLES_ID, fecha: DIA3_MIERCOLES_FECHA });
+    if (DIA4_JUEVES_ID) aux.DIAS_PLANILLA.push({ id: DIA4_JUEVES_ID, fecha: DIA4_JUEVES_FECHA });
+    if (DIA5_VIERNES_ID) aux.DIAS_PLANILLA.push({ id: DIA5_VIERNES_ID, fecha: DIA5_VIERNES_FECHA });
+    if (DIA6_SABADO_ID) aux.DIAS_PLANILLA.push({ id: DIA6_SABADO_ID, fecha: DIA6_SABADO_FECHA });
+    if (DIA7_DOMINGO_ID) aux.DIAS_PLANILLA.push({ id: DIA7_DOMINGO_ID, fecha: DIA7_DOMINGO_FECHA });
     dataUpd.push(aux);
   })
 
   console.log('---dataupd---')
   console.log(dataUpd);
 
-  /*loading(true);
+  loading(true);
   await $.ajax({
-    url:   'controller/actualizarListadoDotacion.php',
+    url:   'controller/actualizarListadoPlanilla.php',
     type:  'post',
-    data:  { dataAdd, dataUpd },
+    // contentType: 'application/json; charset=utf-8',
+    // dataType: 'json',
+    // data:  JSON.stringify({ dataUpd }),
+    data: { dataUpd },
     success:  function (response) {
-      // loading(false);
-      alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Dotación actualizada correctamente");
+      loading(false);
+      alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Planilla actualizada correctamente");
     }
   })
 
-  await listDotacion($('#selectListaPeriodos').val(), $('#selectListaLugares').val());
+  var week = $('#selectListaSemanas').val();
+  var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
+  // await listPlanillaAsistencia($('#selectListaCentrosDeCostos').val(), semana.semana_inicio, semana.semana_fin);
 
-  loading(false);*/
-})
+  // loading(false);
+});
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */

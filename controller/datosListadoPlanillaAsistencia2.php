@@ -33,9 +33,11 @@
           "CLASIFICACION" => "",
           "REFERENCIA1" => "",
           "REFERENCIA2" => "",
+          "IDCARGO_GENERICO_UNIFICADO_B" => 0,
           "CARGO_GENERICO_UNIFICADO_B" => "",
           "CLASIFICACION_B_TEXT" => "",
           "REFERENCIA1_B_TEXT" => "",
+          "IDREFERENCIA2_B" => 0,
           "REFERENCIA2_B" => "",
           "RUT_REEMPLAZO" => "",
           "FECHA_REEMPLAZO" => "",
@@ -74,12 +76,13 @@
         foreach ($crgman as $item) {
           $idCgu = $item['IDCARGO_GENERICO_UNIFICADO'];
           $cgu = $item['CARGO_GENERICO_UNIFICADO'];
-          $select = $select . ($personalEstado['IDCARGO_GENERICO_UNIFICADO_B'] == $idCgu
+          $select = $select . ($found['IDCARGO_GENERICO_UNIFICADO_B'] == $idCgu
             ? "<option value='$idCgu' selected>$cgu</option>"
             : "<option value='$idCgu'>$cgu</option>");
         }
         $select = $select . "</select>";
         $row['CARGO_GENERICO_UNIFICADO_B'] = $select;
+        $row['IDCARGO_GENERICO_UNIFICADO_B'] = isset($found['IDCARGO_GENERICO_UNIFICADO_B']) ? $found['IDCARGO_GENERICO_UNIFICADO_B'] : $crgman[0]['IDCARGO_GENERICO_UNIFICADO'];
         /* End - Cargo Generico Unificado B */
 
         /* Begin - Clasificacion */
@@ -98,8 +101,8 @@
           $idRef2 = $item['IDREFERENCIA2'];
           $ref2 = $item['REFERENCIA2'];
 
-          $r1 = $found['IDREFERENCIA1_B'] ? $found['IDREFERENCIA1_B'] : $crgman[0]['IDREFERENCIA1'];
-          $r2 = $found['IDREFERENCIA2_B'] ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
+          $r1 = isset($found['IDREFERENCIA1_B']) ? $found['IDREFERENCIA1_B'] : $crgman[0]['IDREFERENCIA1'];
+          $r2 = isset($found['IDREFERENCIA2_B']) ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
           if ($item['IDREFERENCIA1'] == $r1) {
             $select = $select . ($r2 == $idRef2
               ? "<option value='$idRef2' selected>$ref2</option>"
@@ -108,6 +111,7 @@
         }
         $select = $select . "</select>";
         $row['REFERENCIA2_B'] = $select;
+        $row['IDREFERENCIA2_B'] = isset($found['IDREFERENCIA2_B']) ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
         /* End - Referencia 2 */
 
         /* Begin - Week */
