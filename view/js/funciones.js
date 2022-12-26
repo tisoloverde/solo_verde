@@ -9951,7 +9951,6 @@ function filtrosPlanilla() {
   var semanaFin = '2025-01-01';
   if (week && week != '0' && week != 'Seleccione') {
     var [anho, idx] = week.split('_');
-    console.log(anho, idx)
     semanaInicio = calendarioPlanilla[anho][idx].SEMANA_INICIO;
     semanaFin = calendarioPlanilla[anho][idx].SEMANA_FIN;
   } else {
@@ -10011,6 +10010,7 @@ $('#selectListaAnhos').on('change', function (e) {
   e.stopImmediatePropagation();
   if (!this.value || isNaN(this.value) || Number(this.value) <= 0) {
     initSemanas();
+    filtrosPlanilla();
     return;
   }
   var html = "<option value='0'>Seleccione</option>";

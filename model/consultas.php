@@ -19894,7 +19894,7 @@ WHERE U.RUT = '{$rutUser}'";
 			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL
 			WHERE
 			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')";
-			if ((int)$idEstructuraOperacion > 0) {
+			if ((int)$idEstructuraOperacion >= 0) {
 				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			}
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
