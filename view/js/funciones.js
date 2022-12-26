@@ -10002,6 +10002,11 @@ function initSemanas() {
   $('#selectListaSemanas').html(html);
 }
 
+$('#selectListaCentrosDeCostos').on('change', function (e) {
+  e.stopImmediatePropagation();
+  filtrosPlanilla();
+})
+
 $('#selectListaAnhos').on('change', function (e) {
   e.stopImmediatePropagation();
   if (!this.value || isNaN(this.value) || Number(this.value) <= 0) {
