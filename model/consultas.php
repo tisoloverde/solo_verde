@@ -19720,6 +19720,31 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaCalendarioSemanas() {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				anio_calendario AS ANHO,
+				semana_del_anio AS SEMANA,
+				semana_inicio AS SEMANA_INICIO,
+				semana_fin AS SEMANA_FIN,
+				CONCAT('Semana ', semana_del_anio, ' del ', semana_inicio, ' al ', semana_fin) AS LABEL
+			FROM CALENDARIO
+			GROUP BY anio_calendario, semana_del_anio;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaListaPersonalEstadoConcepto() {
 		$con = conectar();
 		if ($con != "No conectado") {
@@ -19831,7 +19856,33 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaACTHistorial($idEstructuraOperacion, $fechaIni, $fechaFin) {
+	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				COUNT(DISTINCT(AH.IDPERSONAL)) AS CONT
+			FROM ACT_HISTORIAL AH
+			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL
+			WHERE
+			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')";
+			if ((int)$idEstructuraOperacion > 0) {
+				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
+			}
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
@@ -19842,8 +19893,11 @@ WHERE U.RUT = '{$rutUser}'";
 			FROM ACT_HISTORIAL AH
 			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL
 			WHERE
-			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')
-			AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
+			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')";
+			if ((int)$idEstructuraOperacion > 0) {
+				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
+			}
+			$sql = $sql . " LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

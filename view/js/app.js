@@ -2968,7 +2968,7 @@ app.controller("planillaAsistenciaController", function(){
     placeholder: $(this).data('placeholder'),
     allowClear: Boolean($(this).data('allow-clear')),
     closeOnSelect: !$(this).attr('multiple'),
-    sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+    // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
   }
   loading(true);
 

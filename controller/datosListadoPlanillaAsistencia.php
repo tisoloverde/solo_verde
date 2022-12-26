@@ -5,12 +5,15 @@
 
 	if (count($_POST) >= 0) {
     // POST
+    $offset = $_POST['start'];
+    $limit = $_POST['length'];
     $idEstructuraOperacion = $_POST['idEstructuraOperacion'];
     $fecIni = $_POST['fecIni'];
     $fecFin = $_POST['fecFin'];
 
     // DB
-    $lstPersonalCC = consultaListaACTHistorial($idEstructuraOperacion, $fecIni, $fecFin);
+    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin);
+    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin);
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 
@@ -150,9 +153,11 @@
       }
 
       $results = array(
-        "sEcho" => 1,
-        "iTotalRecords" => count($rows),
-        "iTotalDisplayRecords" => count($rows),
+        // "sEcho" => 1,
+        /*"iTotalRecords" => (int)$total[0]['CONT'],
+        "iTotalDisplayRecords" => count($rows),*/
+        "recordsTotal" => (int)$total[0]['CONT'],
+        "recordsFiltered" => (int)$total[0]['CONT'],
         "aaData"=>$rows
       );
       echo json_encode($results);

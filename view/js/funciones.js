@@ -9798,6 +9798,7 @@ var tablePlanilla = $("#tablaListadoPlanillaAsistencia");
 var comunesPlanilla = {};
 var semanas = [];
 var diasPorSemana = [];
+var calendarioPlanilla = {};
 var editorPlanilla = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoPlanillaAsistencia",
@@ -9835,6 +9836,8 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   // loading(true);
   await tablePlanilla.DataTable({
+    serverSide: true,
+    processing: true,
     ajax: {
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
@@ -9911,6 +9914,12 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       setTimeout(function() {
         planillaData = json.aaData;
         tablePlanilla.DataTable().columns.adjust();
+        // loading(false);
+      },500);
+    },
+    drawCallback: function () {
+      // tablePlanilla.DataTable().page(2).draw('page');
+      setTimeout(function() {
         loading(false);
       },500);
     }
@@ -9924,7 +9933,7 @@ async function listCentrosDeCostos() {
     dataType: 'json',
     success: function (response) {
       var data = response.aaData;
-      var html = "<option selected value='select' disabled>Seleccione</option>";
+      var html = "<option value='0'>Seleccione</option>";
       data.forEach((item) => {
         html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
       });
@@ -9936,75 +9945,84 @@ async function listCentrosDeCostos() {
 function filtrosPlanilla() {
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
   var anho = $('#selectListaAnhos').val();
-  var month = $('#selectListaMeses').val();
-  var week = $('#selectListaSemanas').val();
-  if (idEstructuraOperacion>0 && anho>0 && month>0 && week>0) {
-    loading(true);
-    var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
-    // $("#newDotacion").removeAttr("disabled");
-    listPlanillaAsistencia(idEstructuraOperacion, semana.semana_inicio, semana.semana_fin);
+  var week = $("#selectListaSemanas").val();
+
+  var semanaInicio = '2021-01-01';
+  var semanaFin = '2025-01-01';
+  if (week && week != '0' && week != 'Seleccione') {
+    var [anho, idx] = week.split('_');
+    console.log(anho, idx)
+    semanaInicio = calendarioPlanilla[anho][idx].SEMANA_INICIO;
+    semanaFin = calendarioPlanilla[anho][idx].SEMANA_FIN;
+  } else {
+    if (anho != 'Seleccione' && anho > 0) {
+      semanaInicio = calendarioPlanilla[anho][0].SEMANA_INICIO;
+      semanaFin = calendarioPlanilla[anho][calendarioPlanilla[anho].length - 1].SEMANA_FIN;
+    }
   }
+
+  loading(true);
+  listPlanillaAsistencia(
+    idEstructuraOperacion != 'Selecione' && idEstructuraOperacion > 0 ? Number(idEstructuraOperacion) : 0,
+    semanaInicio,
+    semanaFin
+  );
 }
 
 async function listCalendario(type) {
   await $.ajax({
-    url:   'controller/datosCalendario.php',
-    type:  'post',
-    data:  {
-      type,
-      anho: $('#selectListaAnhos').val(),
-      mes: $('#selectListaMeses').val(),
-      semana: $('#selectListaSemanas').val(),
-    },
+    url:   'controller/datosCalendario2.php',
+    type:  'get',
     dataType: 'json',
     success:  function (response) {
-      var data = response.aaData;
-      if (data?.length) {
-        var html = "<option value='0'>Seleccione</option>";
-        switch (type) {
-          case 'yyyy':
-            data.forEach((item) => {
-              html += `<option value='${item.anho}'>${item.anho}</option>`;
-            });
-            $('#selectListaAnhos').html(html);
-            break;
-          case 'mm':
-            data.forEach((item) => {
-              html += `<option value='${item.n_mes}'>${item.mes}</option>`;
-            });
-            $('#selectListaMeses').html(html);
-            break;
-          case 'ss':
-            semanas = data;
-            data.forEach((item) => {
-              html += `<option value='${item.n_semana}'>${item.semana}</option>`;
-            });
-            $('#selectListaSemanas').html(html);
-            break;
-          case 'dd':
-            diasPorSemana = data;
-            break;
-          default:
-            break;
-        }
-      }
+      if (!response.aaData?.length) return
+      var dt = {}
+      response.aaData.forEach(({ ANHO, ...item }) => {
+        if (!dt[ANHO]) dt[ANHO] = []
+        dt[ANHO].push(item)
+      });
+      calendarioPlanilla = dt;
+
+      var html = "<option value='0'>Seleccione</option>";
+      Object.keys(calendarioPlanilla).forEach((item) => {
+        html += `<option value='${item}'>${item}</option>`;
+      });
+      $('#selectListaAnhos').html(html);
+
+      initSemanas();
     }
   })
 }
 
+function initSemanas() {
+  var html = "<option value='0'>Seleccione</option>";
+  Object.keys(calendarioPlanilla).forEach((anho) => {
+    calendarioPlanilla[anho].forEach((item, idx) => html += `<option value='${anho}_${idx}'>${item.LABEL}</option>`);
+  });
+  $('#selectListaSemanas').html(html);
+}
+
 $('#selectListaAnhos').on('change', function (e) {
   e.stopImmediatePropagation();
-  listCalendario('mm');
+  if (!this.value || isNaN(this.value) || Number(this.value) <= 0) {
+    initSemanas();
+    return;
+  }
+  var html = "<option value='0'>Seleccione</option>";
+  calendarioPlanilla[this.value].forEach((item, idx) => {
+    html += `<option value='${this.value}_${idx}'>${item.LABEL}</option>`;
+  })
+  $('#selectListaSemanas').html(html);
+  filtrosPlanilla();
 })
 
-$('#selectListaMeses').on('change', function (e) {
+/*$('#selectListaMeses').on('change', function (e) {
   e.stopImmediatePropagation();
   listCalendario('ss');
-})
+})*/
 
 $('#selectListaSemanas').on('change', function (e) {
   e.stopImmediatePropagation();
-  listCalendario('dd');
   filtrosPlanilla();
 })
 
@@ -10286,10 +10304,12 @@ $("#savePlanilla").on('click', async (e) => {
     }
   })
 
-  var week = $('#selectListaSemanas').val();
+  /*var week = $('#selectListaSemanas').val();
   var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
   var cc = $('#selectListaCentrosDeCostos').val();
-  await listPlanillaAsistencia(cc, semana.semana_inicio, semana.semana_fin);
+  await listPlanillaAsistencia(cc, semana.semana_inicio, semana.semana_fin);*/
+  loading(false);
+  filtrosPlanilla();
 
   // loading(false);
 });
