@@ -9799,6 +9799,7 @@ var comunesPlanilla = {};
 var semanas = [];
 var diasPorSemana = [];
 var calendarioPlanilla = {};
+var lstNulls = ['Seleccione', 0, '0'];
 var editorPlanilla = new $.fn.dataTable.Editor({
   // ajax: "controller/actualizarListadoDotacion.php",
   table: "#tablaListadoPlanillaAsistencia",
@@ -9944,8 +9945,9 @@ async function listCentrosDeCostos() {
 
 function filtrosPlanilla() {
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
-  var anho = $('#selectListaAnhos').val();
   var week = $("#selectListaSemanas").val();
+
+  if (lstNulls.includes(idEstructuraOperacion) || lstNulls.includes(week)) return;
 
   var semanaInicio = '2021-01-01';
   var semanaFin = '2025-01-01';
@@ -9962,7 +9964,7 @@ function filtrosPlanilla() {
 
   loading(true);
   listPlanillaAsistencia(
-    idEstructuraOperacion != 'Selecione' && idEstructuraOperacion > 0 ? Number(idEstructuraOperacion) : 0,
+    idEstructuraOperacion,
     semanaInicio,
     semanaFin
   );
@@ -10015,7 +10017,12 @@ $('#selectListaAnhos').on('change', function (e) {
   }
   var html = "<option value='0'>Seleccione</option>";
   calendarioPlanilla[this.value].forEach((item, idx) => {
-    html += `<option value='${this.value}_${idx}'>${item.LABEL}</option>`;
+    if ((Number(this.value) == new Date().getFullYear() && item.ES_ACTUAL > 0)
+        || (Number(this.value) != new Date().getFullYear() && idx == calendarioPlanilla[this.value].length - 1)) {
+      html += `<option value='${this.value}_${idx}' selected>${item.LABEL}</option>`;
+    } else {
+      html += `<option value='${this.value}_${idx}'>${item.LABEL}</option>`;
+    }
   })
   $('#selectListaSemanas').html(html);
   filtrosPlanilla();
@@ -10028,6 +10035,18 @@ $('#selectListaAnhos').on('change', function (e) {
 
 $('#selectListaSemanas').on('change', function (e) {
   e.stopImmediatePropagation();
+  var [anho, _] = this.value.split('_');
+
+  var html = "<option value='0'>Seleccione</option>";
+  Object.keys(calendarioPlanilla).forEach((item) => {
+    if (`${item}` == `${anho}`) {
+      html += `<option value='${item}' selected>${item}</option>`;
+    } else {
+      html += `<option value='${item}'>${item}</option>`;
+    }
+  });
+  $('#selectListaAnhos').html(html);
+
   filtrosPlanilla();
 })
 

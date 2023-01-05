@@ -19728,7 +19728,8 @@ WHERE U.RUT = '{$rutUser}'";
 				semana_del_anio AS SEMANA,
 				semana_inicio AS SEMANA_INICIO,
 				semana_fin AS SEMANA_FIN,
-				CONCAT('Semana ', semana_del_anio, ' del ', semana_inicio, ' al ', semana_fin) AS LABEL
+				CONCAT('Semana ', semana_del_anio, ' del ', anio_calendario, ' (', semana_inicio, ' al ', semana_fin, ')') AS LABEL,
+				(SELECT now() BETWEEN semana_inicio AND semana_fin) AS ES_ACTUAL
 			FROM CALENDARIO
 			GROUP BY anio_calendario, semana_del_anio;";
 			if ($row = $con->query($sql)) {
