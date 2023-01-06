@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=14';
+  js.src = 'view/js/funciones.js?idload=15';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -791,8 +791,8 @@
 						      <tr>
 										<th class="celdaColor" style="border: 1pt solid white;">S</th>
 										<th class="celdaColor" style="border: 1pt solid white;">IDAREA</th>
-						        <th class="celdaColor" style="border: 1pt solid white;">Área</th>
-						        <th class="celdaColor" style="border: 1pt solid white;">Sub-Área</th>
+						        <th class="celdaColor" style="border: 1pt solid white;">Menú</th>
+						        <th class="celdaColor" style="border: 1pt solid white;">Sub-Menú</th>
 										<th class="celdaColor" style="border: 1pt solid white;">Tipo permiso</th>
 										<th class="celdaColor" style="border: 1pt solid white;">Basico</th>
 										<th class="celdaColor" style="border: 1pt solid white;">Filtro</th>
@@ -808,7 +808,7 @@
 	      <!-- Botones -->
 					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
 						<button class="form-control btn btn-secondary botonComun" id="asignarAreaPerfil">
-							<span class="fas fa-plus"></span>&nbsp;&nbsp;Agregar área
+							<span class="fas fa-plus"></span>&nbsp;&nbsp;Agregar menú
 						</button>
 					</div>
 					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
@@ -911,7 +911,7 @@
     <!-- Modal content-->
 		<div class="modal-content">
 				<div class="modal-header">
-						<h5 style="color:gray;" id="tituloAgregarAreaPerfil"><span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Agregar área</span></h5>
+						<h5 style="color:gray;" id="tituloAgregarAreaPerfil"><span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Agregar menú</span></h5>
 				</div>
 					<div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
 						<label style="font-weight: bold;">Perfil</label>
@@ -921,7 +921,7 @@
 				<div id="bodyAreasPerfil" class="modal-body alerta-modal-body" style="overflow-y: scroll; margin-top: 10pt;">
 					<div class="row" style="text-align: left; margin-bottom: 20pt;">
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
-							<label style="font-weight: bold; color: gray; font-size: 14pt;">Áreas</label>
+							<label style="font-weight: bold; color: gray; font-size: 14pt;">Menú</label>
 							<select multiple="multiple" id="areaPerfil" name="areaPerfil" class="form-control custom">
 							</select>
 						</div>
@@ -986,14 +986,14 @@
 					</div>
 					<div class="row" style="text-align: left; margin-bottom: 10pt; margin-top: 10pt;">
 						<div id="divProyecto" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
-							<label style="font-weight: bold; color: gray; font-size: 14pt;">Proyectos</label>
+							<label style="font-weight: bold; color: gray; font-size: 14pt;">Centros de Costo</label>
 							<select multiple="multiple" id="proyectoPerfil" name="proyectoPerfil" class="form-control custom">
 							</select>
 						</div>
 					</div>
 					<div class="row" style="text-align: left; margin-bottom: 10pt;">
 						<div id="divAreaFuncional" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left; margin-bottom: 10pt;">
-							<label style="font-weight: bold; color: gray; font-size: 14pt;">Areas Geográficas</label>
+							<label style="font-weight: bold; color: gray; font-size: 14pt;">Comunas</label>
 							<select multiple="multiple" id="areaFuncionalPerfil" name="areaFuncionalPerfil" class="form-control custom">
 							</select>
 						</div>
@@ -2889,62 +2889,69 @@
         <h5 style="color:gray;" id="tituloEditaPersonalOperaciones"><span class="fas fa-user-edit"></span>&nbsp;&nbsp;Editar personal</h5>
       </div>
       <div id="bodyEditaPersonalOperaciones" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">DNI</label>
-            <input disabled id="rutEditaPersonalOperaciones" class="form-control" type="text" value="">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Apellidos</label>
-            <input id="apellidosEditaPersonalOperaciones" class="form-control" type="text" value="">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombres</label>
-            <input id="nombresEditaPersonalOperaciones" class="form-control" type="text" value="">
-          </div>
-					<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Sucursal</label>
-						<select id="sucursalEditaPersonalOperaciones" class="form-control">
-            </select>
-          </div>
-					<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Función (cargo)</label>
-            <input id="funcionEditaPersonalOperaciones" class="form-control" type="text" value="">
-          </div>
-					<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-					  <label style="font-weight: bold;">Nivel</label>
-					  <select id="nivelEditaPersonalOperaciones" class="form-control">
-					  </select>
+				<div class="row" style="text-align: left; margin-bottom: 20pt;">
+					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt; border: 2px solid #ececec; background-color: #f5f5f5; padding: 25px; text-align: center; margin-left: 20px;">
+						<img id="imagenFichaPersonal" src="" alt="" style="width: 200px;">
 					</div>
-					<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-						<label style="font-weight: bold;">Subcontratista</label>
-						<br>
-						<label class="switch">
-							<input id="esSubcontratistaEditaPersonalOperaciones" type="checkbox" title="Subcontratista">
-							<span class="slider round"></span>
-						</label>
+					<div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-xs-12" style="margin-right: -25px; padding-right: 40px;">
+						<div class="row" style="text-align: left;">
+							<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">RUT</label>
+		            <input disabled id="rutEditaPersonalOperaciones" class="form-control" type="text" value="">
+		          </div>
+							<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">Apellidos</label>
+		            <input id="apellidosEditaPersonalOperaciones" class="form-control" type="text" value="">
+		          </div>
+		          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">Nombres</label>
+		            <input id="nombresEditaPersonalOperaciones" class="form-control" type="text" value="">
+		          </div>
+							<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">Sucursal</label>
+								<select id="sucursalEditaPersonalOperaciones" class="form-control">
+		            </select>
+		          </div>
+							<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">Función (cargo)</label>
+		            <input id="funcionEditaPersonalOperaciones" class="form-control" type="text" value="">
+		          </div>
+							<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+							  <label style="font-weight: bold;">Nivel</label>
+							  <select id="nivelEditaPersonalOperaciones" class="form-control">
+							  </select>
+							</div>
+							<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+								<label style="font-weight: bold;">Subcontratista</label>
+								<br>
+								<label class="switch">
+									<input id="esSubcontratistaEditaPersonalOperaciones" type="checkbox" title="Subcontratista">
+									<span class="slider round"></span>
+								</label>
+							</div>
+							<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+							  <label style="font-weight: bold;">Mano de obra</label>
+							  <select id="moEditaPersonalOperaciones" class="form-control">
+							    <option value="MOD">MOD</option>
+							    <option value="MOI">MOI</option>
+							    <option value="MOE">MOE</option>
+							  </select>
+							</div>
+							<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">Patente</label>
+								<select id="patenteEditaPersonalOperaciones" class="form-control">
+		            </select>
+		          </div>
+		          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">Fono</label>
+		            <input id="fonoEditaPersonalOperaciones" class="form-control" type="text" value="">
+		          </div>
+		          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+		            <label style="font-weight: bold;">E-mail</label>
+		            <input id="emailEditaPersonalOperaciones" class="form-control" type="text" value="">
+		          </div>
+						</div>
 					</div>
-					<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-					  <label style="font-weight: bold;">Mano de obra</label>
-					  <select id="moEditaPersonalOperaciones" class="form-control">
-					    <option value="MOD">MOD</option>
-					    <option value="MOI">MOI</option>
-					    <option value="MOE">MOE</option>
-					  </select>
-					</div>
-					<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente</label>
-						<select id="patenteEditaPersonalOperaciones" class="form-control">
-            </select>
-          </div>
-          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Fono</label>
-            <input id="fonoEditaPersonalOperaciones" class="form-control" type="text" value="">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">E-mail</label>
-            <input id="emailEditaPersonalOperaciones" class="form-control" type="text" value="">
-          </div>
 					<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Empresa</label>
 						<select id="empresaEditaPersonalOperaciones" class="form-control">
@@ -2976,7 +2983,7 @@
       <div id="bodyIngresarPersonalOperaciones" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
           <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label disabled style="font-weight: bold;">DNI (*)</label>
+            <label disabled style="font-weight: bold;">RUT (*)</label>
             <input id="rutIngresarPersonalOperaciones" class="form-control" type="text" value="">
           </div>
           <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
@@ -11193,7 +11200,7 @@
 
       <div class="modal-header">
 				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;
-					<span>Ingresar proyecto</span>
+					<span>Ingresar Centro Costo</span>
 					<span id="tituloIngresoProyecto" style="font-size: 12pt;"></span>
 					<input id="idIngresoProyecto" type="hidden" value="">
 				</h5>
@@ -11203,11 +11210,11 @@
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
 
 					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Def. Proyecto</label>
+            <label style="font-weight: bold;">Cod. Ceco</label>
             <input id="defProyectoIngresoProyecto" class="form-control" type="text" value="">
           </div>
 					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PEP</label>
+            <label style="font-weight: bold;">Centro de Costo</label>
             <input id="pepIngresoProyecto" class="form-control" type="text" value="">
           </div>
 					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
@@ -11286,8 +11293,8 @@
     <div class="modal-content">
 
       <div class="modal-header">
-				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;
-					<span>Ingresar proyecto</span>
+				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-edit"></span>&nbsp;&nbsp;
+					<span>Editar Centro Costo</span>
 					<span id="tituloEditarProyecto" style="font-size: 12pt;"></span>
 					<input id="idEditarProyecto" type="hidden" value="">
 				</h5>
@@ -11297,11 +11304,11 @@
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
 
 					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Def. Proyecto</label>
+            <label style="font-weight: bold;">Cod. Ceco</label>
             <input id="defProyectoEditarProyecto" class="form-control" type="text" value="">
           </div>
 					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PEP</label>
+            <label style="font-weight: bold;">Centro de Costo</label>
             <input id="pepEditarProyecto" class="form-control" type="text" value="">
           </div>
 					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
