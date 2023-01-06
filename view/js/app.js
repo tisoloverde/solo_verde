@@ -3027,10 +3027,10 @@ app.controller("planillaAsistenciaController", function(){
         window.location.href = "#/home";
       } else {*/
         setTimeout(async function() {
+          await listComunesPlanilla();
           await listCentrosDeCostos();
           await listCalendario();
           await listPlanillaAsistencia('null', 'null', 'null');
-          // await listComunesPlanilla();
           esconderMenu();
           menuElegant();
         }, 500);

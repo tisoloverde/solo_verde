@@ -325,7 +325,7 @@ $(window).on("load",function(e){
           setInterval(function(){
             // console.log("interval");
             tiempo2 = moment(new Date());
-            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 3600){
+            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 300){
               // console.log("Desconectando Sistema");
               $.ajax({
                   url:   'controller/cerraSesion.php',
@@ -9804,6 +9804,18 @@ var _CALENDARIO_PLANILLA = [];
 var _DIAS_PLANILLA = [];
 var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
 var _LST_NULLS = ['Seleccione', 0, '0'];
+var _COMUNES_PLANILLA = {};
+
+async function listComunesPlanilla() {
+  $.ajax({
+    url: 'controller/datosComunesPlanilla.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      _COMUNES_PLANILLA = response.aaData;
+    },
+  })
+}
 
 async function listCentrosDeCostos() {
   $.ajax({
@@ -10029,6 +10041,63 @@ function personalGetColAndId(strid) {
   }
   return [0, 0];
 }
+
+$(document).on('change', '.planilla-select-col8', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var [_, idPersonal] = personalGetColAndId(this.id);
+  var idCargoGenericoUnificado = this.value;
+  var html = "";
+
+  var cargoGenericoUnificado = _COMUNES_PLANILLA.cargoGenericoUnificado.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO']) == Number(idCargoGenericoUnificado));
+  var idReferencia1 = cargoGenericoUnificado['IDREFERENCIA1'];
+  var referencia1 = cargoGenericoUnificado['REFERENCIA1'];
+  var clasificacion = cargoGenericoUnificado['CLASIFICACION'];
+
+  /* Begin - Text Col 9 */
+  $(`#planilla-text-col9-${idPersonal}`).text(clasificacion);
+  /* End - Text Col 9 */
+
+  /* Begin - Text Col 10 */
+  $(`#planilla-text-col10-${idPersonal}`).text(referencia1);
+  /* End - Text Col 10 */
+
+  /* Begin - Select Col 11 */
+  /*html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
+  _COMUNES_PLANILLA.referencia2.forEach((item) => {
+    if (Number(item['IDREFERENCIA1']) == Number(idReferencia1)) {
+      html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+    }
+  })
+  html += "</select>";
+  $(`#planilla-select-col11-${idPersonal}`).html(html);*/
+  /* End - Select Col 11 */
+
+  // var idReferencia2 = $(`#planilla-select-col11-${idPersonal}`).val();
+
+  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+  if (planillaIdx >= 0) {
+    _DATA_PLANILLA[planillaIdx]['IDCARGO_GENERICO_UNIFICADO_B'] = idCargoGenericoUnificado;
+    _DATA_PLANILLA[planillaIdx]['CLASIFICACION_B_TEXT'] = clasificacion;
+    _DATA_PLANILLA[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
+    _DATA_PLANILLA[planillaIdx]['REFERENCIA1_B_TEXT'] = referencia1;
+    // _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
+  }
+});
+
+$(document).on('change', '.planilla-select-col11', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var [_, idPersonal] = personalGetColAndId(this.id);
+  var idReferencia2 = this.value;
+
+  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+  if (planillaIdx >= 0) {
+    _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
+  }
+});
 
 $(document).on('change', '.planilla-select-day', function(e){
   e.preventDefault();

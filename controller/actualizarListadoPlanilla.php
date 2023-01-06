@@ -18,7 +18,7 @@
       $atraso = $item['ATRASO'] ?? 'null';
 
       foreach ($daysPlanilla as $day) {
-        actualizarSemanaPlanilla(
+        $res[] = actualizarSemanaPlanilla(
           $idPersonal, $idCargoGenericoUnificadoB, $idReferencia2B,
           $day['id'], $day['fecha'],
           $he50, $he100, $atraso, $rut
