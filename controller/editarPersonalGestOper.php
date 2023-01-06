@@ -22,14 +22,20 @@
         $mano   = $_POST['mano'];
         $idCeco = $_POST['idCeco'];
 
+        if($idCeco == ""){
+          $idCeco = -1;
+        }
+
         editaPersonalGestOperacionPatente($patAnterior);
 
         $row = editaPersonalGestOperacion($dni,$apellidos,$nombres,$cargo,$externo,$idpatente,$fono,$mail,$idsubcontrato,$nivel,$mano);
 
         if($row != "Error" )
         {
-            editaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$nomenclatura);
+            $row2 = editaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$nomenclatura);
             ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad);
+
+            var_dump($row2);
 
             echo "OK";
         }

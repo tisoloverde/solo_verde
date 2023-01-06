@@ -2,8 +2,8 @@
   require('../model/consultas.php');
   session_start();
 
-	if(count($_POST) > 0){
-        $row = datosCecoEmpresa($_POST['idEmpresa']);
+	if(count($_POST) >= 0){
+        $row = datosCecoEmpresa();
 
         if(is_array($row))
         {

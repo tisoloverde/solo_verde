@@ -5240,7 +5240,7 @@ $("#editarProyecto").unbind('click').click(async function(){
       return item.FECHA_FIN_OPERACION;
   });
 
-  $("#tituloEditarProyecto").html("<br>Identificador de proyecto: " + folio);
+  $("#tituloEditarProyecto").html("<br>Identificador de centro de costo: " + folio);
   $("#idEditarProyecto").val(folio);
 
   $("#defProyectoEditarProyecto").val(definicion);
@@ -5619,20 +5619,15 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     }
   });
 
-  parametros = {
-    'idEmpresa': $("#empresaIngresarPersonalOperaciones").val()
-  }
-
   await $.ajax({
     url:   'controller/datosCecoEmpresa.php',
     type:  'post',
-    data: parametros,
     success: function (response2) {
       var p2 = jQuery.parseJSON(response2);
       if(p2.aaData.length !== 0){
         var cuerpoCeco = '';
         for(var i = 0; i < p2.aaData.length; i++){
-          cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + ' | ' + p2.aaData[i].NOMBRE + ' | ' + p2.aaData[i].AREA + '</option>';
+          cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
         }
         $("#cecoIngresarPersonalOperaciones").html(cuerpoCeco);
       }
@@ -6165,6 +6160,21 @@ $("#editarJefatura").unbind("click").click(async function(){
   $("#moEditaPersonalOperaciones").val(mano[0]);
 
   await $.ajax({
+    url:   "controller/checkImgPerfil.php?rut=" + rut[0] + "&id=" + Math.round(Math.random() * (1000000 - 1) + 1),
+    type:  'get',
+    success: function (response2) {
+      if(response2 == 1){
+        $("#imagenFichaPersonal").attr("src","controller/cargarImgPerfil.php?rut=" + rut[0] + "&id=" + Math.round(Math.random() * (1000000 - 1) + 1));
+      }
+      else{
+        $("#imagenFichaPersonal").attr("src","view/img/no_foto.jpg");
+      }
+    }
+  });
+
+
+
+  await $.ajax({
     url:   'controller/datosNivelFuncional.php',
     type:  'post',
     success: function (response2) {
@@ -6275,24 +6285,19 @@ $("#editarJefatura").unbind("click").click(async function(){
     });
   }
 
-  parametros = {
-    'idEmpresa': empresa[0]
-  }
-
   await $.ajax({
     url:   'controller/datosCecoEmpresa.php',
     type:  'post',
-    data: parametros,
     success: function (response2) {
       var p2 = jQuery.parseJSON(response2);
       if(p2.aaData.length !== 0){
         var cuerpoCeco = '';
         for(var i = 0; i < p2.aaData.length; i++){
           if(p2.aaData[i].IDESTRUCTURA_OPERACION == idCeco[0]){
-            cuerpoCeco += '<option selected value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + ' | ' + p2.aaData[i].NOMBRE + ' | ' + p2.aaData[i].AREA + '</option>';
+            cuerpoCeco += '<option selected value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
           }
           else{
-            cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + ' | ' + p2.aaData[i].NOMBRE + ' | ' + p2.aaData[i].AREA + '</option>';
+            cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
           }
         }
         $("#cecoEditaPersonalOperaciones").html(cuerpoCeco);
@@ -7099,7 +7104,7 @@ $("#editarSucursal").unbind('click').click( async function(){
       return item.SUCURSAL;
   });
   var bodega = $.map(table.rows('.selected').data(), function (item) {
-    return item.BODEGA;
+    return item.BODEGA_FLOTA;
   });
   var comuna = $.map(table.rows('.selected').data(), function (item) {
     return item.COMUNA;
@@ -7386,13 +7391,13 @@ $("#guardarAgregarAreaFuncional").unbind('click').click(async function(){
           var table = $('#tablaAreaFuncional').DataTable();
           table.ajax.reload();
           var random = Math.round(Math.random() * (1000000 - 1) + 1);
-          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Área Funcional agregada correctamente");
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Comuna agregada correctamente");
           //$("#editarArea").attr("disabled","disabled");
           }
         else{
           $('#modalAlertasSplash').modal('hide');
           var random = Math.round(Math.random() * (1000000 - 1) + 1);
-          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al agregar Área Funcional");
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>La comuna ingresada ya existe en sistema");
         }
       }
     });

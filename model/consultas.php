@@ -5634,7 +5634,7 @@ function imagenPersona($rut){
 	$con = conectar();
 	$con->query("START TRANSACTION");
 	if($con != 'No conectado'){
-		$sql = "SELECT RUTA_IMG_PERFIL 'IMG'
+		$sql = "SELECT CASE WHEN RUTA_IMG_PERFIL IS NOT NULL AND RUTA_IMG_PERFIL <> '' THEN 1 ELSE 0 END 'FOTO', RUTA_IMG_PERFIL 'IMG'
 FROM PERSONAL
 WHERE DNI = '{$rut}'";
 		if ($row = $con->query($sql)) {
@@ -6886,7 +6886,10 @@ function editaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$no
 							CASE WHEN '{$sucursal}' = -1
               THEN NULL
               ELSE '{$sucursal}' END,
-							IDESTRUCTURA_OPERACION = '{$idCeco}'
+							IDESTRUCTURA_OPERACION =
+							CASE WHEN '{$idCeco}' = -1
+              THEN NULL
+              ELSE '{$idCeco}' END
 							WHERE IDPERSONAL =
 							(
 								SELECT IDPERSONAL
@@ -18519,7 +18522,7 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 		}
 
-		function datosCecoEmpresa($idEmpresa){
+		function datosCecoEmpresa(){
 			$con = conectar();
 			if($con != 'No conectado'){
 				$sql = "SELECT E.IDESTRUCTURA_OPERACION, E.NOMENCLATURA, E.NOMBRE, A.NOMBRE 'AREA', S.NOMBRE_SUBCONTRATO 'EMPRESA'
@@ -18527,8 +18530,7 @@ WHERE U.RUT = '{$rutUser}'";
 								LEFT JOIN AREA A
 								ON E.IDAREA = A.IDAREA
 								LEFT JOIN SUBCONTRATISTAS S
-								ON E.IDSUBCONTRATO = S.IDSUBCONTRATO
-								WHERE S.IDSUBCONTRATO = '{$idEmpresa}'";
+								ON E.IDSUBCONTRATO = S.IDSUBCONTRATO";
 				if ($row = $con->query($sql)) {
 						while($array = $row->fetch_array(MYSQLI_BOTH)){
 							$return[] = $array;
