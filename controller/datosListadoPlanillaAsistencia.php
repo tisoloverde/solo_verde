@@ -10,10 +10,11 @@
     $idEstructuraOperacion = $_POST['idEstructuraOperacion'];
     $fecIni = $_POST['fecIni'];
     $fecFin = $_POST['fecFin'];
+    $search = $_POST['search']['value'];
 
     // DB
-    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin);
-    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin);
+    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $search);
+    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $search);
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 
@@ -26,6 +27,16 @@
     if (is_array($lstPersonalCC)) {
       for ($i=0; $i<count($lstPersonalCC); $i++) {
         $idPersonal = $lstPersonalCC[$i]['IDPERSONAL'];
+
+        $found = [];
+        foreach ($lstPersonalEstado as $personalEstado) {
+          if ($idPersonal == $personalEstado['IDPERSONAL']) {
+            $found = $personalEstado;
+            if (isset($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'])) {
+              $row['NDIAS'] = $row['NDIAS'] + 1;
+            }
+          }
+        }
 
         $row = [
           "IDPERSONAL" => $idPersonal,
@@ -42,42 +53,34 @@
           "REFERENCIA1_B_TEXT" => "",
           "IDREFERENCIA2_B" => 0,
           "REFERENCIA2_B" => "",
-          "RUT_REEMPLAZO" => "",
+          "RUT_REEMPLAZO" => "<input id='planilla-input-12' style='border: none; text-align: center;'>",
           "FECHA_REEMPLAZO" => "",
           "NDIAS" => 0,
-          "HE50" => "",
-          "HE100" => "",
-          "ATRASO" => "",
+          "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
+          "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
+          "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
+          "__DIAS_PLN" => [],
         ];
 
-        $found = [];
-        foreach ($lstPersonalEstado as $personalEstado) {
-          if ($idPersonal == $personalEstado['IDPERSONAL']) {
-            $found = $personalEstado;
-            if (isset($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'])) {
-              $row['NDIAS'] = $row['NDIAS'] + 1;
-            }
-          }
-        }
-
         /* Begin - Cargo Generico Unificado */
-        $row['CARGO_GENERICO_UNIFICADO'] = $found['CARGO_GENERICO_UNIFICADO'];
+        $row['CARGO_GENERICO_UNIFICADO'] = $lstPersonalCC[$i]['CARGO_GENERICO_UNIFICADO'];
         /* End - Cargo Generico Unificado */
 
         /* Begin - Clasificacion */
-        $row['CLASIFICACION'] = $found['CLASIFICACION'];
+        $row['CLASIFICACION'] = $lstPersonalCC[$i]['CLASIFICACION'];
         /* End - Clasificacion */
 
         /* Begin - Referencia 1 */
-        $row['REFERENCIA1'] = $found['REFERENCIA1'];
+        $row['REFERENCIA1'] = $lstPersonalCC[$i]['REFERENCIA1'];
         /* End - Referencia 1 */
 
         /* Begin - Referencia 2 */
-        $row['REFERENCIA2'] = $found['REFERENCIA2'];
+        $row['REFERENCIA2'] = $lstPersonalCC[$i]['REFERENCIA2'];
         /* End - Referencia 2 */
 
         /* Begin - Cargo Generico Unificado B */
         $select = "<select id='planilla-select-col8-$idPersonal' class='planilla-select-col8'>";
+        $select .= "<option>Seleccione</option>";
         foreach ($crgman as $item) {
           $idCgu = $item['IDCARGO_GENERICO_UNIFICADO'];
           $cgu = $item['CARGO_GENERICO_UNIFICADO'];
@@ -96,12 +99,13 @@
         /* End - Clasificacion */
 
         /* Begin - Referencia 1 */
-        $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B'] ? $found['REFERENCIA1_B'] : $refs2[0]['REFERENCIA2'];
+        $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B']; // $found['REFERENCIA1_B'] ? $found['REFERENCIA1_B'] : $refs2[0]['REFERENCIA2'];
         $row['REFERENCIA1_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['REFERENCIA1_B'] . "</span>";
         /* End - Referencia 1 */
 
         /* Begin - Referencia 2 */
         $select = "<select id='planilla-select-col11-$idPersonal' class='planilla-select-col11'>";
+        $select .= "<option>Seleccione</option>";
         foreach ($refs2 as $item) {
           $idRef2 = $item['IDREFERENCIA2'];
           $ref2 = $item['REFERENCIA2'];
@@ -133,12 +137,12 @@
           /* end - search */
 
           $col = $col + 1;
-          $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-col$col'>";
+          $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
           $select = $select . "<option value='0'></option>";
           foreach ($cons as $con) {
             $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
             $pec = $con['SIGLA'];
-            $select = $select . ($found['IDPERSONAL_ESTADO_CONCEPTO'] == $idPec
+            $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? 21) == $idPec
               ? "<option value='$idPec' selected>$pec</option>"
               : "<option value='$idPec'>$pec</option>");
           }
@@ -158,7 +162,8 @@
         "iTotalDisplayRecords" => count($rows),*/
         "recordsTotal" => (int)$total[0]['CONT'],
         "recordsFiltered" => (int)$total[0]['CONT'],
-        "aaData"=>$rows
+        "aaData"=>$rows,
+        "crgman" => $crgman
       );
       echo json_encode($results);
     } else {

@@ -12,39 +12,29 @@
       $idPersonal = $item['IDPERSONAL'];
       $idCargoGenericoUnificadoB = $item['IDCARGO_GENERICO_UNIFICADO_B'];
       $idReferencia2B = $item['IDREFERENCIA2_B'];
-      $days = $item['DIAS'];
       $daysPlanilla = $item['DIAS_PLANILLA'];
+      $he50 = $item['HE50'] ?? 'null';
+      $he100 = $item['HE100'] ?? 'null';
+      $atraso = $item['ATRASO'] ?? 'null';
 
-      /* Begin - Iniciar Semana */
-      $resCont = validWeekForPersonal($idPersonal, $days[0], $days[count($days)-1]);
-      $cont = (int) $resCont[0]['N'];
-      if ($cont <= 0) {
-        foreach ($days as $day) {
-          iniciarSemanaPlanilla(
-            $idPersonal,
-            1,
-            1,
-            $idCargoGenericoUnificadoB,
-            $idReferencia2B,
-            $day,
-            $rut
-          );
-        }
-      }
-      /* End - Iniciar Semana */
-
-      /* Begin - Actualizar Semana */
       foreach ($daysPlanilla as $day) {
         actualizarSemanaPlanilla(
-          $idPersonal,
-          $idCargoGenericoUnificadoB,
-          $idReferencia2B,
-          $day['id'],
-          $day['fecha'],
-          $rut
+          $idPersonal, $idCargoGenericoUnificadoB, $idReferencia2B,
+          $day['id'], $day['fecha'],
+          $he50, $he100, $atraso, $rut
         );
+        $res[] = [
+          "idPersonal" => $idPersonal,
+          "idCargoGenericoUnificadoB" => $idCargoGenericoUnificadoB,
+          "idReferencia2B" => $idReferencia2B,
+          "idPersonalEstadoConcepto" => $day['id'],
+          "fecha" => $day['fecha'],
+          "he50" => $he50,
+          "he100" => $he100,
+          "atraso" => $atraso,
+          "rutUsuario" => $rut,
+        ];
       }
-      /* End - Actualizar Semana */
     }
 
     $results = [

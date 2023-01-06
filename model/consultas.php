@@ -19436,7 +19436,7 @@ WHERE U.RUT = '{$rutUser}'";
 			INNER JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = CGUF.IDCARGO_GENERICO_UNIFICADO
 			INNER JOIN FAMILIA F ON F.IDFAMILIA = CGUF.IDFAMILIA
 			INNER JOIN CLASIFICACION C ON C.IDCLASIFICACION = CGU.IDCLASIFICACION
-			INNER JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = CGU.IDREFERENCIA1;";
+			LEFT JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = CGU.IDREFERENCIA1;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -19454,12 +19454,17 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaReferencia2() {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT
+			/*$sql = "SELECT
 				R1.IDREFERENCIA1,
 				R2.IDREFERENCIA2,
 				R2.NOMBRE AS REFERENCIA2
 			FROM REFERENCIA2 R2
-			INNER JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = R2.IDREFERENCIA1;";
+			INNER JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = R2.IDREFERENCIA1;";*/
+			$sql = "SELECT
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2
+			FROM REFERENCIA2 R2;
+			";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -19720,6 +19725,28 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaDiasPorSemana($anho, $nsemana) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				fecha_calendario as fecha
+			FROM CALENDARIO
+			WHERE anio_calendario = $anho
+			AND semana_del_anio = $nsemana;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaCalendarioSemanas() {
 		$con = conectar();
 		if ($con != "No conectado") {
@@ -19832,24 +19859,29 @@ WHERE U.RUT = '{$rutUser}'";
 		$idReferencia2_b,
 		$idPersonalEstadoConcepto,
 		$fecha,
+		$he50,
+		$he100,
+		$atraso,
 		$rutUsuario
 	) {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "UPDATE PERSONAL_ESTADO SET
-				IDCARGO_GENERICO_UNIFICADO_B = $idCargoGenericoUnificado_b,
-				IDREFERENCIA2_B = $idReferencia2_b,
-				IDPERSONAL_ESTADO_CONCEPTO = $idPersonalEstadoConcepto,
-				RUTUSUARIO = '$rutUsuario'
-			WHERE IDPERSONAL = $idPersonal AND FECHA_INICIO = '$fecha';
-			";
+			$sql = "CALL INSERTAR_PERSONAL_ESTADO(
+				$idPersonal,
+				$idCargoGenericoUnificado_b,
+				$idReferencia2_b,
+				$idPersonalEstadoConcepto,
+				'$fecha',
+				$he50,
+				$he100,
+				$atraso,
+				'$rutUsuario'
+			)";
 			if ($row = $con->query($sql)) {
-				$con->query("COMMIT");
-				// return $row->fetch_assoc();
-				return $sql;
+				return "Ok";
 			} else {
 				$con->query("ROLLBACK");
-				return $sql;
+				return "Error";
 			}
 		} else {
 			$con->query("ROLLBACK");
@@ -19857,7 +19889,7 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin) {
+	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin, $search) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
@@ -19869,6 +19901,7 @@ WHERE U.RUT = '{$rutUser}'";
 			if ((int)$idEstructuraOperacion > 0) {
 				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			}
+			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%')";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -19883,21 +19916,34 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin) {
+	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $search) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				DISTINCT(AH.IDPERSONAL),
 				P.DNI AS RUT,
 				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS NOMBRES,
-				P.CARGO AS CARGO_LIQUIDACION
+				P.CARGO AS CARGO_LIQUIDACION,
+				CGU.IDCARGO_GENERICO_UNIFICADO,
+				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
+				CL.IDCLASIFICACION,
+				CL.NOMBRE AS CLASIFICACION,
+				R1.IDREFERENCIA1,
+				R1.NOMBRE AS REFERENCIA1,
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2
 			FROM ACT_HISTORIAL AH
 			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
+			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1 ON R1.CODIGO = P.REFERENCIA1
+			LEFT JOIN REFERENCIA2 R2 ON R2.CODIGO = P.REFERENCIA2
 			WHERE
 			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')";
 			if ((int)$idEstructuraOperacion >= 0) {
 				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			}
+			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%')";
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();
@@ -19936,7 +19982,10 @@ WHERE U.RUT = '{$rutUser}'";
 				PE.IDREFERENCIA2_B,
 				PE.FECHA_INICIO,
 				PE.IDPERSONAL_ESTADO_CONCEPTO,
-				PEC.SIGLA AS PERSONAL_ESTADO_CONCEPTO
+				PEC.SIGLA AS PERSONAL_ESTADO_CONCEPTO,
+				PE.HE50,
+				PE.HE100,
+				PE.ATRASO
 			FROM PERSONAL_ESTADO PE
 			LEFT JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
 			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.IDCARGO_GENERICO_UNIFICADO = PE.IDCARGO_GENERICO_UNIFICADO

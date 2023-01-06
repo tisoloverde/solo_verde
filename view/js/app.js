@@ -3006,9 +3006,9 @@ app.controller("planillaAsistenciaController", function(){
       } else {*/
         setTimeout(async function() {
           await listCentrosDeCostos();
-          await listCalendario('yyyy');
-          await listPlanillaAsistencia('null', 'null');
-          await listComunesPlanilla();
+          await listCalendario();
+          await listPlanillaAsistencia('null', 'null', 'null');
+          // await listComunesPlanilla();
           esconderMenu();
           menuElegant();
         }, 500);

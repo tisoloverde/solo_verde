@@ -325,7 +325,7 @@ $(window).on("load",function(e){
           setInterval(function(){
             // console.log("interval");
             tiempo2 = moment(new Date());
-            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 300){
+            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 3600){
               // console.log("Desconectando Sistema");
               $.ajax({
                   url:   'controller/cerraSesion.php',
@@ -9793,64 +9793,132 @@ $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() 
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
-var planillaData = [];
-var tablePlanilla = $("#tablaListadoPlanillaAsistencia");
-var comunesPlanilla = {};
-var semanas = [];
-var diasPorSemana = [];
-var calendarioPlanilla = {};
-var lstNulls = ['Seleccione', 0, '0'];
-var editorPlanilla = new $.fn.dataTable.Editor({
-  // ajax: "controller/actualizarListadoDotacion.php",
-  table: "#tablaListadoPlanillaAsistencia",
-  idSrc: 'RUT', //'IDPERSONAL',
-  fields: [
-    // { label: 'RUT', name: 'RUT' },
-    { label: 'NOMBRES', name: 'NOMBRES' }, // editField: 'personalOfertado' },
-    { label: 'CARGO_LIQUIDACION', name: 'CARGO_LIQUIDACION' },
-    { label: 'CARGO_GENERICO_UNIFICADO', name: 'CARGO_GENERICO_UNIFICADO' },
-    { label: 'CLASIFICACION', name: 'CLASIFICACION' },
-    { label: 'REFERENCIA1', name: 'REFERENCIA1' },
-    { label: 'REFERENCIA2', name: 'REFERENCIA2' },
-    { label: 'CARGO_GENERICO_UNIFICADO_B', name: 'CARGO_GENERICO_UNIFICADO_B' },
-    { label: 'CLASIFICACION_B_TEXT', name: 'CLASIFICACION_B_TEXT' },
-    { label: 'REFERENCIA1_B_TEXT', name: 'REFERENCIA1_B_TEXT' },
-    { label: 'REFERENCIA2_B', name: 'REFERENCIA2_B' },
-    { label: 'RUT_REEMPLAZO', name: 'RUT_REEMPLAZO' },
-    { label: 'FECHA_REEMPLAZO', name: 'FECHA_REEMPLAZO' },
-    { label: 'Lunes', name: 'Lunes' },
-    { label: 'Martes', name: 'Martes' },
-    { label: 'Miercoles', name: 'Miercoles' },
-    { label: 'Jueves', name: 'Jueves' },
-    { label: 'Viernes', name: 'Viernes' },
-    { label: 'Sabado', name: 'Sabado' },
-    { label: 'Domingo', name: 'Domingo' },
-    { label: 'NDIAS', name: 'NDIAS' },
-    { label: 'HE50', name: 'HE50' },
-    { label: 'HE100', name: 'HE100' },
-    { label: 'ATRASO', name: 'ATRASO' },
-  ],
-  formOptions: { inline: { submit: 'all' } },
-});
+var _DATA_PLANILLA = [];
+var _TABLE_PLANILLA = $('#tablaListadoPlanillaAsistencia');
+var _CALENDARIO_PLANILLA = [];
+var _DIAS_PLANILLA = [];
+var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+var _LST_NULLS = ['Seleccione', 0, '0'];
 
-async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
-  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-  // loading(true);
-  await tablePlanilla.DataTable({
+async function listCentrosDeCostos() {
+  $.ajax({
+    url: 'controller/datosCentrosDeCostos.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option value='0'>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+      });
+      $('#selectListaCentrosDeCostos').html(html);
+    },
+  })
+}
+
+async function listCalendario() {
+  await $.ajax({
+    url:   'controller/datosCalendario2.php',
+    type:  'get',
+    dataType: 'json',
+    success:  function (response) {
+      if (!response.aaData?.length) return
+      var dt = {}
+      response.aaData.forEach(({ ANHO, ...item }) => {
+        if (!dt[ANHO]) dt[ANHO] = []
+        dt[ANHO].push(item)
+      });
+      _CALENDARIO_PLANILLA = dt;
+
+      var html = "<option value='0'>Seleccione</option>";
+      Object.keys(_CALENDARIO_PLANILLA).forEach((item) => {
+        html += `<option value='${item}'>${item}</option>`;
+      });
+      $('#selectListaAnhos').html(html);
+
+      initSemanas();
+    }
+  })
+}
+
+async function listDiasPorSemana() {
+  await $.ajax({
+    url:   'controller/datosCalendarioDias.php',
+    type:  'post',
+    data: {
+      anho: 2022,
+      nsemana: 51,
+    },
+    dataType: 'json',
+    success:  function (response) {
+      _DIAS_PLANILLA = response.aaData;
+    }
+  });
+}
+
+function initSemanas() {
+  var html = "<option value='0'>Seleccione</option>";
+  Object.keys(_CALENDARIO_PLANILLA).forEach((anho) => {
+    _CALENDARIO_PLANILLA[anho].forEach((item, idx) => html += `<option value='${anho}_${idx}'>${item.LABEL}</option>`);
+  });
+  $('#selectListaSemanas').html(html);
+}
+
+$('#selectListaAnhos').on('change', function (e) {
+  e.stopImmediatePropagation();
+  if (!this.value || isNaN(this.value) || Number(this.value) <= 0) {
+    initSemanas();
+    filtrosPlanilla();
+    return;
+  }
+  var html = "<option value='0'>Seleccione</option>";
+  _CALENDARIO_PLANILLA[this.value].forEach((item, idx) => {
+    if ((Number(this.value) == new Date().getFullYear() && item.ES_ACTUAL > 0)
+        || (Number(this.value) != new Date().getFullYear() && idx == _CALENDARIO_PLANILLA[this.value].length - 1)) {
+      html += `<option value='${this.value}_${idx}' selected>${item.LABEL}</option>`;
+    } else {
+      html += `<option value='${this.value}_${idx}'>${item.LABEL}</option>`;
+    }
+  })
+  $('#selectListaSemanas').html(html);
+  listSemanas($('#selectListaSemanas').val());
+})
+
+$('#selectListaSemanas').on('change', function (e) {
+  e.stopImmediatePropagation();
+  listSemanas(this.value);
+})
+
+function listSemanas(val) {
+  var [anho, _] = val.split('_');
+  listDiasPorSemana();
+
+  var html = "<option value='0'>Seleccione</option>";
+  Object.keys(_CALENDARIO_PLANILLA).forEach((item) => {
+    if (`${item}` == `${anho}`) {
+      html += `<option value='${item}' selected>${item}</option>`;
+    } else {
+      html += `<option value='${item}'>${item}</option>`;
+    }
+  });
+  $('#selectListaAnhos').html(html);
+
+  filtrosPlanilla();
+}
+
+async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {  
+  await _TABLE_PLANILLA.DataTable({
     serverSide: true,
     processing: true,
+    search: { return: true },
     ajax: {
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
       data: { idEstructuraOperacion, fecIni, fecFin },
-      /*dataSrc: function (json) {
-        return json.data;
-      },*/
     },
     columns: [
-      // { data: 'IDPERSONAL' },
       { data: 'RUT' },
-      { data: 'NOMBRES' }, // editField: 'personalOfertado' },
+      { data: 'NOMBRES' },
       { data: 'CARGO_LIQUIDACION' },
       { data: 'CARGO_GENERICO_UNIFICADO' },
       { data: 'CLASIFICACION' },
@@ -9877,19 +9945,15 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     buttons: [],
     columnDefs: [
       { width: "5px", targets: 0 },
-      /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
-      /*{ visible: false, searchable: false, targets: [ 2 ] },*/
       { targets: "_all", className: "dt-center" },
-      // { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" }
     ],
     select: { style: 'single' },
     scrollX: true,
     paging: true,
     ordering: true,
     scrollCollapse: true,
-    // "order": [[ 3, "asc" ]],
     info: true,
-    lengthMenu: [[largo], [largo]],
+    lengthMenu: [[_LARGO], [_LARGO]],
     dom: 'Bfrtip',
     language: {
       zeroRecords: "Seleccionar semana y centro de costo",
@@ -9913,52 +9977,35 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       $('#footer').parent().show();
       $('#footer').show();
       setTimeout(function() {
-        planillaData = json.aaData;
-        tablePlanilla.DataTable().columns.adjust();
-        // loading(false);
-      },500);
-    },
-    drawCallback: function () {
-      // tablePlanilla.DataTable().page(2).draw('page');
-      setTimeout(function() {
+        _DATA_PLANILLA = json.aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
+        _TABLE_PLANILLA.DataTable().columns.adjust();
         loading(false);
       },500);
-    }
+    },
   });
 }
 
-async function listCentrosDeCostos() {
-  $.ajax({
-    url: 'controller/datosCentrosDeCostos.php',
-    type: 'get',
-    dataType: 'json',
-    success: function (response) {
-      var data = response.aaData;
-      var html = "<option value='0'>Seleccione</option>";
-      data.forEach((item) => {
-        html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
-      });
-      $('#selectListaCentrosDeCostos').html(html);
-    },
-  })
-}
+$('#selectListaCentrosDeCostos').on('change', function (e) {
+  e.stopImmediatePropagation();
+  filtrosPlanilla();
+})
 
 function filtrosPlanilla() {
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
   var week = $("#selectListaSemanas").val();
 
-  if (lstNulls.includes(idEstructuraOperacion) || lstNulls.includes(week)) return;
+  if (_LST_NULLS.includes(idEstructuraOperacion) || _LST_NULLS.includes(week)) return;
 
   var semanaInicio = '2021-01-01';
   var semanaFin = '2025-01-01';
   if (week && week != '0' && week != 'Seleccione') {
     var [anho, idx] = week.split('_');
-    semanaInicio = calendarioPlanilla[anho][idx].SEMANA_INICIO;
-    semanaFin = calendarioPlanilla[anho][idx].SEMANA_FIN;
+    semanaInicio = _CALENDARIO_PLANILLA[anho][idx].SEMANA_INICIO;
+    semanaFin = _CALENDARIO_PLANILLA[anho][idx].SEMANA_FIN;
   } else {
     if (anho != 'Seleccione' && anho > 0) {
-      semanaInicio = calendarioPlanilla[anho][0].SEMANA_INICIO;
-      semanaFin = calendarioPlanilla[anho][calendarioPlanilla[anho].length - 1].SEMANA_FIN;
+      semanaInicio = _CALENDARIO_PLANILLA[anho][0].SEMANA_INICIO;
+      semanaFin = _CALENDARIO_PLANILLA[anho][_CALENDARIO_PLANILLA[anho].length - 1].SEMANA_FIN;
     }
   }
 
@@ -9970,305 +10017,43 @@ function filtrosPlanilla() {
   );
 }
 
-async function listCalendario(type) {
-  await $.ajax({
-    url:   'controller/datosCalendario2.php',
-    type:  'get',
-    dataType: 'json',
-    success:  function (response) {
-      if (!response.aaData?.length) return
-      var dt = {}
-      response.aaData.forEach(({ ANHO, ...item }) => {
-        if (!dt[ANHO]) dt[ANHO] = []
-        dt[ANHO].push(item)
-      });
-      calendarioPlanilla = dt;
-
-      var html = "<option value='0'>Seleccione</option>";
-      Object.keys(calendarioPlanilla).forEach((item) => {
-        html += `<option value='${item}'>${item}</option>`;
-      });
-      $('#selectListaAnhos').html(html);
-
-      initSemanas();
-    }
-  })
-}
-
-function initSemanas() {
-  var html = "<option value='0'>Seleccione</option>";
-  Object.keys(calendarioPlanilla).forEach((anho) => {
-    calendarioPlanilla[anho].forEach((item, idx) => html += `<option value='${anho}_${idx}'>${item.LABEL}</option>`);
-  });
-  $('#selectListaSemanas').html(html);
-}
-
-$('#selectListaCentrosDeCostos').on('change', function (e) {
-  e.stopImmediatePropagation();
-  filtrosPlanilla();
-})
-
-$('#selectListaAnhos').on('change', function (e) {
-  e.stopImmediatePropagation();
-  if (!this.value || isNaN(this.value) || Number(this.value) <= 0) {
-    initSemanas();
-    filtrosPlanilla();
-    return;
-  }
-  var html = "<option value='0'>Seleccione</option>";
-  calendarioPlanilla[this.value].forEach((item, idx) => {
-    if ((Number(this.value) == new Date().getFullYear() && item.ES_ACTUAL > 0)
-        || (Number(this.value) != new Date().getFullYear() && idx == calendarioPlanilla[this.value].length - 1)) {
-      html += `<option value='${this.value}_${idx}' selected>${item.LABEL}</option>`;
-    } else {
-      html += `<option value='${this.value}_${idx}'>${item.LABEL}</option>`;
-    }
-  })
-  $('#selectListaSemanas').html(html);
-  filtrosPlanilla();
-})
-
-/*$('#selectListaMeses').on('change', function (e) {
-  e.stopImmediatePropagation();
-  listCalendario('ss');
-})*/
-
-$('#selectListaSemanas').on('change', function (e) {
-  e.stopImmediatePropagation();
-  var [anho, _] = this.value.split('_');
-
-  var html = "<option value='0'>Seleccione</option>";
-  Object.keys(calendarioPlanilla).forEach((item) => {
-    if (`${item}` == `${anho}`) {
-      html += `<option value='${item}' selected>${item}</option>`;
-    } else {
-      html += `<option value='${item}'>${item}</option>`;
-    }
-  });
-  $('#selectListaAnhos').html(html);
-
-  filtrosPlanilla();
-})
-
-async function listComunesPlanilla() {
-  $.ajax({
-    url: 'controller/datosComunesPlanilla.php',
-    type: 'get',
-    dataType: 'json',
-    success: function (response) {
-      comunesPlanilla = response.aaData;
-    },
-  })
-}
-
-$('#tablaListadoPlanillaAsistencia').on(
-  'click',
-  'tbody td:not(:first-child,:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6),:nth-child(7),:nth-child(8),:nth-child(9),:nth-child(10),:nth-child(11),:nth-child(12),:nth-child(13),:nth-child(14),:nth-child(15),:nth-child(16),:nth-child(17),:nth-child(18),:nth-child(19),:nth-child(20),:nth-child(21))',
-  function (e) {
-    editorPlanilla.inline(this);
-  }
-);
-
-function personalGetId(strid) {
+function personalGetColAndId(strid) {
   var splitted = strid.split('-');
   if (splitted.length > 3) {
-    // return Number(splitted[2]);
-    return splitted[3];
+    return [Number(splitted[2].replace('col', '')), Number(splitted[3])];
   }
-  return "0";
+  return [0, 0];
 }
 
-$(document).on('change', '.planilla-select-col8', function(e){
+$(document).on('change', '.planilla-select-day', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
-  var idPersonal = personalGetId(this.id);
-  var idCargoGenericoUnificado = this.value;
-  var html = "";
-
-  var cargoGenericoUnificado = comunesPlanilla.cargoGenericoUnificado.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO']) == Number(idCargoGenericoUnificado));
-  var idReferencia1 = cargoGenericoUnificado['IDREFERENCIA1'];
-  var referencia1 = cargoGenericoUnificado['REFERENCIA1'];
-  var clasificacion = cargoGenericoUnificado['CLASIFICACION'];
-
-  /* Begin - Text Col 9 */
-  $(`#planilla-text-col9-${idPersonal}`).text(clasificacion);
-  /* End - Text Col 9 */
-
-  /* Begin - Text Col 10 */
-  $(`#planilla-text-col10-${idPersonal}`).text(referencia1);
-  /* End - Text Col 10 */
-
-  /* Begin - Select Col 11 */
-  html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
-  comunesPlanilla.referencia2.forEach((item) => {
-    if (Number(item['IDREFERENCIA1']) == Number(idReferencia1)) {
-      html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
-    }
-  })
-  html += "</select>";
-  $(`#planilla-select-col11-${idPersonal}`).html(html);
-  /* End - Select Col 11 */
-
-  var idReferencia2 = $(`#planilla-select-col11-${idPersonal}`).val();
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['IDCARGO_GENERICO_UNIFICADO_B'] = idCargoGenericoUnificado;
-    planillaData[planillaIdx]['CLASIFICACION_B_TEXT'] = clasificacion;
-    planillaData[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
-    planillaData[planillaIdx]['REFERENCIA1_B_TEXT'] = referencia1;
-    planillaData[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
-  }
-});
-
-$(document).on('change', '.planilla-select-col11', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
-  var idReferencia2 = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
-  }
-});
-
-$(document).on('change', '.planilla-select-col14', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
+  var [col, idPersonal] = personalGetColAndId(this.id);
   var idPec = this.value;
 
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA1_LUNES_ID'] = idPec;
-    planillaData[planillaIdx]['DIA1_LUNES_FECHA'] = diasPorSemana[0]['fecha'];
+    var idx = col - 14;
+    _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
   }
 });
 
-$(document).on('change', '.planilla-select-col15', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
+$(document).on('change', '.planilla-input', function(e){
+  var [col, idPersonal] = personalGetColAndId(this.id);
+  var val = this.value;
 
-  var idPersonal = personalGetId(this.id);
-  var idPec = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA2_MARTES_ID'] = idPec;
-    planillaData[planillaIdx]['DIA2_MARTES_FECHA'] = diasPorSemana[1]['fecha'];
+    var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
+    _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
   }
 });
 
-$(document).on('change', '.planilla-select-col16', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
-  var idPec = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA3_MIERCOLES_ID'] = idPec;
-    planillaData[planillaIdx]['DIA3_MIERCOLES_FECHA'] = diasPorSemana[2]['fecha'];
-  }
-});
-
-$(document).on('change', '.planilla-select-col17', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
-  var idPec = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA4_JUEVES_ID'] = idPec;
-    planillaData[planillaIdx]['DIA4_JUEVES_FECHA'] = diasPorSemana[3]['fecha'];
-  }
-});
-
-$(document).on('change', '.planilla-select-col18', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
-  var idPec = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA5_VIERNES_ID'] = idPec;
-    planillaData[planillaIdx]['DIA5_VIERNES_FECHA'] = diasPorSemana[4]['fecha'];
-  }
-});
-
-$(document).on('change', '.planilla-select-col19', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
-  var idPec = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA6_SABADO_ID'] = idPec;
-    planillaData[planillaIdx]['DIA6_SABADO_FECHA'] = diasPorSemana[5]['fecha'];
-  }
-});
-
-$(document).on('change', '.planilla-select-col20', function(e){
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  var idPersonal = personalGetId(this.id);
-  var idPec = this.value;
-
-  var planillaIdx = planillaData.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    planillaData[planillaIdx]['DIA7_DOMINGO_ID'] = idPec;
-    planillaData[planillaIdx]['DIA7_DOMINGO_FECHA'] = diasPorSemana[6]['fecha'];
-  }
-});
-
-editorPlanilla.on('postEdit', function (e, o, action) {
-  var idPersonal = action.IDPERSONAL;
-  var index = planillaData.findIndex((item) => `${item.IDPERSONAL}` === `${idPersonal}`)
-
-  if (index >= 0) {
-    var html = "";
-    var dt = planillaData[index] ?? {};
-
-    $(`#planilla-select-col8-${idPersonal}`).val(dt.IDCARGO_GENERICO_UNIFICADO_B)
-
-    $(`#planilla-text-col9-${idPersonal}`).text(dt.CLASIFICACION_B_TEXT)
-    $(`#planilla-text-col10-${idPersonal}`).text(dt.REFERENCIA1_B_TEXT)
-
-    html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
-    comunesPlanilla.referencia2.forEach((item) => {
-      if (Number(item['IDREFERENCIA1']) == Number(dt.IDREFERENCIA1_B)) {
-        html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
-      }
-    })
-    html += "</select>";
-    $(`#planilla-select-col11-${idPersonal}`).html(html);
-    $(`#planilla-select-col11-${idPersonal}`).val(dt.IDREFERENCIA2_B);
-
-    $(`#planilla-select-col14-${idPersonal}`).val(dt.DIA1_LUNES_ID);
-    $(`#planilla-select-col15-${idPersonal}`).val(dt.DIA2_MARTES_ID);
-    $(`#planilla-select-col16-${idPersonal}`).val(dt.DIA3_MIERCOLES_ID);
-    $(`#planilla-select-col17-${idPersonal}`).val(dt.DIA4_JUEVES_ID);
-    $(`#planilla-select-col18-${idPersonal}`).val(dt.DIA5_VIERNES_ID);
-    $(`#planilla-select-col19-${idPersonal}`).val(dt.DIA6_SABADO_ID);
-    $(`#planilla-select-col20-${idPersonal}`).val(dt.DIA7_DOMINGO_ID);
-
-    /* Begin - Dates */
-    planillaData[index]['HE50'] = action['HE50'];
-    planillaData[index]['HE100'] = action['HE100'];
-    planillaData[index]['ATRASO'] = action['ATRASO'];
-    /* End - Dates */
+$(document).on('keypress', '.planilla-input', function(e){
+  if(e.keyCode == 13) {
+    e.preventDefault();
+    e.target.blur();
   }
 });
 
@@ -10278,64 +10063,42 @@ $("#savePlanilla").on('click', async (e) => {
 
   var dataUpd = [];
 
-  planillaData.forEach(({
+  _DATA_PLANILLA.forEach(({
     IDPERSONAL,
     IDCARGO_GENERICO_UNIFICADO_B,
     IDREFERENCIA2_B,
-    DIA1_LUNES_ID, DIA1_LUNES_FECHA,
-    DIA2_MARTES_ID, DIA2_MARTES_FECHA,
-    DIA3_MIERCOLES_ID, DIA3_MIERCOLES_FECHA,
-    DIA4_JUEVES_ID, DIA4_JUEVES_FECHA,
-    DIA5_VIERNES_ID, DIA5_VIERNES_FECHA,
-    DIA6_SABADO_ID, DIA6_SABADO_FECHA,
-    DIA7_DOMINGO_ID, DIA7_DOMINGO_FECHA,
-    HE50,
-    HE100,
-    ATRASO,
+    __DIAS_PLN,
+    __HE50,
+    __HE100,
+    __ATRASO,
   }) => {
     var aux = {
       IDPERSONAL,
       IDCARGO_GENERICO_UNIFICADO_B,
       IDREFERENCIA2_B,
-      FECHA_BASE: diasPorSemana[0]['fecha'],
-      DIAS: diasPorSemana.map(({ fecha }) => fecha),
-      DIAS_PLANILLA: [],
-      HE50,
-      HE100,
-      ATRASO,
+      FECHA_BASE: _DIAS_PLANILLA[0]['fecha'],
+      DIAS: _DIAS_PLANILLA.map(({ fecha }) => fecha),
+      DIAS_PLANILLA: __DIAS_PLN,
+      HE50: __HE50,
+      HE100: __HE100,
+      ATRASO: __ATRASO,
     }
-    if (DIA1_LUNES_ID) aux.DIAS_PLANILLA.push({ id: DIA1_LUNES_ID, fecha: DIA1_LUNES_FECHA });
-    if (DIA2_MARTES_ID) aux.DIAS_PLANILLA.push({ id: DIA2_MARTES_ID, fecha: DIA2_MARTES_FECHA });
-    if (DIA3_MIERCOLES_ID) aux.DIAS_PLANILLA.push({ id: DIA3_MIERCOLES_ID, fecha: DIA3_MIERCOLES_FECHA });
-    if (DIA4_JUEVES_ID) aux.DIAS_PLANILLA.push({ id: DIA4_JUEVES_ID, fecha: DIA4_JUEVES_FECHA });
-    if (DIA5_VIERNES_ID) aux.DIAS_PLANILLA.push({ id: DIA5_VIERNES_ID, fecha: DIA5_VIERNES_FECHA });
-    if (DIA6_SABADO_ID) aux.DIAS_PLANILLA.push({ id: DIA6_SABADO_ID, fecha: DIA6_SABADO_FECHA });
-    if (DIA7_DOMINGO_ID) aux.DIAS_PLANILLA.push({ id: DIA7_DOMINGO_ID, fecha: DIA7_DOMINGO_FECHA });
     dataUpd.push(aux);
   })
+
+  console.log('---dataUpd---')
+  console.log(dataUpd)
 
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoPlanilla.php',
     type:  'post',
-    // contentType: 'application/json; charset=utf-8',
-    // dataType: 'json',
-    // data:  JSON.stringify({ dataUpd }),
     data: { dataUpd },
     success:  function (response) {
-      // loading(false);
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Planilla actualizada correctamente");
     }
   })
-
-  /*var week = $('#selectListaSemanas').val();
-  var semana = semanas.find((sem) => Number(sem.n_semana) == Number(week));
-  var cc = $('#selectListaCentrosDeCostos').val();
-  await listPlanillaAsistencia(cc, semana.semana_inicio, semana.semana_fin);*/
   loading(false);
-  filtrosPlanilla();
-
-  // loading(false);
 });
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
