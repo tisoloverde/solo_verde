@@ -36,4 +36,14 @@
     }
     return "P.DNI";
   }
+
+  function buscarDiaValidoPersonalEstadoConcepto($cons) {
+    $idConValid = 0;
+    foreach($cons as $con) {
+      if ($con['SIGLA'] == '1') {
+        $idConValid = $con['IDPERSONAL_ESTADO_CONCEPTO'];
+      }
+    }
+    return $idConValid;
+  }
 ?>

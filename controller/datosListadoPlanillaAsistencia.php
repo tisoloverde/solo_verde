@@ -24,18 +24,20 @@
     $crgman = consultaListaCargoMandante();
     $cons = consultaListaPersonalEstadoConcepto();
     $refs2 = consultaListaReferencia2();
+    $idConValid = buscarDiaValidoPersonalEstadoConcepto($cons);
 
     $rows = [];
     if (is_array($lstPersonalCC)) {
       for ($i=0; $i<count($lstPersonalCC); $i++) {
         $idPersonal = $lstPersonalCC[$i]['IDPERSONAL'];
 
+        $ndias = 7;
         $found = [];
         foreach ($lstPersonalEstado as $personalEstado) {
           if ($idPersonal == $personalEstado['IDPERSONAL']) {
             $found = $personalEstado;
-            if (isset($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'])) {
-              $row['NDIAS'] = $row['NDIAS'] + 1;
+            if ($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'] != $idConValid) {
+              $ndias = $ndias - 1;
             }
           }
         }
@@ -57,7 +59,7 @@
           "REFERENCIA2_B" => "",
           "RUT_REEMPLAZO" => "<input id='planilla-input-12' style='border: none; text-align: center;'>",
           "FECHA_REEMPLAZO" => "",
-          "NDIAS" => 0,
+          "NDIAS" => $ndias,
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
           "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
           "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
