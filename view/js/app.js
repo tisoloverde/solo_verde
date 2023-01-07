@@ -3015,8 +3015,7 @@ app.controller("planillaAsistenciaController", function(){
   $("#selectListaMeses").html(html);
   $("#selectListaSemanas").html(html);
 
-
-  /*$.ajax({
+  $.ajax({
     url:   'controller/accesoCorrecto.php',
     type:  'post',
     data: { path },
@@ -3025,8 +3024,28 @@ app.controller("planillaAsistenciaController", function(){
         restricted();
       } else if (response === "DESCONECTADO") {
         window.location.href = "#/home";
-      } else {*/
+      } else {
         setTimeout(async function() {
+          await $.ajax({
+            url:   'controller/datosAccionesVisibles.php',
+            type:  'post',
+            data: { path, },
+            success: function (response) {
+              var p = jQuery.parseJSON(response);
+              if(p.aaData.length !== 0){
+                for(var i = 0; i < p.aaData.length; i++) {
+                  if(p.aaData[i].VISIBLE == 1){
+                    if(p.aaData[i].ENABLE == 1){
+                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                    } else{
+                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                    }
+                  }
+                }
+              }
+            }
+          });
+
           await listComunesPlanilla();
           await listCentrosDeCostos();
           await listCalendario();
@@ -3034,7 +3053,7 @@ app.controller("planillaAsistenciaController", function(){
           esconderMenu();
           menuElegant();
         }, 500);
-      /*}
+      }
     }
-  });*/
+  });
 });

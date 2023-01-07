@@ -10000,6 +10000,13 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         loading(false);
       },500);
     },
+    /*preDrawCallback: function(settings) {
+      var anyUpdated = _DATA_PLANILLA.some((item) => item['__isEdited'])
+      if (anyUpdated) {
+        window.alert("Guarde antes de cambiar de página");
+        return false;
+      }
+    },*/
   });
 }
 
@@ -10147,9 +10154,11 @@ $(document).on('click', '.planilla-modal', function(e){
   }, 500);
 });
 
-$("#savePlanilla").on('click', async (e) => {
+$(document).on('click', '#editarPlanillaAsistencia', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
+
+  if (!_DATA_PLANILLA.length || !_DATA_PLANILLA.some((item) => item['__isEdited'])) return;
 
   var dataUpd = [];
 
@@ -10177,7 +10186,6 @@ $("#savePlanilla").on('click', async (e) => {
     if (__isEdited) dataUpd.push(aux);
   })
 
-  console.log('---dataUpd---')
   console.log(dataUpd)
 
   loading(true);
