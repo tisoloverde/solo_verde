@@ -9923,7 +9923,7 @@ function listSemanas(val) {
   filtrosPlanilla();
 }
 
-async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {  
+async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   await _TABLE_PLANILLA.DataTable({
     serverSide: true,
     processing: true,
