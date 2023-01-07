@@ -25,6 +25,7 @@
     $cons = consultaListaPersonalEstadoConcepto();
     $refs2 = consultaListaReferencia2();
     $idConValid = buscarDiaValidoPersonalEstadoConcepto($cons);
+    $idsConNotValid = buscarDiasNoValidoPersonalEstadoConcepto($cons);
 
     $rows = [];
     if (is_array($lstPersonalCC)) {
@@ -144,16 +145,22 @@
           /* end - search */
 
           $col = $col + 1;
-          $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
-          $select = $select . "<option value='0'></option>";
-          foreach ($cons as $con) {
-            $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
-            $pec = $con['SIGLA'];
-            $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? 21) == $idPec
-              ? "<option value='$idPec' selected>$pec</option>"
-              : "<option value='$idPec'>$pec</option>");
+          if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid)) {
+            $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
+            $select = $select . "<option>" . $found['PERSONAL_ESTADO_CONCEPTO'] . "</option>";
+            $select = $select . "</select>";
+          } else {
+            $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
+            $select = $select . "<option value='0'></option>";
+            foreach ($cons as $con) {
+              $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
+              $pec = $con['SIGLA'];
+              $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? $idConValid) == $idPec
+                ? "<option value='$idPec' selected>$pec</option>"
+                : "<option value='$idPec'>$pec</option>");
+            }
+            $select = $select . "</select>";
           }
-          $select = $select . "</select>";
 
           $row[sanitizeWord($dia['DIA'])] = $select;
           // $row[$dia['DIA'] . "__"] = $found;

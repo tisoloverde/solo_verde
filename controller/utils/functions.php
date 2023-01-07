@@ -46,4 +46,14 @@
     }
     return $idConValid;
   }
+
+  function buscarDiasNoValidoPersonalEstadoConcepto($cons) {
+    $idsConValid = [];
+    foreach($cons as $con) {
+      if ($con['SIGLA'] == 'LIC' || $con['SIGLA'] == 'V' || $con['SIGLA'] == 'DSR') {
+        $idsConValid[] = $con['IDPERSONAL_ESTADO_CONCEPTO'];
+      }
+    }
+    return $idsConValid;
+  }
 ?>
