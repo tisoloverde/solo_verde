@@ -34,6 +34,6 @@
       default:
         return "P.DNI";
     }
-    return "";
+    return "P.DNI";
   }
 ?>
