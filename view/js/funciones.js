@@ -7,6 +7,8 @@ $(window).resize(function()
 $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
+  $("body").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height()-10);
   $('body').on('show.bs.modal', function() {
     $('.modal-body').overlayScrollbars({
   	  className: "os-theme-round-dark",
@@ -411,6 +413,8 @@ $(window).on("load",function(e){
 function splashOpen(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $('#modalAlertasSplash').modal('show');
+  $("body").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height()-10);
 }
 
 //Funcion de menu
@@ -3236,7 +3240,7 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
 
 function initScreen() {
   $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height()-10);
   var path = window.location.href.split('#/')[1];
   return path;
 }
