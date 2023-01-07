@@ -413,8 +413,6 @@ $(window).on("load",function(e){
 function splashOpen(){
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $('#modalAlertasSplash').modal('show');
-  $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height()-10);
 }
 
 //Funcion de menu
@@ -3239,8 +3237,10 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
 });
 
 function initScreen() {
-  $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height()-10);
+  setTimeout(function(){
+    $("body").css("height",$(window).height());
+    $("#contenido").css("height",$(window).height()-10);
+  },1000);
   var path = window.location.href.split('#/')[1];
   return path;
 }
