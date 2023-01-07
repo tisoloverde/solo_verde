@@ -11429,3 +11429,26 @@
   </div>
 </div>
 <!-- END - INGRESO ANHO DOTACION -->
+
+<!-- BEGIN - INGRESO TEMPORAL PLANILLA -->
+<div id="modalIngresoTemporalPlanilla" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloIngresoTemporalPlanilla"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;NUEVO INGRESO</h5>
+      </div>
+      <div id="bodyIngresoTemporalPlanilla" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">POR DEFINIR</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoTemporalPlanilla" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoTemporalPlanilla" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END - INGRESO TEMPORAL PLANILLA -->

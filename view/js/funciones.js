@@ -10136,6 +10136,17 @@ $(document).on('keypress', '.planilla-input', function(e){
   }
 });
 
+$(document).on('click', '.planilla-modal', function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  loading(true);
+  setTimeout(function(){
+    // var h = $(window).height() - 200;
+    $("#modalIngresoTemporalPlanilla").modal("show");
+    loading(false);
+  }, 500);
+});
+
 $("#savePlanilla").on('click', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();

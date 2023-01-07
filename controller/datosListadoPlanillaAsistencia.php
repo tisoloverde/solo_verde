@@ -58,7 +58,7 @@
           "REFERENCIA1_B_TEXT" => "",
           "IDREFERENCIA2_B" => 0,
           "REFERENCIA2_B" => "",
-          "RUT_REEMPLAZO" => "<input id='planilla-input-12' style='border: none; text-align: center;'>",
+          "RUT_REEMPLAZO" => "<input id='planilla-input-12' class='planilla-modal' style='border: none; text-align: center;'>",
           "FECHA_REEMPLAZO" => "",
           "NDIAS" => $ndias,
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
