@@ -61,6 +61,9 @@
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
           "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
           "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
+          "__HE50" => $found['HE50'],
+          "__HE100" => $found['HE100'],
+          "__ATRASO" => $found['ATRASO'],
           "__DIAS_PLN" => [],
         ];
 

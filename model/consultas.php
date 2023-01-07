@@ -19891,6 +19891,40 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function actualizarSemanaPlanillaBasic(
+		$idPersonal,
+		$idCargoGenericoUnificado_b,
+		$idReferencia2_b,
+		$fecha,
+		$he50,
+		$he100,
+		$atraso,
+		$rutUsuario
+	) {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "CALL INSERTAR_PERSONAL_ESTADO_BASIC(
+				$idPersonal,
+				$idCargoGenericoUnificado_b,
+				$idReferencia2_b,
+				'$fecha',
+				$he50,
+				$he100,
+				$atraso,
+				'$rutUsuario'
+			)";
+			if ($row = $con->query($sql)) {
+				return $sql;
+			} else {
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
 	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin, $search) {
 		$con = conectar();
 		if ($con != "No conectado") {

@@ -10084,6 +10084,7 @@ $(document).on('change', '.planilla-select-col8', function(e){
     _DATA_PLANILLA[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
     _DATA_PLANILLA[planillaIdx]['REFERENCIA1_B_TEXT'] = referencia1;
     // _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
+    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }
 });
 
@@ -10097,6 +10098,7 @@ $(document).on('change', '.planilla-select-col11', function(e){
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
     _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
+    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }
 });
 
@@ -10111,6 +10113,7 @@ $(document).on('change', '.planilla-select-day', function(e){
   if (planillaIdx >= 0) {
     var idx = col - 14;
     _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
+    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }
 });
 
@@ -10122,6 +10125,7 @@ $(document).on('change', '.planilla-input', function(e){
   if (planillaIdx >= 0) {
     var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
     _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
+    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }
 });
 
@@ -10146,6 +10150,7 @@ $("#savePlanilla").on('click', async (e) => {
     __HE50,
     __HE100,
     __ATRASO,
+    __isEdited,
   }) => {
     var aux = {
       IDPERSONAL,
@@ -10154,11 +10159,11 @@ $("#savePlanilla").on('click', async (e) => {
       FECHA_BASE: _DIAS_PLANILLA[0]['fecha'],
       DIAS: _DIAS_PLANILLA.map(({ fecha }) => fecha),
       DIAS_PLANILLA: __DIAS_PLN,
-      HE50: __HE50,
-      HE100: __HE100,
-      ATRASO: __ATRASO,
     }
-    dataUpd.push(aux);
+    if (__HE50) aux['HE50'] = __HE50;
+    if (__HE100) aux['HE100'] = __HE100;
+    if (__ATRASO) aux['ATRASO'] = __ATRASO;
+    if (__isEdited) dataUpd.push(aux);
   })
 
   console.log('---dataUpd---')
