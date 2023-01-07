@@ -21,6 +21,16 @@
         return "P.DNI";
       case 1:
         return "P.APELLIDOS";
+      case 2:
+        return "P.CARGO";
+      case 3:
+        return "CGU.NOMBRE";
+      case 4:
+        return "CL.NOMBRE";
+      case 5:
+        return "R1.NOMBRE";
+      case 6:
+        return "R2.NOMBRE";
       default:
         return "P.DNI";
     }
