@@ -19918,13 +19918,13 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $search) {
+	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $search, $sortCol, $sortOrd) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				DISTINCT(AH.IDPERSONAL),
 				P.DNI AS RUT,
-				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS NOMBRES,
+				CONCAT(P.APELLIDOS, ' ', P.NOMBRES) AS NOMBRES,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
 				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
@@ -19946,6 +19946,7 @@ WHERE U.RUT = '{$rutUser}'";
 				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			}
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%')";
+			$sql = $sql . " ORDER BY $sortCol $sortOrd";
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();

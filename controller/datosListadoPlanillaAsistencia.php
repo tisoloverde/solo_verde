@@ -11,10 +11,12 @@
     $fecIni = $_POST['fecIni'];
     $fecFin = $_POST['fecFin'];
     $search = $_POST['search']['value'];
+    $sortCol = $_POST['order'][0]['column'];
+    $sortOrd = $_POST['order'][0]['dir'];
 
     // DB
     $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $search);
-    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $search);
+    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $search, sanitizePlanillaCol($sortCol), $sortOrd);
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 

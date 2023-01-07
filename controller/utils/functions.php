@@ -13,4 +13,17 @@
     }
     return $res;
   }
+
+  function sanitizePlanillaCol($nCol) {
+    $col = (int)$nCol;
+    switch ($col) {
+      case 0:
+        return "P.DNI";
+      case 1:
+        return "P.APELLIDOS";
+      default:
+        return "P.DNI";
+    }
+    return "";
+  }
 ?>
