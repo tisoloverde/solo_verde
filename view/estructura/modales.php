@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=15';
+  js.src = 'view/js/funciones.js?idload=19';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -339,7 +339,7 @@
             <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
           </div>
           <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">DNI</label>
+            <label style="font-weight: bold;">RUT</label>
             <input id="rutIngresoUsuario" class="form-control" type="text" value=" ">
           </div>
           <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
@@ -412,7 +412,7 @@
             <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
           </div>
           <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">DNI</label>
+            <label style="font-weight: bold;">RUT</label>
             <input disabled id="rutEditarUsuario" class="form-control" type="text" value=" ">
           </div>
           <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">

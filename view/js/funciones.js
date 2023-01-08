@@ -7,6 +7,8 @@ $(window).resize(function()
 $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
+  $("body").css("height",$(window).height());
+  $("#contenido").css("height",$(window).height()-10); menuElegant();
   $('body').on('show.bs.modal', function() {
     $('.modal-body').overlayScrollbars({
   	  className: "os-theme-round-dark",
@@ -3235,8 +3237,10 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
 });
 
 function initScreen() {
-  $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height());
+  setTimeout(function(){
+    $("body").css("height",$(window).height());
+    $("#contenido").css("height",$(window).height()-10); menuElegant();
+  },1000);
   var path = window.location.href.split('#/')[1];
   return path;
 }
@@ -9923,7 +9927,7 @@ function listSemanas(val) {
   filtrosPlanilla();
 }
 
-async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {  
+async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   await _TABLE_PLANILLA.DataTable({
     serverSide: true,
     processing: true,
