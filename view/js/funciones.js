@@ -3270,6 +3270,7 @@ var _LAST_ID_DOTACION = 0;
 var _DATA_DOTACION = [];
 var _TABLE_DOTACION = $('#tablaListadoDotacion');
 var _COMUNES_DOTACION = {};
+var _LST_MONTHS = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SETIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 
 async function listComunesDotacion() {
   $.ajax({
@@ -3320,7 +3321,7 @@ async function listDotacion(periodo, codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   loading(true);
   await _TABLE_DOTACION.DataTable({
-    serverSide: true,
+    serverSide: false,
     processing: true,
     search: { return: true },
     ajax: {
@@ -3631,8 +3632,7 @@ $(document).on('change', '.dotacion-input', function(e){
 
   var dotacionIdx = _DATA_DOTACION.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
   if (dotacionIdx >= 0) {
-    var lst = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SETIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
-    var key = lst[col-8-1];
+    var key = _LST_MONTHS[col-8-1];
     _DATA_DOTACION[dotacionIdx][`__${key}`] = val;
     _DATA_DOTACION[dotacionIdx]['__isEdited'] = true;
   }
@@ -3682,6 +3682,112 @@ $('#guardarIngresoAnho').on('click', async function (e) {
   listDotacionPeriodos();
 });
 
+$('#newDotacion').on('click', function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  $("#saveDotacion").removeAttr("disabled");
+
+  _LAST_ID_DOTACION++;
+  var IDDOTACION = `_${_LAST_ID_DOTACION}`; // Prefijo Dotacion || Sufijo Dotacion
+
+  /* Begin - Select col 2 */
+  var PERSONAL_OFERTADOS = `<select id='dotacion-select-col2-${IDDOTACION}' class='dotacion-select-col2'>`;
+  _COMUNES_DOTACION.personalOfertado.forEach((item) => {
+    PERSONAL_OFERTADOS += "<option value='" + item['IDPERSONAL_OFERTADOS'] + "'>" + item['NOMBRE'] + "</option>";
+  })
+  PERSONAL_OFERTADOS += "</select>";
+  /* End - Select col 2 */
+
+  /* Begin - Select col 3 */
+  var FAMILIA = `<select id='dotacion-select-col3-${IDDOTACION}' class='dotacion-select-col3'>`;
+  _COMUNES_DOTACION.familia.forEach((item) => {
+    FAMILIA += "<option value='" + item['IDFAMILIA'] + "'>" + item['NOMBRE'] + "</option>";
+  })
+  FAMILIA += "</select>";
+  /* End - Select col 3 */
+
+  /* Begin - Select col 4 */
+  var CARGO_MANDANTE = `<select id='dotacion-select-col4-${IDDOTACION}' class='dotacion-select-col4'>`;
+  _COMUNES_DOTACION.cargoMandante.forEach((item) => {
+    var idFamilia = _COMUNES_DOTACION.familia[0]['IDFAMILIA'];
+    if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
+      CARGO_MANDANTE += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+    }
+  })
+  CARGO_MANDANTE += "</select>";
+  /* End - Select col 4 */
+
+  /* Begin - Select col 5 */
+  var CARGO_GENERICO_UNIFICADO_FAMILIA = `<select id='dotacion-select-col5-${IDDOTACION}' class='dotacion-select-col5'>`;
+  _COMUNES_DOTACION.cargoMandante.forEach((item) => {
+    var idFamilia = _COMUNES_DOTACION.familia[0]['IDFAMILIA'];
+    if (Number(item['IDFAMILIA']) == Number(idFamilia)) {
+      CARGO_GENERICO_UNIFICADO_FAMILIA += "<option value='" + item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] + "'>" + item['CARGO_GENERICO_UNIFICADO'] + "</option>";
+    }
+  })
+  CARGO_GENERICO_UNIFICADO_FAMILIA += "</select>";
+  /* End - Select col 5 */
+
+  /* Begin - Text col 6 */
+  var CLASIFICACION = `<span id='dotacion-text-col6-${IDDOTACION}'>` + _COMUNES_DOTACION.cargoMandante[0]['CLASIFICACION'] + "</span>";
+  /* End - Text col 6 */
+
+  /* Begin - Text col 7 */
+  var REFERENCIA1 = `<select id='dotacion-select-col7-${IDDOTACION}' class='dotacion-select-col7'>`;
+  _COMUNES_DOTACION.referencia1.forEach((item) => {
+    REFERENCIA1 += "<option value='" + item['IDREFERENCIA1'] + "'>" + item['REFERENCIA1'] + "</option>";
+  })
+  REFERENCIA1 += "</select>";
+  /* End - Text col 7 */
+
+  /* Begin - Select col 8 */
+  var REFERENCIA2 = `<select id='dotacion-select-col8-${IDDOTACION}' class='dotacion-select-col8'>`;
+  _COMUNES_DOTACION.referencia2.forEach((item) => {
+    REFERENCIA2 += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
+  })
+  REFERENCIA2 += "</select>";
+  /* End - Select col 8 */
+
+  var dt = {
+    IDDOTACION,
+    PERSONAL_OFERTADOS,
+    FAMILIA,
+    CARGO_MANDANTE,
+    CARGO_GENERICO_UNIFICADO_FAMILIA,
+    CLASIFICACION,
+    REFERENCIA1,
+    REFERENCIA2,
+    ENERO: '',
+    FEBRERO: '',
+    MARZO: '',
+    ABRIL: '',
+    MAYO: '',
+    JUNIO: '',
+    JULIO: '',
+    AGOSTO: '',
+    SETIEMBRE: '',
+    OCTUBRE: '',
+    NOVIEMBRE: '',
+    DICIEMBRE: '',
+    IDPERSONAL_OFERTADOS: _COMUNES_DOTACION.personalOfertado[0].IDPERSONAL_OFERTADOS,
+    IDFAMILIA: _COMUNES_DOTACION.familia[0].IDFAMILIA,
+    IDCARGO_MANDANTE: _COMUNES_DOTACION.cargoMandante[0].IDCARGO_GENERICO_UNIFICADO_FAMILIA,
+    IDCARGO_GENERICO_UNIFICADO_FAMILIA: _COMUNES_DOTACION.cargoMandante[0].IDCARGO_GENERICO_UNIFICADO_FAMILIA,
+    IDREFERENCIA1: _COMUNES_DOTACION.referencia1[0].IDREFERENCIA1,
+    IDREFERENCIA2: _COMUNES_DOTACION.referencia2[0].IDREFERENCIA2,
+    __type: 'new',
+  };
+
+  /* Begin - Months */
+  _LST_MONTHS.forEach((item, idx) => {
+    dt[item] = `<input id='dotacion-input-col${idx+9}-${IDDOTACION}' class='dotacion-input onlyNumbers' style='border: none; text-align: center;'>`;
+  });
+  /* End - Months */
+
+  _DATA_DOTACION.push(dt);
+  _TABLE_DOTACION.DataTable().row.add(dt).draw(false);
+});
+
 $("#saveDotacion").on('click', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
@@ -3724,6 +3830,10 @@ $("#saveDotacion").on('click', async (e) => {
         break;
     }
   })
+
+  console.log('----dataAd-.--')
+  console.log(dataAdd)
+  console.log(dataUpd)
 
   loading(true);
   await $.ajax({

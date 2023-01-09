@@ -7,13 +7,14 @@
     "periodoIds" => [],
   ];
 
+  $res = [];
   if (count($_POST) > 0) {
     $dataAdd = $_POST['dataAdd'];
     $dataUpd = $_POST['dataUpd'];
 
     foreach ($dataAdd as $item) {
       $periodo = $item['PERIODO'];
-      ingresarDotacionPeriodo(
+      $res[] = ingresarDotacionPeriodo(
         $item['DEFINICION_ESTRUCTURA_OPERACION'],
         $item['IDPERSONAL_OFERTADOS'] ?? 'null',
         $item['IDCARGO_MANDANTE'] ?? 'null',
@@ -43,6 +44,7 @@
       "iTotalRecords" => 0,
       "iTotalDisplayRecords" => 0,
       "aaData" => [],
+      "res" => $res,
     ];
     echo json_encode($results);
   } else {
