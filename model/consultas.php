@@ -19450,6 +19450,28 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaReferencia1() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				R1.IDREFERENCIA1,
+				R1.NOMBRE AS REFERENCIA1
+			FROM REFERENCIA1 R1;
+			";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaListaReferencia2() {
 		$con = conectar();
 		if ($con != 'No conectado') {
@@ -19568,6 +19590,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$idPersonalOfertado,
 		$idCargoMandante,
 		$idCargoGenericoUnificadoFamilia,
+		$idReferencia1,
 		$idReferencia2,
 		$anho,
 		$ene, $feb, $mar, $abr, $may, $jun, $jul, $ago, $set, $oct, $nov, $dic
@@ -19579,6 +19602,7 @@ WHERE U.RUT = '{$rutUser}'";
 				$idPersonalOfertado,
 				$idCargoMandante,
 				$idCargoGenericoUnificadoFamilia,
+				$idReferencia1,
 				$idReferencia2,
 				'$anho',
 				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set', '$oct', '$nov','$dic'
@@ -19602,6 +19626,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$idPersonalOfertado,
 		$idCargoMandante,
 		$idCargoGenericoUnificadoFamilia,
+		$idReferencia1,
 		$idReferencia2,
 		$ene, $feb, $mar, $abr, $may, $jun, $jul, $ago, $set, $oct, $nov, $dic
 	) {
@@ -19612,6 +19637,7 @@ WHERE U.RUT = '{$rutUser}'";
 				$idPersonalOfertado,
 				$idCargoMandante,
 				$idCargoGenericoUnificadoFamilia,
+				$idReferencia1,
 				$idReferencia2,
 				'$ene', '$feb', '$mar', '$abr', '$may', '$jun', '$jul', '$ago', '$set', '$oct', '$nov','$dic'
 			)";

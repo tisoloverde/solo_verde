@@ -15,10 +15,11 @@
       $periodo = $item['PERIODO'];
       ingresarDotacionPeriodo(
         $item['DEFINICION_ESTRUCTURA_OPERACION'],
-        $item['IDPERSONAL_OFERTADOS'],
-        $item['IDCARGO_MANDANTE'],
-        $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
-        $item['IDREFERENCIA2'],
+        $item['IDPERSONAL_OFERTADOS'] ?? 'null',
+        $item['IDCARGO_MANDANTE'] ?? 'null',
+        $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] ?? 'null',
+        $item['IDREFERENCIA1'] ?? 'null',
+        $item['IDREFERENCIA2'] ?? 'null',
         $periodo['ANHO'],
         $periodo['ENERO'], $periodo['FEBRERO'], $periodo['MARZO'], $periodo['ABRIL'], $periodo['MAYO'], $periodo['JUNIO'], $periodo['JULIO'], $periodo['AGOSTO'], $periodo['SETIEMBRE'], $periodo['OCTUBRE'], $periodo['NOVIEMBRE'], $periodo['DICIEMBRE']
       );
@@ -27,11 +28,12 @@
     foreach ($dataUpd as $item) {
       $periodo = $item['PERIODO'];
       actualizarDotacionPeriodo(
-        $item['IDDOTACION'],
-        $item['IDPERSONAL_OFERTADOS'],
-        $item['IDCARGO_MANDANTE'],
-        $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
-        $item['IDREFERENCIA2'],
+        $item['IDDOTACION'] ?? 'null',
+        $item['IDPERSONAL_OFERTADOS'] ?? 'null',
+        $item['IDCARGO_MANDANTE'] ?? 'null',
+        $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] ?? 'null',
+        $item['IDREFERENCIA1'] ?? 'null',
+        $item['IDREFERENCIA2'] ?? 'null',
         $periodo['ENERO'], $periodo['FEBRERO'], $periodo['MARZO'], $periodo['ABRIL'], $periodo['MAYO'], $periodo['JUNIO'], $periodo['JULIO'], $periodo['AGOSTO'], $periodo['SETIEMBRE'], $periodo['OCTUBRE'], $periodo['NOVIEMBRE'], $periodo['DICIEMBRE']
       );
     }
