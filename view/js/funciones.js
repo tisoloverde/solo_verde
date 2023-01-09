@@ -2,6 +2,7 @@ $(window).resize(function()
 {
    var viewportWidth = $(window).width();
    var viewportHeight = $(window).height();
+   menuElegant();
 });
 
 $(window).on("load",function(e){
