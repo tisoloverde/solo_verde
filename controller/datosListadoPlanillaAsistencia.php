@@ -177,7 +177,6 @@
         "recordsTotal" => (int)$total[0]['CONT'],
         "recordsFiltered" => (int)$total[0]['CONT'],
         "aaData"=>$rows,
-        "crgman" => $crgman
       );
       echo json_encode($results);
     } else {
