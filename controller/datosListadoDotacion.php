@@ -3,7 +3,10 @@ require('../model/consultas.php');
 session_start();
 
 if (count($_POST) >= 0) {
-  $dots = (array)consultaListadoDotacion($_POST['periodo'], $_POST['codigoCC']);
+  $dots = (array)consultaListadoDotacion(
+    $_POST['periodo'], $_POST['codigoCC'],
+    $_POST['search'], $_POST['sort'], $_POST['order']
+  );
   $pofs = consultaListaPersonalOfertados();
   $fams = consultaListaFamilias();
   $crgman = consultaListaCargoMandante();

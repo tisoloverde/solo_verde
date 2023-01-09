@@ -3271,6 +3271,9 @@ var _DATA_DOTACION = [];
 var _TABLE_DOTACION = $('#tablaListadoDotacion');
 var _COMUNES_DOTACION = {};
 var _LST_MONTHS = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SETIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+var _SEARCH_DOTACION = '';
+var _SORT_DOTACION = '';
+var _ORDER_DOTACION = '';
 
 async function listComunesDotacion() {
   $.ajax({
@@ -3322,11 +3325,14 @@ async function listDotacion(periodo, codigoCC) {
   await _TABLE_DOTACION.DataTable({
     serverSide: false,
     processing: true,
-    search: { return: true },
+    // search: { return: true },
     ajax: {
       url: "controller/datosListadoDotacion.php",
       type: 'POST',
-      data: { periodo, codigoCC },
+      data: {
+        periodo, codigoCC,
+        search: _SEARCH_DOTACION, sort: _SORT_DOTACION, order: _ORDER_DOTACION,
+      },
     },
     columns: [
       { data: 'IDDOTACION' },
@@ -3356,7 +3362,8 @@ async function listDotacion(periodo, codigoCC) {
       /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
       /*{ visible: false, searchable: false, targets: [ 2 ] },*/
       { targets: "_all", className: "dt-center" },
-      { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" }
+      { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" },
+      { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19] },
     ],
     select: { style: 'single' },
     scrollX: true,
@@ -3437,6 +3444,14 @@ $(document).on('keypress', '.onlyNumbers', function (e) {
   var charCode = (e.which) ? e.which : event?.keyCode;
   if (String.fromCharCode(charCode).match(/[^0-9]/g)) {
     return false;
+  }
+});
+
+$(document).on('keydown', '.dataTables_filter input', function (e) {
+  e.stopImmediatePropagation();
+  if (e.keyCode == 13) {
+    _SEARCH_DOTACION = $('.dataTables_filter input').val();
+    filtrosDotacion()
   }
 });
 

@@ -19518,7 +19518,7 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListadoDotacion($periodo, $codigoCC) {
+	function consultaListadoDotacion($periodo, $codigoCC, $search, $sort, $order) {
 		$con = conectar();
 		if ($con != 'No conectado') {
 			$sql = "SELECT
@@ -19570,7 +19570,15 @@ WHERE U.RUT = '{$rutUser}'";
 			INNER JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
 			LEFT JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = DT.IDREFERENCIA1
 			LEFT JOIN REFERENCIA2 R2 ON R2.IDREFERENCIA2 = DT.IDREFERENCIA2
-			WHERE T.ANHO = '" . $periodo . "' AND CC.DEFINICION = '" . $codigoCC . "'";
+			WHERE T.ANHO = '$periodo' AND CC.DEFINICION = '$codigoCC'
+			AND (
+				P.NOMBRE LIKE '%$search%' OR
+				F.NOMBRE LIKE '%$search%' OR
+				CGU.NOMBRE LIKE '%$search%' OR
+				CL.NOMBRE LIKE '%$search%' OR
+				R1.NOMBRE LIKE '%$search%' OR
+				R2.NOMBRE LIKE '%$search%'
+			)";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
