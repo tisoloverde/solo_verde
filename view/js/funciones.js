@@ -3319,7 +3319,6 @@ async function listDotacionLugares() {
 
 async function listDotacion(periodo, codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
-  loading(true);
   await _TABLE_DOTACION.DataTable({
     serverSide: false,
     processing: true,
@@ -3419,6 +3418,7 @@ function filtrosDotacion() {
   var periodo = $('#selectListaPeriodos').val();
   var codigoCC = $('#selectListaLugares').val();
   if (Boolean(periodo) && Boolean(codigoCC)) {
+    loading(true);
     $("#newDotacion").removeAttr("disabled");
     listDotacion(periodo, codigoCC);
   }
@@ -3831,10 +3831,6 @@ $("#saveDotacion").on('click', async (e) => {
     }
   })
 
-  console.log('----dataAd-.--')
-  console.log(dataAdd)
-  console.log(dataUpd)
-
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoDotacion.php',
@@ -3847,8 +3843,6 @@ $("#saveDotacion").on('click', async (e) => {
   })
 
   await listDotacion($('#selectListaPeriodos').val(), $('#selectListaLugares').val());
-
-  loading(false);
 })
 /* *************************************** */
 /* *************** DOTACION ************** */
