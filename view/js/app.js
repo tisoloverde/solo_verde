@@ -831,11 +831,10 @@ app.controller("perfilesController", function(){
 });
 
 app.controller("dotacionController", function(){
-    setTimeout(function(){
-      $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
-    },1000);
-  loading(true);
+  setTimeout(function(){
+    $("body").css("height",$(window).height());
+    $("#contenido").css("height",$(window).height()-10); menuElegant();
+  },1000);
   var path = initScreen();
   var theme = {
     theme: 'bootstrap4',
@@ -849,6 +848,7 @@ app.controller("dotacionController", function(){
     closeOnSelect: !$(this).attr('multiple'),
     sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
   }
+  loading(true);
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $("#selectListaPeriodos").select2(theme);
@@ -872,13 +872,10 @@ app.controller("dotacionController", function(){
           await listDotacionLugares();
           await listDotacionPeriodos();
           await listComunesDotacion();
-          setTimeout(function(){
-            loading(false);
-          },1000);
           await listDotacion('null', 'null');
           esconderMenu();
           menuElegant();
-        }, 200);
+        }, 500);
       }
     }
   });

@@ -3,27 +3,64 @@ require('../model/consultas.php');
 session_start();
 
 if (count($_POST) >= 0) {
-  $row = consultaListadoDotacion($_POST['periodo'], $_POST['codigoCC']);
+  $dots = (array)consultaListadoDotacion(
+    $_POST['periodo'], $_POST['codigoCC'],
+    $_POST['search'], $_POST['sort'], $_POST['order']
+  );
   $pofs = consultaListaPersonalOfertados();
   $fams = consultaListaFamilias();
   $crgman = consultaListaCargoMandante();
+  $refs1 = consultaListaReferencia1();
   $refs2 = consultaListaReferencia2();
 
-  if (is_array($row)) {
-    for ($i=0; $i < count($row); $i++) {
-      $idDotacion = $row[$i]['IDDOTACION'];
+  $rows = [];
+  if (is_array($rows)) {
+    foreach ($dots as $dot) {
+      $idDotacion = $dot['IDDOTACION'];
+
+      $row = [
+        "IDDOTACION" => $idDotacion,
+        "PERSONAL_OFERTADOS" => "",
+        "IDPERSONAL_OFERTADOS" => $dot['IDPERSONAL_OFERTADOS'],
+        "FAMILIA" => "",
+        "IDFAMILIA" => $dot['IDFAMILIA'],
+        "CARGO_MANDANTE" => "",
+        "IDCARGO_MANDANTE" => $dot["IDCARGO_MANDANTE"],
+        "CARGO_GENERICO_UNIFICADO_FAMILIA" => "",
+        "IDCARGO_GENERICO_UNIFICADO_FAMILIA" => $dot['IDCARGO_GENERICO_UNIFICADO_FAMILIA'],
+        "CLASIFICACION" => "",
+        "IDCLASIFICACION" => $dot['IDCLASIFICACION'],
+        "REFERENCIA1" => "",
+        "IDREFERENCIA1" => $dot['IDREFERENCIA1'],
+        "REFERENCIA2" => "",
+        "IDREFERENCIA2" => $dot['IDREFERENCIA2'],
+        "ENERO" => "<input id='dotacion-input-col9-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['ENERO'] . "'>",
+        "FEBRERO" => "<input id='dotacion-input-col10-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['FEBRERO'] . "'>",
+        "MARZO" => "<input id='dotacion-input-col11-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['MARZO'] . "'>",
+        "ABRIL" => "<input id='dotacion-input-col12-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['ABRIL'] . "'>",
+        "MAYO" => "<input id='dotacion-input-col13-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['MAYO'] . "'>",
+        "JUNIO" => "<input id='dotacion-input-col14-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['JUNIO'] . "'>",
+        "JULIO" => "<input id='dotacion-input-col15-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['JULIO'] . "'>",
+        "AGOSTO" => "<input id='dotacion-input-col16-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['AGOSTO'] . "'>",
+        "SETIEMBRE" => "<input id='dotacion-input-col17-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['SETIEMBRE'] . "'>",
+        "OCTUBRE" => "<input id='dotacion-input-col18-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['OCTUBRE'] . "'>",
+        "NOVIEMBRE" => "<input id='dotacion-input-col19-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['NOVIEMBRE'] . "'>",
+        "DICIEMBRE" => "<input id='dotacion-input-col20-$idDotacion' class='dotacion-input onlyNumbers' style='border: none; text-align: center;' value='" . $dot['DICIEMBRE'] . "'>",
+        "__ENERO" => $dot['ENERO'], "__FEBRERO" => $dot['FEBRERO'], "__MARZO" => $dot['MARZO'], "__ABRIL" => $dot['ABRIL'], "__MAYO" => $dot['MAYO'], "__JUNIO" => $dot['JUNIO'],
+        "__JULIO" => $dot['JULIO'], "__AGOSTO" => $dot['AGOSTO'], "__SETIEMBRE" => $dot['SETIEMBRE'], "__OCTUBRE" => $dot['OCTUBRE'], "__NOVIEMBRE" => $dot['NOVIEMBRE'], "__DICIEMBRE" => $dot['DICIEMBRE'],
+      ];
 
       /* Begin - Personal Ofertado */
       $select = "<select id='dotacion-select-col2-$idDotacion' class='dotacion-select-col2'>";
       foreach ($pofs as $item) {
         $id = $item['IDPERSONAL_OFERTADOS'];
         $name = $item['NOMBRE'];
-        $select = $select . ($row[$i]['IDPERSONAL_OFERTADOS'] == $id
+        $select = $select . ($dot['IDPERSONAL_OFERTADOS'] == $id
           ? "<option value='$id' selected>$name</option>"
           : "<option value='$id'>$name</option>");
       }
       $select = $select . "</select>";
-      $row[$i]['PERSONAL_OFERTADOS'] = $select;
+      $row['PERSONAL_OFERTADOS'] = $select;
       /* End - Personal Ofertado */
 
       /* Begin - Familia */
@@ -31,12 +68,12 @@ if (count($_POST) >= 0) {
       foreach ($fams as $item) {
         $id = $item['IDFAMILIA'];
         $name = $item['NOMBRE'];
-        $select = $select . ($row[$i]['IDFAMILIA'] == $id
+        $select = $select . ($dot['IDFAMILIA'] == $id
           ? "<option value='$id' selected>$name</option>"
           : "<option value='$id'>$name</option>");
       }
       $select = $select . "</select>";
-      $row[$i]['FAMILIA'] = $select;
+      $row['FAMILIA'] = $select;
       /* End - Familia */
 
       /* Begin - Cargo Mandante */
@@ -44,14 +81,14 @@ if (count($_POST) >= 0) {
       foreach ($crgman as $item) {
         $id = $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'];
         $name = $item['CARGO_GENERICO_UNIFICADO'];
-        if ($item['IDFAMILIA'] == $row[$i]['IDFAMILIA']) {
-          $select = $select . ($row[$i]['IDCARGO_MANDANTE'] == $id
+        if ($item['IDFAMILIA'] == $dot['IDFAMILIA']) {
+          $select = $select . ($dot['IDCARGO_MANDANTE'] == $id
             ? "<option value='$id' selected>$name</option>"
             : "<option value='$id'>$name</option>");
         }
       }
       $select = $select . "</select>";
-      $row[$i]['CARGO_MANDANTE'] = $select;
+      $row['CARGO_MANDANTE'] = $select;
       /* End - Cargo Mandante */
 
       /* Begin - Cargo Generico Unificado */
@@ -59,24 +96,32 @@ if (count($_POST) >= 0) {
       foreach ($crgman as $item) {
         $id = $item['IDCARGO_GENERICO_UNIFICADO_FAMILIA'];
         $name = $item['CARGO_GENERICO_UNIFICADO'];
-        if ($item['IDFAMILIA'] == $row[$i]['IDFAMILIA']) {
-          $select = $select . ($row[$i]['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] == $id
+        if ($item['IDFAMILIA'] == $dot['IDFAMILIA']) {
+          $select = $select . ($dot['IDCARGO_GENERICO_UNIFICADO_FAMILIA'] == $id
             ? "<option value='$id' selected>$name</option>"
             : "<option value='$id'>$name</option>");
         }
       }
       $select = $select . "</select>";
-      $row[$i]['CARGO_GENERICO_UNIFICADO_FAMILIA'] = $select;
+      $row['CARGO_GENERICO_UNIFICADO_FAMILIA'] = $select;
       /* End - Cargo Generico Unificado */
 
       /* Begin - Clasificacion */
-      $row[$i]['CLASIFICACION_TEXT'] = $row[$i]['CLASIFICACION'];
-      $row[$i]['CLASIFICACION'] = "<span id='dotacion-text-col6-$idDotacion'>" . $row[$i]['CLASIFICACION'] . "</span>";
+      $row['CLASIFICACION_TEXT'] = $dot['CLASIFICACION'];
+      $row['CLASIFICACION'] = "<span id='dotacion-text-col6-$idDotacion'>" . $dot['CLASIFICACION'] . "</span>";
       /* End - Clasificacion */
 
       /* Begin - Referencia 1 */
-      $row[$i]['REFERENCIA1_TEXT'] = $row[$i]['REFERENCIA1'];
-      $row[$i]['REFERENCIA1'] = "<span id='dotacion-text-col7-$idDotacion'>" . $row[$i]['REFERENCIA1'] . "</span>";
+      $select = "<select id='dotacion-select-col7-$idDotacion' class='dotacion-select-col7'>";
+      foreach ($refs1 as $item) {
+        $id = $item['IDREFERENCIA1'];
+        $name = $item['REFERENCIA1'];
+        $select = $select . ($dot['IDREFERENCIA1'] == $id
+          ? "<option value='$id' selected>$name</option>"
+          : "<option value='$id'>$name</option>");
+      }
+      $select = $select . "</select>";
+      $row['REFERENCIA1'] = $select;
       /* End - Referencia 1 */
 
       /* Begin - Referencia 2 */
@@ -84,24 +129,24 @@ if (count($_POST) >= 0) {
       foreach ($refs2 as $item) {
         $id = $item['IDREFERENCIA2'];
         $name = $item['REFERENCIA2'];
-        if ($item['IDREFERENCIA1'] == $row[$i]['IDREFERENCIA1']) {
-          $select = $select . ($row[$i]['IDREFERENCIA2'] == $id
-            ? "<option value='$id' selected>$name</option>"
-            : "<option value='$id'>$name</option>");
-        }
+        $select = $select . ($dot['IDREFERENCIA2'] == $id
+          ? "<option value='$id' selected>$name</option>"
+          : "<option value='$id'>$name</option>");
       }
       $select = $select . "</select>";
-      $row[$i]['REFERENCIA2'] = $select;
+      $row['REFERENCIA2'] = $select;
       /* End - Referencia 2 */
 
-      $row[$i]['__type'] = 'old';
+      $row['__type'] = 'old';
+
+      $rows[] = $row;
     }
 
     $results = [
       "sEcho" => 1,
-      "iTotalRecords" => count($row),
-      "iTotalDisplayRecords" => count($row),
-      "aaData" => $row,
+      "iTotalRecords" => count($rows),
+      "iTotalDisplayRecords" => count($rows),
+      "aaData" => $rows,
     ];
     echo json_encode($results);
   } else {
