@@ -13,7 +13,7 @@
 		// var_dump($row);
 
     $detalle = array();
-    $detalle[] = array('IDPERSONAL',	'DNI',	'EMPRESA',	'NOMBRES',	'APELLIDOS',	'CARGO',	'EMAIL',	'TELEFONO',	'RUTJEFEDIRECTO',	'JEFE',	'CONTACTO',	'GERENCIA',	'SUBGERENCIA',	'CLIENTE',	'COMUNA',	'REGION',	'PATENTE',	'EXTERNO',	'SUCURSAL',	'CLASIFICACION',	'NIVEL',	'CENTRO_COSTO');
+    $detalle[] = array('IDPERSONAL',	'RUT',	'EMPRESA',	'NOMBRES',	'APELLIDOS',	'CARGO',	'EMAIL',	'TELEFONO',	'RUTJEFEDIRECTO',	'JEFE',	'CONTACTO',	'GERENCIA',	'SUBGERENCIA',	'CLIENTE',	'COMUNA',	'REGION',	'PATENTE',	'EXTERNO',	'SUCURSAL',	'CLASIFICACION',	'NIVEL',	'CENTRO_COSTO');
 
     for($i = 0; $i < count($row); $i++){
         $detalle[] = array($row[$i]['IDPERSONAL'],	$row[$i]['DNI'],	$row[$i]['EMPRESA'],	$row[$i]['NOMBRES'],	$row[$i]['APELLIDOS'],	$row[$i]['CARGO'],	$row[$i]['EMAIL'],	str_replace('<br>', '/',$row[$i]['TELEFONO']),	$row[$i]['RUTJEFEDIRECTO'],	$row[$i]['JEFE'],	$row[$i]['CONTACTO'],	$row[$i]['GERENCIA'],	$row[$i]['SUBGERENCIA'],	$row[$i]['CLIENTE'],	$row[$i]['COMUNA'],	$row[$i]['REGION'],	$row[$i]['PATENTE'],	$row[$i]['EXTERNO'],	$row[$i]['SUCURSAL'],	$row[$i]['CLASIFICACION'],	$row[$i]['NIVEL'],	$row[$i]['NOMENCLATURA']);
