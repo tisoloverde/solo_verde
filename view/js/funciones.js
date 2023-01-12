@@ -3323,15 +3323,15 @@ async function listDotacionLugares() {
 async function listDotacion(periodo, codigoCC) {
   var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
   await _TABLE_DOTACION.DataTable({
-    serverSide: false,
-    processing: true,
+    /*serverSide: false,
+    processing: true,*/
     // search: { return: true },
     ajax: {
       url: "controller/datosListadoDotacion.php",
       type: 'POST',
       data: {
         periodo, codigoCC,
-        search: _SEARCH_DOTACION, sort: _SORT_DOTACION, order: _ORDER_DOTACION,
+        // search: _SEARCH_DOTACION, sort: _SORT_DOTACION, order: _ORDER_DOTACION,
       },
     },
     columns: [
@@ -3368,6 +3368,7 @@ async function listDotacion(periodo, codigoCC) {
     select: { style: 'single' },
     scrollX: true,
     paging: true,
+    searching: false,
     ordering: true,
     scrollCollapse: true,
     // "order": [[ 3, "asc" ]],
@@ -3447,13 +3448,13 @@ $(document).on('keypress', '.onlyNumbers', function (e) {
   }
 });
 
-$(document).on('keydown', '.dataTables_filter input', function (e) {
+/*$(document).on('keydown', '.dataTables_filter input', function (e) {
   e.stopImmediatePropagation();
   if (e.keyCode == 13) {
     _SEARCH_DOTACION = $('.dataTables_filter input').val();
     filtrosDotacion()
   }
-});
+});*/
 
 $(document).on('change', '.dotacion-select-col2', function(e){
   e.preventDefault();
@@ -9816,14 +9817,11 @@ async function listCalendario() {
   })
 }
 
-async function listDiasPorSemana() {
+async function listDiasPorSemana(anho, nsemana) {
   await $.ajax({
     url:   'controller/datosCalendarioDias.php',
     type:  'post',
-    data: {
-      anho: 2022,
-      nsemana: 51,
-    },
+    data: { anho, nsemana },
     dataType: 'json',
     success:  function (response) {
       _DIAS_PLANILLA = response.aaData;
@@ -9865,8 +9863,8 @@ $('#selectListaSemanas').on('change', function (e) {
 })
 
 function listSemanas(val) {
-  var [anho, _] = val.split('_');
-  listDiasPorSemana();
+  var [anho, idx] = val.split('_');
+  listDiasPorSemana(anho, _CALENDARIO_PLANILLA[anho][idx].SEMANA);
 
   var html = "<option value='0'>Seleccione</option>";
   Object.keys(_CALENDARIO_PLANILLA).forEach((item) => {
@@ -9960,6 +9958,13 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     },
   });
 }
+
+/*_TABLE_PLANILLA.DataTable().on('preDraw', function () {
+  var isEdited = _DATA_PLANILLA.some(({ __isEdited }) => __isEdited);
+  if (isEdited) {
+    return false;
+  }
+})*/
 
 $('#selectListaCentrosDeCostos').on('change', function (e) {
   e.stopImmediatePropagation();
