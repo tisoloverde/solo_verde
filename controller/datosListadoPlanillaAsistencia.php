@@ -23,6 +23,7 @@
     // COMMONS
     $crgman = consultaListaCargoMandante();
     $cons = consultaListaPersonalEstadoConcepto();
+    $refs1 = consultaListaReferencia1();
     $refs2 = consultaListaReferencia2();
     $idConValid = buscarDiaValidoPersonalEstadoConcepto($cons);
     $idsConNotValid = buscarDiasNoValidoPersonalEstadoConcepto($cons);
@@ -107,8 +108,22 @@
         /* End - Clasificacion */
 
         /* Begin - Referencia 1 */
-        $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B']; // $found['REFERENCIA1_B'] ? $found['REFERENCIA1_B'] : $refs2[0]['REFERENCIA2'];
-        $row['REFERENCIA1_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['REFERENCIA1_B'] . "</span>";
+        // $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B']; // $found['REFERENCIA1_B'] ? $found['REFERENCIA1_B'] : $refs2[0]['REFERENCIA2'];
+        // $row['REFERENCIA1_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['REFERENCIA1_B'] . "</span>";
+        $select = "<select id='planilla-select-col10-$idPersonal' class='planilla-select-col10'>";
+        $select .= "<option>Seleccione</option>";
+        foreach ($refs1 as $item) {
+          $idRef1 = $item['IDREFERENCIA1'];
+          $ref1 = $item['REFERENCIA1'];
+          // $r2 = isset($found['IDREFERENCIA1_B']) ? $found['IDREFERENCIA1_B'] : $refs1[0]['IDREFERENCIA1'];
+          // $select = $select . ($r2 == $idRef1
+          $select = $select . ($found['IDREFERENCIA1_B'] == $idRef1
+            ? "<option value='$idRef1' selected>$ref1</option>"
+            : "<option value='$idRef1'>$ref1</option>");
+        }
+        $select = $select . "</select>";
+        $row['REFERENCIA1_B'] = $select;
+        $row['IDREFERENCIA1_B'] = isset($found['IDREFERENCIA1_B']) ? $found['IDREFERENCIA1_B'] : $refs1[0]['IDREFERENCIA1'];
         /* End - Referencia 1 */
 
         /* Begin - Referencia 2 */
@@ -117,14 +132,11 @@
         foreach ($refs2 as $item) {
           $idRef2 = $item['IDREFERENCIA2'];
           $ref2 = $item['REFERENCIA2'];
-
-          $r1 = isset($found['IDREFERENCIA1_B']) ? $found['IDREFERENCIA1_B'] : $crgman[0]['IDREFERENCIA1'];
-          $r2 = isset($found['IDREFERENCIA2_B']) ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
-          if ($item['IDREFERENCIA1'] == $r1) {
-            $select = $select . ($r2 == $idRef2
-              ? "<option value='$idRef2' selected>$ref2</option>"
-              : "<option value='$idRef2'>$ref2</option>");
-          }
+          // $r2 = isset($found['IDREFERENCIA2_B']) ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
+          // $select = $select . ($r2 == $idRef2
+          $select = $select . ($found['IDREFERENCIA2_B'] == $idRef2
+            ? "<option value='$idRef2' selected>$ref2</option>"
+            : "<option value='$idRef2'>$ref2</option>");
         }
         $select = $select . "</select>";
         $row['REFERENCIA2_B'] = $select;

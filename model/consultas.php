@@ -19890,6 +19890,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function actualizarSemanaPlanilla(
 		$idPersonal,
 		$idCargoGenericoUnificado_b,
+		$idReferencia1_b,
 		$idReferencia2_b,
 		$idPersonalEstadoConcepto,
 		$fecha,
@@ -19903,6 +19904,7 @@ WHERE U.RUT = '{$rutUser}'";
 			$sql = "CALL INSERTAR_PERSONAL_ESTADO(
 				$idPersonal,
 				$idCargoGenericoUnificado_b,
+				$idReferencia1_b,
 				$idReferencia2_b,
 				$idPersonalEstadoConcepto,
 				'$fecha',
@@ -19926,6 +19928,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function actualizarSemanaPlanillaBasic(
 		$idPersonal,
 		$idCargoGenericoUnificado_b,
+		$idReferencia1_b,
 		$idReferencia2_b,
 		$fecha,
 		$he50,
@@ -19938,6 +19941,7 @@ WHERE U.RUT = '{$rutUser}'";
 			$sql = "CALL INSERTAR_PERSONAL_ESTADO_BASIC(
 				$idPersonal,
 				$idCargoGenericoUnificado_b,
+				$idReferencia1_b,
 				$idReferencia2_b,
 				'$fecha',
 				$he50,
@@ -20047,8 +20051,7 @@ WHERE U.RUT = '{$rutUser}'";
 				CGU_B.NOMBRE AS CARGO_GENERICO_UNIFICADO_B,
 				CGU_B.IDCLASIFICACION AS IDCLASIFICACION_B,
 				CL_B.NOMBRE AS CLASIFICACION_B,
-				R1_B.IDREFERENCIA1 AS IDREFERENCIA1_B,
-				R1_B.NOMBRE AS REFERENCIA1_B,
+				PE.IDREFERENCIA1_B,
 				PE.IDREFERENCIA2_B,
 				PE.FECHA_INICIO,
 				PE.IDPERSONAL_ESTADO_CONCEPTO,

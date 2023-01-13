@@ -10066,6 +10066,20 @@ $(document).on('change', '.planilla-select-col8', function(e){
   }
 });
 
+$(document).on('change', '.planilla-select-col10', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var [_, idPersonal] = personalGetColAndId(this.id);
+  var idReferencia1 = this.value;
+
+  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+  if (planillaIdx >= 0) {
+    _DATA_PLANILLA[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
+    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
+  }
+});
+
 $(document).on('change', '.planilla-select-col11', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
@@ -10136,6 +10150,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
   _DATA_PLANILLA.forEach(({
     IDPERSONAL,
     IDCARGO_GENERICO_UNIFICADO_B,
+    IDREFERENCIA1_B,
     IDREFERENCIA2_B,
     __DIAS_PLN,
     __HE50,
@@ -10146,6 +10161,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     var aux = {
       IDPERSONAL,
       IDCARGO_GENERICO_UNIFICADO_B,
+      IDREFERENCIA1_B,
       IDREFERENCIA2_B,
       FECHA_BASE: _DIAS_PLANILLA[0]['fecha'],
       DIAS: _DIAS_PLANILLA.map(({ fecha }) => fecha),

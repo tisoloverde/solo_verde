@@ -11,6 +11,7 @@
     foreach ($dataUpd as $item) {
       $idPersonal = $item['IDPERSONAL'];
       $idCargoGenericoUnificadoB = $item['IDCARGO_GENERICO_UNIFICADO_B'];
+      $idReferencia1B = $item['IDREFERENCIA1_B'];
       $idReferencia2B = $item['IDREFERENCIA2_B'];
       $daysPlanilla = (array)$item['DIAS_PLANILLA'];
       $fechaBase = $item['FECHA_BASE'];
@@ -21,14 +22,14 @@
       if (sizeof($daysPlanilla) > 0) {
         foreach ($daysPlanilla as $day) {
           $res[] = actualizarSemanaPlanilla(
-            $idPersonal, $idCargoGenericoUnificadoB, $idReferencia2B,
+            $idPersonal, $idCargoGenericoUnificadoB, $idReferencia1B, $idReferencia2B,
             $day['id'], $day['fecha'],
             $he50, $he100, $atraso, $rut
           );
         }
       } else {
         $res[] = actualizarSemanaPlanillaBasic(
-          $idPersonal, $idCargoGenericoUnificadoB, $idReferencia2B,
+          $idPersonal, $idCargoGenericoUnificadoB, $idReferencia1B, $idReferencia2B,
           $fechaBase,
           $he50, $he100, $atraso, $rut
         );
