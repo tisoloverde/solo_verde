@@ -3366,7 +3366,12 @@ async function listDotacion(periodo, codigoCC) {
       { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" },
       { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19] },
     ],
-    select: { style: 'single' },
+    // select: { style: 'single' },
+    select: {
+      style: 'single',
+      // selector: 'td:not(:nth-child(8),:nth-child(11))'
+      selector: disableSelectionCols([2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
+    },
     scrollX: true,
     paging: true,
     searching: false,
