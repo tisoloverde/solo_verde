@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=19';
+  js.src = 'view/js/funciones.js?idload=22';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -9376,7 +9376,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h5 style="color:gray;" id="tituloAgregarAreaFuncional"><span class="fas fa-plus"></span>&nbsp;&nbsp;Agregar Área Funcional</h5>
+        <h5 style="color:gray;" id="tituloAgregarAreaFuncional"><span class="fas fa-plus"></span>&nbsp;&nbsp;Agregar Comuna</h5>
       </div>
       <div id="bodyAgregarAreaFuncional" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
@@ -9422,7 +9422,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h5 style="color:gray;" id="tituloEditarAreaFuncional"><span class="fas fa-edit"></span>&nbsp;&nbsp;Editar Área Funcional</h5>
+        <h5 style="color:gray;" id="tituloEditarAreaFuncional"><span class="fas fa-edit"></span>&nbsp;&nbsp;Editar Comuna</h5>
       </div>
       <div id="bodyEditarAreaFuncional" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
@@ -9449,6 +9449,13 @@
 					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">País</label>
 						<select id="paisEditarAreaFuncional" class="form-control"></select>
+          </div>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+						<select id="estadoEditarAreaFuncional" class="form-control">
+							<option value="Activa">Activa</option>
+							<option value="Desactivada">Desactivada</option>
+						</select>
           </div>
         </div>
       </div>

@@ -12,8 +12,9 @@
     $codigoPostal = $_POST['codigoPostal'];
     $idPais = $_POST['idPais'];
     $idAreaFuncional = $_POST['idAreaFuncional'];
+    $estado = $_POST['estado'];
 
-    $row = editarAreaFuncional($comuna, $provincia, $region, $codigoPostal, $idPais, $idAreaFuncional);
+    $row = editarAreaFuncional($comuna, $provincia, $region, $codigoPostal, $idPais, $idAreaFuncional, $estado);
 
     if($row == "Ok" )
     {

@@ -5,10 +5,6 @@ html {
   position: relative;
 }
 
-/* header{
-  width: 100%;
-  min-width: 100%;
-} */
 .blink_me {
   animation: blinker 1.0s linear infinite;
 }
@@ -835,4 +831,9 @@ label.click_cubica:hover{
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #6C757D!important;
+}
+
+div[class$="dataTables_processing"]{
+  z-index: 1000;
+  color: red!important;
 }
