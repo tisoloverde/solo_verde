@@ -7391,6 +7391,7 @@ $("#editarAreaFuncional").unbind('click').click(async function(){
   $("#provinciaEditarAreaFuncional").val(datos[0].PROVINCIA);
   $("#regionEditarAreaFuncional").val(datos[0].REGION);
   $("#codigoEditarPostalAreaFuncional").val(datos[0].CODIGOPOSTAL);
+  $("#estadoEditarPostalAreaFuncional").val(datos[0].ESTADO);
 
   await $.ajax({
     url:   'controller/datosListadoPaises.php',
@@ -7413,6 +7414,9 @@ $("#editarAreaFuncional").unbind('click').click(async function(){
   });
   if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     $("#paisEditarAreaFuncional").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#estadoEditarAreaFuncional").select2({
         theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
     });
   }
@@ -7456,6 +7460,7 @@ $("#guardarEditarAreaFuncional").unbind('click').click(async function(){
       "region": $("#regionEditarAreaFuncional").val(),
       "codigoPostal": $("#codigoEditarPostalAreaFuncional").val(),
       "idPais": $("#paisEditarAreaFuncional").val(),
+      "estado": $("#estadoEditarAreaFuncional").val(),
       "idAreaFuncional": datos[0].IDAREAFUNCIONAL
     }
 

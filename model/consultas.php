@@ -14953,7 +14953,7 @@ function asignarOrdenTrabajo($id,$otAsignar){
 function consultaListadoAreasFuncionales(){
 	$con = conectar();
 	if($con != 'No conectado'){
-		$sql = "SELECT  '' S, a.IDAREAFUNCIONAL, a.COMUNA, a.PROVINCIA, a.REGION, a.CODIGOPOSTAL, a.IDPAIS, p.NOMBRE'PAIS'
+		$sql = "SELECT  '' S, a.IDAREAFUNCIONAL, a.COMUNA, a.PROVINCIA, a.REGION, a.CODIGOPOSTAL, a.IDPAIS, p.NOMBRE'PAIS', a.ESTADO
 FROM AREAFUNCIONAL a LEFT JOIN PAIS p
 ON a.IDPAIS = p.IDPAIS
 ORDER BY a.COMUNA ASC";
@@ -14995,12 +14995,13 @@ function ingresaAreaFuncional($comuna, $provincia, $region, $codigoPostal, $idPa
 		}
 }
 
-function editarAreaFuncional($comuna, $provincia, $region, $codigoPostal, $idPais, $idAreaFuncional){
+function editarAreaFuncional($comuna, $provincia, $region, $codigoPostal, $idPais, $idAreaFuncional, $estado){
 			$con = conectar();
 			if($con != 'No conectado'){
 				$sql = "UPDATE AREAFUNCIONAL
 	SET COMUNA = '{$comuna}',
-	PROVINCIA = '{$provincia}', REGION = '{$region}', CODIGOPOSTAL = '{$codigoPostal}', IDPAIS = '{$idPais}'
+	PROVINCIA = '{$provincia}', REGION = '{$region}', CODIGOPOSTAL = '{$codigoPostal}', IDPAIS = '{$idPais}',
+	ESTADO = '{$estado}'
 	WHERE IDAREAFUNCIONAL = '{$idAreaFuncional}'";
 			if ($con->query($sql)) {
 				$con->query("COMMIT");
