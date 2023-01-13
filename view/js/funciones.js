@@ -9889,6 +9889,14 @@ function listSemanas(val) {
   filtrosPlanilla();
 }
 
+function disableSelectionCols(lst) {
+  var str = '';
+  lst.forEach((el) => {
+    str = str + `:not(:nth-child(${el}))`;
+  });
+  return `td${str}`;
+}
+
 async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   await _TABLE_PLANILLA.DataTable({
     serverSide: true,
@@ -9956,7 +9964,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     select: {
       style: 'single',
       // selector: 'td:not(:nth-child(8),:nth-child(11))'
-      selector: 'td:not(:nth-child(8)):not(:nth-child(11))',
+      selector: disableSelectionCols([8,10,11,12,13,14,15,16,17,18,19,21,22,23]),
     },
     destroy: true,
     autoWidth: false,
