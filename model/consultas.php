@@ -19963,12 +19963,13 @@ WHERE U.RUT = '{$rutUser}'";
 				COUNT(DISTINCT(AH.IDPERSONAL)) AS CONT
 			FROM ACT_HISTORIAL AH
 			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
 			WHERE
 			(FECHA_CARGA BETWEEN '$fechaIni' AND '$fechaFin')";
 			if ((int)$idEstructuraOperacion > 0) {
 				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			}
-			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%')";
+			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -20010,7 +20011,7 @@ WHERE U.RUT = '{$rutUser}'";
 			if ((int)$idEstructuraOperacion >= 0) {
 				$sql = $sql . " AND IDESTRUCTURA_OPERACION = $idEstructuraOperacion";
 			}
-			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%')";
+			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			$sql = $sql . " ORDER BY $sortCol $sortOrd";
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {

@@ -9944,6 +9944,11 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       },
       infoFiltered: "(Filtrado de _MAX_ registros)",
     },
+    select: {
+      style: 'single',
+      // selector: 'td:not(:nth-child(8),:nth-child(11))'
+      selector: 'td:not(:nth-child(8)):not(:nth-child(11))',
+    },
     destroy: true,
     autoWidth: false,
     initComplete: function (settings, json) {
