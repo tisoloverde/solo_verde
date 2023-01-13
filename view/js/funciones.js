@@ -9912,7 +9912,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       { data: 'REFERENCIA1_B' },
       { data: 'REFERENCIA2_B' },
       { data: 'RUT_REEMPLAZO' },
-      { data: 'FECHA_REEMPLAZO' },
+      // { data: 'FECHA_REEMPLAZO' },
       { data: 'Lunes' },
       { data: 'Martes' },
       { data: 'Miercoles' },
@@ -9929,7 +9929,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     columnDefs: [
       { width: "5px", targets: 0 },
       { targets: "_all", className: "dt-center" },
-      { orderable: false, targets: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23] },
+      { orderable: false, targets: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22] },
     ],
     select: { style: 'single' },
     scrollX: true,
@@ -10089,7 +10089,7 @@ $(document).on('change', '.planilla-select-day', function(e){
 
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
-    var idx = col - 14;
+    var idx = col - 13;
     _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
     _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }
@@ -10101,7 +10101,7 @@ $(document).on('change', '.planilla-input', function(e){
 
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
-    var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
+    var key = col == 21 ? 'HE50' : col == 22 ? 'HE100' : 'ATRASO';
     _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
     _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }

@@ -58,12 +58,12 @@
           "REFERENCIA1_B_TEXT" => "",
           "IDREFERENCIA2_B" => 0,
           "REFERENCIA2_B" => "",
-          "RUT_REEMPLAZO" => "<input id='planilla-input-12' class='planilla-modal' style='border: none; text-align: center;'>",
+          "RUT_REEMPLAZO" => "<button id='planilla-input-12' class='planilla-modal'>Asignar</button>",
           "FECHA_REEMPLAZO" => "",
           "NDIAS" => $ndias,
-          "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
-          "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
-          "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
+          "HE50" => "<input id='planilla-input-col21-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
+          "HE100" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
+          "ATRASO" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
           "__HE50" => $found['HE50'],
           "__HE100" => $found['HE100'],
           "__ATRASO" => $found['ATRASO'],
@@ -132,7 +132,7 @@
         /* End - Referencia 2 */
 
         /* Begin - Week */
-        $col = 13;
+        $col = 12;
         foreach ($lstDiasSemana as $dia) {
           /* begin - search */
           $found = array();
