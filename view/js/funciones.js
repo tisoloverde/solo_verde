@@ -7470,17 +7470,21 @@ $("#guardarEditarAreaFuncional").unbind('click').click(async function(){
       data: parametros,
       success:  function (response) {
         if(response.localeCompare("Sin datos") != 0 && response != ""){
-          $('#modalAlertasSplash').modal('hide');
           var table = $('#tablaAreaFuncional').DataTable();
           table.ajax.reload();
           var random = Math.round(Math.random() * (1000000 - 1) + 1);
           alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Área Funcional editada correctamente");
           $("#editarAreaFuncional").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },1000);
           }
         else{
-          $('#modalAlertasSplash').modal('hide');
           var random = Math.round(Math.random() * (1000000 - 1) + 1);
           alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Área Funcional");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },1000);
         }
       }
     });
