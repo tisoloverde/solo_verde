@@ -459,15 +459,15 @@ function alertasToast(texto){
     "hideMethod": "slideUp"
   }
   if(texto.includes("check.gif") == true){
-    texto = texto.replace("<img src='view/img/check.gif' class='splash_load'><br/>","").replace("<img src='view/img/info.png' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br/>","");
+    texto = texto.replace("<img src='view/img/check.gif' class='splash_load'><br/>","").replace("<img src='view/img/info.png' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br/>","").replace("<img src='view/img/check.gif' class='splash_load'><br />","");
     toastr["success"](texto);
   }
   else if(texto.includes("info.png") == true){
-    texto = texto.replace("<img src='view/img/check.gif' class='splash_load'><br/>","").replace("<img src='view/img/info.png' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br/>","");
+    texto = texto.replace("<img src='view/img/check.gif' class='splash_load'><br/>","").replace("<img src='view/img/info.png' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br />","");
     toastr["info"](texto);
   }
   else if(texto.includes("error.gif") == true){
-    texto = texto.replace("<img src='view/img/check.gif' class='splash_load'><br/>","").replace("<img src='view/img/info.png' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br/>","");
+    texto = texto.replace("<img src='view/img/check.gif' class='splash_load'><br/>","").replace("<img src='view/img/info.png' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br/>","").replace("<img src='view/img/error.gif' class='splash_load'><br />","");
     toastr["error"](texto);
   }
   else{
@@ -10225,10 +10225,12 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     type:  'post',
     data: { dataUpd },
     success:  function (response) {
-      alertasToast("<img src='view/img/check.gif' class='splash_load'><br />Planilla actualizada correctamente");
+      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
+      setTimeout(function(){
+        loading(false);
+      },1000);
     }
   })
-  loading(false);
 });
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */

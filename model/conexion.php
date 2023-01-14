@@ -4,7 +4,6 @@
 
 	// Conectando a la base de datos
 	function conectar(){
-		//QA - Desarrollo
 		$user = "AppConnect";
 		$pass = 'TCw4etVPjEcqTRkGOqG8';
 		$db = "SOLO_VERDE";
