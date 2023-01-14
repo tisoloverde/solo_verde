@@ -9780,6 +9780,31 @@ var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
 var _LST_NULLS = ['Seleccione', 0, '0'];
 var _COMUNES_PLANILLA = {};
 
+async function listUsuariosTemporales() {
+  $.ajax({
+    url: 'controller/datosListaPersonalTemporales.php',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+      console.log('---users--')
+      console.log(response);
+    },
+  })
+}
+
+async function listDiasReemplazoTemporal(idPersonal, fecIni, fecFin) {
+  await $.ajax({
+    url:   'controller/datosListaDiasReemplazoTemporal.php',
+    type:  'post',
+    data: { idPersonal, fecIni, fecFin },
+    dataType: 'json',
+    success:  function (response) {
+      console.log('----diasrem----')
+      console.log(response)
+    }
+  });
+}
+
 async function listComunesPlanilla() {
   $.ajax({
     url: 'controller/datosComunesPlanilla.php',
@@ -10141,11 +10166,17 @@ $(document).on('keypress', '.planilla-input', function(e){
   }
 });
 
-$(document).on('click', '.planilla-modal', function(e){
+$(document).on('click', '.planilla-modal', async function(e){
   e.stopImmediatePropagation();
   e.preventDefault();
+  var idPersonal = Number(this.id.replace('planilla-input-', ''));
+  var fecIni = _DIAS_PLANILLA[0]['fecha'];
+  var fecFin = _DIAS_PLANILLA[_DIAS_PLANILLA.length - 1]['fecha'];
+
   loading(true);
-  setTimeout(function(){
+  await listUsuariosTemporales();
+  await listDiasReemplazoTemporal(idPersonal, fecIni, fecFin);
+  setTimeout(function() {
     // var h = $(window).height() - 200;
     $("#modalIngresoTemporalPlanilla").modal("show");
     loading(false);

@@ -20108,4 +20108,52 @@ WHERE U.RUT = '{$rutUser}'";
 			return "Error";
 		}
 	}
+
+	function consultaListaDiasReemplazoModal($idPersonal, $fechaIni, $fechaFin) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				PE.IDPERSONAL_ESTADO,
+				PE.RUT_REEMPLAZO
+			FROM PERSONAL_ESTADO PE
+			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
+			WHERE PE.IDPERSONAL = $idPersonal
+			AND PE.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+			AND PEC.SIGLA IN ('LIC', 'DSR', 'V');";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaUsuariosTemporals() {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				IDPERSONAL,
+				DNI AS RUT,
+				CONCAT(NOMBRES, ' ', APELLIDOS) AS FULLNAME
+			FROM PERSONAL
+			WHERE TEMPORAL = 1";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
 ?>
