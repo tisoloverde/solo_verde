@@ -9780,14 +9780,16 @@ var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
 var _LST_NULLS = ['Seleccione', 0, '0'];
 var _COMUNES_PLANILLA = {};
 
+var _MODAL_PLANILLA_USUARIOS_TEMPORALES = [];
+var _MODAL_PLANILLA_DIAS_A_ASIGNAR = [];
+
 async function listUsuariosTemporales() {
   $.ajax({
     url: 'controller/datosListaPersonalTemporales.php',
     type: 'get',
     dataType: 'json',
     success: function (response) {
-      console.log('---users--')
-      console.log(response);
+      _MODAL_PLANILLA_USUARIOS_TEMPORALES = response.aaData;
     },
   })
 }
@@ -9799,8 +9801,7 @@ async function listDiasReemplazoTemporal(idPersonal, fecIni, fecFin) {
     data: { idPersonal, fecIni, fecFin },
     dataType: 'json',
     success:  function (response) {
-      console.log('----diasrem----')
-      console.log(response)
+      _MODAL_PLANILLA_DIAS_A_ASIGNAR = response.aaData;
     }
   });
 }
@@ -10178,6 +10179,13 @@ $(document).on('click', '.planilla-modal', async function(e){
   await listDiasReemplazoTemporal(idPersonal, fecIni, fecFin);
   setTimeout(function() {
     // var h = $(window).height() - 200;
+    var html = '';
+    console.log('---asdasd---')
+    console.log(_MODAL_PLANILLA_USUARIOS_TEMPORALES)
+    console.log(_MODAL_PLANILLA_DIAS_A_ASIGNAR)
+
+    $('#personalTemporalPlanilla').html(html);
+
     $("#modalIngresoTemporalPlanilla").modal("show");
     loading(false);
   }, 500);
