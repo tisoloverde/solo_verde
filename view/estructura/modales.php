@@ -11447,7 +11447,7 @@
       <div id="bodyIngresoTemporalPlanilla" class="modal-body alerta-modal-body">
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div id="personalTemporalPlanilla" style="display: flex; flex-direction: column;"></div>
+            <div id="personalTemporalPlanilla" style="display: flex; flex-direction: column; justify-content: center; align-items: center;"></div>
           </div>
         </div>
       </div>

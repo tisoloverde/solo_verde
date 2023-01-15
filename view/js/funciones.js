@@ -10179,9 +10179,14 @@ $(document).on('click', '.planilla-modal', async function(e){
   await listDiasReemplazoTemporal(idPersonal, fecIni, fecFin);
   setTimeout(function() {
     // var h = $(window).height() - 200;
-    var html = '';
+    var html = `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%;'>
+      <span style="width: 30%; text-align: center; font-weight: bold; font-size: 18px">Días a reemplazar</span>
+      <span style="width: 30%; text-align: center; font-weight: bold; font-size: 18px">Rut</span>
+      <span style="width: 40%; text-align: center; font-weight: bold; font-size: 18px">Nombre</span>
+    </div>`;
     _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item) => {
-      var select = `<select id='planilla-modal-personal-${item.IDPERSONAL_ESTADO}' class='planilla-modal-personal'><option value='0'>Seleccione</option>`;
+      var select = `<select id='planilla-modal-personal-${item.IDPERSONAL_ESTADO}' class='planilla-modal-personal' style='width: 30%;'>`
+      select += `<option value='0'>Seleccione</option>`;
       _MODAL_PLANILLA_USUARIOS_TEMPORALES.forEach((el) => {
         if (el.RUT == item.RUT_REEMPLAZO) {
           select += `<option value='${el.RUT}' selected>${el.RUT}</option>`;
@@ -10191,13 +10196,29 @@ $(document).on('click', '.planilla-modal', async function(e){
       })
       select += `</select>`;
 
-      html += `<div style='display: flex;'>
-        <span>${item.FECHA_INICIO}</span>
+      html += `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%;'>
+        <span style="width: 30%; text-align: center;">${item.FECHA_INICIO}</span>
         ${select}
-        <span>${item.REEMPLAZO}</span>
+        <span style="width: 40%; padding-left: 10px;">${item.REEMPLAZO ?? ''}</span>
       </div>`;
     })
     $('#personalTemporalPlanilla').html(html);
+
+    var theme = {
+      theme: 'bootstrap4',
+      width: $(this).data('width')
+        ? $(this).data('width')
+        : $(this).hasClass('w-100')
+          ? '100%'
+          : 'style',
+      placeholder: $(this).data('placeholder'),
+      allowClear: Boolean($(this).data('allow-clear')),
+      closeOnSelect: !$(this).attr('multiple'),
+      // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+    }
+    if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      $(".planilla-modal-personal").select2(theme);
+    }
 
     $("#modalIngresoTemporalPlanilla").modal("show");
     loading(false);
