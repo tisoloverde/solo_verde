@@ -20114,9 +20114,13 @@ WHERE U.RUT = '{$rutUser}'";
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				PE.IDPERSONAL_ESTADO,
-				PE.RUT_REEMPLAZO
+				PE.RUT_REEMPLAZO,
+				PE.FECHA_INICIO,
+				PE.RUT_REEMPLAZO,
+				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS REEMPLAZO
 			FROM PERSONAL_ESTADO PE
 			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
+			LEFT JOIN PERSONAL P ON P.DNI = PE.RUT_REEMPLAZO
 			WHERE PE.IDPERSONAL = $idPersonal
 			AND PE.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
 			AND PEC.SIGLA IN ('LIC', 'DSR', 'V');";
@@ -20153,6 +20157,27 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Error";
 			}
 		} else {
+			return "Error";
+		}
+	}
+
+	function actualizarPlanillaRutReemplazo($idPersonalEstado, $rutReemplazo) {
+		$con = conectar();
+		$con->query("START TRANSACTION");
+		if($con != 'No conectado'){
+			$sql = "UPDATE PERSONAL_ESTADO
+				SET RUT_REEMPLAZO = '$rutReemplazo'
+			WHERE IDPERSONAL_ESTADO = $idPersonalEstado";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return $sql;
+			} else {
+				// return $con->error;
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else{
+			$con->query("ROLLBACK");
 			return "Error";
 		}
 	}

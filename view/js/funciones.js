@@ -10180,15 +10180,53 @@ $(document).on('click', '.planilla-modal', async function(e){
   setTimeout(function() {
     // var h = $(window).height() - 200;
     var html = '';
-    console.log('---asdasd---')
-    console.log(_MODAL_PLANILLA_USUARIOS_TEMPORALES)
-    console.log(_MODAL_PLANILLA_DIAS_A_ASIGNAR)
+    _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item) => {
+      var select = `<select id='planilla-modal-personal-${item.IDPERSONAL_ESTADO}' class='planilla-modal-personal'><option value='0'>Seleccione</option>`;
+      _MODAL_PLANILLA_USUARIOS_TEMPORALES.forEach((el) => {
+        if (el.RUT == item.RUT_REEMPLAZO) {
+          select += `<option value='${el.RUT}' selected>${el.RUT}</option>`;
+        } else {
+          select += `<option value='${el.RUT}'>${el.RUT}</option>`;
+        }
+      })
+      select += `</select>`;
 
+      html += `<div style='display: flex;'>
+        <span>${item.FECHA_INICIO}</span>
+        ${select}
+        <span>${item.REEMPLAZO}</span>
+      </div>`;
+    })
     $('#personalTemporalPlanilla').html(html);
 
     $("#modalIngresoTemporalPlanilla").modal("show");
     loading(false);
   }, 500);
+});
+
+$('#guardarIngresoTemporalPlanilla').on('click', async function(e) {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+
+  var lst = [];
+  $('.planilla-modal-personal').each(function () {
+    var idPersonalEstado = Number(this.id.replace('planilla-modal-personal-', ''));
+    var rutReemplazo = $(`#${this.id}`).val();
+    if (`${rutReemplazo}` != '0') lst.push({ idPersonalEstado, rutReemplazo });
+  })
+  $("#modalIngresoTemporalPlanilla").modal("hide");
+  loading(true);
+  await $.ajax({
+    url:   'controller/actualizarPlanillaRutReemplazo.php',
+    type:  'post',
+    data: { lst },
+    success:  function (response) {
+      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
+      setTimeout(function(){
+        loading(false);
+      },1000);
+    }
+  })
 });
 
 $(document).on('click', '#editarPlanillaAsistencia', async (e) => {

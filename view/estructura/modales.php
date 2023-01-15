@@ -11439,7 +11439,7 @@
 
 <!-- BEGIN - INGRESO TEMPORAL PLANILLA -->
 <div id="modalIngresoTemporalPlanilla" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog modal-dialog-box modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-box modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 style="color:gray;" id="tituloIngresoTemporalPlanilla"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;NUEVO INGRESO</h5>
@@ -11447,7 +11447,7 @@
       <div id="bodyIngresoTemporalPlanilla" class="modal-body alerta-modal-body">
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div id="personalTemporalPlanilla"></div>
+            <div id="personalTemporalPlanilla" style="display: flex; flex-direction: column;"></div>
           </div>
         </div>
       </div>
