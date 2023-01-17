@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=24';
+  js.src = 'view/js/funciones.js?idload=25';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -776,7 +776,7 @@
     <!-- Modal content-->
 		<div class="modal-content">
 				<div class="modal-header">
-						<h5 style="color:gray;" id="tituloEditarPerfil"><span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Listado de áreas</span></h5>
+						<h5 style="color:gray;" id="tituloEditarPerfil"><span style="color: gray;" class="fas fa-user-friends">&nbsp;&nbsp;Listado de menú</span></h5>
 				</div>
 				<div id="bodyAreasPerfil" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
 					<div class="row" style="text-align: left; margin-bottom: 20pt;">
@@ -958,7 +958,7 @@
 							</input>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-							<label style="font-weight: bold;">Area</label>
+							<label style="font-weight: bold;">Menú</label>
 							<input disabled id="nombreAreaPermiso" class="form-control">
 							</input>
 						</div>
