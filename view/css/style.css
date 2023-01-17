@@ -837,3 +837,7 @@ div[class$="dataTables_processing"]{
   z-index: 1000;
   color: red!important;
 }
+
+.leftDataTable {
+  text-align: left;
+}

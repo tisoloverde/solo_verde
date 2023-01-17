@@ -9776,7 +9776,7 @@ var _DATA_PLANILLA = [];
 var _TABLE_PLANILLA = $('#tablaListadoPlanillaAsistencia');
 var _CALENDARIO_PLANILLA = [];
 var _DIAS_PLANILLA = [];
-var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/40);
 var _LST_NULLS = ['Seleccione', 0, '0'];
 var _COMUNES_PLANILLA = {};
 
@@ -9879,7 +9879,7 @@ function initSemanas() {
 }
 
 $('#selectListaAnhos').on('change', function (e) {
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
   if (!this.value || isNaN(this.value) || Number(this.value) <= 0) {
     initSemanas();
     filtrosPlanilla();
@@ -9899,7 +9899,7 @@ $('#selectListaAnhos').on('change', function (e) {
 })
 
 $('#selectListaSemanas').on('change', function (e) {
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
   listSemanas(this.value);
 })
 
@@ -9950,24 +9950,24 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       { data: 'CLASIFICACION_B' },
       { data: 'REFERENCIA1_B' },
       { data: 'REFERENCIA2_B' },
-      { data: 'RUT_REEMPLAZO' },
+      { data: 'RUT_REEMPLAZO' , className: 'dt-center' },
       // { data: 'FECHA_REEMPLAZO' },
-      { data: 'Lunes' },
-      { data: 'Martes' },
-      { data: 'Miercoles' },
-      { data: 'Jueves' },
-      { data: 'Viernes' },
-      { data: 'Sabado' },
-      { data: 'Domingo' },
-      { data: 'NDIAS' },
-      { data: 'HE50' },
-      { data: 'HE100' },
-      { data: 'ATRASO' },
+      { data: 'Lunes' , className: 'dt-center' },
+      { data: 'Martes' , className: 'dt-center' },
+      { data: 'Miercoles' , className: 'dt-center' },
+      { data: 'Jueves' , className: 'dt-center' },
+      { data: 'Viernes' , className: 'dt-center' },
+      { data: 'Sabado' , className: 'dt-center' },
+      { data: 'Domingo' , className: 'dt-center' },
+      { data: 'NDIAS' , className: 'dt-center' },
+      { data: 'HE50' , className: 'dt-center' },
+      { data: 'HE100' , className: 'dt-center' },
+      { data: 'ATRASO' , className: 'dt-center' }
     ],
     buttons: [],
     columnDefs: [
       { width: "5px", targets: 0 },
-      { targets: "_all", className: "dt-center" },
+      { targets: "_all" },
       { orderable: false, targets: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22] },
     ],
     select: { style: 'single' },
@@ -10000,6 +10000,58 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     destroy: true,
     autoWidth: false,
     initComplete: function (settings, json) {
+      //Recargamos la funcion para guardado ya que si no se ingresa a veces no funciona el guardado
+      $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+
+        if (!_DATA_PLANILLA.length || !_DATA_PLANILLA.some((item) => item['__isEdited'])) return;
+
+        var dataUpd = [];
+
+        _DATA_PLANILLA.forEach(({
+          IDPERSONAL,
+          IDCARGO_GENERICO_UNIFICADO_B,
+          IDREFERENCIA1_B,
+          IDREFERENCIA2_B,
+          __DIAS_PLN,
+          __HE50,
+          __HE100,
+          __ATRASO,
+          __isEdited,
+        }) => {
+          var aux = {
+            IDPERSONAL,
+            IDCARGO_GENERICO_UNIFICADO_B,
+            IDREFERENCIA1_B,
+            IDREFERENCIA2_B,
+            FECHA_BASE: _DIAS_PLANILLA[0]['fecha'],
+            DIAS: _DIAS_PLANILLA.map(({ fecha }) => fecha),
+            DIAS_PLANILLA: __DIAS_PLN,
+          }
+          if (__HE50) aux['HE50'] = __HE50;
+          if (__HE100) aux['HE100'] = __HE100;
+          if (__ATRASO) aux['ATRASO'] = __ATRASO;
+          if (__isEdited) dataUpd.push(aux);
+        })
+
+        console.log(dataUpd)
+
+        loading(true);
+        await $.ajax({
+          url:   'controller/actualizarListadoPlanilla.php',
+          type:  'post',
+          data: { dataUpd },
+          success:  function (response) {
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
+            setTimeout(function(){
+              _TABLE_PLANILLA.DataTable().ajax.reload();
+              loading(false);
+            },1000);
+          }
+        })
+      });
+
       $('#contenido').show();
       $('#menu-lateral').show();
       $('#footer').parent().show();
@@ -10021,7 +10073,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
 })*/
 
 $('#selectListaCentrosDeCostos').on('change', function (e) {
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
   filtrosPlanilla();
 })
 
@@ -10304,6 +10356,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     success:  function (response) {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
       setTimeout(function(){
+        _TABLE_PLANILLA.DataTable().ajax.reload();
         loading(false);
       },1000);
     }
