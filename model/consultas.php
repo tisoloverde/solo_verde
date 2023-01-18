@@ -20141,7 +20141,7 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN PERSONAL P ON P.DNI = PE.RUT_REEMPLAZO
 			WHERE PE.IDPERSONAL = $idPersonal
 			AND PE.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
-			AND PEC.SIGLA IN ('LIC', 'DSR', 'V');";
+			AND PEC.SIGLA IN ('DSR');";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
