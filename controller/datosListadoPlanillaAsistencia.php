@@ -168,7 +168,8 @@
             foreach ($cons as $con) {
               $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
               $pec = $con['SIGLA'];
-              $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? $idConValid) == $idPec
+              // $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? $idConValid) == $idPec
+              $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO']) == $idPec
                 ? "<option value='$idPec' selected>$pec</option>"
                 : "<option value='$idPec'>$pec</option>");
             }
