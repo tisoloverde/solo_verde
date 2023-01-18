@@ -10117,7 +10117,7 @@ function personalGetColAndId(strid) {
   return [0, 0];
 }
 
-$(document).on('change', '.planilla-select-col8', function(e){
+$(document).on('change', '.planilla-select-col9', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -10131,11 +10131,11 @@ $(document).on('change', '.planilla-select-col8', function(e){
   var clasificacion = cargoGenericoUnificado['CLASIFICACION'];
 
   /* Begin - Text Col 9 */
-  $(`#planilla-text-col9-${idPersonal}`).text(clasificacion);
+  $(`#planilla-text-col10-${idPersonal}`).text(clasificacion);
   /* End - Text Col 9 */
 
   /* Begin - Text Col 10 */
-  $(`#planilla-text-col10-${idPersonal}`).text(referencia1);
+  $(`#planilla-text-col11-${idPersonal}`).text(referencia1);
   /* End - Text Col 10 */
 
   /* Begin - Select Col 11 */
@@ -10162,7 +10162,7 @@ $(document).on('change', '.planilla-select-col8', function(e){
   }
 });
 
-$(document).on('change', '.planilla-select-col10', function(e){
+$(document).on('change', '.planilla-select-col11', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -10176,7 +10176,7 @@ $(document).on('change', '.planilla-select-col10', function(e){
   }
 });
 
-$(document).on('change', '.planilla-select-col11', function(e){
+$(document).on('change', '.planilla-select-col12', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -10199,7 +10199,7 @@ $(document).on('change', '.planilla-select-day', function(e){
 
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
-    var idx = col - 13;
+    var idx = col - 14;
     _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
     _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }
@@ -10211,7 +10211,7 @@ $(document).on('change', '.planilla-input', function(e){
 
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
   if (planillaIdx >= 0) {
-    var key = col == 21 ? 'HE50' : col == 22 ? 'HE100' : 'ATRASO';
+    var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
     _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
     _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
   }

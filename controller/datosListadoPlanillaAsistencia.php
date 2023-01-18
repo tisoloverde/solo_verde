@@ -63,9 +63,9 @@
           "RUT_REEMPLAZO" => "<button id='planilla-input-$idPersonal' class='planilla-modal'>Asignar</button>",
           "FECHA_REEMPLAZO" => "",
           "NDIAS" => $ndias,
-          "HE50" => "<input id='planilla-input-col21-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
-          "HE100" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
-          "ATRASO" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
+          "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
+          "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
+          "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
           "__HE50" => $found['HE50'],
           "__HE100" => $found['HE100'],
           "__ATRASO" => $found['ATRASO'],
@@ -89,7 +89,7 @@
         /* End - Referencia 2 */
 
         /* Begin - Cargo Generico Unificado B */
-        $select = "<select id='planilla-select-col8-$idPersonal' class='planilla-select-col8'>";
+        $select = "<select id='planilla-select-col9-$idPersonal' class='planilla-select-col9'>";
         $select .= "<option>Seleccione</option>";
         foreach ($crgman as $item) {
           $idCgu = $item['IDCARGO_GENERICO_UNIFICADO'];
@@ -105,13 +105,13 @@
 
         /* Begin - Clasificacion */
         $row['CLASIFICACION_B_TEXT'] = $found['CLASIFICACION_B'] ? $found['CLASIFICACION_B'] : $crgman[0]['CLASIFICACION'];
-        $row['CLASIFICACION_B'] = "<span id='planilla-text-col9-$idPersonal'>" . $found['CLASIFICACION_B'] . "</span>";
+        $row['CLASIFICACION_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['CLASIFICACION_B'] . "</span>";
         /* End - Clasificacion */
 
         /* Begin - Referencia 1 */
         // $row['REFERENCIA1_B_TEXT'] = $found['REFERENCIA1_B']; // $found['REFERENCIA1_B'] ? $found['REFERENCIA1_B'] : $refs2[0]['REFERENCIA2'];
         // $row['REFERENCIA1_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['REFERENCIA1_B'] . "</span>";
-        $select = "<select id='planilla-select-col10-$idPersonal' class='planilla-select-col10'>";
+        $select = "<select id='planilla-select-col11-$idPersonal' class='planilla-select-col11'>";
         $select .= "<option>Seleccione</option>";
         foreach ($refs1 as $item) {
           $idRef1 = $item['IDREFERENCIA1'];
@@ -128,7 +128,7 @@
         /* End - Referencia 1 */
 
         /* Begin - Referencia 2 */
-        $select = "<select id='planilla-select-col11-$idPersonal' class='planilla-select-col11'>";
+        $select = "<select id='planilla-select-col12-$idPersonal' class='planilla-select-col12'>";
         $select .= "<option>Seleccione</option>";
         foreach ($refs2 as $item) {
           $idRef2 = $item['IDREFERENCIA2'];
@@ -145,7 +145,7 @@
         /* End - Referencia 2 */
 
         /* Begin - Week */
-        $col = 12;
+        $col = 13;
         foreach ($lstDiasSemana as $dia) {
           /* begin - search */
           $found = array();
