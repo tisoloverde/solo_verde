@@ -100,11 +100,11 @@
         }
         $select = $select . "</select>";
         $row['CARGO_GENERICO_UNIFICADO_B'] = $select;
-        $row['IDCARGO_GENERICO_UNIFICADO_B'] = isset($found['IDCARGO_GENERICO_UNIFICADO_B']) ? $found['IDCARGO_GENERICO_UNIFICADO_B'] : $crgman[0]['IDCARGO_GENERICO_UNIFICADO'];
+        $row['IDCARGO_GENERICO_UNIFICADO_B'] = $found['IDCARGO_GENERICO_UNIFICADO_B']; // $row['IDCARGO_GENERICO_UNIFICADO_B'] = isset($found['IDCARGO_GENERICO_UNIFICADO_B']) ? $found['IDCARGO_GENERICO_UNIFICADO_B'] : $crgman[0]['IDCARGO_GENERICO_UNIFICADO'];
         /* End - Cargo Generico Unificado B */
 
         /* Begin - Clasificacion */
-        $row['CLASIFICACION_B_TEXT'] = $found['CLASIFICACION_B'] ? $found['CLASIFICACION_B'] : $crgman[0]['CLASIFICACION'];
+        $row['CLASIFICACION_B_TEXT'] = $found['CLASIFICACION_B']; // $row['CLASIFICACION_B_TEXT'] = $found['CLASIFICACION_B'] ? $found['CLASIFICACION_B'] : $crgman[0]['CLASIFICACION'];
         $row['CLASIFICACION_B'] = "<span id='planilla-text-col10-$idPersonal'>" . $found['CLASIFICACION_B'] . "</span>";
         /* End - Clasificacion */
 
@@ -124,7 +124,7 @@
         }
         $select = $select . "</select>";
         $row['REFERENCIA1_B'] = $select;
-        $row['IDREFERENCIA1_B'] = isset($found['IDREFERENCIA1_B']) ? $found['IDREFERENCIA1_B'] : $refs1[0]['IDREFERENCIA1'];
+        $row['IDREFERENCIA1_B'] = $found['IDREFERENCIA1_B']; // $row['IDREFERENCIA1_B'] = isset($found['IDREFERENCIA1_B']) ? $found['IDREFERENCIA1_B'] : $refs1[0]['IDREFERENCIA1'];
         /* End - Referencia 1 */
 
         /* Begin - Referencia 2 */
@@ -141,7 +141,7 @@
         }
         $select = $select . "</select>";
         $row['REFERENCIA2_B'] = $select;
-        $row['IDREFERENCIA2_B'] = isset($found['IDREFERENCIA2_B']) ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
+        $row['IDREFERENCIA2_B'] = $found['IDREFERENCIA2_B']; // $row['IDREFERENCIA2_B'] = isset($found['IDREFERENCIA2_B']) ? $found['IDREFERENCIA2_B'] : $refs2[0]['IDREFERENCIA2'];
         /* End - Referencia 2 */
 
         /* Begin - Week */
