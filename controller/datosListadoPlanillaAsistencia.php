@@ -45,6 +45,7 @@
         }
 
         $row = [
+          "S" => $lstPersonalCC[$i]['S'],
           "IDPERSONAL" => $idPersonal,
           "RUT" => $lstPersonalCC[$i]['RUT'],
           "NOMBRES" => $lstPersonalCC[$i]['NOMBRES'],

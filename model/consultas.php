@@ -19964,7 +19964,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin, $search) {
 		$con = conectar();
 		if ($con != "No conectado") {
-			$sql = "SELECT
+			$sql = "SELECT ' ' AS S,
 				COUNT(DISTINCT(AH.IDPERSONAL)) AS CONT
 			FROM ACT_HISTORIAL AH
 			INNER JOIN PERSONAL P ON P.IDPERSONAL = AH.IDPERSONAL

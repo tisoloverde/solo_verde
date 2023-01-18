@@ -9939,6 +9939,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       data: { idEstructuraOperacion, fecIni, fecFin },
     },
     columns: [
+      { data: 'S' , className: 'dt-center' },
       { data: 'RUT' },
       { data: 'NOMBRES' },
       { data: 'CARGO_LIQUIDACION' },
@@ -9965,10 +9966,14 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       { data: 'ATRASO' , className: 'dt-center' }
     ],
     buttons: [],
+    fixedColumns:   {
+      leftColumns: 3
+    },
     columnDefs: [
-      { width: "5px", targets: 0 },
+      { orderable: false, className: 'select-checkbox', targets: [ 0 ], width: "5px" },
+      { width: "5px", targets: 1 },
       { targets: "_all" },
-      { orderable: false, targets: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22] },
+      { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23] },
     ],
     select: { style: 'single' },
     scrollX: true,
@@ -9993,9 +9998,9 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       infoFiltered: "(Filtrado de _MAX_ registros)",
     },
     select: {
-      style: 'single',
+      style: 'multi',
       // selector: 'td:not(:nth-child(8),:nth-child(11))'
-      selector: disableSelectionCols([8,10,11,12,13,14,15,16,17,18,19,21,22,23]),
+      selector: disableSelectionCols([9,11,12,13,14,15,16,17,18,19,20,22,23,24]),
     },
     destroy: true,
     autoWidth: false,
