@@ -10371,7 +10371,7 @@ $(document).on('change', '.planilla-select-day', function(e){
   e.stopImmediatePropagation();
 
   var [col, idPersonal] = personalGetColAndId(this.id);
-  var idPec = this.value;
+  var idPec = Number(this.value) == 0 ? 'null' : this.value;
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
 
   var idx = col - 14;
