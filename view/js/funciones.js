@@ -10492,7 +10492,10 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
 
-  if (!_DATA_PLANILLA.length || !_DATA_PLANILLA.some((item) => item['__isEdited'])) return;
+  var selecteds = _TABLE_PLANILLA.DataTable().rows('.selected').data();
+
+  // if (!_DATA_PLANILLA.length || !_DATA_PLANILLA.some((item) => item['__isEdited'])) return;
+  if (!_DATA_PLANILLA.length || !selecteds.length) return;
 
   var dataUpd = [];
 
@@ -10505,7 +10508,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     __HE50,
     __HE100,
     __ATRASO,
-    __isEdited,
+    // __isEdited,
   }) => {
     var aux = {
       IDPERSONAL,
@@ -10519,7 +10522,12 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     if (__HE50) aux['HE50'] = __HE50;
     if (__HE100) aux['HE100'] = __HE100;
     if (__ATRASO) aux['ATRASO'] = __ATRASO;
-    if (__isEdited) dataUpd.push(aux);
+    // if (__isEdited) dataUpd.push(aux);
+
+    // var isSelected = selecteds.find((itm) => `${itm.IDPERSONAL}` == `${IDPERSONAL}`)
+    for (var i=0; i<selecteds.length; i++) {
+      if (selecteds[i].IDPERSONAL == IDPERSONAL) dataUpd.push(aux);
+    }
   })
 
   console.log(dataUpd)
