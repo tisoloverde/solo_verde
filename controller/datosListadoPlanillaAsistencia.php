@@ -60,7 +60,7 @@
           "REFERENCIA1_B_TEXT" => "",
           "IDREFERENCIA2_B" => 0,
           "REFERENCIA2_B" => "",
-          "RUT_REEMPLAZO" => "<button id='planilla-input-$idPersonal' class='planilla-modal'>Asignar</button>",
+          "RUT_REEMPLAZO" => "<button id='planilla-input-$idPersonal' class='planilla-modal' disabled>Asignar</button>",
           "FECHA_REEMPLAZO" => "",
           "NDIAS" => $ndias,
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
