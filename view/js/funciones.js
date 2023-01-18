@@ -10211,26 +10211,55 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       //Bloqueamos rut de ser necesario
       var flagDSR = 0;
       try {
-        console.log(data["Lunes"].split("<option>")[1].split("</option>")[0]);
         if(data["Lunes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
-        else if(data["Martes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+      }
+      catch{
+        // No se ejecuta acción
+      }
+      try {
+        if(data["Martes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
-        else if(data["Miercoles"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+      }
+      catch{
+        // No se ejecuta acción
+      }
+      try {
+        if(data["Miercoles"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
-        else if(data["Jueves"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+      }
+      catch{
+        // No se ejecuta acción
+      }
+      try {
+        if(data["Jueves"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
-        else if(data["Viernes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+      }
+      catch{
+        // No se ejecuta acción
+      }
+      try {
+        if(data["Viernes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
-        else if(data["Sabado"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+      }
+      catch{
+        // No se ejecuta acción
+      }
+      try {
+        if(data["Sabado"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
-        else if(data["Domingo"].split("<option> ")[1].split("</option>")[0].localeCompare("DSR") == 0){
+      }
+      catch{
+        // No se ejecuta acción
+      }
+      try {
+        if(data["Domingo"].split("<option> ")[1].split("</option>")[0].localeCompare("DSR") == 0){
           $($(row).find("td")[12]).find("button").removeAttr("disabled");
         }
       }
