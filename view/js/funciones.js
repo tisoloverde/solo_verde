@@ -3643,13 +3643,21 @@ $(document).on('change', '.dotacion-select-col8', function(e){
   }
 });
 
+function dotacionGetColAndId(strid) {
+  var splitted = strid.split('-');
+  if (splitted.length > 3) {
+    return [Number(splitted[2].replace('col', '')), splitted[3]];
+  }
+  return [0, ''];
+}
+
 $(document).on('change', '.dotacion-input', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
   $("#saveDotacion").removeAttr("disabled");
 
-  var [col, idDotacion] = personalGetColAndId(this.id);
+  var [col, idDotacion] = dotacionGetColAndId(this.id);
   var val = this.value;
 
   var dotacionIdx = _DATA_DOTACION.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
