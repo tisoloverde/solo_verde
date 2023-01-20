@@ -3367,7 +3367,7 @@ async function listDotacion(periodo, codigoCC) {
       /*{ visible: false, searchable: false, targets: [ 2 ] },*/
       { targets: "_all", className: "dt-center" },
       { targets: [8,9,10,11,12,13,14,15,16,17,18,19], className: "onlyNumbers" },
-      { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19] },
+      { orderable: false, targets: [1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19] },
     ],
     // select: { style: 'single' },
     select: {
