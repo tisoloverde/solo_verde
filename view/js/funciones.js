@@ -3358,6 +3358,9 @@ async function listDotacion(periodo, codigoCC) {
       { data: 'DICIEMBRE' },
     ],
     buttons: [],
+    fixedColumns:   {
+      leftColumns: 6
+    },
     columnDefs: [
       { width: "5px", targets: 0 },
       /*{ orderable: false, className: 'select-checkbox', targets: [ 0 ] },*/
