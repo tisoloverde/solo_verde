@@ -19917,7 +19917,7 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Ok";
 			} else {
 				$con->query("ROLLBACK");
-				return "Error";
+				return $sql;
 			}
 		} else {
 			$con->query("ROLLBACK");
@@ -19950,7 +19950,7 @@ WHERE U.RUT = '{$rutUser}'";
 				'$rutUsuario'
 			)";
 			if ($row = $con->query($sql)) {
-				return $sql;
+				return "Ok";
 			} else {
 				$con->query("ROLLBACK");
 				return $sql;

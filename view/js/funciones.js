@@ -3646,13 +3646,21 @@ $(document).on('change', '.dotacion-select-col8', function(e){
   }
 });
 
+function dotacionGetColAndId(strid) {
+  var splitted = strid.split('-');
+  if (splitted.length > 3) {
+    return [Number(splitted[2].replace('col', '')), splitted[3]];
+  }
+  return [0, ''];
+}
+
 $(document).on('change', '.dotacion-input', function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
 
   $("#saveDotacion").removeAttr("disabled");
 
-  var [col, idDotacion] = personalGetColAndId(this.id);
+  var [col, idDotacion] = dotacionGetColAndId(this.id);
   var val = this.value;
 
   var dotacionIdx = _DATA_DOTACION.findIndex(({ IDDOTACION }) => `${IDDOTACION}` == `${idDotacion}`)
@@ -10325,44 +10333,24 @@ $(document).on('change', '.planilla-select-col9', function(e){
   e.stopImmediatePropagation();
 
   var [_, idPersonal] = personalGetColAndId(this.id);
-  var idCargoGenericoUnificado = this.value;
-  var html = "";
+  var idCargoGenericoUnificado = this.value == 'Seleccione' ? null : this.value;
+  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
 
-  var cargoGenericoUnificado = _COMUNES_PLANILLA.cargoGenericoUnificado.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO']) == Number(idCargoGenericoUnificado));
-  var idReferencia1 = cargoGenericoUnificado['IDREFERENCIA1'];
-  var referencia1 = cargoGenericoUnificado['REFERENCIA1'];
-  var clasificacion = cargoGenericoUnificado['CLASIFICACION'];
-
-  /* Begin - Text Col 9 */
-  $(`#planilla-text-col10-${idPersonal}`).text(clasificacion);
-  /* End - Text Col 9 */
+  _DATA_PLANILLA[planillaIdx]['IDCARGO_GENERICO_UNIFICADO_B'] = idCargoGenericoUnificado;
+  _DATA_PLANILLA[planillaIdx]['CLASIFICACION_B_TEXT'] = '';
 
   /* Begin - Text Col 10 */
-  $(`#planilla-text-col11-${idPersonal}`).text(referencia1);
+  var clasificacion = ''
+  if (idCargoGenericoUnificado) {
+    var cargoGenericoUnificado = _COMUNES_PLANILLA.cargoGenericoUnificado.find((item) => Number(item['IDCARGO_GENERICO_UNIFICADO']) == Number(idCargoGenericoUnificado));
+    clasificacion = cargoGenericoUnificado['CLASIFICACION'];
+  }
+
+  $(`#planilla-text-col10-${idPersonal}`).text(clasificacion);
+  _DATA_PLANILLA[planillaIdx]['CLASIFICACION_B_TEXT'] = clasificacion;
   /* End - Text Col 10 */
 
-  /* Begin - Select Col 11 */
-  /*html = `<select id='planilla-select-col11-${idPersonal}' class='planilla-select-col11'>`;
-  _COMUNES_PLANILLA.referencia2.forEach((item) => {
-    if (Number(item['IDREFERENCIA1']) == Number(idReferencia1)) {
-      html += "<option value='" + item['IDREFERENCIA2'] + "'>" + item['REFERENCIA2'] + "</option>";
-    }
-  })
-  html += "</select>";
-  $(`#planilla-select-col11-${idPersonal}`).html(html);*/
-  /* End - Select Col 11 */
-
-  // var idReferencia2 = $(`#planilla-select-col11-${idPersonal}`).val();
-
-  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    _DATA_PLANILLA[planillaIdx]['IDCARGO_GENERICO_UNIFICADO_B'] = idCargoGenericoUnificado;
-    _DATA_PLANILLA[planillaIdx]['CLASIFICACION_B_TEXT'] = clasificacion;
-    _DATA_PLANILLA[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
-    _DATA_PLANILLA[planillaIdx]['REFERENCIA1_B_TEXT'] = referencia1;
-    // _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
-    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
-  }
+  _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
 
 $(document).on('change', '.planilla-select-col11', function(e){
@@ -10370,13 +10358,11 @@ $(document).on('change', '.planilla-select-col11', function(e){
   e.stopImmediatePropagation();
 
   var [_, idPersonal] = personalGetColAndId(this.id);
-  var idReferencia1 = this.value;
-
+  var idReferencia1 = this.value == 'Seleccione' ? null : this.value;
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    _DATA_PLANILLA[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
-    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
-  }
+
+  _DATA_PLANILLA[planillaIdx]['IDREFERENCIA1_B'] = idReferencia1;
+  _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
 
 $(document).on('change', '.planilla-select-col12', function(e){
@@ -10384,13 +10370,11 @@ $(document).on('change', '.planilla-select-col12', function(e){
   e.stopImmediatePropagation();
 
   var [_, idPersonal] = personalGetColAndId(this.id);
-  var idReferencia2 = this.value;
-
+  var idReferencia2 = this.value == 'Seleccione' ? null : this.value;
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
-    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
-  }
+
+  _DATA_PLANILLA[planillaIdx]['IDREFERENCIA2_B'] = idReferencia2;
+  _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
 
 $(document).on('change', '.planilla-select-day', function(e){
@@ -10398,26 +10382,22 @@ $(document).on('change', '.planilla-select-day', function(e){
   e.stopImmediatePropagation();
 
   var [col, idPersonal] = personalGetColAndId(this.id);
-  var idPec = this.value;
-
+  var idPec = Number(this.value) == 0 ? 'null' : this.value;
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    var idx = col - 14;
-    _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
-    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
-  }
+
+  var idx = col - 14;
+  _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
+  _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
 
 $(document).on('change', '.planilla-input', function(e){
   var [col, idPersonal] = personalGetColAndId(this.id);
   var val = this.value;
-
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-  if (planillaIdx >= 0) {
-    var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
-    _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
-    _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
-  }
+
+  var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
+  _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
+  _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
 
 $(document).on('keypress', '.planilla-input', function(e){
@@ -10544,16 +10524,16 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
   }) => {
     var aux = {
       IDPERSONAL,
-      IDCARGO_GENERICO_UNIFICADO_B,
-      IDREFERENCIA1_B,
-      IDREFERENCIA2_B,
+      IDCARGO_GENERICO_UNIFICADO_B: IDCARGO_GENERICO_UNIFICADO_B ?? 'null',
+      IDREFERENCIA1_B: IDREFERENCIA1_B ?? 'null',
+      IDREFERENCIA2_B: IDREFERENCIA2_B ?? 'null',
       FECHA_BASE: _DIAS_PLANILLA[0]['fecha'],
       DIAS: _DIAS_PLANILLA.map(({ fecha }) => fecha),
       DIAS_PLANILLA: __DIAS_PLN,
+      HE50: __HE50 ?? 'null',
+      HE100: __HE100 ?? 'null',
+      ATRASO: __ATRASO ?? 'null',
     }
-    if (__HE50) aux['HE50'] = __HE50;
-    if (__HE100) aux['HE100'] = __HE100;
-    if (__ATRASO) aux['ATRASO'] = __ATRASO;
     // if (__isEdited) dataUpd.push(aux);
 
     // var isSelected = selecteds.find((itm) => `${itm.IDPERSONAL}` == `${IDPERSONAL}`)
@@ -10564,7 +10544,6 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
 
   console.log(dataUpd)
 
-  return;
   loading(true);
   await $.ajax({
     url:   'controller/actualizarListadoPlanilla.php',
