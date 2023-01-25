@@ -3342,34 +3342,88 @@
               <h5 style="font-weight: bold;">4. DOCUMENTOS DE PRESENTACIÓN OBLIGATORIOS, PREVIO A LA CONTRATACIÓN</h5>
             </div>
 
-            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Certificados</label>
-              <select name="gj__certificados" class="form-control">
-                <option value="Estudios">Estudios</option>
-                <option value="Antecedentes">Antecedentes</option>
-                <option value="DeExcencion">De Excención</option>
-                <option value="Residencia">Residencia</option>
-                <option value="Pension">Pensión</option>
-                <option value="Discapacidad">Discapacidad</option>
-                <option value="AFP">AFP</option>
-                <option value="FONASA">FONASA</option>
-                <option value="ISAPRE">ISAPRE</option>
-                <option value="SeguroCovid19">Seguro COVID 19</option>
-                <option value="CONADI">(*) CONADI</option>
-                <option value="CursoOS10">Curso OS-10</option>
-                <option value="CursoSupervisor">Curso Supervisor</option>
-                <option value="CertificadoVacunas">Certificado Vacunas</option>
-              </select>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_estudios" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Estudios</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_antecedentes" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Antecedentes</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_deExcencion" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>De Excención</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_residencia" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Residencia</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_pension" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Pensión</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_discapacidad" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Discapacidad</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_afp" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>AFP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_fonasa" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>FONASA</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_isapre" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>ISAPRE</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_seguroCovid19" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Seguro Covid 19</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_conadi" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>CONADI</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_cursoOS10" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Curso OS 10</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_cursoSupervisor" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Curso Supervisor</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_certificadoVacunas" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Certificado Vacunas</span>
+                </label>
+              </div>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Otros</label>
-              <select name="gj__otrosCertificados" class="form-control">
-                <option value="CedulaDeIdentidad">Cédula de Identidad</option>
-                <option value="LicenciaDeConducir">Licencia de Conducir</option>
-                <option value="CV">Currículum</option>
-                <option value="HojaDeVida">Hoja de Vida</option>
-              </select>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_cedulaDeIdentidad" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Cédula de Identidad</span>
+                </label>
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_licenciaDeConducir" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Licencia de Conducir</span>
+                </label>
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_curriculum" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Currículum</span>
+                </label>
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_hojaDeVida" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Hoja De Vida</span>
+                </label>
+              </div>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt; display: grid;">
