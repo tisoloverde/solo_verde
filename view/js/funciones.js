@@ -9948,6 +9948,10 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
       data: { idEstructuraOperacion, fecIni, fecFin },
+      dataFilter: function(data) {
+        _DATA_PLANILLA = JSON.parse(data).aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
+        return data;
+      },
     },
     columns: [
       { data: 'S' , className: 'dt-center' },
@@ -10016,7 +10020,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     autoWidth: false,
     initComplete: function (settings, json) {
       //Recargamos la funcion para guardado ya que si no se ingresa a veces no funciona el guardado
-      $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
+      /*$(document).on('click', '#editarPlanillaAsistencia', async (e) => {
         e.stopImmediatePropagation();
         e.preventDefault();
 
@@ -10065,14 +10069,13 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
             },1000);
           }
         })
-      });
-
+      });*/
       $('#contenido').show();
       $('#menu-lateral').show();
       $('#footer').parent().show();
       $('#footer').show();
       setTimeout(function() {
-        _DATA_PLANILLA = json.aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
+        // _DATA_PLANILLA = json.aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
         _TABLE_PLANILLA.DataTable().columns.adjust();
         loading(false);
       },500);
