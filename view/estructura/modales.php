@@ -3246,18 +3246,18 @@
               <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
                 <div style="width: 100px;">
                   <label class="switch">
-                    <input name="gj__tieneFamiliaresEnLaEmpresa" type="checkbox">
+                    <input name="gj__tieneFamiliarEmpresa" type="checkbox">
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <input name="gj__nombreFamiliarEnLaEmpresa" type="text" class="form-control" placeholder="Nombre completo familiar" />
-                <input name="gj__cargoFamiliarEnLaEmpresa" type="text" class="form-control" placeholder="Cargo que desempeña" />
+                <input name="gj__nombreFamiliarEmpresa" type="text" class="form-control" placeholder="Nombre completo familiar" />
+                <input name="gj__cargoFamiliarEmpresa" type="text" class="form-control" placeholder="Cargo que desempeña" />
               </div>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Tipo de Parentesco</label>
-              <select name="gj__parentesco" class="form-control">
+              <select name="gj__parentescoFamiliarEmpresa" class="form-control">
                 <option value="Padre">Padre/Madre</option>
                 <option value="Pareja">Pareja</option>
                 <option value="Hijo">Hijo(a)</option>
@@ -3267,7 +3267,7 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold; color: white;">Otro</label>
-              <input name="gj__otroParentesco" type="text" placeholder="Especifique..." class="form-control" />
+              <input name="gj__otroParentescoFamiliarEmpresa" type="text" placeholder="Especifique..." class="form-control" />
             </div>
             
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt; display: grid;">

@@ -6788,6 +6788,102 @@ function ingresaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$
     }
 }
 
+function completaPersonalGestOperacion(
+	$dni,
+
+	$esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
+	$sexo, $puebloOriginario, $esHispanoHablante, $nivelEstudios, $sabeLeer,
+	$sabeEscribir, $tieneLicencia, $claseLicencia, $fechaVencimientoLicencia,
+	$estadoCivil, $nombreContactoEmergencia, $fonoContactoEmergencia, $tallaPolera,
+	$tallaGuantes, $tallaPantalon, $tallaZapatos, $tallaLegionario, $tallaOveroll,
+	$tallaOtros, $tieneFamiliarEmpresa, $nombreFamiliarEmpresa, $cargoFamiliaEmpresa,
+	$parentescoFamiliaEmpresa, $esRepitente, $cargoRepitente, $razonRepitente,
+
+	$afiliacion, $nombreAfiliacionAFP, $nombreAfiliacionIsapre,
+
+	$banco, $tipoCuenta, $nroCuenta,
+
+	$lstCertificados, $lstCertificadosOtros, $tieneClaveUnica,
+
+	$fechaIngresoEmpresa, $tipoContrato, $duracionContrato, $cargoGenerico,
+	$jeas, $ref1, $ref2, $plaza
+) {
+  $con = conectar();
+	$con->query("START TRANSACTION");
+	if ($con != 'No conectado') {
+		$sql = "UPDATE PERSONAL SET
+		  -- // 1. Antecedentes Personales
+			-- $esProvisorio = // ¿?
+			DOMICILIO = $domicilio,
+			IDAREAFUNCIONAL_COMUNA_NAC = $comuna,
+			-- '' = $ciudad,
+			FECHA_NACIMIENTO = $fechaNacimiento,
+			NACIONALIDAD = $nacionalidad,
+			SEXO = $sexo,
+			PUEBLO_ORIGINARIO = $puebloOriginario,
+			HABLA_ESPANIOL = $esHispanoHablante,
+			IDNIVEL_EDUCACIONAL = $nivelEstudios,
+			LEE = $sabeLeer,
+			ESCRIBE = $sabeEscribir,
+			POSEE_LICENCIA = $tieneLicencia,
+			IDTIPO_LICENCIA = $claseLicencia,
+			FECHA_VENCIMIENTO_LICENCIA = $fechaVencimientoLicencia,
+			IDESTADO_CIVIL = $estadoCivil,
+			CONTACTO_EMERGENCIA = $nombreContactoEmergencia,
+			TELEFONO_EMERGENCIA = $fonoContactoEmergencia,
+			TALLA_POLERA = $tallaPolera,
+			TALLA_GUANTES = $tallaGuantes,
+			TALLA_PANTALON = $tallaPantalon,
+			TALLA_ZAPATOS = $tallaZapatos,
+			TALLA_LEGIONARIO = $tallaLegionario,
+			TALLA_OVEROLL = $tallaOveroll,
+			TALLA_OTROS = $tallaOtros,
+			FAMILIAR_EMPRESA = $tieneFamiliarEmpresa,
+			FAMILIAR_EMPRESA_NOMBRE = $nombreFamiliarEmpresa,
+			FAMILIAR_EMPRESA_CARGO = $cargoFamiliaEmpresa,
+			FAMILIAR_EMPRESA_PARENTESCO = $parentescoFamiliaEmpresa,
+			TRABAJO_ANTERIORMENTE = $esRepitente,
+			TRABAJO_ANTERIORMENTE_CARGO = $cargoRepitente,
+			TRABAJO_ANTERIORMENTE_RAZON_SALIDA = $razonRepitente,
+
+			-- 2. Antecedentes Previsionales
+			IDSALUD = $afiliacion,
+			IDAFP = $nombreAfiliacionAFP,
+			-- ¿ = $nombreAfiliacionIsapre,
+
+			-- 3. Forma de Pago
+			IDBANCO = $banco,
+			BANCO_TIPO_CUENTA = $tipoCuenta,
+			BANCO_CUENTA = $nroCuenta,
+
+			CERTIFICADOS = $lstCertificados,
+			OTROS_DOCUMENTOS = $lstCertificadosOtros,
+			CLAVE_UNICA = $tieneClaveUnica,
+
+			-- Laborales
+			FECHA_INGRESO = $fechaIngresoEmpresa,
+			IDTIPO_CONTRATO = $tipoContrato,
+			DURACION_INICIAL_CONTRATO = $duracionContrato,
+			CARGO_GENERICO_CODIGO = $cargoGenerico,
+			CLASIFICACION = $jeas,
+			REFERENCIA1 = $ref1,
+			REFERENCIA2 = $ref2,
+			PLAZA_SECTOR = $plaza,
+		WHERE DNI = $dni;";
+    if ($con->query($sql)) {
+			$con->query("COMMIT");
+			return "Ok";
+		} else {
+			// return $con->error;
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	} else {
+    $con->query("ROLLBACK");
+		return "Error";
+	}
+}
+
 function ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad){
     $con = conectar();
     $con->query("START TRANSACTION");
