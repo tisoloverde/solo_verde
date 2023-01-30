@@ -6309,17 +6309,6 @@ $("#editarJefatura").unbind("click").click(async function(){
   $("#moEditaPersonalOperaciones").val(mano[0]);
 
   await $.ajax({
-    url:   'controller/datosPersonalDetalle.php',
-    type:  'post',
-    data:  parametros,
-    dataType: 'json',
-    success: function (response) {
-      console.log('--response--')
-      console.log(response.aaData)
-    }
-  });
-
-  await $.ajax({
     url:   "controller/checkImgPerfil.php?rut=" + rut[0] + "&id=" + Math.round(Math.random() * (1000000 - 1) + 1),
     type:  'get',
     success: function (response2) {
@@ -6544,6 +6533,66 @@ $("#editarJefatura").unbind("click").click(async function(){
       console.log('--asdasd--')
       console.log(errorThrown)
     },
+  });
+
+  await $.ajax({
+    url:   'controller/datosPersonalDetalle.php',
+    type:  'post',
+    data:  parametros,
+    dataType: 'json',
+    success: function (response) {
+      var dt = response.aaData;
+      $("input[name='gj__provisorio']").prop('checked', true);
+      $("input[name='gj__domicilio']").val(dt.domicilio);
+      $("select[name='gj__comuna']").val(dt.comuna);
+      // ciudad: "",
+      $("input[name='gj__fechaNacimiento']").val(dt.fechaNacimiento);
+      $("select[name='gj__nacionalidad']").val(dt.nacionalidad);
+      $("select[name='gj__sexo']").val(dt.sexo);
+      $("input[name='gj__esPuebloOriginario']").prop('checked', Boolean(dt.puebloOriginario));
+      $("input[name='gj__puebloOriginario']").val(dt.puebloOriginario);
+      $("input[name='gj__esHispanoHablante']").prop("checked", dt.esHispanoHablante);
+      $("select[name='gj__nivelEstudios']").val(dt.nivelEstudios);
+      $("input[name='gj__sabeLeer']").prop("checked", dt.sabeLeer);
+      $("input[name='gj__sabeEscribir']").prop("checked", dt.sabeEscribir);
+      $("input[name='gj__tieneLicencia']").prop("checked", dt.tieneLicencia);
+      $("select[name='gj__claseLicencia']").val(dt.claseLicencia);
+      $("input[name='gj__fechaVencimientoLicencia']").val(dt.fechaVencimientoLicencia);
+      $("select[name='gj__estadoCivil']").val(dt.estadoCivil);
+      $("input[name='gj__nombreContactoEmergencia']").val(dt.nombreContactoEmergencia);
+      $("input[name='gj__fonoContactoEmergencia']").val(dt.fonoContactoEmergencia);
+      $("input[name='gj__talla_camisa']").val(dt.tallaPolera);
+      $("input[name='gj__talla_guantes']").val(dt.tallaGuantes);
+      $("input[name='gj__talla_pantalon']").val(dt.tallaPantalon);
+      $("input[name='gj__talla_zapatos']").val(dt.tallaZapatos);
+      $("input[name='gj__talla_casco']").val(dt.tallaLegionario);
+      $("input[name='gj__talla_overol']").val(dt.tallaOverol);
+      // tallaOtros: $("input[name='gj__talla_otros']").val() + "|" + $("input[name='gj__otraTallaUniforme']").val(),
+      $("input[name='gj__tieneFamiliarEmpresa']").prop("checked", Boolean(dt.tieneFamiliarEmpresa));
+      $("input[name='gj__nombreFamiliarEmpresa']").val(dt.nombreFamiliarEmpresa);
+      $("input[name='gj__cargoFamiliarEmpresa']").val(dt.cargoFamiliarEmpresa);
+      $("input[name='gj__parentescoFamiliarEmpresa']").val(dt.parentescoFamiliarEmpresa);
+      $("input[name='gj__esRepitente']").prop("checked", Boolean(dt.esRepitente));
+      $("input[name='gj__cargoRepitente']").val(dt.cargoRepitente);
+      $("input[name='gj__razonRepitente']").val(dt.razonRepitente);
+      // afiliacion: "",
+      // nombreAfiliacionAFP: $("select[name='gj__nombreAfiliacionAFP']").val(),
+      // nombreAfiliacionIsapre: $("select[name='gj__nombreAfiliacionISAPRE']").val(),
+      $("select[name='gj__banco']").val(dt.banco);
+      $("select[name='gj__tipoCuenta']").val(dt.tipoCuenta);
+      $("input[name='gj__nroCuenta']").val(dt.nroCuenta);
+      // lstCertificados: "",
+      // lstCertificadosOtros: "",
+      $("input[name='gj__tieneClaveUnica']").prop("checked", Boolean(dt.tieneClaveUnica)),
+      $("input[name='gj__fechaIngresoEmprea']").val(dt.fechaIngresoEmpresa);
+      $("select[name='gj__tipoContrato']").val(dt.tipoContrato);
+      $("input[name='gj__duracionInicialContrato']").val(dt.duracionContrato);
+      $("select[name='gj__cargoGenerico']").val(dt.cargoGenerico);
+      // jeas: "",
+      $("select[name='gj__ref1']").val(dt.ref1);
+      $("select[name='gj__ref2']").val(dt.ref2);
+      // plaza: ""
+    }
   });
 
   var theme = {

@@ -11,7 +11,7 @@
       "sEcho" => 1,
       "iTotalRecords" => count($row),
       "iTotalDisplayRecords" => count($row),
-      "aaData" => $row
+      "aaData" => $row[0]
     );
     echo json_encode($results);
   } else {
