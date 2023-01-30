@@ -3090,7 +3090,9 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">Comuna</label>
-              <input name="gj__comuna" class="form-control" type="text" value="">
+              <!--<input name="gj__comuna" class="form-control" type="text" value="">-->
+              <select name="gj__comuna" class="form-control">
+              </select>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
@@ -3110,7 +3112,9 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">Nacionalidad</label>
-              <input name="gj__nacionalidad" class="form-control" type="text" value="">
+              <!--<input name="gj__nacionalidad" class="form-control" type="text" value="">-->
+              <select name="gj__nacionalidad" class="form-control">
+              </select>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
@@ -3147,11 +3151,6 @@
             <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Nivel de Estudios</label>
               <select name="gj__nivelEstudios" class="form-control">
-                <option value="Ninguno">Ninguno</option>
-                <option value="Básico">Básico</option>
-                <option value="Medio">Medio</option>
-                <option value="Técnico">Técnico</option>
-                <option value="Profesional">Profesional</option>
               </select>
             </div>
 
@@ -3209,10 +3208,10 @@
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Estado Civil</label>
               <select name="gj__estadoCivil" class="form-control">
-                <option value="Soltero">Soltero</option>
+                <!--<option value="Soltero">Soltero</option>
                 <option value="Casado">Casado</option>
                 <option value="Divorciado">Divorciado</option>
-                <option value="Viudo">Viudo</option>
+                <option value="Viudo">Viudo</option>-->
               </select>
             </div>
 
@@ -3226,18 +3225,43 @@
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Tallas Uniforme</label>
-              <select name="gj__tallaUniforme" class="form-control">
+              <!--<select name="gj__tallaUniforme" class="form-control">
                 <option value="Camisa">Camisa</option>
                 <option value="Guantes">Guantes</option>
                 <option value="Pantalón">Pantalón</option>
                 <option value="Zapatos">Zapatos</option>
                 <option value="Casco">Casco</option>
                 <option value="Otros">Otros</option>
-              </select>
+              </select>-->
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Camisa</span>
+                  <input name="gj__talla_camisa" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Guantes</span>
+                  <input name="gj__talla_guantes" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Pantalón</span>
+                  <input name="gj__talla_pantalon" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Zapatos</span>
+                  <input name="gj__talla_zapatos" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Casco</span>
+                  <input name="gj__talla_casco" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Otros</span>
+                  <input name="gj__talla_otros" type="text" class="form-control" style="width: 100px;">
+                </label>
+              </div>
             </div>
 
-            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label style="font-weight: bold; color: white;">Tallas Uniforme</label>
+            <div class="col-xl-6 col-md-6" style="margin-top: 68pt;">
               <input name="gj__otraTallaUniforme" type="text" placeholder="Especifique..." class="form-control" />
             </div>
 
@@ -3288,19 +3312,37 @@
               <h5 style="font-weight: bold;">2. ANTECEDENTES PREVISIONALES</h5>
             </div>
 
-            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Afiliado a:</label>
-              <select name="gj__afiliacion" class="form-control">
+              <!--<select name="gj__afiliacion" class="form-control">
                 <option value="AFP">A.F.P</option>
                 <option value="INP">I.N.P, ex S.S.S</option>
                 <option value="FONASA">FONASA</option>
                 <option value="ISAPRE">ISAPRE</option>
-              </select>
+              </select>-->
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_afp" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>AFP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_inp" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>INP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_fonasa" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>FONASA</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_isapre" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>ISAPRE</span>
+                </label>
+              </div>
             </div>
 
-            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold; color: white;">Afiliado</label>
-              <input name="gj__nombreAfiliacion" type="text" placeholder="Indicar nombre de AFP/ISAPRE..." class="form-control" />
+            <div class="col-xl-6 col-md-6" style="margin-top: 34pt;">
+              <select name="gj__nombreAfiliacionAFP" type="text" class="form-control"></select>
+              <select name="gj__nombreAfiliacionISAPRE" type="text" class="form-control"></select>
             </div>
 
             <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">

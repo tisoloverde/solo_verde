@@ -5609,33 +5609,144 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       }
     }
   });
+  await $.ajax({
+    url:   'controller/datosComunesPersonal.php',
+    type:  'get',
+    dataType: 'json',
+    success: function (response) {
+      var html = '';
+      response.aaData['areaFuncional'].forEach((item) => {
+        html += `<option value="${item.IDAREAFUNCIONAL}">${item.COMUNA}</option>`;
+      });
+      $("select[name='gj__comuna']").html(html);
+
+      html = '';
+      response.aaData['nacionalidad'].forEach((item) => {
+        html += `<option value="${item.IDNACIONALIDAD}">${item.NACIONALIDAD}</option>`;
+      });
+      $("select[name='gj__nacionalidad']").html(html);
+
+      html = '';
+      response.aaData['nivelEstudios'].forEach((item) => {
+        html += `<option value="${item.IDNIVEL_EDUCACIONAL}">${item.NIVEL_EDUCACIONAL}</option>`;
+      });
+      $("select[name='gj__nivelEstudios']").html(html);
+
+      html = '';
+      response.aaData['tipoLicencia'].forEach((item) => {
+        html += `<option value="${item.IDTIPO_LICENCIA}">${item.TIPO_LICENCIA}</option>`;
+      });
+      $("select[name='gj__claseLicencia']").html(html);
+
+      html = '';
+      response.aaData['estadoCivil'].forEach((item) => {
+        html += `<option value="${item.IDESTADO_CIVIL}">${item.ESTADO_CIVIL}</option>`;
+      });
+      $("select[name='gj__estadoCivil']").html(html);
+
+      var htmlAFP = '';
+      var htmlISAPRE = '';
+      response.aaData['afp'].forEach((item) => {
+        if (item.AFP != 'I.N.P') {
+          htmlAFP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
+        } else {
+          htmlISAPRE += `<option value="${item.IDAFP}">${item.AFP}</option>`;
+        }
+      });
+      $("select[name='gj__nombreAfiliacionAFP']").html(htmlAFP);
+      $("select[name='gj__nombreAfiliacionISAPRE']").html(htmlISAPRE);
+
+      html = '';
+      response.aaData['banco'].forEach((item) => {
+        html += `<option value="${item.IDBANCO}">${item.BANCO}</option>`;
+      });
+      $("select[name='gj__banco']").html(html);
+
+      html = '';
+      response.aaData['tipoContrato'].forEach((item) => {
+        html += `<option value="${item.IDTIPO_CONTRATO}">${item.TIPO_CONTRATO}</option>`;
+      });
+      $("select[name='gj__tipoContrato']").html(html);
+
+      html = '';
+      response.aaData['cargoGenericoUnificado'].forEach((item) => {
+        html += `<option value="${item.CODIGO}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
+      });
+      $("select[name='gj__cargoGenerico']").html(html);
+
+      html = '';
+      response.aaData['referencia1'].forEach((item) => {
+        html += `<option value="${item.IDREFERENCIA1}">${item.REFERENCIA1}</option>`;
+      });
+      $("select[name='gj__ref1']").html(html);
+
+      html = '';
+      response.aaData['referencia2'].forEach((item) => {
+        html += `<option value="${item.IDREFERENCIA2}">${item.REFERENCIA2}</option>`;
+      });
+      $("select[name='gj__ref2']").html(html);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log('--asdasd--')
+      console.log(errorThrown)
+    },
+  });
+  /*await $.ajax({
+    url:   'controller/datosSalud.php',
+    type:  'post',
+    dataType: 'json',
+    success: function (response) {
+      var html = '';
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
+      });
+      // $("select[name='gj__afiliacion']").html(html);
+    }
+  });*/
+
+  var theme = {
+    theme: 'bootstrap4',
+    width: $(this).data('width')
+      ? $(this).data('width')
+      : $(this).hasClass('w-100')
+        ? '100%'
+        : 'style',
+    placeholder: $(this).data('placeholder'),
+    allowClear: Boolean($(this).data('allow-clear')),
+    closeOnSelect: !$(this).attr('multiple'),
+    sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+  }
 
   if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    $("#cecoIngresarPersonalOperaciones").select2({
-        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-    });
-    $("#sucursalIngresarPersonalOperaciones").select2({
-        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-    });
-    $("#patenteIngresarPersonalOperaciones").select2({
-        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-    });
-    $("#empresaIngresarPersonalOperaciones").select2({
-        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-    });
-    $("#nivelIngresarPersonalOperaciones").select2({
-        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-    });
-    $("#moIngresarPersonalOperaciones").select2({
-        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
-    });
+    $("#cecoIngresarPersonalOperaciones").select2(theme);
+    $("#sucursalIngresarPersonalOperaciones").select2(theme);
+    $("#patenteIngresarPersonalOperaciones").select2(theme);
+    $("#empresaIngresarPersonalOperaciones").select2(theme);
+    $("#nivelIngresarPersonalOperaciones").select2(theme);
+    $("#moIngresarPersonalOperaciones").select2(theme);
+    $("select[name='gj__comuna']").select2(theme);
+    $("select[name='gj__nacionalidad']").select2(theme);
+    $("select[name='gj__sexo']").select2(theme);
+    $("select[name='gj__nivelEstudios']").select2(theme);
+    $("select[name='gj__claseLicencia']").select2(theme);
+    $("select[name='gj__estadoCivil']").select2(theme);
+    $("select[name='gj__parentescoFamiliarEmpresa']").select2(theme);
+    $("select[name='gj__nombreAfiliacionAFP']").select2(theme);
+    $("select[name='gj__nombreAfiliacionISAPRE']").select2(theme);
+    $("select[name='gj__banco']").select2(theme);
+    $("select[name='gj__tipoCuenta']").select2(theme);
+    $("select[name='gj__tipoContrato']").select2(theme);
+    $("select[name='gj__cargoGenerico']").select2(theme);
+    $("select[name='gj__ref1']").select2(theme);
+    $("select[name='gj__ref2']").select2(theme);
   }
+
   setTimeout(function(){
     var h = $(window).height() - 200;
     $("#bodyIngresarPersonalOperaciones").css("height",h);
     $('#modalAlertasSplash').modal('hide');
     $("#modalIngresarPersonalOperaciones").modal("show");
-  },500);
+  },3000);
 });
 
 $("input#rutIngresarPersonalOperaciones").rut({
