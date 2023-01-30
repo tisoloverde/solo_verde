@@ -10,9 +10,9 @@
     $dni = $_POST['rut'];                   // PERSONAL - DNI
     $apellidos = $_POST['apellidos'];       // PERSONAL - APELLIDOS
     $nombres = $_POST['nombres'];           // PERSONAL - NOMBRES
-    $cargo = $_POST['cargoEmpresa'];        // PERSONAL - CARGO
+    $cargo = $_POST['funcion'];             // PERSONAL - CARGO
     $fono = $_POST['fono'];                 // PERSONAL - TELEFONO
-    $mail = $_POST['email'];                // PERSONAL - EMAIL
+    $mail = $_POST['mail'];                 // PERSONAL - EMAIL
 
     $externo = $_POST['externo'];
     $idpatente = $_POST['patente'];
@@ -47,15 +47,15 @@
     $tallaOtros = isset($_POST['tallaOtros']) ? "'" . $_POST['tallaOtros'] . "'" : 'null';                      // PERSONAL - TALLA_OTROS
     $tieneFamiliarEmpresa = isset($_POST['tieneFamiliarEmpresa']) ? $_POST['tieneFamiliarEmpresa'] : 'null';    // PERSONAL - FAMILIAR_EMPRESA (1/0)
     $nombreFamiliarEmpresa = isset($_POST['nombreFamiliarEmpresa']) ? "'" . $_POST['nombreFamiliarEmpresa'] . "'" : 'null';           // PERSONAL - FAMILIAR_EMPRESA_NOMBRE
-    $cargoFamiliaEmpresa = isset($_POST['cargoFamiliaEmpresa']) ? "'" . $_POST['cargoFamiliaEmpresa'] . "'" : 'null';                 // PERSONAL - FAMILIAR_EMPRESA_CARGO
-    $parentescoFamiliaEmpresa = isset($_POST['parentescoFamiliaEmpresa']) ? "'" . $_POST['parentescoFamiliaEmpresa'] . "'" : 'null';  // PERSONAL - FAMILIAR_EMPRESA_PARENTESCO (incluye otro)
+    $cargoFamiliaEmpresa = isset($_POST['cargoFamiliarEmpresa']) ? "'" . $_POST['cargoFamiliarEmpresa'] . "'" : 'null';                 // PERSONAL - FAMILIAR_EMPRESA_CARGO
+    $parentescoFamiliaEmpresa = isset($_POST['parentescoFamiliarEmpresa']) ? "'" . $_POST['parentescoFamiliarEmpresa'] . "'" : 'null';  // PERSONAL - FAMILIAR_EMPRESA_PARENTESCO (incluye otro)
     $esRepitente = isset($_POST['esRepitente']) ? $_POST['esRepitente'] : 'null';                               // PERSONAL - TRABAJO_ANTERIORMENTE (1/0)
     $cargoRepitente = isset($_POST['cargoRepitente']) ? "'" . $_POST['cargoRepitente'] . "'" : 'null';          // PERSONAL - TRABAJO_ANTERIORMENTE_CARGO
     $razonRepitente = isset($_POST['razonRepitente']) ? "'" . $_POST['razonRepitente'] . "'" : 'null';          // PERSONAL - TRABAJO_ANTERIORMENTE_RAZON_SALIDA
 
     // 2. Antecedentes Previsionales
     $afiliacion = isset($_POST['afiliacion']) ? $_POST['afiliacion'] : 'null';                         // PERSONAL - IDSALUD <-- SALUD
-    $nombreAfiliacionAFP = isset($_POST['nombrefiAliacionAFP']) ? $_POST['nombrefiAliacionAFP'] : 'null'; // PERSONAL - IDAFP <-- AFP
+    $nombreAfiliacionAFP = isset($_POST['nombreAfiliacionAFP']) ? $_POST['nombreAfiliacionAFP'] : 'null'; // PERSONAL - IDAFP <-- AFP
     $nombreAfiliacionIsapre = isset($_POST['nombreAfiliacionIsapre']) ? "'" . $_POST['nombreAfiliacionIsapre'] . "'" : 'null'; // ¿?
 
     // 3. Forma de Pago

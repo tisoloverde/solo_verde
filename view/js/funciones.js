@@ -5948,7 +5948,7 @@ $("#esSubcontratistaIngresarPersonalOperaciones").unbind("click").change(async f
 });
 
 $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
-  var rut = $("#rutIngresarPersonalOperaciones").val();
+  /*var rut = $("#rutIngresarPersonalOperaciones").val();
   var apellidos = $("#apellidosIngresarPersonalOperaciones").val();
   var nombres = $("#nombresIngresarPersonalOperaciones").val();
   if(rut == '' || apellidos == '' || nombres == ''){
@@ -5978,35 +5978,99 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     }
     else{
       externo = 0;
-    }
+    }*/
     var patente = $("#patenteIngresarPersonalOperaciones").val();
-    var fono = $("#fonoIngresarPersonalOperaciones").val();
-    var mail = $("#emailIngresarPersonalOperaciones").val();
+    // var fono = $("#fonoIngresarPersonalOperaciones").val();
+    // var mail = $("#emailIngresarPersonalOperaciones").val();
     var empresa = $("#empresaIngresarPersonalOperaciones").val();
     var nivel = $("#nivelIngresarPersonalOperaciones").val();
     var mano = $("#moIngresarPersonalOperaciones").val();
     var idCeco = $("#cecoIngresarPersonalOperaciones").val();
     var parametros = {
-      "rut": rut.replace(".","").replace(".",""),
-      "rutPExterno": rut.replace(".","").replace(".",""),
-      "apellidos": apellidos,
-      "nombres": nombres,
-      "sucursal": sucursal,
-      "funcion": funcion,
-      "externo": externo,
+      "rut": $("input[name='gj__rut']").val(), // rut.replace(".","").replace(".",""),
+      "rutPExterno": $("input[name='gj__rut']").val(), // rut.replace(".","").replace(".",""),
+      "apellidos": $("input[name='gj__apellidos']").val(),
+      "nombres": $("input[name='gj__nombres']").val(),
+      "sucursal": $("#sucursalIngresarPersonalOperaciones").val(),
+      "funcion": $("input[name='gj__cargo']").val(),
+      "externo": $("#esSubcontratistaIngresarPersonalOperaciones").prop("checked") ? 1 : 0,
       "patente": patente,
-      "fono": fono,
-      "mail": mail,
+      "fono": $("input[name='gj__fono']").val(),
+      "mail":  $("input[name='gj__email']").val(),
       "empresa": empresa,
       "nivel": nivel,
       "mano": mano,
       "idCeco": idCeco
     }
 
+    /* Begin - New Params Personal */
+    var news = {
+      esProvisorio: $("input[name='gj__provisorio']").is(":checked"),
+      domicilio: $("input[name='gj__domicilio']").val(),
+      comuna: $("select[name='gj__comuna']").val(),
+      ciudad: "",
+      fechaNacimiento: $("input[name='gj__fechaNacimiento']").val(),
+      nacionalidad: $("select[name='gj__nacionalidad']").val(),
+      sexo: $("select[name='gj__sexo']").val(),
+      puebloOriginario: $("input[name='gj__esPuebloOriginario']").is(":checked")
+        ? $("input[name='gj__puebloOriginario']").val()
+        : null,
+      esHispanoHablante: $("input[name='gj__esHispanoHablante']").is(":checked"),
+      nivelEstudios: $("select[name='gj__nivelEstudios']").val(),
+      sabeLeer: $("input[name='gj__sabeLeer']").is(":checked"),
+      sabeEscribir: $("input[name='gj__sabeEscribir']").is(":checked"),
+      tieneLicencia: $("input[name='gj__tieneLicencia']").is(":checked"),
+      claseLicencia: $("select[name='gj__claseLicencia']").val(),
+      fechaVencimientoLicencia: $("input[name='gj__fechaVencimientoLicencia']").val(),
+      estadoCivil: $("select[name='gj__estadoCivil']").val(),
+      nombreContactoEmergencia: $("input[name='gj__nombreContactoEmergencia']").val(),
+      fonoContactoEmergencia: $("input[name='gj__fonoContactoEmergencia']").val(),
+      tallaPolera: $("input[name='gj__talla_camisa']").val(),
+      tallaGuantes: $("input[name='gj__talla_guantes']").val(),
+      tallaPantalon: $("input[name='gj__talla_pantalon']").val(),
+      tallaZapatos: $("input[name='gj__talla_zapatos']").val(),
+      tallaLegionario: $("input[name='gj__talla_casco']").val(),
+      tallaOverol: null,
+      tallaOtros: $("input[name='gj__talla_otros']").val() + "|" + $("input[name='gj__otraTallaUniforme']").val(),
+      tieneFamiliarEmpresa: $("input[name='gj__tieneFamiliarEmpresa']").is(":checked"),
+      nombreFamiliarEmpresa: $("input[name='gj__nombreFamiliarEmpresa']").val(),
+      cargoFamiliarEmpresa: $("input[name='gj__cargoFamiliarEmpresa']").val(),
+      parentescoFamiliarEmpresa: $("input[name='gj__parentescoFamiliarEmpresa']").val() == 'Otro'
+        ? $("input[name='gj__otroParentescoFamiliarEmpresa']").val()
+        : $("input[name='gj__parentescoFamiliarEmpresa']").val(),
+      esRepitente: $("input[name='gj__esRepitente']").is(":checked"),
+      cargoRepitente: $("input[name='gj__cargoRepitente']").val(),
+      razonRepitente: $("input[name='gj__razonRepitente']").val(),
+      afiliacion: "",
+      nombreAfiliacionAFP: $("select[name='gj__nombreAfiliacionAFP']").val(),
+      nombreAfiliacionIsapre: $("select[name='gj__nombreAfiliacionISAPRE']").val(),
+      banco: $("select[name='gj__banco']").val(),
+      tipoCuenta: $("select[name='gj__tipoCuenta']").val(),
+      nroCuenta: $("input[name='gj__nroCuenta']").val(),
+      lstCertificados: "",
+      lstCertificadosOtros: "",
+      tieneClaveUnica: $("input[name='gj__tieneClaveUnica']").is(":checked"),
+      fechaIngresoEmpresa: $("input[name='gj__fechaIngresoEmprea']").val(),
+      tipoContrato: $("select[name='gj__tipoContrato']").val(),
+      duracionContrato: $("input[name='gj__duracionInicialContrato']").val(),
+      cargoGenerico: $("select[name='gj__cargoGenerico']").val(),
+      jeas: "",
+      ref1: $("select[name='gj__ref1']").val(),
+      ref2: $("select[name='gj__ref2']").val(),
+      plaza: "",
+    }
+    /* End - New Params Personal */
+
+    console.log('---sad--');
+    console.log(parametros)
+    console.log(news)
+
+    return;
+
     $.ajax({
       url:   'controller/datosChequeaPExterno.php',
       type:  'post',
-      data:  parametros,
+      data:  { ...parametros, ...news },
       success:  function (response) {
         var p = response.split(",");
         if(response.localeCompare("Sin datos")!= 0 && response != ""){
@@ -6020,7 +6084,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
         }
         else{
           $.ajax({
-            url: "controller/ingresaPersonalGestOper.php",
+            url: "controller/ingresaPersonalGestOperEvol.php",
             type: 'POST',
             data: parametros,
             success:  function (response) {
@@ -6058,7 +6122,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
         }
       }
     });
-  }
+  // }
 });
 
 $("#rutIngresarPersonalOperaciones").on('input', function(){
