@@ -2963,6 +2963,457 @@
             </select>
           </div>
 				</div>
+
+        <!-- Begin - New -->
+        <div class="row" style="margin: 10pt 0; padding-bottom: 10pt; border: 1px solid #efefef; width: 100%; text-align: left;">
+            <div class="col-xl-12" style="background-color: #ededed;">
+              <h5 style="font-weight: bold;">1. ANTECEDENTES PERSONALES</h5>
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">RUT</label>
+              <input name="gj__rut" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-2 col-md-2" style="display: grid; margin-top: 10pt;">
+              <label style="font-weight: bold;">¿Provisorio?</label>
+              <label class="switch">
+                <input name="gj__provisorio" type="checkbox" title="Provisorio">
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Email</label>
+              <input name="gj__email" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Nombres</label>
+              <input name="gj__nombres" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Apellidos</label>
+              <input name="gj__apellidos" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-12 col-md-12" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Domicilio</label>
+              <input name="gj__domicilio" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Comuna</label>
+              <!--<input name="gj__comuna" class="form-control" type="text" value="">-->
+              <select name="gj__comuna" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Ciudad</label>
+              <input name="gj__ciudad" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Fono</label>
+              <input name="gj__fono" class="form-control" type="text" value="">
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Fecha Nacimiento</label>
+              <input name="gj__fechaNacimiento" class="form-control" type="date" value="">
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Nacionalidad</label>
+              <!--<input name="gj__nacionalidad" class="form-control" type="text" value="">-->
+              <select name="gj__nacionalidad" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
+              <label disabled style="font-weight: bold;">Sexo</label>
+              <select name="gj__sexo" class="form-control">
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option>
+              </select>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="display: grid; margin-top: 10pt;">
+              <label style="font-weight: bold;">¿Pertenece a pueblo originario?</label>
+              <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <div style="width: 100px;">
+                  <label class="switch">
+                    <input name="gj__esPuebloOriginario" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+                <input name="gj__puebloOriginario" class="form-control" type="text" value="" placeholder="Especifique...">
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="display: grid; margin-top: 10pt;">
+              <label style="font-weight: bold;">¿Habla español?</label>
+              <div style="display: flex;">
+                <label class="switch">
+                  <input name="gj__esHispanoHablante" type="checkbox">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Nivel de Estudios</label>
+              <select name="gj__nivelEstudios" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-2 col-md-2" style="display: grid; margin-top: 10pt;">
+              <label style="font-weight: bold;">¿Lee?</label>
+              <div style="display: flex;">
+                <label class="switch">
+                  <input name="gj__sabeLeer" type="checkbox">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-md-2" style="display: grid; margin-top: 10pt;">
+              <label style="font-weight: bold;">¿Escribe?</label>
+              <div style="display: flex;">
+                <label class="switch">
+                  <input name="gj__sabeEscribir" type="checkbox">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <!--<div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold; color: white">Especifique estudio</label>
+              <textarea placeholder="Especifique estudio..."></textarea>
+            </div>-->
+
+            <div class="col-xl-4 col-md-4" style="display: grid; margin-top: 10pt;">
+              <label style="font-weight: bold;">¿Licencia de Conducir?</label>
+              <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <div style="width: 100px;">
+                  <label class="switch">
+                    <input name="gj__tieneLicencia" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+                <select name="gj__claseLicencia" class="form-control">
+                </select>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
+              <label>Fecha de Vencimiento</label>
+              <input name="gj__fechaVencimientoLicencia" type="date" class="form-control" />
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Estado Civil</label>
+              <select name="gj__estadoCivil" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Contacto de Emergencia</label>
+              <div style="display: flex; gap: 20px;">
+                <input name="gj__nombreContactoEmergencia" type="text" class="form-control" placeholder="Nombre" />
+                <input name="gj__fonoContactoEmergencia" type="text" class="form-control" placeholder="Fono" />
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Tallas Uniforme</label>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Camisa</span>
+                  <input name="gj__talla_camisa" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Guantes</span>
+                  <input name="gj__talla_guantes" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Pantalón</span>
+                  <input name="gj__talla_pantalon" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Zapatos</span>
+                  <input name="gj__talla_zapatos" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Casco</span>
+                  <input name="gj__talla_casco" type="text" class="form-control" style="width: 100px;">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
+                  <span>Otros</span>
+                  <input name="gj__talla_otros" type="text" class="form-control" style="width: 100px;">
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 68pt;">
+              <input name="gj__otraTallaUniforme" type="text" placeholder="Especifique..." class="form-control" />
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt; display: grid;">
+              <label style="font-weight: bold;">¿Tiene familiares trabajando en la empresa?</label>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <div style="width: 100px;">
+                  <label class="switch">
+                    <input name="gj__tieneFamiliarEmpresa" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+                <input name="gj__nombreFamiliarEmpresa" type="text" class="form-control" placeholder="Nombre completo familiar" />
+                <input name="gj__cargoFamiliarEmpresa" type="text" class="form-control" placeholder="Cargo que desempeña" />
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Tipo de Parentesco</label>
+              <select name="gj__parentescoFamiliarEmpresa" class="form-control">
+                <option value="Padre">Padre/Madre</option>
+                <option value="Pareja">Pareja</option>
+                <option value="Hijo">Hijo(a)</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold; color: white;">Otro</label>
+              <input name="gj__otroParentescoFamiliarEmpresa" type="text" placeholder="Especifique..." class="form-control" />
+            </div>
+            
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt; display: grid;">
+              <label style="font-weight: bold;">¿Trabajo anteriormente en la empresa?</label>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <div style="width: 100px;">
+                  <label class="switch">
+                    <input name="gj__esRepitente" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+                <input name="gj__cargoRepitente" type="text" class="form-control" placeholder="Cargo que desempeñó" />
+                <input name="gj__razonRepitente" type="text" class="form-control" placeholder="Razón Fin Relación Laboral" />
+              </div>
+            </div>
+
+            <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
+              <h5 style="font-weight: bold;">2. ANTECEDENTES PREVISIONALES</h5>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Afiliado a:</label>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_afp" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>AFP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_inp" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>INP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_fonasa" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>FONASA</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_isapre" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>ISAPRE</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 34pt;">
+              <select name="gj__nombreAfiliacionAFP" type="text" class="form-control"></select>
+              <select name="gj__nombreAfiliacionISAPRE" type="text" class="form-control"></select>
+            </div>
+
+            <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
+              <h5 style="font-weight: bold;">3. FORMA DE PAGO</h5>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Banco</label>
+              <select name="gj__banco" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Tipo de Cuenta</label>
+              <select name="gj__tipoCuenta" class="form-control">
+                <option value="CuentaAhorro">Cuenta Ahorro</option>
+                <option value="CuentaMancomunada">Cuenta Mancomunada</option>
+                <option value="CuentaSueldo">Cuenta Sueldo</option>
+              </select>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Nro. Cuenta</label>
+              <input name="gj__nroCuenta" type="text" class="form-control" />
+            </div>
+
+            <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
+              <h5 style="font-weight: bold;">4. DOCUMENTOS DE PRESENTACIÓN OBLIGATORIOS, PREVIO A LA CONTRATACIÓN</h5>
+            </div>
+
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Certificados</label>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_estudios" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Estudios</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_antecedentes" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Antecedentes</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_deExcencion" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>De Excención</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_residencia" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Residencia</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_pension" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Pensión</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_discapacidad" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Discapacidad</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_afp" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>AFP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_fonasa" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>FONASA</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_isapre" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>ISAPRE</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_seguroCovid19" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Seguro Covid 19</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_conadi" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>CONADI</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_cursoOS10" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Curso OS 10</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_cursoSupervisor" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Curso Supervisor</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__certificados_certificadoVacunas" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Certificado Vacunas</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Otros</label>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_cedulaDeIdentidad" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Cédula de Identidad</span>
+                </label>
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_licenciaDeConducir" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Licencia de Conducir</span>
+                </label>
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_curriculum" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Currículum</span>
+                </label>
+                <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                  <input name="gj__certificados_otros_hojaDeVida" type="checkbox" class="form-control" style="width: 20px;">
+                  <span>Hoja De Vida</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt; display: grid;">
+              <label style="font-weight: bold;">¿Cuenta con clave única?</label>
+              <label class="switch">
+                <input name="gj__tieneClaveUnica" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
+              <h5 style="font-weight: bold;">ANTECEDENTES LABORALES (De uso interno de la empresa)</h5>
+            </div>
+            
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Fecha Ingreso Empresa</label>
+              <input name="gj__fechaIngresoEmprea" type="date" class="form-control" />
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Tipo Contrato</label>
+              <select name="gj__tipoContrato" class="form-control">
+                <option value="PlazoFijo">Plazo Fijo</option>
+                <option value="PorTemporada">Por Temporada</option>
+                <option value="Indefinido">Indefinido</option>
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Cargo a Desempeñar</label>
+              <input name="gj__cargo" type="text" class="form-control" />
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Duración Inicial Contrato</label>
+              <input name="gj__duracionInicialContrato" type="text" class="form-control" />
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Cargo Genérico</label>
+              <select name="gj__cargoGenerico" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">JEAS</label>
+              <select name="gj__jeas" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">REF1</label>
+              <select name="gj__ref1" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">REF2</label>
+              <select name="gj__ref2" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Plaza/Sector</label>
+              <select name="gj__plaza" class="form-control">
+              </select>
+            </div>
+        </div>
+        <!-- End - New -->
 			</div>
 			<div class="modal-footer" style="text-align: left;">
 				<button id="guardarEditaPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
@@ -3189,13 +3640,6 @@
                   </label>
                 </div>
                 <select name="gj__claseLicencia" class="form-control">
-                  <!--<option value="A2">A2</option>
-                  <option value="A3">A3</option>
-                  <option value="A4">A4</option>
-                  <option value="A5">A5</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>-->
                 </select>
               </div>
             </div>
@@ -3208,10 +3652,6 @@
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Estado Civil</label>
               <select name="gj__estadoCivil" class="form-control">
-                <!--<option value="Soltero">Soltero</option>
-                <option value="Casado">Casado</option>
-                <option value="Divorciado">Divorciado</option>
-                <option value="Viudo">Viudo</option>-->
               </select>
             </div>
 
@@ -3225,14 +3665,6 @@
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Tallas Uniforme</label>
-              <!--<select name="gj__tallaUniforme" class="form-control">
-                <option value="Camisa">Camisa</option>
-                <option value="Guantes">Guantes</option>
-                <option value="Pantalón">Pantalón</option>
-                <option value="Zapatos">Zapatos</option>
-                <option value="Casco">Casco</option>
-                <option value="Otros">Otros</option>
-              </select>-->
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Camisa</span>
@@ -3314,12 +3746,6 @@
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Afiliado a:</label>
-              <!--<select name="gj__afiliacion" class="form-control">
-                <option value="AFP">A.F.P</option>
-                <option value="INP">I.N.P, ex S.S.S</option>
-                <option value="FONASA">FONASA</option>
-                <option value="ISAPRE">ISAPRE</option>
-              </select>-->
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
                   <input name="gj__afiliacion_afp" type="checkbox" class="form-control" style="width: 20px;">
@@ -3352,17 +3778,6 @@
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Banco</label>
               <select name="gj__banco" class="form-control">
-                <!--<option value="BancoChile">Banco de Chile</option>
-                <option value="Internacional">Banco Internacional</option>
-                <option value="Scotiabank">Scotiabank</option>
-                <option value="BCI">Banco de Crédito e Inversiones</option>
-                <option value="Corpbanca">Corpbanca</option>
-                <option value="Bice">Banco Bice</option>
-                <option value="HSBC">HSBC Bank</option>
-                <option value="Santander">Banco Santander</option>
-                <option value="Itau">Banco Itaú</option>
-                <option value="Security">Banco Security</option>
-                <option value="Falabella">Banco Falabella</option>-->
               </select>
             </div>
 

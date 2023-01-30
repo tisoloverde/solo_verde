@@ -311,6 +311,72 @@ ORDER BY ORDEN ASC";
 		}
 	}
 
+	function consultaPersonalDetalles($rut) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				DOMICILIO,
+				IDAREAFUNCIONAL_COMUNA_NAC,
+				FECHA_NACIMIENTO,
+				NACIONALIDAD,
+				SEXO,
+				PUEBLO_ORIGINARIO,
+				HABLA_ESPANIOL,
+				IDNIVEL_EDUCACIONAL,
+				LEE,
+				ESCRIBE,
+				POSEE_LICENCIA,
+				IDTIPO_LICENCIA,
+				FECHA_VENCIMIENTO_LICENCIA,
+				IDESTADO_CIVIL,
+				CONTACTO_EMERGENCIA,
+				TELEFONO_EMERGENCIA,
+				TALLA_POLERA,
+				TALLA_GUANTES,
+				TALLA_PANTALON,
+				TALLA_ZAPATOS,
+				TALLA_LEGIONARIO,
+				TALLA_OVEROLL,
+				TALLA_OTROS,
+				FAMILIAR_EMPRESA,
+				FAMILIAR_EMPRESA_NOMBRE,
+				FAMILIAR_EMPRESA_CARGO,
+				FAMILIAR_EMPRESA_PARENTESCO,
+				TRABAJO_ANTERIORMENTE,
+				TRABAJO_ANTERIORMENTE_CARGO,
+				TRABAJO_ANTERIORMENTE_RAZON_SALIDA,
+				IDSALUD,
+				IDAFP,
+				IDBANCO,
+				BANCO_TIPO_CUENTA,
+				BANCO_CUENTA,
+				CERTIFICADOS,
+				OTROS_DOCUMENTOS,
+				CLAVE_UNICA,
+				FECHA_INGRESO,
+				IDTIPO_CONTRATO,
+				DURACION_INICIAL_CONTRATO,
+				CARGO_GENERICO_CODIGO,
+				CLASIFICACION,
+				REFERENCIA1,
+				REFERENCIA2,
+				PLAZA_SECTOR
+			FROM PERSONAL
+			WHERE DNI = '$rut'";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)) {
+					$return[] = $array;
+				}
+				return $return;
+			} else{
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	//Personal interno
 	function consultaPersonalInterno(){
 		$con = conectar();
