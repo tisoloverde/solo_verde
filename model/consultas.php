@@ -6812,11 +6812,10 @@ function completaPersonalGestOperacion(
 	$con->query("START TRANSACTION");
 	if ($con != 'No conectado') {
 		$sql = "UPDATE PERSONAL SET
-		  -- // 1. Antecedentes Personales
-			-- $esProvisorio = // ¿?
+
 			DOMICILIO = $domicilio,
 			IDAREAFUNCIONAL_COMUNA_NAC = $comuna,
-			-- '' = $ciudad,
+
 			FECHA_NACIMIENTO = $fechaNacimiento,
 			NACIONALIDAD = $nacionalidad,
 			SEXO = $sexo,
@@ -6846,12 +6845,9 @@ function completaPersonalGestOperacion(
 			TRABAJO_ANTERIORMENTE_CARGO = $cargoRepitente,
 			TRABAJO_ANTERIORMENTE_RAZON_SALIDA = $razonRepitente,
 
-			-- 2. Antecedentes Previsionales
 			IDSALUD = $afiliacion,
 			IDAFP = $nombreAfiliacionAFP,
-			-- ¿ = $nombreAfiliacionIsapre,
 
-			-- 3. Forma de Pago
 			IDBANCO = $banco,
 			BANCO_TIPO_CUENTA = $tipoCuenta,
 			BANCO_CUENTA = $nroCuenta,
@@ -6860,7 +6856,6 @@ function completaPersonalGestOperacion(
 			OTROS_DOCUMENTOS = $lstCertificadosOtros,
 			CLAVE_UNICA = $tieneClaveUnica,
 
-			-- Laborales
 			FECHA_INGRESO = $fechaIngresoEmpresa,
 			IDTIPO_CONTRATO = $tipoContrato,
 			DURACION_INICIAL_CONTRATO = $duracionContrato,
@@ -6868,15 +6863,15 @@ function completaPersonalGestOperacion(
 			CLASIFICACION = $jeas,
 			REFERENCIA1 = $ref1,
 			REFERENCIA2 = $ref2,
-			PLAZA_SECTOR = $plaza,
-		WHERE DNI = $dni;";
+			PLAZA_SECTOR = $plaza
+		WHERE DNI = '$dni';";
     if ($con->query($sql)) {
 			$con->query("COMMIT");
 			return "Ok";
 		} else {
 			// return $con->error;
 			$con->query("ROLLBACK");
-			return "Error";
+			return $sql;
 		}
 	} else {
     $con->query("ROLLBACK");

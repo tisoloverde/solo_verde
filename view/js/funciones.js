@@ -6065,12 +6065,10 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     console.log(parametros)
     console.log(news)
 
-    return;
-
     $.ajax({
       url:   'controller/datosChequeaPExterno.php',
       type:  'post',
-      data:  { ...parametros, ...news },
+      data: parametros,
       success:  function (response) {
         var p = response.split(",");
         if(response.localeCompare("Sin datos")!= 0 && response != ""){
@@ -6086,7 +6084,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
           $.ajax({
             url: "controller/ingresaPersonalGestOperEvol.php",
             type: 'POST',
-            data: parametros,
+            data: { ...parametros, ...news },
             success:  function (response) {
               var p = response.split(",");
               if(response.localeCompare("Sin datos")!= 0 && response != ""){

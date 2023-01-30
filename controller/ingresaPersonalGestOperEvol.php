@@ -54,7 +54,7 @@
     $razonRepitente = isset($_POST['razonRepitente']) ? "'" . $_POST['razonRepitente'] . "'" : 'null';          // PERSONAL - TRABAJO_ANTERIORMENTE_RAZON_SALIDA
 
     // 2. Antecedentes Previsionales
-    $afiliacion = isset($_POST['afiliacion']) ? $_POST['afiliacion'] : 'null';                         // PERSONAL - IDSALUD <-- SALUD
+    $afiliacion = 'null'; // isset($_POST['afiliacion']) ? $_POST['afiliacion'] : 'null';                         // PERSONAL - IDSALUD <-- SALUD
     $nombreAfiliacionAFP = isset($_POST['nombreAfiliacionAFP']) ? $_POST['nombreAfiliacionAFP'] : 'null'; // PERSONAL - IDAFP <-- AFP
     $nombreAfiliacionIsapre = isset($_POST['nombreAfiliacionIsapre']) ? "'" . $_POST['nombreAfiliacionIsapre'] . "'" : 'null'; // ¿?
 
@@ -71,7 +71,7 @@
     // Antecedentes Laborales
     $fechaIngresoEmpresa = isset($_POST['fechaIngresoEmpresa']) ? "'" . $_POST['fechaIngresoEmpresa'] . "'" : 'null'; // PERSONAL - FECHA_INGRESO
     $tipoContrato = isset($_POST['tipoContrato']) ? $_POST['tipoContrato'] : 'null';                // PERSONAL - IDTIPO_CONTRATO <-- TIPO_CONTRATO
-    $duracionContrato = isset($_POST['duracionContrato']) ? $_POST['duracionContrato'] : 'null';    // PERSONAL - DURACION_INICIAL_CONTRATO (int)
+    $duracionContrato = isset($_POST['duracionContrato']) ? "'" . $_POST['duracionContrato'] . "'" : 'null';    // PERSONAL - DURACION_INICIAL_CONTRATO (int)
     $cargoGenerico = isset($_POST['cargoGenerico']) ? "'" . $_POST['cargoGenerico'] . "'" : 'null'; // PERSONAL - CARGO_GENERICO_CODIGO
     $jeas = isset($_POST['jeas']) ? "'" . $_POST['jeas'] . "'" : 'null';    // ¿PERSONAL - CLASIFICACION?
     $ref1 = isset($_POST['ref1']) ? "'" . $_POST['ref1'] . "'" : 'null';    // PERSONAL - REFERENCIA1
@@ -109,7 +109,7 @@
     if ($row != "Error" ) {
       // ingresaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idsubcontrato,$nomenclatura);
       // ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad);
-      echo "OK";
+      echo $row;
     } else {
       echo "Sin datos";
     }
