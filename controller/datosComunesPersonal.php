@@ -7,12 +7,14 @@
   $nivelEstudios = consultaNivelEstudios();
   $tipoLicencia = consultaTipoLicencia();
   $estadoCivil = consultaEstadoCivil();
-  $afp = consultaAFP();
+  $prevision = consultaSalud();
+  $salud = consultaAFP();
   $banco = consultaBanco();
   $tipoContrato = consultaTipoContrato();
   $cargoGenericoUnificado = consultaListaCargoMandante();
   $referencia1 = consultaListaReferencia1();
   $referencia2 = consultaListaReferencia2();
+  $cargoLiquidacion = consultaCargoLiquidacion();
 
   $results = array(
     "sEcho" => 1,
@@ -24,12 +26,14 @@
       "nivelEstudios" => $nivelEstudios,
       "tipoLicencia" => $tipoLicencia,
       "estadoCivil" => $estadoCivil,
-      "afp" => $afp,
+      "prevision" => $prevision,
+      "salud" => $salud,
       "banco" => $banco,
       "tipoContrato" => $tipoContrato,
       "cargoGenericoUnificado" => $cargoGenericoUnificado,
       "referencia1" => $referencia1,
       "referencia2" => $referencia2,
+      "cargoLiquidacion" => $cargoLiquidacion,
     ),
   );
 

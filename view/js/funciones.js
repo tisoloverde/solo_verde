@@ -5644,17 +5644,29 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       });
       $("select[name='gj__estadoCivil']").html(html);
 
-      var htmlAFP = '';
       var htmlISAPRE = '';
-      response.aaData['afp'].forEach((item) => {
+      var htmlFONASA = '';
+      response.aaData['prevision'].forEach((item) => {
+        if (item.SALUD != 'Fonasa') {
+          htmlISAPRE += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
+        } else {
+          htmlFONASA += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
+        }
+      });
+      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").html(htmlISAPRE);
+      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").html(htmlFONASA);
+
+      var htmlAFP = '';
+      var htmlINP = '';
+      response.aaData['salud'].forEach((item) => {
         if (item.AFP != 'I.N.P') {
           htmlAFP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
         } else {
-          htmlISAPRE += `<option value="${item.IDAFP}">${item.AFP}</option>`;
+          htmlINP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
         }
       });
-      $("select[name='gj__nombreAfiliacionAFP']").html(htmlAFP);
-      $("select[name='gj__nombreAfiliacionISAPRE']").html(htmlISAPRE);
+      $("select[name='gj__nombreAfiliacionSalud_AFP']").html(htmlAFP);
+      $("select[name='gj__nombreAfiliacionSalud_INP']").html(htmlINP);
 
       html = '';
       response.aaData['banco'].forEach((item) => {
@@ -5685,6 +5697,12 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
         html += `<option value="${item.IDREFERENCIA2}">${item.REFERENCIA2}</option>`;
       });
       $("select[name='gj__ref2']").html(html);
+
+      html = '';
+      response.aaData['cargoLiquidacion'].forEach((item) => {
+        html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
+      });
+      $("select[name='gj__cargo']").html(html);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
       console.log('--asdasd--')
@@ -6637,6 +6655,91 @@ $("#editarJefatura").unbind("click").click(async function(){
     $('#modalAlertasSplash').modal('hide');
     $("#modalEditaPersonalOperaciones").modal("show");
   },500);
+});
+
+$("input[name='gj__esPuebloOriginario']").on('change', function(e) {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  if ($("input[name='gj__esPuebloOriginario']").is(':checked')) {
+    $("input[name='gj__puebloOriginario']").removeAttr("disabled");
+    $("input[name='gj__esHispanoHablante']").removeAttr("disabled");
+  } else {
+    $("input[name='gj__esHispanoHablante']").prop('checked', false);
+    $("input[name='gj__puebloOriginario']").attr("disabled", "disabled");
+    $("input[name='gj__esHispanoHablante']").attr("disabled", "disabled");
+  }
+});
+
+$("input[name='gj__tieneLicencia']").on('change', function(e) {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  if ($("input[name='gj__tieneLicencia']").is(':checked')) {
+    $("select[name='gj__claseLicencia']").removeAttr("disabled");
+    $("input[name='gj__fechaVencimientoLicencia']").removeAttr("disabled");
+  } else {
+    $("select[name='gj__claseLicencia']").attr("disabled", "disabled");
+    $("input[name='gj__fechaVencimientoLicencia']").attr("disabled", "disabled");
+  }
+});
+
+$("input[name='gj__tieneFamiliarEmpresa']").on('change', function(e) {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  if ($("input[name='gj__tieneFamiliarEmpresa']").is(':checked')) {
+    $("input[name='gj__nombreFamiliarEmpresa']").removeAttr("disabled");
+    $("input[name='gj__cargoFamiliarEmpresa']").removeAttr("disabled");
+    $("select[name='gj__parentescoFamiliarEmpresa']").removeAttr("disabled");
+    $("input[name='gj__otroParentescoFamiliarEmpresa']").removeAttr("disabled");
+  } else {
+    $("input[name='gj__nombreFamiliarEmpresa']").attr("disabled", "disabled");
+    $("input[name='gj__cargoFamiliarEmpresa']").attr("disabled", "disabled");
+    $("select[name='gj__parentescoFamiliarEmpresa']").attr("disabled", "disabled");
+    $("input[name='gj__otroParentescoFamiliarEmpresa']").attr("disabled", "disabled");
+  }
+});
+
+$("input[name='gj__esRepitente']").on('change', function(e) {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  if ($("input[name='gj__esRepitente']").is(':checked')) {
+    $("input[name='gj__cargoRepitente']").removeAttr("disabled");
+    $("input[name='gj__razonRepitente']").removeAttr("disabled");
+  } else {
+    $("input[name='gj__cargoRepitente']").attr("disabled", "disabled");
+    $("input[name='gj__razonRepitente']").attr("disabled", "disabled");
+  }
+});
+
+$("input[name='gj__afiliacion_prevision']").on('change', function (e) {
+  switch (this.value) {
+    case 'fonasa':
+      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").show();
+      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").hide();
+      break;
+    case 'isapre':
+      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").hide();
+      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").show();
+      break;
+    default:
+      break;
+  }
+});
+
+$("input[name='gj__afiliacion_salud']").on('change', function (e) {
+  console.log('---sdasd--')
+  console.log(this.value)
+  switch (this.value) {
+    case 'afp':
+      $("select[name='gj__nombreAfiliacionSalud_AFP']").show();
+      $("select[name='gj__nombreAfiliacionSalud_INP']").hide();
+      break;
+    case 'inp':
+      $("select[name='gj__nombreAfiliacionSalud_AFP']").hide();
+      $("select[name='gj__nombreAfiliacionSalud_INP']").show();
+      break;
+    default:
+      break;
+  }
 });
 
 $("#servicioEditaPersonalOperaciones").unbind("click").change(async function(e){

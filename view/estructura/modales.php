@@ -3494,7 +3494,7 @@
             </select>
           </div>
 					<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">CECO/PEP</label>
+            <label style="font-weight: bold;">CENTRO DE COSTO</label>
 						<select id="cecoIngresarPersonalOperaciones" class="form-control">
             </select>
           </div>
@@ -3745,30 +3745,35 @@
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Afiliado a:</label>
+              <label style="font-weight: bold;">Afiliado a Previsión:</label>
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_afp" type="checkbox" class="form-control" style="width: 20px;">
-                  <span>AFP</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_inp" type="checkbox" class="form-control" style="width: 20px;">
-                  <span>INP</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_fonasa" type="checkbox" class="form-control" style="width: 20px;">
+                  <input name="gj__afiliacion_prevision" type="radio" class="form-control" style="width: 20px;" value="fonasa">
                   <span>FONASA</span>
                 </label>
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_isapre" type="checkbox" class="form-control" style="width: 20px;">
+                  <input name="gj__afiliacion_prevision" type="radio" class="form-control" style="width: 20px;" value="isapre">
                   <span>ISAPRE</span>
                 </label>
+                <select name="gj__nombreAfiliacionPrevision_FONASA" type="text" class="form-control"></select>
+                <select name="gj__nombreAfiliacionPrevision_ISAPRE" type="text" class="form-control"></select>
               </div>
             </div>
 
-            <div class="col-xl-6 col-md-6" style="margin-top: 34pt;">
-              <select name="gj__nombreAfiliacionAFP" type="text" class="form-control"></select>
-              <select name="gj__nombreAfiliacionISAPRE" type="text" class="form-control"></select>
+            <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Afiliado a Salud:</label>
+              <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_salud" type="radio" class="form-control" style="width: 20px;" value="afp">
+                  <span>AFP</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
+                  <input name="gj__afiliacion_salud" type="radio" class="form-control" style="width: 20px;" value="inp">
+                  <span>INP</span>
+                </label>
+                <select name="gj__nombreAfiliacionSalud_AFP" type="text" class="form-control"></select>
+                <select name="gj__nombreAfiliacionSalud_INP" type="text" class="form-control"></select>
+              </div>
             </div>
 
             <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
@@ -3911,7 +3916,8 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Cargo a Desempeñar</label>
-              <input name="gj__cargo" type="text" class="form-control" />
+              <select name="gj__cargo" class="form-control">
+              </select>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">

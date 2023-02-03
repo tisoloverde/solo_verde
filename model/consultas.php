@@ -20148,6 +20148,24 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaCargoLiquidacion() {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT * FROM CARGO_LIQUIDACION";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $search, $sortCol, $sortOrd) {
 		$con = conectar();
 		if ($con != "No conectado") {
