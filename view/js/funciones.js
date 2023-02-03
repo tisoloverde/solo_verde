@@ -5614,38 +5614,38 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     type:  'get',
     dataType: 'json',
     success: function (response) {
-      var html = '';
+      var html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['areaFuncional'].forEach((item) => {
         html += `<option value="${item.IDAREAFUNCIONAL}">${item.COMUNA}</option>`;
       });
       $("select[name='gj__comuna']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['nacionalidad'].forEach((item) => {
         html += `<option value="${item.IDNACIONALIDAD}">${item.NACIONALIDAD}</option>`;
       });
       $("select[name='gj__nacionalidad']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['nivelEstudios'].forEach((item) => {
         html += `<option value="${item.IDNIVEL_EDUCACIONAL}">${item.NIVEL_EDUCACIONAL}</option>`;
       });
       $("select[name='gj__nivelEstudios']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['tipoLicencia'].forEach((item) => {
         html += `<option value="${item.IDTIPO_LICENCIA}">${item.TIPO_LICENCIA}</option>`;
       });
       $("select[name='gj__claseLicencia']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['estadoCivil'].forEach((item) => {
         html += `<option value="${item.IDESTADO_CIVIL}">${item.ESTADO_CIVIL}</option>`;
       });
       $("select[name='gj__estadoCivil']").html(html);
 
-      var htmlISAPRE = '';
-      var htmlFONASA = '';
+      var htmlISAPRE = '<option selected value="-1">Sin asignar</option>';;
+      var htmlFONASA = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['prevision'].forEach((item) => {
         if (item.SALUD != 'Fonasa') {
           htmlISAPRE += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
@@ -5656,8 +5656,8 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").html(htmlISAPRE);
       $("select[name='gj__nombreAfiliacionPrevision_FONASA']").html(htmlFONASA);
 
-      var htmlAFP = '';
-      var htmlINP = '';
+      var htmlAFP = '<option selected value="-1">Sin asignar</option>';;
+      var htmlINP = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['salud'].forEach((item) => {
         if (item.AFP != 'I.N.P') {
           htmlAFP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
@@ -5668,37 +5668,37 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       $("select[name='gj__nombreAfiliacionSalud_AFP']").html(htmlAFP);
       $("select[name='gj__nombreAfiliacionSalud_INP']").html(htmlINP);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['banco'].forEach((item) => {
         html += `<option value="${item.IDBANCO}">${item.BANCO}</option>`;
       });
       $("select[name='gj__banco']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['tipoContrato'].forEach((item) => {
         html += `<option value="${item.IDTIPO_CONTRATO}">${item.TIPO_CONTRATO}</option>`;
       });
       $("select[name='gj__tipoContrato']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoGenericoUnificado'].forEach((item) => {
         html += `<option value="${item.CODIGO}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
       });
       $("select[name='gj__cargoGenerico']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['referencia1'].forEach((item) => {
         html += `<option value="${item.IDREFERENCIA1}">${item.REFERENCIA1}</option>`;
       });
       $("select[name='gj__ref1']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['referencia2'].forEach((item) => {
         html += `<option value="${item.IDREFERENCIA2}">${item.REFERENCIA2}</option>`;
       });
       $("select[name='gj__ref2']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoLiquidacion'].forEach((item) => {
         html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
       });
@@ -5720,7 +5720,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     placeholder: $(this).data('placeholder'),
     allowClear: Boolean($(this).data('allow-clear')),
     closeOnSelect: !$(this).attr('multiple'),
-    sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+    // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
   }
 
   if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -5747,7 +5747,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     $("select[name='gj__cargoGenerico']").select2(theme);
     $("select[name='gj__ref1']").select2(theme);
     $("select[name='gj__ref2']").select2(theme);
-    $("select[name='gj_cargo']").select2(theme);
+    $("select[name='gj__cargo']").select2(theme);
   }
 
   setTimeout(function(){
@@ -6466,38 +6466,38 @@ $("#editarJefatura").unbind("click").click(async function(){
     type:  'get',
     dataType: 'json',
     success: function (response) {
-      var html = '';
+      var html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['areaFuncional'].forEach((item) => {
         html += `<option value="${item.IDAREAFUNCIONAL}">${item.COMUNA}</option>`;
       });
       $("select[name='gj__comuna']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['nacionalidad'].forEach((item) => {
         html += `<option value="${item.IDNACIONALIDAD}">${item.NACIONALIDAD}</option>`;
       });
       $("select[name='gj__nacionalidad']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['nivelEstudios'].forEach((item) => {
         html += `<option value="${item.IDNIVEL_EDUCACIONAL}">${item.NIVEL_EDUCACIONAL}</option>`;
       });
       $("select[name='gj__nivelEstudios']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['tipoLicencia'].forEach((item) => {
         html += `<option value="${item.IDTIPO_LICENCIA}">${item.TIPO_LICENCIA}</option>`;
       });
       $("select[name='gj__claseLicencia']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['estadoCivil'].forEach((item) => {
         html += `<option value="${item.IDESTADO_CIVIL}">${item.ESTADO_CIVIL}</option>`;
       });
       $("select[name='gj__estadoCivil']").html(html);
 
-      var htmlISAPRE = '';
-      var htmlFONASA = '';
+      var htmlISAPRE = '<option selected value="-1">Sin asignar</option>';;
+      var htmlFONASA = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['prevision'].forEach((item) => {
         if (item.SALUD != 'Fonasa') {
           htmlISAPRE += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
@@ -6508,8 +6508,8 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").html(htmlISAPRE);
       $("select[name='gj__nombreAfiliacionPrevision_FONASA']").html(htmlFONASA);
 
-      var htmlAFP = '';
-      var htmlINP = '';
+      var htmlAFP = '<option selected value="-1">Sin asignar</option>';;
+      var htmlINP = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['salud'].forEach((item) => {
         if (item.AFP != 'I.N.P') {
           htmlAFP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
@@ -6520,37 +6520,37 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("select[name='gj__nombreAfiliacionSalud_AFP']").html(htmlAFP);
       $("select[name='gj__nombreAfiliacionSalud_INP']").html(htmlINP);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['banco'].forEach((item) => {
         html += `<option value="${item.IDBANCO}">${item.BANCO}</option>`;
       });
       $("select[name='gj__banco']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['tipoContrato'].forEach((item) => {
         html += `<option value="${item.IDTIPO_CONTRATO}">${item.TIPO_CONTRATO}</option>`;
       });
       $("select[name='gj__tipoContrato']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoGenericoUnificado'].forEach((item) => {
         html += `<option value="${item.CODIGO}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
       });
       $("select[name='gj__cargoGenerico']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['referencia1'].forEach((item) => {
         html += `<option value="${item.IDREFERENCIA1}">${item.REFERENCIA1}</option>`;
       });
       $("select[name='gj__ref1']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['referencia2'].forEach((item) => {
         html += `<option value="${item.IDREFERENCIA2}">${item.REFERENCIA2}</option>`;
       });
       $("select[name='gj__ref2']").html(html);
 
-      html = '';
+      html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoLiquidacion'].forEach((item) => {
         html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
       });
@@ -6632,7 +6632,7 @@ $("#editarJefatura").unbind("click").click(async function(){
     placeholder: $(this).data('placeholder'),
     allowClear: Boolean($(this).data('allow-clear')),
     closeOnSelect: !$(this).attr('multiple'),
-    sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+    // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
   }
 
   if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -6659,7 +6659,7 @@ $("#editarJefatura").unbind("click").click(async function(){
     $("select[name='gj__cargoGenerico']").select2(theme);
     $("select[name='gj__ref1']").select2(theme);
     $("select[name='gj__ref2']").select2(theme);
-    $("select[name='gj_cargo']").select2(theme);
+    $("select[name='gj__cargo']").select2(theme);
   }
   setTimeout(function(){
     var h = $(window).height() - 200;

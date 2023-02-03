@@ -587,7 +587,7 @@ ORDER BY NACIONALIDAD";
 		$con = conectar();
 		if($con != 'No conectado'){
 			$sql = "SELECT IDAREAFUNCIONAL, COMUNA, PROVINCIA, REGION
-							FROM AREAFUNCIONAL";
+							FROM AREAFUNCIONAL ORDER BY COMUNA ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -875,7 +875,7 @@ FROM FORMA_PAGO";
 		$con = conectar();
 		if($con != 'No conectado'){
 			$sql = "SELECT *
-FROM BANCO";
+FROM BANCO ORDER BY BANCO ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -19616,7 +19616,7 @@ WHERE U.RUT = '{$rutUser}'";
 			$sql = "SELECT
 				R1.IDREFERENCIA1,
 				R1.NOMBRE AS REFERENCIA1
-			FROM REFERENCIA1 R1;
+			FROM REFERENCIA1 R1 ORDER BY R1.NOMBRE ASC;
 			";
 			if ($row = $con->query($sql)) {
 				$return = array();
@@ -19644,7 +19644,7 @@ WHERE U.RUT = '{$rutUser}'";
 			$sql = "SELECT
 				R2.IDREFERENCIA2,
 				R2.NOMBRE AS REFERENCIA2
-			FROM REFERENCIA2 R2;
+			FROM REFERENCIA2 R2 ORDER BY R2.NOMBRE ASC;
 			";
 			if ($row = $con->query($sql)) {
 				$return = array();
@@ -20151,7 +20151,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaCargoLiquidacion() {
 		$con = conectar();
 		if ($con != "No conectado") {
-			$sql = "SELECT * FROM CARGO_LIQUIDACION";
+			$sql = "SELECT * FROM CARGO_LIQUIDACION ORDER BY CARGO ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
