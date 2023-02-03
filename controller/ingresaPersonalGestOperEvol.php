@@ -22,7 +22,7 @@
 
     $esProvisorio = isset($_POST['esProvisorio']) ? "'" . $_POST['esProvisorio'] . "'" : 'null';                // ¿?
     $domicilio = isset($_POST['domicilio']) ? "'" . $_POST['domicilio'] . "'" : 'null';                         // PERSONAL - DOMICILIO
-    $comuna = isset($_POST['comuna']) ? "'" . $_POST['comuna'] . "'" : 'null';  // ¿PERSONAL - IDAREAFUNCIONAL_COMUNA_NAC? <-- AREAFUNCIONAL
+    $comuna = isset($_POST['comuna']) ? $_POST['comuna'] : 'null';  // ¿PERSONAL - IDAREAFUNCIONAL_COMUNA_NAC? <-- AREAFUNCIONAL
     $ciudad = isset($_POST['ciudad']) ? "'" . $_POST['ciudad'] . "'" : 'null';
     $fechaNacimiento = isset($_POST['fechaNacimiento']) ? "'" . $_POST['fechaNacimiento'] . "'" : 'null';       // PERSONAL - FECHA_NACIMIENTO
     $nacionalidad = isset($_POST['nacionalidad']) ? "'" . $_POST['nacionalidad'] . "'" : 'null';                // PERSONAL - NACIONALIDAD
@@ -54,9 +54,8 @@
     $razonRepitente = isset($_POST['razonRepitente']) ? "'" . $_POST['razonRepitente'] . "'" : 'null';          // PERSONAL - TRABAJO_ANTERIORMENTE_RAZON_SALIDA
 
     // 2. Antecedentes Previsionales
-    $afiliacion = 'null'; // isset($_POST['afiliacion']) ? $_POST['afiliacion'] : 'null';                         // PERSONAL - IDSALUD <-- SALUD
-    $nombreAfiliacionAFP = isset($_POST['nombreAfiliacionAFP']) ? $_POST['nombreAfiliacionAFP'] : 'null'; // PERSONAL - IDAFP <-- AFP
-    $nombreAfiliacionIsapre = isset($_POST['nombreAfiliacionIsapre']) ? "'" . $_POST['nombreAfiliacionIsapre'] . "'" : 'null'; // ¿?
+    $afiliacionPrevision = isset($_POST['afiliacionPrevision']) ? $_POST['afiliacionPrevision'] : 'null'; // PERSONAL - IDAFP <-- AFP
+    $afiliacionSalud = isset($_POST['afiliacionSalud']) ? $_POST['afiliacionSalud'] : 'null'; // ¿?
 
     // 3. Forma de Pago
     $banco = isset($_POST['banco']) ? $_POST['banco'] : 'null';                             // PERSONAL - IDBANCO <-- BANCO
@@ -96,7 +95,7 @@
       $tallaOtros, $tieneFamiliarEmpresa, $nombreFamiliarEmpresa, $cargoFamiliaEmpresa,
       $parentescoFamiliaEmpresa, $esRepitente, $cargoRepitente, $razonRepitente,
 
-      $afiliacion, $nombreAfiliacionAFP, $nombreAfiliacionIsapre,
+      $afiliacionPrevision, $afiliacionSalud,
 
       $banco, $tipoCuenta, $nroCuenta,
 

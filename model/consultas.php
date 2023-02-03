@@ -315,6 +315,11 @@ ORDER BY ORDEN ASC";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
+				DNI as rut,
+				EMAIL as mail,
+				NOMBRES as nombres,
+				APELLIDOS as apellidos,
+				TELEFONO as fono,
 				DOMICILIO as domicilio,
 				IDAREAFUNCIONAL_COMUNA_NAC as comuna,
 				FECHA_NACIMIENTO as fechaNacimiento,
@@ -345,8 +350,8 @@ ORDER BY ORDEN ASC";
 				TRABAJO_ANTERIORMENTE as esRepitente,
 				TRABAJO_ANTERIORMENTE_CARGO as cargoRepitente,
 				TRABAJO_ANTERIORMENTE_RAZON_SALIDA as razonRepitente,
-				IDSALUD as afiliacion,
-				IDAFP as nombreAfiliacionAFP,
+				IDSALUD as afiliacionPrevision,
+				IDAFP as afiliacionAFP,
 				IDBANCO as banco,
 				BANCO_TIPO_CUENTA as tipoCuenta,
 				BANCO_CUENTA as nroCuenta,
@@ -6865,7 +6870,7 @@ function completaPersonalGestOperacion(
 	$tallaOtros, $tieneFamiliarEmpresa, $nombreFamiliarEmpresa, $cargoFamiliaEmpresa,
 	$parentescoFamiliaEmpresa, $esRepitente, $cargoRepitente, $razonRepitente,
 
-	$afiliacion, $nombreAfiliacionAFP, $nombreAfiliacionIsapre,
+	$afiliacionPrevision, $afiliacionSalud,
 
 	$banco, $tipoCuenta, $nroCuenta,
 
@@ -6911,8 +6916,8 @@ function completaPersonalGestOperacion(
 			TRABAJO_ANTERIORMENTE_CARGO = $cargoRepitente,
 			TRABAJO_ANTERIORMENTE_RAZON_SALIDA = $razonRepitente,
 
-			IDSALUD = $afiliacion,
-			IDAFP = $nombreAfiliacionAFP,
+			IDSALUD = $afiliacionPrevision,
+			IDAFP = $afiliacionSalud,
 
 			IDBANCO = $banco,
 			BANCO_TIPO_CUENTA = $tipoCuenta,
