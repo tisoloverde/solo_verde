@@ -5709,18 +5709,6 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       console.log(errorThrown)
     },
   });
-  /*await $.ajax({
-    url:   'controller/datosSalud.php',
-    type:  'post',
-    dataType: 'json',
-    success: function (response) {
-      var html = '';
-      response.aaData.forEach((item) => {
-        html += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
-      });
-      // $("select[name='gj__afiliacion']").html(html);
-    }
-  });*/
 
   var theme = {
     theme: 'bootstrap4',
@@ -5749,14 +5737,17 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     $("select[name='gj__claseLicencia']").select2(theme);
     $("select[name='gj__estadoCivil']").select2(theme);
     $("select[name='gj__parentescoFamiliarEmpresa']").select2(theme);
-    $("select[name='gj__nombreAfiliacionAFP']").select2(theme);
-    $("select[name='gj__nombreAfiliacionISAPRE']").select2(theme);
+    /*$("select[name='gj__nombreAfiliacionPrevision_FONASA']").select2(theme);
+    $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").select2(theme);
+    $("select[name='gj__nombreAfiliacionSalud_AFP']").select2(theme);
+    $("select[name='gj__nombreAfiliacionSalud_INP']").select2(theme);*/
     $("select[name='gj__banco']").select2(theme);
     $("select[name='gj__tipoCuenta']").select2(theme);
     $("select[name='gj__tipoContrato']").select2(theme);
     $("select[name='gj__cargoGenerico']").select2(theme);
     $("select[name='gj__ref1']").select2(theme);
     $("select[name='gj__ref2']").select2(theme);
+    $("select[name='gj_cargo']").select2(theme);
   }
 
   setTimeout(function(){
@@ -6505,17 +6496,29 @@ $("#editarJefatura").unbind("click").click(async function(){
       });
       $("select[name='gj__estadoCivil']").html(html);
 
-      var htmlAFP = '';
       var htmlISAPRE = '';
-      response.aaData['afp'].forEach((item) => {
+      var htmlFONASA = '';
+      response.aaData['prevision'].forEach((item) => {
+        if (item.SALUD != 'Fonasa') {
+          htmlISAPRE += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
+        } else {
+          htmlFONASA += `<option value="${item.IDSALUD}">${item.SALUD}</option>`;
+        }
+      });
+      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").html(htmlISAPRE);
+      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").html(htmlFONASA);
+
+      var htmlAFP = '';
+      var htmlINP = '';
+      response.aaData['salud'].forEach((item) => {
         if (item.AFP != 'I.N.P') {
           htmlAFP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
         } else {
-          htmlISAPRE += `<option value="${item.IDAFP}">${item.AFP}</option>`;
+          htmlINP += `<option value="${item.IDAFP}">${item.AFP}</option>`;
         }
       });
-      $("select[name='gj__nombreAfiliacionAFP']").html(htmlAFP);
-      $("select[name='gj__nombreAfiliacionISAPRE']").html(htmlISAPRE);
+      $("select[name='gj__nombreAfiliacionSalud_AFP']").html(htmlAFP);
+      $("select[name='gj__nombreAfiliacionSalud_INP']").html(htmlINP);
 
       html = '';
       response.aaData['banco'].forEach((item) => {
@@ -6546,6 +6549,12 @@ $("#editarJefatura").unbind("click").click(async function(){
         html += `<option value="${item.IDREFERENCIA2}">${item.REFERENCIA2}</option>`;
       });
       $("select[name='gj__ref2']").html(html);
+
+      html = '';
+      response.aaData['cargoLiquidacion'].forEach((item) => {
+        html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
+      });
+      $("select[name='gj__cargo']").html(html);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
       console.log('--asdasd--')
@@ -6640,14 +6649,17 @@ $("#editarJefatura").unbind("click").click(async function(){
     $("select[name='gj__claseLicencia']").select2(theme);
     $("select[name='gj__estadoCivil']").select2(theme);
     $("select[name='gj__parentescoFamiliarEmpresa']").select2(theme);
-    $("select[name='gj__nombreAfiliacionAFP']").select2(theme);
-    $("select[name='gj__nombreAfiliacionISAPRE']").select2(theme);
+    /*$("select[name='gj__nombreAfiliacionPrevision_FONASA']").select2(theme);
+    $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").select2(theme);
+    $("select[name='gj__nombreAfiliacionSalud_AFP']").select2(theme);
+    $("select[name='gj__nombreAfiliacionSalud_INP']").select2(theme);*/
     $("select[name='gj__banco']").select2(theme);
     $("select[name='gj__tipoCuenta']").select2(theme);
     $("select[name='gj__tipoContrato']").select2(theme);
     $("select[name='gj__cargoGenerico']").select2(theme);
     $("select[name='gj__ref1']").select2(theme);
     $("select[name='gj__ref2']").select2(theme);
+    $("select[name='gj_cargo']").select2(theme);
   }
   setTimeout(function(){
     var h = $(window).height() - 200;
@@ -6713,12 +6725,12 @@ $("input[name='gj__esRepitente']").on('change', function(e) {
 $("input[name='gj__afiliacion_prevision']").on('change', function (e) {
   switch (this.value) {
     case 'fonasa':
-      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").show();
-      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").hide();
+      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").css('display', 'block');
+      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").css('display', 'none');
       break;
     case 'isapre':
-      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").hide();
-      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").show();
+      $("select[name='gj__nombreAfiliacionPrevision_FONASA']").css('display', 'none');
+      $("select[name='gj__nombreAfiliacionPrevision_ISAPRE']").css('display', 'block');
       break;
     default:
       break;
@@ -6726,8 +6738,6 @@ $("input[name='gj__afiliacion_prevision']").on('change', function (e) {
 });
 
 $("input[name='gj__afiliacion_salud']").on('change', function (e) {
-  console.log('---sdasd--')
-  console.log(this.value)
   switch (this.value) {
     case 'afp':
       $("select[name='gj__nombreAfiliacionSalud_AFP']").show();
