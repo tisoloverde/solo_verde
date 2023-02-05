@@ -2889,7 +2889,7 @@
         <h5 style="color:gray;" id="tituloEditaPersonalOperaciones"><span class="fas fa-user-edit"></span>&nbsp;&nbsp;Editar personal</h5>
       </div>
       <div id="bodyEditaPersonalOperaciones" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
-				<div class="row" style="text-align: left; margin-bottom: 20pt;">
+				<!--<div class="row" style="text-align: left; margin-bottom: 20pt;">
 					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt; border: 2px solid #ececec; background-color: #f5f5f5; padding: 25px; text-align: center; margin-left: 20px;">
 						<img id="imagenFichaPersonal" src="" alt="" style="width: 200px;">
 					</div>
@@ -2962,7 +2962,7 @@
 						<select id="cecoEditaPersonalOperaciones" class="form-control">
             </select>
           </div>
-				</div>
+				</div>-->
 
         <!-- Begin - New -->
         <div class="row" style="margin: 10pt 0; padding-bottom: 10pt; border: 1px solid #efefef; width: 100%; text-align: left;">
@@ -3409,6 +3409,28 @@
               <label style="font-weight: bold;">Plaza/Sector</label>
               <input id="gj__plaza_" class="form-control">
             </div>
+
+            <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
+              <h5 style="font-weight: bold;">ADICIONAL</h5>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Sucursal</label>
+              <select id="gj__sucursal_" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Empresa</label>
+              <select id="gj__empresa_" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Centro de Costo</label>
+              <select id="gj__centroCosto_" class="form-control">
+              </select>
+            </div>
         </div>
         <!-- End - New -->
 			</div>
@@ -3429,8 +3451,8 @@
         <h5 style="color:gray;" id="tituloIngresarPersonalOperaciones"><span class="fas fa-user-plus"></span>&nbsp;&nbsp;Ingresar personal</h5>
       </div>
       <div id="bodyIngresarPersonalOperaciones" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <!--<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+        <!--<div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label disabled style="font-weight: bold;">RUT (*)</label>
             <input id="rutIngresarPersonalOperaciones" class="form-control" type="text" value="">
           </div>
@@ -3441,16 +3463,16 @@
           <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Nombres (*)</label>
             <input id="nombresIngresarPersonalOperaciones" class="form-control" type="text" value="">
-          </div>-->
+          </div>
 					<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Sucursal</label>
 						<select id="sucursalIngresarPersonalOperaciones" class="form-control">
             </select>
           </div>
-					<!--<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+					<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Función (cargo)</label>
             <input id="funcionIngresarPersonalOperaciones" class="form-control" type="text" value="">
-          </div>-->
+          </div>
 					<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Nivel</label>
 						<select id="nivelIngresarPersonalOperaciones" class="form-control">
@@ -3477,14 +3499,14 @@
 						<select id="patenteIngresarPersonalOperaciones" class="form-control">
             </select>
           </div>
-          <!--<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Fono</label>
             <input id="fonoIngresarPersonalOperaciones" class="form-control" type="number" value="">
           </div>
           <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">E-mail</label>
             <input id="emailIngresarPersonalOperaciones" class="form-control" type="text" value="">
-          </div>-->
+          </div>
 					<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Empresa</label>
 						<select id="empresaIngresarPersonalOperaciones" class="form-control">
@@ -3495,7 +3517,7 @@
 						<select id="cecoIngresarPersonalOperaciones" class="form-control">
             </select>
           </div>
-				</div>
+				</div>-->
 
         <!-- Begin - New -->
         <div class="row" style="margin: 10pt 0; padding-bottom: 10pt; border: 1px solid #efefef; width: 100%; text-align: left;">
@@ -3942,6 +3964,28 @@
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Plaza/Sector</label>
               <input id="gj__plaza" type="text" class="form-control">
+            </div>
+
+            <div class="col-xl-12" style="background-color: #ededed; margin-top: 20pt;">
+              <h5 style="font-weight: bold;">ADICIONAL</h5>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Sucursal</label>
+              <select id="gj__sucursal" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Empresa</label>
+              <select id="gj__empresa" class="form-control">
+              </select>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+              <label style="font-weight: bold;">Centro de Costo</label>
+              <select id="gj__centroCosto" class="form-control">
+              </select>
             </div>
         </div>
         <!-- End - New -->

@@ -328,7 +328,7 @@ $(window).on("load",function(e){
           setInterval(function(){
             // console.log("interval");
             tiempo2 = moment(new Date());
-            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 300){
+            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 3600){
               // console.log("Desconectando Sistema");
               $.ajax({
                   url:   'controller/cerraSesion.php',
@@ -5525,7 +5525,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
   $("#rutIngresarPersonalOperaciones").removeClass("is-invalid");
   $("#nombresIngresarPersonalOperaciones").removeClass("is-invalid");
   $("#apellidosIngresarPersonalOperaciones").removeClass("is-invalid");
-  await $.ajax({
+  /*await $.ajax({
     url:   'controller/datosNivelFuncional.php',
     type:  'post',
     success: function (response2) {
@@ -5543,12 +5543,13 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
         $("#nivelIngresarPersonalOperaciones").html(cuerpoF);
       }
     }
-  });
+  });*/
   await $.ajax({
     url:   'controller/datosSucursal.php',
     type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
+    dataType: 'json',
+    success: function (response) {
+      /*var p2 = jQuery.parseJSON(response2);
       var cuerpoS = '';
       cuerpoS += '<option selected value="-1">Sin asignar</option>';
       if(p2.aaData.length !== 0){
@@ -5559,10 +5560,15 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       }
       else{
         $("#sucursalIngresarPersonalOperaciones").html(cuerpoS);
-      }
+      }*/
+      var html = '<option selected value="-1">Sin asignar</option>';
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDSUCURSAL}">${item.COMUNA} - ${item.SUCURSAL}</option>`;
+      })
+      $("#gj__sucursal").html(html);
     }
   });
-  await $.ajax({
+  /*await $.ajax({
     url:   'controller/datosPatentesAsignar.php',
     type:  'post',
     success: function (response2) {
@@ -5579,34 +5585,46 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
         $("#patenteIngresarPersonalOperaciones").html(cuerpoP);
       }
     }
-  });
+  });*/
   await $.ajax({
     url:   'controller/datosSubcontratistasVehiculoInterno.php',
     type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
+    dataType: 'json',
+    success: function (response) {
+      /*var p2 = jQuery.parseJSON(response2);
       if(p2.aaData.length !== 0){
         var cuerpoE = '';
         for(var i = 0; i < p2.aaData.length; i++){
           cuerpoE += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
         }
         $("#empresaIngresarPersonalOperaciones").html(cuerpoE);
-      }
+      }*/
+      var html = '<option selected value="-1">Sin asignar</option>';
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
+      })
+      $("#gj__empresa").html(html);
     }
   });
 
   await $.ajax({
     url:   'controller/datosCecoEmpresa.php',
     type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
+    dataType: 'json',
+    success: function (response) {
+      /*var p2 = jQuery.parseJSON(response2);
       if(p2.aaData.length !== 0){
         var cuerpoCeco = '';
         for(var i = 0; i < p2.aaData.length; i++){
           cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
         }
         $("#cecoIngresarPersonalOperaciones").html(cuerpoCeco);
-      }
+      }*/
+      var html = "<option selected value='-1'>Sin asignar</option>";
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.NOMENCLATURA}</option>`;
+      })
+      $("#gj__centroCosto").html(html);
     }
   });
   await $.ajax({
@@ -5748,6 +5766,9 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     $("#gj__ref1").select2(theme);
     $("#gj__ref2").select2(theme);
     $("#gj__cargo").select2(theme);
+    $("#gj__sucursal").select2(theme);
+    $("#gj__empresa").select2(theme);
+    $("#gj__centroCosto").select2(theme);
   }
 
   $("#gj__nombreAfiliacionPrevision_FONASA").hide();
@@ -5999,28 +6020,28 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
 
-    var patente = $("#patenteIngresarPersonalOperaciones").val();
+    // var patente = $("#patenteIngresarPersonalOperaciones").val();
     // var fono = $("#fonoIngresarPersonalOperaciones").val();
     // var mail = $("#emailIngresarPersonalOperaciones").val();
-    var empresa = $("#empresaIngresarPersonalOperaciones").val();
-    var nivel = $("#nivelIngresarPersonalOperaciones").val();
-    var mano = $("#moIngresarPersonalOperaciones").val();
-    var idCeco = $("#cecoIngresarPersonalOperaciones").val();
+    // var empresa = $("#empresaIngresarPersonalOperaciones").val();
+    // var nivel = $("#nivelIngresarPersonalOperaciones").val();
+    // var mano = $("#moIngresarPersonalOperaciones").val();
+    // var idCeco = $("#cecoIngresarPersonalOperaciones").val();
     var parametros = {
       "rut": $("#gj__rut").val(), // rut.replace(".","").replace(".",""),
       "rutPExterno": $("#gj__rut").val(), // rut.replace(".","").replace(".",""),
       "apellidos": $("#gj__apellidos").val(),
       "nombres": $("#gj__nombres").val(),
-      "sucursal": $("#sucursalIngresarPersonalOperaciones").val(),
       "funcion": $("#gj__cargo").val(),
-      "externo": $("#esSubcontratistaIngresarPersonalOperaciones").prop("checked") ? 1 : 0,
-      "patente": patente,
+      // "externo": $("#esSubcontratistaIngresarPersonalOperaciones").prop("checked") ? 1 : 0,
+      // "patente": patente,
       "fono": $("#gj__fono").val(),
       "mail":  $("#gj__email").val(),
-      "empresa": empresa,
-      "nivel": nivel,
-      "mano": mano,
-      "idCeco": idCeco
+      // "nivel": nivel,
+      // "mano": mano,
+      "sucursal": $("#gj__sucursal").val(),
+      "empresa": $("#gj__empresa").val(),
+      "idCeco": $("#gj__centroCosto").val(),
     }
 
     /* Begin - New Params Personal */
@@ -6367,7 +6388,7 @@ $("#editarJefatura").unbind("click").click(async function(){
     }
   });
 
-  await $.ajax({
+  /*await $.ajax({
     url:   'controller/datosNivelFuncional.php',
     type:  'post',
     success: function (response2) {
@@ -6385,12 +6406,13 @@ $("#editarJefatura").unbind("click").click(async function(){
         $("#nivelEditaPersonalOperaciones").html(cuerpoF);
       }
     }
-  });
+  });*/
   await $.ajax({
     url:   'controller/datosSucursal.php',
     type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
+    dataType: 'json',
+    success: function (response) {
+      /*var p2 = jQuery.parseJSON(response2);
       var cuerpoS = '';
       cuerpoS += '<option selected value="-1">Sin asignar</option>';
       if(p2.aaData.length !== 0){
@@ -6406,15 +6428,21 @@ $("#editarJefatura").unbind("click").click(async function(){
       }
       else{
         $("#sucursalEditaPersonalOperaciones").html(cuerpoS);
-      }
+      }*/
+      var html = '<option selected value="-1">Sin asignar</option>';
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDSUCURSAL}">${item.COMUNA} - ${item.SUCURSAL}</option>`;
+      })
+      $("#gj__sucursal_").html(html);
     }
   });
   await $.ajax({
     url:   'controller/datosPatentesAsignar.php',
     type:  'post',
     data:  parametros,
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
+    dataType: 'json',
+    success: function (response) {
+      /*var p2 = jQuery.parseJSON(response2);
       var cuerpoP = '';
       cuerpoP += '<option selected value="-1">Sin asignar</option>';
       if(p2.aaData.length !== 0){
@@ -6430,10 +6458,15 @@ $("#editarJefatura").unbind("click").click(async function(){
       }
       else{
         $("#patenteEditaPersonalOperaciones").html(cuerpoP);
-      }
+      }*/
+      var html = '<option selected value="-1">Sin asignar</option>';
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
+      })
+      $("#gj__empresa_").html(html);
     }
   });
-  if(externo[0] == 1){
+  /*if(externo[0] == 1){
     $("#esSubcontratistaEditaPersonalOperaciones").prop("checked",true);
     await $.ajax({
       url:   'controller/datosSubcontratistasVehiculo.php',
@@ -6476,13 +6509,14 @@ $("#editarJefatura").unbind("click").click(async function(){
         }
       }
     });
-  }
+  }*/
 
   await $.ajax({
     url:   'controller/datosCecoEmpresa.php',
     type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
+    dataType: 'json',
+    success: function (response) {
+      /*var p2 = jQuery.parseJSON(response2);
       if(p2.aaData.length !== 0){
         var cuerpoCeco = '';
         for(var i = 0; i < p2.aaData.length; i++){
@@ -6494,7 +6528,12 @@ $("#editarJefatura").unbind("click").click(async function(){
           }
         }
         $("#cecoEditaPersonalOperaciones").html(cuerpoCeco);
-      }
+      }*/
+      var html = "<option selected value='-1'>Sin asignar</option>";
+      response.aaData.forEach((item) => {
+        html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.NOMENCLATURA}</option>`;
+      })
+      $("#gj__centroCosto_").html(html);
     }
   });
 
@@ -6738,6 +6777,9 @@ $("#editarJefatura").unbind("click").click(async function(){
     $("#gj__ref1_").select2(theme);
     $("#gj__ref2_").select2(theme);
     $("#gj__cargo_").select2(theme);
+    $("#gj__sucursal_").select2(theme);
+    $("#gj__empresa_").select2(theme);
+    $("#gj__centroCosto_").select2(theme);
   }
   setTimeout(function(){
     var h = $(window).height() - 200;
