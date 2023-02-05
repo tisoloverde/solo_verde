@@ -3392,7 +3392,7 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">JEAS</label>
-              <select id="gj__jeas_" class="form-control"></select>
+              <input id="gj__jeas_" class="form-control" disabled>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
@@ -3948,7 +3948,7 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">JEAS</label>
-              <select id="gj__jeas" class="form-control"></select>
+              <input id="gj__jeas" class="form-control" disabled>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">

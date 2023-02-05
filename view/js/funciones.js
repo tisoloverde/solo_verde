@@ -5700,7 +5700,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
 
       html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoGenericoUnificado'].forEach((item) => {
-        html += `<option value="${item.CODIGO}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
+        html += `<option value="${item.CODIGO}" family="${item.FAMILIA}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
       });
       $("#gj__cargoGenerico").html(html);
 
@@ -6610,7 +6610,7 @@ $("#editarJefatura").unbind("click").click(async function(){
 
       html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoGenericoUnificado'].forEach((item) => {
-        html += `<option value="${item.CODIGO}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
+        html += `<option value="${item.CODIGO}" family="${item.FAMILIA}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
       });
       $("#gj__cargoGenerico_").html(html);
 
@@ -6953,6 +6953,16 @@ $("input[name='gj__afiliacion_salud_']").on('change', function (e) {
     default:
       break;
   }
+});
+
+$("#gj__cargoGenerico").on('change', function (e) {
+  var familia = $("#gj__cargoGenerico").find(":selected").attr("family");
+  $("#gj__jeas").val(familia);
+});
+
+$("#gj__cargoGenerico_").on('change', function (e) {
+  var familia = $("#gj__cargoGenerico_").find(":selected").attr("family");
+  $("#gj__jeas_").val(familia);
 });
 
 $("#servicioEditaPersonalOperaciones").unbind("click").change(async function(e){
