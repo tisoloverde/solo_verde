@@ -6830,6 +6830,43 @@ function ingresaPersonalGestOperacion($dni,$apellidos,$nombres,$cargo,$externo,$
     }
 }
 
+function ingresaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,$mail,$idsubcontrato){
+	$con = conectar();
+	$con->query("START TRANSACTION");
+	if($con != 'No conectado'){
+		$sql = "INSERT INTO PERSONAL(
+			DNI,
+			APELLIDOS,
+			NOMBRES,
+			CARGO,
+			TELEFONO,
+			EMAIL,
+			IDSUBCONTRATISTAS,
+			IDESTADO_SOLICITUD
+		) VALUES (
+			'{$dni}',
+			'{$apellidos}',
+			'{$nombres}',
+			'{$cargo}',
+			'{$fono}',
+			'{$mail}',
+			'{$idsubcontrato}',
+			'3'
+		)";
+		if ($con->query($sql)) {
+			$con->query("COMMIT");
+			return "Ok";
+		} else {
+			// return $con->error;
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	} else {
+		$con->query("ROLLBACK");
+		return "Error";
+	}
+}
+
 function ingresaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$nomenclatura){
     $con = conectar();
     $con->query("START TRANSACTION");
@@ -6857,6 +6894,35 @@ function ingresaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$
       $con->query("ROLLBACK");
       return "Error";
     }
+}
+
+function ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco){
+	$con = conectar();
+	$con->query("START TRANSACTION");
+	if($con != 'No conectado'){
+		$sql = "INSERT INTO ACT(
+			IDPERSONAL,
+			IDSUCURSAL,
+			IDESTRUCTURA_OPERACION
+		) VALUES (
+			(SELECT IDPERSONAL FROM PERSONAL WHERE DNI = '{$dni}'),
+			CASE WHEN '{$sucursal}' = -1
+			THEN NULL
+			ELSE '{$sucursal}' END,
+			'{$idCeco}'
+		)";
+		if ($con->query($sql)) {
+			$con->query("COMMIT");
+			return "Ok";
+		} else {
+			// return $con->error;
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	} else {
+		$con->query("ROLLBACK");
+		return "Error";
+	}
 }
 
 function completaPersonalGestOperacion(
@@ -7039,6 +7105,32 @@ function editaPersonalGestOperacion($dni,$apellidos,$nombres,$cargo,$externo,$id
     }
 }
 
+function editaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,$mail,$idsubcontrato){
+	$con = conectar();
+	$con->query("START TRANSACTION");
+	if($con != 'No conectado'){
+		$sql = "UPDATE PERSONAL SET
+			APELLIDOS = '{$apellidos}',
+			NOMBRES  = '{$nombres}',
+			CARGO = '{$cargo}',
+			TELEFONO = '{$fono}',
+			EMAIL = '{$mail}',
+			IDSUBCONTRATISTAS = '{$idsubcontrato}'
+		WHERE DNI = '{$dni}'";
+		if ($con->query($sql)) {
+			$con->query("COMMIT");
+			return "Ok";
+		} else {
+			// return $con->error;
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	} else {
+		$con->query("ROLLBACK");
+		return "Error";
+	}
+}
+
 function editaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$nomenclatura){
     $con = conectar();
     $con->query("START TRANSACTION");
@@ -7074,6 +7166,36 @@ function editaPersonalGestOperacionACT($dni,$sucursal,$idCeco,$idSubcontrato,$no
       $con->query("ROLLBACK");
       return "Error";
     }
+}
+
+function editaPersonalGestOperacionACTEvol($dni,$sucursal,$idCeco) {
+	$con = conectar();
+	$con->query("START TRANSACTION");
+	if($con != 'No conectado'){
+		$sql = "UPDATE ACT SET
+			IDSUCURSAL =
+						CASE WHEN '{$sucursal}' = -1 THEN NULL
+						ELSE '{$sucursal}' END,
+			IDESTRUCTURA_OPERACION =
+						CASE WHEN '{$idCeco}' = -1 THEN NULL
+						ELSE '{$idCeco}' END
+			WHERE IDPERSONAL = (
+				SELECT IDPERSONAL FROM PERSONAL WHERE DNI = '{$dni}'
+			)";
+		if ($con->query($sql)) {
+			$con->query("COMMIT");
+			return "Ok";
+			// return $sql;
+		} else {
+			// return $sql;
+			// return $con->error;
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	} else {
+		$con->query("ROLLBACK");
+		return "Error";
+	}
 }
 
 // Consulta Asignacion Vehiculos

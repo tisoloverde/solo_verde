@@ -6146,8 +6146,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
               $('#modalAlertasSplash').modal('hide');
             },1000);
           }
-        }
-        else{
+        } else {
           $.ajax({
             url: "controller/ingresaPersonalGestOperEvol.php",
             type: 'POST',
@@ -6164,8 +6163,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
                   setTimeout(function(){
                     $('#modalAlertasSplash').modal('hide');
                   },1000);
-                }
-                else{
+                } else {
                   var random = Math.round(Math.random() * (1000000 - 1) + 1);
                   alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar personal, si el problema persiste favor comuniquese con soporte");
                   setTimeout(function(){
@@ -6173,8 +6171,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
                     $('#modalAlertasSplash').modal('hide');
                   },1000);
                 }
-              }
-              else{
+              } else {
                 var random = Math.round(Math.random() * (1000000 - 1) + 1);
                 alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar personal, si el problema persiste favor comuniquese con soporte");
                 setTimeout(function(){
@@ -6234,41 +6231,135 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
     else{
       externo = 0;
     }*/
-    var patente = $("#patenteEditaPersonalOperaciones").val();
-    var fono = $("#fonoEditaPersonalOperaciones").val();
-    var mail = $("#emailEditaPersonalOperaciones").val();
-    var empresa = $("#empresaEditaPersonalOperaciones").val();
-    var nivel = $("#nivelEditaPersonalOperaciones").val();
-    var mano = $("#moEditaPersonalOperaciones").val();
-    var idCeco = $("#cecoEditaPersonalOperaciones").val();
 
-    var table = $('#tablaJefatura').DataTable();
+    $('#modalIngresarPersonalOperaciones').modal('hide');
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+
+    // var patente = $("#patenteEditaPersonalOperaciones").val();
+    // var fono = $("#fonoEditaPersonalOperaciones").val();
+    // var mail = $("#emailEditaPersonalOperaciones").val();
+    // var empresa = $("#empresaEditaPersonalOperaciones").val();
+    // var nivel = $("#nivelEditaPersonalOperaciones").val();
+    // var mano = $("#moEditaPersonalOperaciones").val();
+    // var idCeco = $("#cecoEditaPersonalOperaciones").val();
+
+    /* var table = $('#tablaJefatura').DataTable();
     var patAnterior = $.map(table.rows('.selected').data(), function (item) {
         return item.PATENTE;
-    });
+    });*/
 
     var parametros = {
-      "rut": rut.replace(".","").replace(".",""),
-      "rutPExterno": rut.replace(".","").replace(".",""),
-      "apellidos": apellidos,
-      "nombres": nombres,
-      "sucursal": sucursal,
-      "funcion": funcion,
-      "externo": externo,
-      "patente": patente,
+      "rut": $("#gj__rut_").val(), // rut.replace(".","").replace(".",""),
+      "rutPExterno": $("#gj__rut_").val(), // rut.replace(".","").replace(".",""),
+      "apellidos": $("#gj__apellidos_").val(),
+      "nombres": $("#gj__nombres_").val(),
+      "funcion": $("#gj__cargo_").val(),
+      // "externo": externo,
+      // "patente": patente,
       "fono": fono,
       "mail": mail,
+      // "patAnterior": patAnterior[0],
+      // "nivel": nivel,
+      // "mano": mano,
+      "sucursal": sucursal,
       "empresa": empresa,
-      "patAnterior": patAnterior[0],
-      "nivel": nivel,
-      "mano": mano,
       "idCeco": idCeco
     }
 
+    /* Begin - New Params Personal */
+    var certificados = [];
+    $(".gj__certificados").each(function(e) {
+      var self = $(this);
+      if (self.is(':checked')) {
+        certificados.push(self.attr("id"));
+      }
+    });
+    var certificadosOtros = [];
+    $(".gj__certificados_otros").each(function(e) {
+      var self = $(this);
+      if (self.is(':checked')) {
+        certificadosOtros.push(self.attr("id"));
+      }
+    });
+
+    var news = {
+      esProvisorio: $("#gj__provisorio").is(":checked"),
+      domicilio: $("#gj__domicilio").val(),
+      comuna: $("#gj__comuna").val() != "-1" ? $("#gj__comuna").val() : null,
+      ciudad: $("#gj__ciudad").val(),
+      fechaNacimiento: $("#gj__fechaNacimiento").val(),
+      nacionalidad: $("#gj__nacionalidad").val() != "-1" ? $("#gj__nacionalidad").val() : null,
+      sexo: $("#gj__sexo").val() != "-1" ? $("#gj__sexo").val() : null,
+      puebloOriginario: $("#gj__esPuebloOriginario").is(":checked")
+        ? $("#gj__puebloOriginario").val()
+        : null,
+      esHispanoHablante: $("#gj__esHispanoHablante").is(":checked"),
+      nivelEstudios: $("#gj__nivelEstudios").val() != "-1" ? $("#gj__nivelEstudios").val() : null,
+      sabeLeer: $("#gj__sabeLeer").is(":checked"),
+      sabeEscribir: $("#gj__sabeEscribir").is(":checked"),
+      tieneLicencia: $("#gj__tieneLicencia").is(":checked"),
+      claseLicencia: $("#gj__claseLicencia").val() != "-1" ? $("#gj__claseLicencia").val() : null,
+      fechaVencimientoLicencia: $("#gj__fechaVencimientoLicencia").val(),
+      estadoCivil: $("#gj__estadoCivil").val() != "-1" ? $("#gj__estadoCivil").val() : null,
+      nombreContactoEmergencia: $("#gj__nombreContactoEmergencia").val(),
+      fonoContactoEmergencia: $("#gj__fonoContactoEmergencia").val(),
+      tallaPolera: $("#gj__talla_camisa").val(),
+      tallaGuantes: $("#gj__talla_guantes").val(),
+      tallaPantalon: $("#gj__talla_pantalon").val(),
+      tallaZapatos: $("#gj__talla_zapatos").val(),
+      tallaLegionario: $("#gj__talla_casco").val(),
+      tallaOverol: null,
+      tallaOtros: $("#gj__talla_otros").val() != "" && $("#gj__otraTallaUniforme").val() != ""
+        ? $("#gj__talla_otros").val() + "|" + $("#gj__otraTallaUniforme").val()
+        : null,
+      tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa").is(":checked"),
+      nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa").val(),
+      cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa").val(),
+      parentescoFamiliarEmpresa: $("#gj__parentescoFamiliarEmpresa").val() == 'Otro'
+        ? $("#gj__otroParentescoFamiliarEmpresa").val()
+        : $("#gj__parentescoFamiliarEmpresa").val(),
+      esRepitente: $("#gj__esRepitente").is(":checked"),
+      cargoRepitente: $("#gj__cargoRepitente").val(),
+      razonRepitente: $("#gj__razonRepitente").val(),
+
+      afiliacionPrevision: $("input[name='gj__afiliacion_prevision']").val() == 'fonasa'
+        ? $("#gj__nombreAfiliacionPrevision_FONASA").val()
+        : $("input[name='gj__afiliacion_prevision']").val() == 'isapre'
+          ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
+          : null,
+      afiliacionSalud: $("input[name='gj__afiliacion_salud']").val() == 'afp'
+        ? $("#gj__nombreAfiliacionSalud_AFP").val()
+        : $("input[name='gj__afiliacion_salud']").val() == 'isapre'
+          ? $("#gj__nombreAfiliacionSalud_INP").val()
+          : null,
+
+      banco: $("#gj__banco").val() ,
+      tipoCuenta: $("#gj__tipoCuenta").val(),
+      nroCuenta: $("#gj__nroCuenta").val(),
+      lstCertificados: certificados.join("|"),
+      lstCertificadosOtros: certificadosOtros.join("|"),
+      tieneClaveUnica: $("#gj__tieneClaveUnica").is(":checked"),
+      fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea").val(),
+      tipoContrato: $("#gj__tipoContrato").val(),
+      duracionContrato: $("#gj__duracionInicialContrato").val(),
+      cargoGenerico: $("#gj__cargoGenerico").val(),
+      jeas: "",
+      ref1: $("#gj__ref1").val(),
+      ref2: $("#gj__ref2").val(),
+      plaza: $("#gj__plaza").val(),
+    }
+    /* End - New Params Personal */
+
+    console.log('---data--');
+    console.log(parametros)
+    console.log(news)
+
     $.ajax({
-      url: "controller/editarPersonalGestOper.php",
+      url: "controller/editarPersonalGestOperEvol.php",
       type: 'POST',
-      data: parametros,
+      data: { ...parametros, ...news },
       success:  function (response) {
         var p = response.split(",");
         if(response.localeCompare("Sin datos")!= 0 && response != ""){
@@ -6284,16 +6375,14 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
             setTimeout(function(){
               $('#modalAlertasSplash').modal('hide');
             },1000);
-          }
-          else{
+          } else {
             var random = Math.round(Math.random() * (1000000 - 1) + 1);
             alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar personal, si el problema persiste favor comuniquese con soporte");
             setTimeout(function(){
               $('#modalAlertasSplash').modal('hide');
             },1000);
           }
-        }
-        else{
+        } else {
           var random = Math.round(Math.random() * (1000000 - 1) + 1);
           alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al actualizar personal, si el problema persiste favor comuniquese con soporte");
           setTimeout(function(){

@@ -3,21 +3,22 @@
   require('../model/consultas.php');
   session_start();
 
-  if(count($_POST) > 0) {
+  if (count($_POST) > 0) {
     $row = '';
 
-    // 1. Antecedentes Personales
-    $dni = $_POST['rut'];                   // PERSONAL - DNI
-    $apellidos = $_POST['apellidos'];       // PERSONAL - APELLIDOS
-    $nombres = $_POST['nombres'];           // PERSONAL - NOMBRES
-    $cargo = $_POST['funcion'];             // PERSONAL - CARGO
-    $fono = $_POST['fono'];                 // PERSONAL - TELEFONO
-    $mail = $_POST['mail'];                 // PERSONAL - EMAIL
+    $dni = $_POST['rut'];
+    $apellidos = $_POST['apellidos'];
+    $nombres = $_POST['nombres'];
+    $cargo = $_POST['funcion'];
+    $fono = $_POST['fono'];
+    $mail = $_POST['mail'];
 
     // $externo = $_POST['externo'];
     // $idpatente = $_POST['patente'];
-    // $nivel = $_POST['nivel'];
-    // $mano = $_POST['mano'];
+    // $nomenclatura = explode("¬¬",$_POST['actividad'])[1];
+    // $patAnterior   = $_POST['patAnterior'];
+    // $nivel   = $_POST['nivel'];
+    // $mano   = $_POST['mano'];
     $sucursal = $_POST['sucursal'];
     $idsubcontrato = $_POST['empresa'];
     $idCeco = $_POST['idCeco'] != "" ? $_POST['idCeco'] : -1;
@@ -79,9 +80,9 @@
     $ref2 = isset($_POST['ref2']) ? "'" . $_POST['ref2'] . "'" : 'null';    // PERSONAL - REFERENCIA2
     $plaza = isset($_POST['plaza']) ? "'" . $_POST['plaza'] . "'" : 'null'; // PERSONAL - PLAZA_SECTOR
 
-    $row = ingresaPersonalGestOperacionEvol(
+    $row = editaPersonalGestOperacionEvol(
       $dni,$apellidos,$nombres,$cargo,
-      $fono,$mail, $idsubcontrato
+      $fono,$mail,$idsubcontrato
     );
 
     $row = completaPersonalGestOperacion(
@@ -106,7 +107,7 @@
     );
 
     if ($row != "Error" ) {
-      // ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco);
+      // $row2 = editaPersonalGestOperacionACTEvol($dni,$sucursal,$idCeco);
       // ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad); NO SE USA PATENTE
       echo $row;
     } else {
