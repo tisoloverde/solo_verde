@@ -328,7 +328,7 @@ $(window).on("load",function(e){
           setInterval(function(){
             // console.log("interval");
             tiempo2 = moment(new Date());
-            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 3600){
+            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 300){
               // console.log("Desconectando Sistema");
               $.ajax({
                   url:   'controller/cerraSesion.php',
