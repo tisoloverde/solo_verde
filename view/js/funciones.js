@@ -5982,6 +5982,14 @@ $("#esSubcontratistaIngresarPersonalOperaciones").unbind("click").change(async f
   }
 });
 
+/* ********************************
+********* BEGIN - PERSONAL ********
+*********************************** */
+var __GJ_AFILIACION_PREVISION = '';
+var __GJ_AFILIACION_PREVISION_ = '';
+var __GJ_AFILIACION_SALUD = '';
+var __GJ_AFILIACION_SALUD_ = '';
+
 $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
   /*var rut = $("#rutIngresarPersonalOperaciones").val();
   var apellidos = $("#apellidosIngresarPersonalOperaciones").val();
@@ -6100,14 +6108,14 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
       cargoRepitente: $("#gj__cargoRepitente").val(),
       razonRepitente: $("#gj__razonRepitente").val(),
 
-      afiliacionPrevision: $("input[name='gj__afiliacion_prevision']").val() == 'fonasa'
+      afiliacionPrevision: __GJ_AFILIACION_PREVISION == 'fonasa'
         ? $("#gj__nombreAfiliacionPrevision_FONASA").val()
-        : $("input[name='gj__afiliacion_prevision']").val() == 'isapre'
+        : __GJ_AFILIACION_PREVISION == 'isapre'
           ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
           : null,
-      afiliacionSalud: $("input[name='gj__afiliacion_salud']").val() == 'afp'
+      afiliacionSalud: __GJ_AFILIACION_SALUD == 'afp'
         ? $("#gj__nombreAfiliacionSalud_AFP").val()
-        : $("input[name='gj__afiliacion_salud']").val() == 'isapre'
+        : __GJ_AFILIACION_SALUD == 'isapre'
           ? $("#gj__nombreAfiliacionSalud_INP").val()
           : null,
 
@@ -6285,70 +6293,70 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
     });
 
     var news = {
-      esProvisorio: $("#gj__provisorio").is(":checked"),
-      domicilio: $("#gj__domicilio").val(),
-      comuna: $("#gj__comuna").val() != "-1" ? $("#gj__comuna").val() : null,
-      ciudad: $("#gj__ciudad").val(),
-      fechaNacimiento: $("#gj__fechaNacimiento").val(),
-      nacionalidad: $("#gj__nacionalidad").val() != "-1" ? $("#gj__nacionalidad").val() : null,
-      sexo: $("#gj__sexo").val() != "-1" ? $("#gj__sexo").val() : null,
-      puebloOriginario: $("#gj__esPuebloOriginario").is(":checked")
-        ? $("#gj__puebloOriginario").val()
+      esProvisorio: $("#gj__provisorio_").is(":checked"),
+      domicilio: $("#gj__domicilio_").val(),
+      comuna: $("#gj__comuna_").val() != "-1" ? $("#gj__comuna_").val() : null,
+      ciudad: $("#gj__ciudad_").val(),
+      fechaNacimiento: $("#gj__fechaNacimiento_").val(),
+      nacionalidad: $("#gj__nacionalidad_").val() != "-1" ? $("#gj__nacionalidad_").val() : null,
+      sexo: $("#gj__sexo_").val() != "-1" ? $("#gj__sexo_").val() : null,
+      puebloOriginario: $("#gj__esPuebloOriginario_").is(":checked")
+        ? $("#gj__puebloOriginario_").val()
         : null,
-      esHispanoHablante: $("#gj__esHispanoHablante").is(":checked"),
-      nivelEstudios: $("#gj__nivelEstudios").val() != "-1" ? $("#gj__nivelEstudios").val() : null,
-      sabeLeer: $("#gj__sabeLeer").is(":checked"),
-      sabeEscribir: $("#gj__sabeEscribir").is(":checked"),
-      tieneLicencia: $("#gj__tieneLicencia").is(":checked"),
-      claseLicencia: $("#gj__claseLicencia").val() != "-1" ? $("#gj__claseLicencia").val() : null,
-      fechaVencimientoLicencia: $("#gj__fechaVencimientoLicencia").val(),
-      estadoCivil: $("#gj__estadoCivil").val() != "-1" ? $("#gj__estadoCivil").val() : null,
-      nombreContactoEmergencia: $("#gj__nombreContactoEmergencia").val(),
-      fonoContactoEmergencia: $("#gj__fonoContactoEmergencia").val(),
-      tallaPolera: $("#gj__talla_camisa").val(),
-      tallaGuantes: $("#gj__talla_guantes").val(),
-      tallaPantalon: $("#gj__talla_pantalon").val(),
-      tallaZapatos: $("#gj__talla_zapatos").val(),
-      tallaLegionario: $("#gj__talla_casco").val(),
+      esHispanoHablante: $("#gj__esHispanoHablante_").is(":checked"),
+      nivelEstudios: $("#gj__nivelEstudios_").val() != "-1" ? $("#gj__nivelEstudios_").val() : null,
+      sabeLeer: $("#gj__sabeLeer_").is(":checked"),
+      sabeEscribir: $("#gj__sabeEscribir_").is(":checked"),
+      tieneLicencia: $("#gj__tieneLicencia_").is(":checked"),
+      claseLicencia: $("#gj__claseLicencia_").val() != "-1" ? $("#gj__claseLicencia_").val() : null,
+      fechaVencimientoLicencia: $("#gj__fechaVencimientoLicencia_").val(),
+      estadoCivil: $("#gj__estadoCivil_").val() != "-1" ? $("#gj__estadoCivil_").val() : null,
+      nombreContactoEmergencia: $("#gj__nombreContactoEmergencia_").val(),
+      fonoContactoEmergencia: $("#gj__fonoContactoEmergencia_").val(),
+      tallaPolera: $("#gj__talla_camisa_").val(),
+      tallaGuantes: $("#gj__talla_guantes_").val(),
+      tallaPantalon: $("#gj__talla_pantalon_").val(),
+      tallaZapatos: $("#gj__talla_zapatos_").val(),
+      tallaLegionario: $("#gj__talla_casco_").val(),
       tallaOverol: null,
-      tallaOtros: $("#gj__talla_otros").val() != "" && $("#gj__otraTallaUniforme").val() != ""
-        ? $("#gj__talla_otros").val() + "|" + $("#gj__otraTallaUniforme").val()
+      tallaOtros: $("#gj__talla_otros_").val() != "" && $("#gj__otraTallaUniforme_").val() != ""
+        ? $("#gj__talla_otros_").val() + "|" + $("#gj__otraTallaUniforme_").val()
         : null,
-      tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa").is(":checked"),
-      nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa").val(),
-      cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa").val(),
-      parentescoFamiliarEmpresa: $("#gj__parentescoFamiliarEmpresa").val() == 'Otro'
-        ? $("#gj__otroParentescoFamiliarEmpresa").val()
-        : $("#gj__parentescoFamiliarEmpresa").val(),
-      esRepitente: $("#gj__esRepitente").is(":checked"),
-      cargoRepitente: $("#gj__cargoRepitente").val(),
-      razonRepitente: $("#gj__razonRepitente").val(),
+      tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa_").is(":checked"),
+      nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa_").val(),
+      cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa_").val(),
+      parentescoFamiliarEmpresa: $("#gj__parentescoFamiliarEmpresa_").val() == 'Otro'
+        ? $("#gj__otroParentescoFamiliarEmpresa_").val()
+        : $("#gj__parentescoFamiliarEmpresa_").val(),
+      esRepitente: $("#gj__esRepitente_").is(":checked"),
+      cargoRepitente: $("#gj__cargoRepitente_").val(),
+      razonRepitente: $("#gj__razonRepitente_").val(),
 
-      afiliacionPrevision: $("input[name='gj__afiliacion_prevision']").val() == 'fonasa'
-        ? $("#gj__nombreAfiliacionPrevision_FONASA").val()
-        : $("input[name='gj__afiliacion_prevision']").val() == 'isapre'
-          ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
+      afiliacionPrevision: __GJ_AFILIACION_PREVISION_ == 'fonasa'
+        ? $("#gj__nombreAfiliacionPrevision_FONASA_").val()
+        : __GJ_AFILIACION_PREVISION_ == 'isapre'
+          ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
           : null,
-      afiliacionSalud: $("input[name='gj__afiliacion_salud']").val() == 'afp'
-        ? $("#gj__nombreAfiliacionSalud_AFP").val()
-        : $("input[name='gj__afiliacion_salud']").val() == 'isapre'
-          ? $("#gj__nombreAfiliacionSalud_INP").val()
+      afiliacionSalud: __GJ_AFILIACION_SALUD_ == 'afp'
+        ? $("#gj__nombreAfiliacionSalud_AFP_").val()
+        : __GJ_AFILIACION_SALUD_ == 'isapre'
+          ? $("#gj__nombreAfiliacionSalud_INP_").val()
           : null,
 
-      banco: $("#gj__banco").val() ,
-      tipoCuenta: $("#gj__tipoCuenta").val(),
-      nroCuenta: $("#gj__nroCuenta").val(),
+      banco: $("#gj__banco_").val() ,
+      tipoCuenta: $("#gj__tipoCuenta_").val(),
+      nroCuenta: $("#gj__nroCuenta_").val(),
       lstCertificados: certificados.join("|"),
       lstCertificadosOtros: certificadosOtros.join("|"),
-      tieneClaveUnica: $("#gj__tieneClaveUnica").is(":checked"),
-      fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea").val(),
-      tipoContrato: $("#gj__tipoContrato").val(),
-      duracionContrato: $("#gj__duracionInicialContrato").val(),
-      cargoGenerico: $("#gj__cargoGenerico").val(),
+      tieneClaveUnica: $("#gj__tieneClaveUnica_").is(":checked"),
+      fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea_").val(),
+      tipoContrato: $("#gj__tipoContrato_").val(),
+      duracionContrato: $("#gj__duracionInicialContrato_").val(),
+      cargoGenerico: $("#gj__cargoGenerico_").val(),
       jeas: "",
-      ref1: $("#gj__ref1").val(),
-      ref2: $("#gj__ref2").val(),
-      plaza: $("#gj__plaza").val(),
+      ref1: $("#gj__ref1_").val(),
+      ref2: $("#gj__ref2_").val(),
+      plaza: $("#gj__plaza_").val(),
     }
     /* End - New Params Personal */
 
@@ -6989,10 +6997,12 @@ $("input[name='gj__afiliacion_prevision']").on('change', function (e) {
     case 'fonasa':
       $("#gj__nombreAfiliacionPrevision_FONASA").css('display', 'block');
       $("#gj__nombreAfiliacionPrevision_ISAPRE").css('display', 'none');
+      __GJ_AFILIACION_PREVISION = 'fonasa';
       break;
     case 'isapre':
       $("#gj__nombreAfiliacionPrevision_FONASA").css('display', 'none');
       $("#gj__nombreAfiliacionPrevision_ISAPRE").css('display', 'block');
+      __GJ_AFILIACION_PREVISION = 'isapre';
       break;
     default:
       break;
@@ -7004,10 +7014,12 @@ $("input[name='gj__afiliacion_prevision_']").on('change', function (e) {
     case 'fonasa':
       $("#gj__nombreAfiliacionPrevision_FONASA_").css('display', 'block');
       $("#gj__nombreAfiliacionPrevision_ISAPRE_").css('display', 'none');
+      __GJ_AFILIACION_PREVISION_ = 'fonasa';
       break;
     case 'isapre':
       $("#gj__nombreAfiliacionPrevision_FONASA_").css('display', 'none');
       $("#gj__nombreAfiliacionPrevision_ISAPRE_").css('display', 'block');
+      __GJ_AFILIACION_PREVISION_ = 'isapre';
       break;
     default:
       break;
@@ -7019,10 +7031,12 @@ $("input[name='gj__afiliacion_salud']").on('change', function (e) {
     case 'afp':
       $("#gj__nombreAfiliacionSalud_AFP").show();
       $("#gj__nombreAfiliacionSalud_INP").hide();
+      __GJ_AFILIACION_SALUD = 'afp';
       break;
     case 'inp':
       $("#gj__nombreAfiliacionSalud_AFP").hide();
       $("#gj__nombreAfiliacionSalud_INP").show();
+      __GJ_AFILIACION_SALUD = 'inp';
       break;
     default:
       break;
@@ -7034,10 +7048,12 @@ $("input[name='gj__afiliacion_salud_']").on('change', function (e) {
     case 'afp':
       $("#gj__nombreAfiliacionSalud_AFP_").show();
       $("#gj__nombreAfiliacionSalud_INP_").hide();
+      __GJ_AFILIACION_SALUD_ = 'afp';
       break;
     case 'inp':
       $("#gj__nombreAfiliacionSalud_AFP_").hide();
       $("#gj__nombreAfiliacionSalud_INP_").show();
+      __GJ_AFILIACION_SALUD_ = 'afp';
       break;
     default:
       break;

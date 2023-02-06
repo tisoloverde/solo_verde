@@ -3101,13 +3101,13 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <select id="gj__claseLicencia_" class="form-control"></select>
+                <select id="gj__claseLicencia_" class="form-control" disabled></select>
               </div>
             </div>
 
             <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
               <label>Fecha de Vencimiento</label>
-              <input id="gj__fechaVencimientoLicencia_" type="date" class="form-control" />
+              <input id="gj__fechaVencimientoLicencia_" type="date" class="form-control" disabled />
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
@@ -3196,8 +3196,8 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <input id="gj__cargoRepitente_" type="text" class="form-control" placeholder="Cargo que desempeñó" />
-                <input id="gj__razonRepitente_" type="text" class="form-control" placeholder="Razón Fin Relación Laboral" />
+                <input id="gj__cargoRepitente_" type="text" class="form-control" placeholder="Cargo que desempeñó" disabled />
+                <input id="gj__razonRepitente_" type="text" class="form-control" placeholder="Razón Fin Relación Laboral" disabled />
               </div>
             </div>
 
@@ -3656,13 +3656,13 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <select id="gj__claseLicencia" class="form-control"></select>
+                <select id="gj__claseLicencia" class="form-control" disabled></select>
               </div>
             </div>
 
             <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
               <label>Fecha de Vencimiento</label>
-              <input id="gj__fechaVencimientoLicencia" type="date" class="form-control" />
+              <input id="gj__fechaVencimientoLicencia" type="date" class="form-control" disabled/>
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
@@ -3751,8 +3751,8 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <input id="gj__cargoRepitente" type="text" class="form-control" placeholder="Cargo que desempeñó" />
-                <input id="gj__razonRepitente" type="text" class="form-control" placeholder="Razón Fin Relación Laboral" />
+                <input id="gj__cargoRepitente" type="text" class="form-control" placeholder="Cargo que desempeñó" disabled />
+                <input id="gj__razonRepitente" type="text" class="form-control" placeholder="Razón Fin Relación Laboral" disabled />
               </div>
             </div>
 
