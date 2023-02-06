@@ -6115,7 +6115,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
           : null,
       afiliacionSalud: __GJ_AFILIACION_SALUD == 'afp'
         ? $("#gj__nombreAfiliacionSalud_AFP").val()
-        : __GJ_AFILIACION_SALUD == 'isapre'
+        : __GJ_AFILIACION_SALUD == 'inp'
           ? $("#gj__nombreAfiliacionSalud_INP").val()
           : null,
 
@@ -6339,7 +6339,7 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
           : null,
       afiliacionSalud: __GJ_AFILIACION_SALUD_ == 'afp'
         ? $("#gj__nombreAfiliacionSalud_AFP_").val()
-        : __GJ_AFILIACION_SALUD_ == 'isapre'
+        : __GJ_AFILIACION_SALUD_ == 'inp'
           ? $("#gj__nombreAfiliacionSalud_INP_").val()
           : null,
 
@@ -6755,15 +6755,24 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__nacionalidad_").val(dt.nacionalidad);
       $("#gj__sexo_").val(dt.sexo);
       $("#gj__esPuebloOriginario_").prop('checked', Boolean(dt.puebloOriginario));
+      if (dt.puebloOriginario) {
+        $("#gj__puebloOriginario_").removeAttr("disabled");
+        $("#gj__esHispanoHablante_").removeAttr("disabled");
+      }
       $("#gj__puebloOriginario_").val(dt.puebloOriginario);
       $("#gj__esHispanoHablante_").prop("checked", dt.esHispanoHablante);
       $("#gj__nivelEstudios_").val(dt.nivelEstudios);
       $("#gj__sabeLeer_").prop("checked", dt.sabeLeer);
       $("#gj__sabeEscribir_").prop("checked", dt.sabeEscribir);
       $("#gj__tieneLicencia_").prop("checked", dt.tieneLicencia);
+      if (dt.tieneLicencia) {
+        $("#gj__claseLicencia_").removeAttr("disabled");
+        $("#gj__fechaVencimientoLicencia_").removeAttr("disabled");
+      }
       $("#gj__claseLicencia_").val(dt.claseLicencia);
       $("#gj__fechaVencimientoLicencia_").val(dt.fechaVencimientoLicencia);
       $("#gj__estadoCivil_").val(dt.estadoCivil);
+      $("#gj__esRepitente_").prop("checked", Boolean(dt.nombreContactoEmergencia || dt.fonoContactoEmergencia));
       $("#gj__nombreContactoEmergencia_").val(dt.nombreContactoEmergencia);
       $("#gj__fonoContactoEmergencia_").val(dt.fonoContactoEmergencia);
       $("#gj__talla_camisa_").val(dt.tallaPolera);
@@ -6783,20 +6792,47 @@ $("#editarJefatura").unbind("click").click(async function(){
       }
       /* End - Talla Otros */
       $("#gj__tieneFamiliarEmpresa_").prop("checked", Boolean(dt.tieneFamiliarEmpresa));
+      if (dt.tieneFamiliarEmpresa) {
+        $("#gj__nombreFamiliarEmpresa_").removeAttr("disabled");
+        $("#gj__cargoFamiliarEmpresa_").removeAttr("disabled");
+        $("#gj__parentescoFamiliarEmpresa_").removeAttr("disabled");
+      }
       $("#gj__nombreFamiliarEmpresa_").val(dt.nombreFamiliarEmpresa);
       $("#gj__cargoFamiliarEmpresa_").val(dt.cargoFamiliarEmpresa);
       $("#gj__parentescoFamiliarEmpresa_").val(dt.parentescoFamiliarEmpresa);
       $("#gj__esRepitente_").prop("checked", Boolean(dt.esRepitente));
+      if (dt.esRepitente) {
+        $("#gj__cargoRepitente_").removeAttr("disabled");
+        $("#gj__razonRepitente_").removeAttr("disabled");
+      }
       $("#gj__cargoRepitente_").val(dt.cargoRepitente);
       $("#gj__razonRepitente_").val(dt.razonRepitente);
       /* Begin - Afiliacion */
       // nombreAfiliacionAFP: $("select[name='gj__nombreAfiliacionAFP']").val(),
       // nombreAfiliacionIsapre: $("select[name='gj__nombreAfiliacionISAPRE']").val(),
       if (dt.afiliacionPrevision) {
+        if (dt.afiliacionPrevisionNombre == 'Fonasa') {
+          // $("input[name='gj__afiliacion_prevision_']").val('fonasa');
+          $("#gj__nombreAfiliacionPrevision_FONASA_").css('display', 'block');
+          $("#gj__nombreAfiliacionPrevision_ISAPRE_").css('display', 'none');
+        } else {
+          // $("input[name='gj__afiliacion_prevision_']").val('isapre');
+          $("#gj__nombreAfiliacionPrevision_FONASA_").css('display', 'none');
+          $("#gj__nombreAfiliacionPrevision_ISAPRE_").css('display', 'block');
+        }
         $("#gj__nombreAfiliacionPrevision_FONASA_").val(dt.afiliacionPrevision);
         $("#gj__nombreAfiliacionPrevision_ISAPRE_").val(dt.afiliacionPrevision);
       }
       if (dt.afiliacionSalud) {
+        if (dt.afiliacionSaludNombre == 'I.N.P') {
+          // $("input[name='gj__afiliacion_salud_']").val('inp');
+          $("#gj__nombreAfiliacionSalud_INP_").css('display', 'block');
+          $("#gj__nombreAfiliacionSalud_AFP_").css('display', 'none');
+        } else {
+          // $("input[name='gj__afiliacion_salud_']").val('afp');
+          $("#gj__nombreAfiliacionSalud_INP_").css('display', 'none');
+          $("#gj__nombreAfiliacionSalud_AFP_").css('display', 'block');
+        }
         $("#gj__nombreAfiliacionSalud_AFP_").val(dt.afiliacionSalud);
         $("#gj__nombreAfiliacionSalud_INP_").val(dt.afiliacionSalud);
       }
@@ -6829,10 +6865,14 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__tipoContrato_").val(dt.tipoContrato);
       $("#gj__duracionInicialContrato_").val(dt.duracionContrato);
       $("#gj__cargoGenerico_").val(dt.cargoGenerico);
-      // jeas: "",
+      $("#gj__jeas_").val(dt.jeas);
       $("#gj__ref1_").val(dt.ref1);
       $("#gj__ref2_").val(dt.ref2);
       $("#gj__plaza_").val(dt.plaza);
+
+      $("#gj__sucursal_").val(dt.sucursal);
+      $("#gj__empresa_").val(dt.subcontrato);
+      $("#gj__centroCosto_").val(dt.idCeco);
     }
   });
 
@@ -7053,7 +7093,7 @@ $("input[name='gj__afiliacion_salud_']").on('change', function (e) {
     case 'inp':
       $("#gj__nombreAfiliacionSalud_AFP_").hide();
       $("#gj__nombreAfiliacionSalud_INP_").show();
-      __GJ_AFILIACION_SALUD_ = 'afp';
+      __GJ_AFILIACION_SALUD_ = 'inp';
       break;
     default:
       break;

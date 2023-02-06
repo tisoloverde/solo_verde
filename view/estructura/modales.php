@@ -3048,7 +3048,7 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <input id="gj__puebloOriginario_" class="form-control" type="text" value="" placeholder="Especifique...">
+                <input id="gj__puebloOriginario_" class="form-control" type="text" value="" placeholder="Especifique..." disabled>
               </div>
             </div>
 
@@ -3056,7 +3056,7 @@
               <label style="font-weight: bold;">¿Habla español?</label>
               <div style="display: flex;">
                 <label class="switch">
-                  <input id="gj__esHispanoHablante_" type="checkbox">
+                  <input id="gj__esHispanoHablante_" type="checkbox" disabled>
                   <span class="slider round"></span>
                 </label>
               </div>
@@ -3166,14 +3166,14 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-                <input id="gj__nombreFamiliarEmpresa_" type="text" class="form-control" placeholder="Nombre completo familiar" />
-                <input id="gj__cargoFamiliarEmpresa_" type="text" class="form-control" placeholder="Cargo que desempeña" />
+                <input id="gj__nombreFamiliarEmpresa_" type="text" class="form-control" placeholder="Nombre completo familiar" disabled />
+                <input id="gj__cargoFamiliarEmpresa_" type="text" class="form-control" placeholder="Cargo que desempeña" disabled />
               </div>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Tipo de Parentesco</label>
-              <select id="gj__parentescoFamiliarEmpresa_" class="form-control">
+              <select id="gj__parentescoFamiliarEmpresa_" class="form-control" disabled>
                 <option value="-1">Sin asignar</option>
                 <option value="Padre">Padre/Madre</option>
                 <option value="Pareja">Pareja</option>
@@ -3184,7 +3184,7 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold; color: white;">Otro</label>
-              <input id="gj__otroParentescoFamiliarEmpresa_" type="text" placeholder="Especifique..." class="form-control" />
+              <input id="gj__otroParentescoFamiliarEmpresa_" type="text" placeholder="Especifique..." class="form-control" disabled />
             </div>
             
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt; display: grid;">
@@ -3192,7 +3192,7 @@
               <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
                 <div style="width: 100px;">
                   <label class="switch">
-                    <input name="gj__esRepitente_" type="checkbox">
+                    <input id="gj__esRepitente_" type="checkbox">
                     <span class="slider round"></span>
                   </label>
                 </div>
