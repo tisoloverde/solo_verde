@@ -11842,6 +11842,17 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     }
   })
 });
+
+_TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
+  var found = _COMUNES_PLANILLA.estadoConcepto.find((item) => `${item.SIGLA}` == "1");
+
+  var rowData = _TABLE_PLANILLA.DataTable().rows(indexes).data().toArray();
+  var idPersonal = rowData[0]["IDPERSONAL"];
+  var lst = [14, 15, 16, 17, 18, 19, 20];
+  lst.forEach((item) => {
+    $(`#planilla-select-col${item}-${idPersonal}`).val(found.IDPERSONAL_ESTADO_CONCEPTO);
+  });
+});
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
