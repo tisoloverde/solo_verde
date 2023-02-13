@@ -2886,84 +2886,11 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h5 style="color:gray;" id="tituloEditaPersonalOperaciones"><span class="fas fa-user-edit"></span>&nbsp;&nbsp;Editar personal</h5>
+        <h5 style="color:gray;" id="tituloEditaPersonalOperaciones"><span class="fas fa-user-edit"></span>&nbsp;&nbsp;
+          <span id="tituloModalPersonal">Editar personal</span>
+        </h5>
       </div>
       <div id="bodyEditaPersonalOperaciones" class="modal-body alerta-modal-body" style="overflow-y: scroll;">
-				<!--<div class="row" style="text-align: left; margin-bottom: 20pt;">
-					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt; border: 2px solid #ececec; background-color: #f5f5f5; padding: 25px; text-align: center; margin-left: 20px;">
-						<img id="imagenFichaPersonal" src="" alt="" style="width: 200px;">
-					</div>
-					<div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-xs-12" style="margin-right: -25px; padding-right: 40px;">
-						<div class="row" style="text-align: left;">
-							<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">RUT</label>
-		            <input disabled id="rutEditaPersonalOperaciones" class="form-control" type="text" value="">
-		          </div>
-							<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">Apellidos</label>
-		            <input id="apellidosEditaPersonalOperaciones" class="form-control" type="text" value="">
-		          </div>
-		          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">Nombres</label>
-		            <input id="nombresEditaPersonalOperaciones" class="form-control" type="text" value="">
-		          </div>
-							<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">Sucursal</label>
-								<select id="sucursalEditaPersonalOperaciones" class="form-control">
-		            </select>
-		          </div>
-							<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">Función (cargo)</label>
-		            <input id="funcionEditaPersonalOperaciones" class="form-control" type="text" value="">
-		          </div>
-							<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-							  <label style="font-weight: bold;">Nivel</label>
-							  <select id="nivelEditaPersonalOperaciones" class="form-control">
-							  </select>
-							</div>
-							<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-								<label style="font-weight: bold;">Subcontratista</label>
-								<br>
-								<label class="switch">
-									<input id="esSubcontratistaEditaPersonalOperaciones" type="checkbox" title="Subcontratista">
-									<span class="slider round"></span>
-								</label>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-							  <label style="font-weight: bold;">Mano de obra</label>
-							  <select id="moEditaPersonalOperaciones" class="form-control">
-							    <option value="MOD">MOD</option>
-							    <option value="MOI">MOI</option>
-							    <option value="MOE">MOE</option>
-							  </select>
-							</div>
-							<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">Patente</label>
-								<select id="patenteEditaPersonalOperaciones" class="form-control">
-		            </select>
-		          </div>
-		          <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">Fono</label>
-		            <input id="fonoEditaPersonalOperaciones" class="form-control" type="text" value="">
-		          </div>
-		          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-		            <label style="font-weight: bold;">E-mail</label>
-		            <input id="emailEditaPersonalOperaciones" class="form-control" type="text" value="">
-		          </div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Empresa</label>
-						<select id="empresaEditaPersonalOperaciones" class="form-control">
-            </select>
-          </div>
-					<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">CECO/PEP</label>
-						<select id="cecoEditaPersonalOperaciones" class="form-control">
-            </select>
-          </div>
-				</div>-->
-
         <!-- Begin - New -->
         <div class="row" style="margin: 10pt 0; padding-bottom: 10pt; border: 1px solid #efefef; width: 100%; text-align: left;">
             <div class="col-xl-12" style="background-color: #ededed;">
@@ -3209,11 +3136,11 @@
               <label style="font-weight: bold;">Afiliado a Previsión:</label>
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_prevision_" type="radio" class="form-control" style="width: 20px;" value="fonasa">
+                  <input id="gj__afiliacion_prevision_fonasa_" name="gj__afiliacion_prevision_" type="radio" class="form-control" style="width: 20px;" value="fonasa">
                   <span>FONASA</span>
                 </label>
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_prevision_" type="radio" class="form-control" style="width: 20px;" value="isapre">
+                  <input id="gj__afiliacion_prevision_isapre_" name="gj__afiliacion_prevision_" type="radio" class="form-control" style="width: 20px;" value="isapre">
                   <span>ISAPRE</span>
                 </label>
               </div>
@@ -3225,11 +3152,11 @@
               <label style="font-weight: bold;">Afiliado a Salud:</label>
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_salud_" type="radio" class="form-control" style="width: 20px;" value="afp">
+                  <input id="gj__afiliacion_salud_afp_" name="gj__afiliacion_salud_" type="radio" class="form-control" style="width: 20px;" value="afp">
                   <span>AFP</span>
                 </label>
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
-                  <input name="gj__afiliacion_salud_" type="radio" class="form-control" style="width: 20px;" value="inp">
+                  <input id="gj__afiliacion_salud_inp_" name="gj__afiliacion_salud_" type="radio" class="form-control" style="width: 20px;" value="inp">
                   <span>INP</span>
                 </label>
               </div>
