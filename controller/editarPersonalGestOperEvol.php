@@ -107,7 +107,7 @@
     );
 
     if ($row != "Error" ) {
-      // $row2 = editaPersonalGestOperacionACTEvol($dni,$sucursal,$idCeco);
+      editaPersonalGestOperacionACTEvol($dni,$sucursal,$idCeco);
       // ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad); NO SE USA PATENTE
       echo $row;
     } else {

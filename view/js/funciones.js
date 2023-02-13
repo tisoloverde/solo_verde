@@ -328,7 +328,7 @@ $(window).on("load",function(e){
           setInterval(function(){
             // console.log("interval");
             tiempo2 = moment(new Date());
-            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 300){
+            if(tiempo2.diff(moment(localStorage['tokenTime']), 'seconds') > 3600){
               // console.log("Desconectando Sistema");
               $.ajax({
                   url:   'controller/cerraSesion.php',
@@ -5511,56 +5511,183 @@ $("#guardarEditarProyecto").unbind("click").click(function(){
   }
 });
 
+function initPersonal() {
+  $("#gj__rut").val(""); // input
+  $("#gj__provisorio").prop("checked", false); // checkbox
+  $("#gj__email").val(""); // input
+  $("#gj__nombres").val(""); // input
+  $("#gj__apellidos").val(""); // input
+  $("#gj__domicilio").val(); // input
+  $("#gj__comuna").val("-1"); // select
+  $("#gj__ciudad").val(""); // input
+  $("#gj__fono").val(""); // input
+  $("#gj__fechaNacimiento").val(""); // input
+  $("#gj__nacionalidad").val("-1"); // select
+  $("#gj__sexo").val("-1"); // select
+  $("#gj__esPuebloOriginario").prop("checked", false); // checkbox
+  $("#gj__puebloOriginario").val(""); // input
+  $("#gj__esHispanoHablante").prop("checked", false); // checkbox
+  $("#gj__nivelEstudios").val("-1"); // select
+  $("#gj__sabeLeer").prop("checked", false); // checkbox
+  $("#gj__sabeEscribir").prop("checked", false); // checkbox
+  $("#gj__tieneLicencia").prop("checked", false); // checkbox
+  $("#gj__claseLicencia").val("-1"); // select
+  $("#gj__fechaVencimientoLicencia").val(""); // input
+  $("#gj__estadoCivil").val("-1"); // select
+  $("#gj__nombreContactoEmergencia").val(""); // input
+  $("#gj__fonoContactoEmergencia").val(""); // input
+  $("#gj__talla_camisa").val(""); // input
+  $("#gj__talla_guantes").val(""); // input
+  $("#gj__talla_pantalon").val(""); // input
+  $("#gj__talla_zapatos").val(""); // input
+  $("#gj__talla_casco").val(""); // input
+  // tallaOverol: null,
+  $("#gj__talla_otros").val(""); // input
+  $("#gj__otraTallaUniforme").val(""); // input
+  $("#gj__tieneFamiliarEmpresa").prop("checked", false); // checkbox
+  $("#gj__nombreFamiliarEmpresa").val(""); // input
+  $("#gj__cargoFamiliarEmpresa").val(""); // input
+  $("#gj__parentescoFamiliarEmpresa").val("-1"); // select
+  $("#gj__otroParentescoFamiliarEmpresa").val(""); // input
+  $("#gj__esRepitente").prop("checked", false); // checkbox
+  $("#gj__cargoRepitente").val(""); // input
+  $("#gj__razonRepitente").val(""); // input
+  $("input[name='gj__afiliacion_prevision']").prop("checked", false); // radio
+  $("#gj__nombreAfiliacionPrevision_FONASA").val("-1"); // select
+  $("#gj__nombreAfiliacionPrevision_ISAPRE").val("-1"); // select
+  $("input[name='gj__afiliacion_salud']").prop("checked", false); // radio
+  $("#gj__nombreAfiliacionSalud_AFP").val("-1"); // select
+  $("#gj__nombreAfiliacionSalud_INP").val("-1"); // select
+  $("#gj__banco").val("-1"); // select
+  $("#gj__tipoCuenta").val("-1"); // select
+  $("#gj__nroCuenta").val(""); // input
+  $("#gj__certificados_estudios").prop("checked", false); // checkbox
+  $("#gj__certificados_antecedentes").prop("checked", false); // checkbox
+  $("#gj__certificados_deExcencion").prop("checked", false); // checkbox
+  $("#gj__certificados_residencia").prop("checked", false); // checkbox
+  $("#gj__certificados_pension").prop("checked", false); // checkbox
+  $("#gj__certificados_discapacidad").prop("checked", false); // checkbox
+  $("#gj__certificados_afp").prop("checked", false); // checkbox
+  $("#gj__certificados_fonasa").prop("checked", false); // checkbox
+  $("#gj__certificados_isapre").prop("checked", false); // checkbox
+  $("#gj__certificados_seguroCovid19").prop("checked", false); // checkbox
+  $("#gj__certificados_conadi").prop("checked", false); // checkbox
+  $("#gj__certificados_cursoOS10").prop("checked", false); // checkbox
+  $("#gj__certificados_cursoSupervisor").prop("checked", false); // checkbox
+  $("#gj__certificados_certificadoVacunas").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_cedulaDeIdentidad").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_licenciaDeConducir").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_curriculum").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_hojaDeVida").prop("checked", false); // checkbox
+  $("#gj__tieneClaveUnica").prop("checked", false); // checkbox
+  $("#gj__fechaIngresoEmprea").val(""); // input
+  $("#gj__tipoContrato").val("-1"); // select
+  $("#gj__cargo").val("-1"); // select
+  $("#gj__duracionInicialContrato").val(""); // input
+  $("#gj__cargoGenerico").val("-1"); // select
+  $("#gj__jeas").val(""); // input
+  $("#gj__ref1").val("-1"); // select
+  $("#gj__ref2").val("-1"); // select
+  $("#gj__plaza").val(""); // input
+  $("#gj__sucursal").val("-1"); // select
+  $("#gj__empresa").val("-1"); // select
+  $("#gj__centroCosto").val("-1"); // select
+}
+
+function initPersonal_() {
+  $("#gj__rut_").val(""); // input
+  $("#gj__provisorio_").prop("checked", false); // checkbox
+  $("#gj__email_").val(""); // input
+  $("#gj__nombres_").val(""); // input
+  $("#gj__apellidos_").val(""); // input
+  $("#gj__domicilio_").val(); // input
+  $("#gj__comuna_").val("-1"); // select
+  $("#gj__ciudad_").val(""); // input
+  $("#gj__fono_").val(""); // input
+  $("#gj__fechaNacimiento_").val(""); // input
+  $("#gj__nacionalidad_").val("-1"); // select
+  $("#gj__sexo_").val("-1"); // select
+  $("#gj__esPuebloOriginario_").prop("checked", false); // checkbox
+  $("#gj__puebloOriginario_").val(""); // input
+  $("#gj__esHispanoHablante_").prop("checked", false); // checkbox
+  $("#gj__nivelEstudios_").val("-1"); // select
+  $("#gj__sabeLeer_").prop("checked", false); // checkbox
+  $("#gj__sabeEscribir_").prop("checked", false); // checkbox
+  $("#gj__tieneLicencia_").prop("checked", false); // checkbox
+  $("#gj__claseLicencia_").val("-1"); // select
+  $("#gj__fechaVencimientoLicencia_").val(""); // input
+  $("#gj__estadoCivil_").val("-1"); // select
+  $("#gj__nombreContactoEmergencia_").val(""); // input
+  $("#gj__fonoContactoEmergencia_").val(""); // input
+  $("#gj__talla_camisa_").val(""); // input
+  $("#gj__talla_guantes_").val(""); // input
+  $("#gj__talla_pantalon_").val(""); // input
+  $("#gj__talla_zapatos_").val(""); // input
+  $("#gj__talla_casco_").val(""); // input
+  // tallaOverol: null,
+  $("#gj__talla_otros_").val(""); // input
+  $("#gj__otraTallaUniforme_").val(""); // input
+  $("#gj__tieneFamiliarEmpresa_").prop("checked", false); // checkbox
+  $("#gj__nombreFamiliarEmpresa_").val(""); // input
+  $("#gj__cargoFamiliarEmpresa_").val(""); // input
+  $("#gj__parentescoFamiliarEmpresa_").val("-1"); // select
+  $("#gj__otroParentescoFamiliarEmpresa_").val(""); // input
+  $("#gj__esRepitente_").prop("checked", false); // checkbox
+  $("#gj__cargoRepitente_").val(""); // input
+  $("#gj__razonRepitente_").val(""); // input
+  $("input[name='gj__afiliacion_prevision']_").prop("checked", false); // radio
+  $("#gj__nombreAfiliacionPrevision_FONASA_").val("-1"); // select
+  $("#gj__nombreAfiliacionPrevision_ISAPRE_").val("-1"); // select
+  $("input[name='gj__afiliacion_salud']_").prop("checked", false); // radio
+  $("#gj__nombreAfiliacionSalud_AFP_").val("-1"); // select
+  $("#gj__nombreAfiliacionSalud_INP_").val("-1"); // select
+  $("#gj__banco_").val("-1"); // select
+  $("#gj__tipoCuenta_").val("-1"); // select
+  $("#gj__nroCuenta_").val(""); // input
+  $("#gj__certificados_estudios_").prop("checked", false); // checkbox
+  $("#gj__certificados_antecedentes_").prop("checked", false); // checkbox
+  $("#gj__certificados_deExcencion_").prop("checked", false); // checkbox
+  $("#gj__certificados_residencia_").prop("checked", false); // checkbox
+  $("#gj__certificados_pension_").prop("checked", false); // checkbox
+  $("#gj__certificados_discapacidad_").prop("checked", false); // checkbox
+  $("#gj__certificados_afp_").prop("checked", false); // checkbox
+  $("#gj__certificados_fonasa_").prop("checked", false); // checkbox
+  $("#gj__certificados_isapre_").prop("checked", false); // checkbox
+  $("#gj__certificados_seguroCovid19_").prop("checked", false); // checkbox
+  $("#gj__certificados_conadi_").prop("checked", false); // checkbox
+  $("#gj__certificados_cursoOS10_").prop("checked", false); // checkbox
+  $("#gj__certificados_cursoSupervisor_").prop("checked", false); // checkbox
+  $("#gj__certificados_certificadoVacunas_").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_cedulaDeIdentidad_").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_licenciaDeConducir_").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_curriculum_").prop("checked", false); // checkbox
+  $("#gj__certificados_otros_hojaDeVida_").prop("checked", false); // checkbox
+  $("#gj__tieneClaveUnica_").prop("checked", false); // checkbox
+  $("#gj__fechaIngresoEmprea_").val(""); // input
+  $("#gj__tipoContrato_").val("-1"); // select
+  $("#gj__cargo_").val("-1"); // select
+  $("#gj__duracionInicialContrato_").val(""); // input
+  $("#gj__cargoGenerico_").val("-1"); // select
+  $("#gj__jeas_").val(""); // input
+  $("#gj__ref1_").val("-1"); // select
+  $("#gj__ref2_").val("-1"); // select
+  $("#gj__plaza_").val(""); // input
+  $("#gj__sucursal_").val("-1"); // select
+  $("#gj__empresa_").val("-1"); // select
+  $("#gj__centroCosto_").val("-1"); // select
+}
+
 $("#ingresarNuevoJefatura").unbind("click").click(async function(){
-  $("#rutIngresarPersonalOperaciones").val('');
-  $("#nombresIngresarPersonalOperaciones").val('');
-  $("#apellidosIngresarPersonalOperaciones").val('');
-  $("#funcionIngresarPersonalOperaciones").val('');
-  $("#fonoIngresarPersonalOperaciones").val('');
-  $("#emailIngresarPersonalOperaciones").val('');
-  $("#esSubcontratistaIngresarPersonalOperaciones").prop("checked",false);
+  initPersonal();
+
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
-  $("#rutIngresarPersonalOperaciones").removeClass("is-invalid");
-  $("#nombresIngresarPersonalOperaciones").removeClass("is-invalid");
-  $("#apellidosIngresarPersonalOperaciones").removeClass("is-invalid");
-  /*await $.ajax({
-    url:   'controller/datosNivelFuncional.php',
-    type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
-      var cuerpoF = '';
-      if(p2.aaData.length !== 0){
-        for(var i = 0; i < p2.aaData.length; i++){
-          if((i+1) == p2.aaData.length){
-            cuerpoF += '<option selected value="' + p2.aaData[i].IDNIVELFUNCIONAL + '">(' + p2.aaData[i].NUMERO + ') ' + p2.aaData[i].NIVEL + '</option>';
-          }
-          else{
-            cuerpoF += '<option value="' + p2.aaData[i].IDNIVELFUNCIONAL + '">(' + p2.aaData[i].NUMERO + ') ' + p2.aaData[i].NIVEL + '</option>';
-          }
-        }
-        $("#nivelIngresarPersonalOperaciones").html(cuerpoF);
-      }
-    }
-  });*/
   await $.ajax({
     url:   'controller/datosSucursal.php',
     type:  'post',
     dataType: 'json',
     success: function (response) {
-      /*var p2 = jQuery.parseJSON(response2);
-      var cuerpoS = '';
-      cuerpoS += '<option selected value="-1">Sin asignar</option>';
-      if(p2.aaData.length !== 0){
-        for(var i = 0; i < p2.aaData.length; i++){
-          cuerpoS += '<option value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].SUCURSAL + '</option>';
-        }
-        $("#sucursalIngresarPersonalOperaciones").html(cuerpoS);
-      }
-      else{
-        $("#sucursalIngresarPersonalOperaciones").html(cuerpoS);
-      }*/
       var html = '<option selected value="-1">Sin asignar</option>';
       response.aaData.forEach((item) => {
         html += `<option value="${item.IDSUCURSAL}">${item.COMUNA} - ${item.SUCURSAL}</option>`;
@@ -5568,37 +5695,11 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       $("#gj__sucursal").html(html);
     }
   });
-  /*await $.ajax({
-    url:   'controller/datosPatentesAsignar.php',
-    type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
-      var cuerpoP = '';
-      cuerpoP += '<option selected value="-1">Sin asignar</option>';
-      if(p2.aaData.length !== 0){
-        for(var i = 0; i < p2.aaData.length; i++){
-          cuerpoP += '<option value="' + p2.aaData[i].IDPATENTE + '">' + p2.aaData[i].PATENTE + ' - ' + p2.aaData[i].ESTADO + '</option>';
-        }
-        $("#patenteIngresarPersonalOperaciones").html(cuerpoP);
-      }
-      else{
-        $("#patenteIngresarPersonalOperaciones").html(cuerpoP);
-      }
-    }
-  });*/
   await $.ajax({
     url:   'controller/datosSubcontratistasVehiculoInterno.php',
     type:  'post',
     dataType: 'json',
     success: function (response) {
-      /*var p2 = jQuery.parseJSON(response2);
-      if(p2.aaData.length !== 0){
-        var cuerpoE = '';
-        for(var i = 0; i < p2.aaData.length; i++){
-          cuerpoE += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
-        }
-        $("#empresaIngresarPersonalOperaciones").html(cuerpoE);
-      }*/
       var html = '<option selected value="-1">Sin asignar</option>';
       response.aaData.forEach((item) => {
         html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
@@ -5612,14 +5713,6 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
     type:  'post',
     dataType: 'json',
     success: function (response) {
-      /*var p2 = jQuery.parseJSON(response2);
-      if(p2.aaData.length !== 0){
-        var cuerpoCeco = '';
-        for(var i = 0; i < p2.aaData.length; i++){
-          cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
-        }
-        $("#cecoIngresarPersonalOperaciones").html(cuerpoCeco);
-      }*/
       var html = "<option selected value='-1'>Sin asignar</option>";
       response.aaData.forEach((item) => {
         html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.NOMENCLATURA}</option>`;
@@ -6411,66 +6504,18 @@ $("#apellidosEditaPersonalOperaciones").on('input', function(){
 });
 
 $("#editarJefatura").unbind("click").click(async function(){
+  initPersonal_();
+
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
-  $("#rutEditaPersonalOperaciones").removeClass("is-invalid");
-  $("#nombresEditaPersonalOperacionestPersonalOperaciones").removeClass("is-invalid");
-  $("#apellidosEditaPersonalOperaciones").removeClass("is-invalid");
   var table = $('#tablaJefatura').DataTable();
   var rut = $.map(table.rows('.selected').data(), function (item) {
       return item.DNI;
   });
-  var patente = $.map(table.rows('.selected').data(), function (item) {
-      return item.PATENTE;
-  });
-  var externo = $.map(table.rows('.selected').data(), function (item) {
-      return item.EXTERNO;
-  });
-  var empresa = $.map(table.rows('.selected').data(), function (item) {
-      return item.IDEMPRESA;
-  });
-  var idCeco = $.map(table.rows('.selected').data(), function (item) {
-      return item.IDESTRUCTURA_OPERACION;
-  });
-  var nombres = $.map(table.rows('.selected').data(), function (item) {
-      return item.NOMBRES;
-  });
-  var apellidos = $.map(table.rows('.selected').data(), function (item) {
-      return item.APELLIDOS;
-  });
-  var cargo = $.map(table.rows('.selected').data(), function (item) {
-      return item.CARGO;
-  });
-  var email = $.map(table.rows('.selected').data(), function (item) {
-      return item.EMAIL;
-  });
-  var telefono = $.map(table.rows('.selected').data(), function (item) {
-      return item.TELEFONO;
-  });
-  var nomen = $.map(table.rows('.selected').data(), function (item) {
-      return item.NOMENCLATURA;
-  });
-  var sucursal = $.map(table.rows('.selected').data(), function (item) {
-      return item.SUCURSAL;
-  });
-  var nivel = $.map(table.rows('.selected').data(), function (item) {
-      return item.NIVEL;
-  });
-  var mano = $.map(table.rows('.selected').data(), function (item) {
-      return item.CLASIFICACION;
-  });
   var parametros = {
     "rut": rut[0]
   }
-
-  $("#rutEditaPersonalOperaciones").val(rut[0]);
-  $("#nombresEditaPersonalOperaciones").val(nombres[0]);
-  $("#apellidosEditaPersonalOperaciones").val(apellidos[0]);
-  $("#funcionEditaPersonalOperaciones").val(cargo[0]);
-  $("#emailEditaPersonalOperaciones").val(email[0]);
-  $("#fonoEditaPersonalOperaciones").val(telefono[0]);
-  $("#moEditaPersonalOperaciones").val(mano[0]);
 
   await $.ajax({
     url:   "controller/checkImgPerfil.php?rut=" + rut[0] + "&id=" + Math.round(Math.random() * (1000000 - 1) + 1),
@@ -6485,47 +6530,11 @@ $("#editarJefatura").unbind("click").click(async function(){
     }
   });
 
-  /*await $.ajax({
-    url:   'controller/datosNivelFuncional.php',
-    type:  'post',
-    success: function (response2) {
-      var p2 = jQuery.parseJSON(response2);
-      var cuerpoF = '';
-      if(p2.aaData.length !== 0){
-        for(var i = 0; i < p2.aaData.length; i++){
-          if(nivel[0] === p2.aaData[i].NUMERO){
-            cuerpoF += '<option selected value="' + p2.aaData[i].IDNIVELFUNCIONAL + '">(' + p2.aaData[i].NUMERO + ') ' + p2.aaData[i].NIVEL + '</option>';
-          }
-          else{
-            cuerpoF += '<option value="' + p2.aaData[i].IDNIVELFUNCIONAL + '">(' + p2.aaData[i].NUMERO + ') ' + p2.aaData[i].NIVEL + '</option>';
-          }
-        }
-        $("#nivelEditaPersonalOperaciones").html(cuerpoF);
-      }
-    }
-  });*/
   await $.ajax({
     url:   'controller/datosSucursal.php',
     type:  'post',
     dataType: 'json',
     success: function (response) {
-      /*var p2 = jQuery.parseJSON(response2);
-      var cuerpoS = '';
-      cuerpoS += '<option selected value="-1">Sin asignar</option>';
-      if(p2.aaData.length !== 0){
-        for(var i = 0; i < p2.aaData.length; i++){
-          if(p2.aaData[i].SUCURSAL === sucursal[0]){
-            cuerpoS += '<option selected value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].SUCURSAL + '</option>';
-          }
-          else{
-            cuerpoS += '<option value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].SUCURSAL + '</option>';
-          }
-        }
-        $("#sucursalEditaPersonalOperaciones").html(cuerpoS);
-      }
-      else{
-        $("#sucursalEditaPersonalOperaciones").html(cuerpoS);
-      }*/
       var html = '<option selected value="-1">Sin asignar</option>';
       response.aaData.forEach((item) => {
         html += `<option value="${item.IDSUCURSAL}">${item.COMUNA} - ${item.SUCURSAL}</option>`;
@@ -6533,29 +6542,13 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__sucursal_").html(html);
     }
   });
+
   await $.ajax({
     url:   'controller/datosPatentesAsignar.php',
     type:  'post',
     data:  parametros,
     dataType: 'json',
     success: function (response) {
-      /*var p2 = jQuery.parseJSON(response2);
-      var cuerpoP = '';
-      cuerpoP += '<option selected value="-1">Sin asignar</option>';
-      if(p2.aaData.length !== 0){
-        for(var i = 0; i < p2.aaData.length; i++){
-          if(p2.aaData[i].PATENTE === patente[0]){
-            cuerpoP += '<option selected value="' + p2.aaData[i].IDPATENTE + '">' + p2.aaData[i].PATENTE + ' - ' + p2.aaData[i].ESTADO + '</option>';
-          }
-          else{
-            cuerpoP += '<option value="' + p2.aaData[i].IDPATENTE + '">' + p2.aaData[i].PATENTE + ' - ' + p2.aaData[i].ESTADO + '</option>';
-          }
-        }
-        $("#patenteEditaPersonalOperaciones").html(cuerpoP);
-      }
-      else{
-        $("#patenteEditaPersonalOperaciones").html(cuerpoP);
-      }*/
       var html = '<option selected value="-1">Sin asignar</option>';
       response.aaData.forEach((item) => {
         html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
@@ -6563,69 +6556,12 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__empresa_").html(html);
     }
   });
-  /*if(externo[0] == 1){
-    $("#esSubcontratistaEditaPersonalOperaciones").prop("checked",true);
-    await $.ajax({
-      url:   'controller/datosSubcontratistasVehiculo.php',
-      type:  'post',
-      success: function (response2) {
-        var p2 = jQuery.parseJSON(response2);
-        if(p2.aaData.length !== 0){
-          var cuerpoE = '';
-          for(var i = 0; i < p2.aaData.length; i++){
-            if(p2.aaData[i].IDSUBCONTRATO == empresa[0]){
-              cuerpoE += '<option selected value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
-            }
-            else{
-              cuerpoE += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
-            }
-          }
-          $("#empresaEditaPersonalOperaciones").html(cuerpoE);
-        }
-      }
-    });
-  }
-  else{
-    $("#esSubcontratistaEditaPersonalOperaciones").prop("checked",false);
-    await $.ajax({
-      url:   'controller/datosSubcontratistasVehiculoInterno.php',
-      type:  'post',
-      success: function (response2) {
-        var p2 = jQuery.parseJSON(response2);
-        if(p2.aaData.length !== 0){
-          var cuerpoE = '';
-          for(var i = 0; i < p2.aaData.length; i++){
-            if(p2.aaData[i].IDSUBCONTRATO == empresa[0]){
-              cuerpoE += '<option selected value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
-            }
-            else{
-              cuerpoE += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
-            }
-          }
-          $("#empresaEditaPersonalOperaciones").html(cuerpoE);
-        }
-      }
-    });
-  }*/
 
   await $.ajax({
     url:   'controller/datosCecoEmpresa.php',
     type:  'post',
     dataType: 'json',
     success: function (response) {
-      /*var p2 = jQuery.parseJSON(response2);
-      if(p2.aaData.length !== 0){
-        var cuerpoCeco = '';
-        for(var i = 0; i < p2.aaData.length; i++){
-          if(p2.aaData[i].IDESTRUCTURA_OPERACION == idCeco[0]){
-            cuerpoCeco += '<option selected value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
-          }
-          else{
-            cuerpoCeco += '<option value="' + p2.aaData[i].IDESTRUCTURA_OPERACION + '">' + p2.aaData[i].NOMENCLATURA + '</option>';
-          }
-        }
-        $("#cecoEditaPersonalOperaciones").html(cuerpoCeco);
-      }*/
       var html = "<option selected value='-1'>Sin asignar</option>";
       response.aaData.forEach((item) => {
         html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.NOMENCLATURA}</option>`;
