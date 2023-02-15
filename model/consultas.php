@@ -19774,6 +19774,30 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaReferencia1_clean() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				R1.IDREFERENCIA1,
+				R1.NOMBRE AS REFERENCIA1
+			FROM REFERENCIA1 R1
+			WHERE R1.NOMBRE NOT LIKE '-%'
+			AND R1.NOMBRE NOT LIKE '%-'
+			ORDER BY R1.NOMBRE ASC;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaListaReferencia2() {
 		$con = conectar();
 		if ($con != 'No conectado') {
@@ -19788,6 +19812,30 @@ WHERE U.RUT = '{$rutUser}'";
 				R2.NOMBRE AS REFERENCIA2
 			FROM REFERENCIA2 R2 ORDER BY R2.NOMBRE ASC;
 			";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaReferencia2_clean() {
+		$con = conectar();
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2
+			FROM REFERENCIA2 R2
+			WHERE R2.NOMBRE NOT LIKE '-%'
+			AND R2.NOMBRE NOT LIKE '%-'
+			ORDER BY R2.NOMBRE ASC;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

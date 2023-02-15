@@ -12,8 +12,8 @@
   $banco = consultaBanco();
   $tipoContrato = consultaTipoContrato();
   $cargoGenericoUnificado = consultaListaCargoMandante();
-  $referencia1 = consultaListaReferencia1();
-  $referencia2 = consultaListaReferencia2();
+  $referencia1 = consultaListaReferencia1_clean();
+  $referencia2 = consultaListaReferencia2_clean();
   $cargoLiquidacion = consultaCargoLiquidacion();
 
   $results = array(
