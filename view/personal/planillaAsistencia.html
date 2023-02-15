@@ -97,7 +97,7 @@
   js.src = 'view/js/funciones.js?idload=29';
   document.getElementsByTagName('head')[0].appendChild(js);
 
-  $('#tablaJefatura tbody').on( 'click', 'tr', function () {
+  $('#tablaListadoPlanillaAsistencia tbody').on( 'click', 'tr', function () {
       setTimeout(async function(){
         var table = $('#tablaListadoPlanillaAsistencia').DataTable();
         var datos = table.rows('.selected').data();
