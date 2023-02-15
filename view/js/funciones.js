@@ -11850,15 +11850,18 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
   var idPersonal = rowData[0]["IDPERSONAL"];
   var lst = [14, 15, 16, 17, 18, 19, 20];
   lst.forEach((item) => {
-    $(`#planilla-select-col${item}-${idPersonal}`).val(found.IDPERSONAL_ESTADO_CONCEPTO);
+    var aux = $(`#planilla-select-col${item}-${idPersonal}`).val();
+    if (!aux || aux <= 0) {
+      $(`#planilla-select-col${item}-${idPersonal}`).val(found.IDPERSONAL_ESTADO_CONCEPTO);
+
+      var idPec = found.IDPERSONAL_ESTADO_CONCEPTO;
+      var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+
+      var idx = item - 14;
+      _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
+      _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
+    }
   });
-
-  var idPec = found.IDPERSONAL_ESTADO_CONCEPTO;
-  var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
-
-  var idx = col - 14;
-  _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
-  _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
