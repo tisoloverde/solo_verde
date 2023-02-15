@@ -19,6 +19,8 @@
     	$row = actualizaPass($rut, md5($pass));
 			$row_datos = checkUsuarioSinPassPorRut($rut);
 
+			$nombre = $row_datos['NOMBRE'];
+
 			if($row_datos === NULL){
 				echo "Sin_usuario";
 			}
@@ -66,7 +68,7 @@
 					    Estimado " . $nombre . ",
 					    <br />
 					    <br />
-					    Le informamos que su contraseña a sido restablecida en el Sistema de Gestión CIMAURBANO.<br /><br />
+					    Le informamos que su contraseña ha sido restablecida en el Sistema de Gestión CIMAURBANO.<br /><br />
 			        A continuación le indicamos sus credenciales de acceso:<br /><br />
 			        URL: <a href='" . $rowUrl[0]['domain'] . "'>" . $rowUrl[0]['domain'] . "</a>
 					    <br />
