@@ -114,7 +114,7 @@
 
           $firma = "--
             <br />
-            <img src='cid:firmaPng' alt='E-Gestiontech' style='width: 180px;'>
+            <img src='cid:firmaPng' alt='CIMAURBANO' style='width: 180px;'>
             <br />
             Aportando calidad de vida en espacios urbanos
             <br />

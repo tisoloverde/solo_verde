@@ -47,7 +47,7 @@
 
   				$firma = "--
   	                <br />
-  	                <img src='cid:firmaPng' alt='E-Gestiontech' style='width: 180px;'>
+  	                <img src='cid:firmaPng' alt='CIMAURBANO' style='width: 180px;'>
   	                <br />
   	                Aportando calidad de vida en espacios urbanos
   	                <br />
@@ -72,7 +72,7 @@
   			    Estimado " . $nombres . ",
   			    <br />
   			    <br />
-  			    Su cuenta fue creada exitosamente en el sistema de Aportando calidad de vida en espacios urbanos.<br /><br />
+  			    Su cuenta fue creada exitosamente en el Sistema de Gestión CIMAURBANO.<br /><br />
   	        Sus credenciales de acceso son la siguientes:<br /><br />
   	        URL: <a href='" . $rowUrl[0]['domain'] . "'>" . $rowUrl[0]['domain'] . "</a>
   			    <br />

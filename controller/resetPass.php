@@ -40,7 +40,7 @@
 
 				$firma = "--
 	                <br />
-	                <img src='cid:firmaPng' alt='E-Gestiontech' style='width: 180px;'>
+	                <img src='cid:firmaPng' alt='CIMAURBANO' style='width: 180px;'>
 	                <br />
 	                Aportando calidad de vida en espacios urbanos
 	                <br />
@@ -65,7 +65,7 @@
 			    Estimado " . $nombre . ",
 			    <br />
 			    <br />
-			    Le informamos que su contraseña a sido restablecida en el sistema de Aportando calidad de vida en espacios urbanos.<br /><br />
+			    Le informamos que su contraseña ha sido restablecida en el Sistema de Gestión CIMAURBANO.<br /><br />
 	        A continuación le indicamos sus credenciales de acceso:<br /><br />
 	        URL: <a href='" . $rowUrl[0]['domain'] . "'>" . $rowUrl[0]['domain'] . "</a>
 			    <br />
