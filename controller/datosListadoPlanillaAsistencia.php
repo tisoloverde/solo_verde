@@ -23,6 +23,7 @@
     // COMMONS
     $crgman = consultaListaCargoMandante();
     $cons = consultaListaPersonalEstadoConcepto();
+    $consClean = consultaListaPersonalEstadoConceptoClean();
     $refs1 = consultaListaReferencia1();
     $refs2 = consultaListaReferencia2();
     $idConValid = buscarDiaValidoPersonalEstadoConcepto($cons);
@@ -169,7 +170,7 @@
           } else {
             $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
             $select = $select . "<option value='0'></option>";
-            foreach ($cons as $con) {
+            foreach ($consClean as $con) {
               $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
               $pec = $con['SIGLA'];
               // $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? $idConValid) == $idPec

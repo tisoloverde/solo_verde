@@ -20174,6 +20174,26 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaPersonalEstadoConceptoClean() {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT IDPERSONAL_ESTADO_CONCEPTO, SIGLA
+			FROM PERSONAL_ESTADO_CONCEPTO
+			WHERE SIGLA NOT IN ('DSR', 'V', 'LIC');";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function validWeekForPersonal($idPersonal, $fecIni, $fecFin) {
 		$con = conectar();
 		if ($con != "No conectado") {
