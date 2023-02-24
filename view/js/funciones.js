@@ -11221,6 +11221,8 @@ function disableSelectionCols(lst) {
 }
 
 async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
+  var auxIni = sanitizeDatePlanilla(fecIni);
+  var auxFin = sanitizeDatePlanilla(fecFin);
   await _TABLE_PLANILLA.DataTable({
     serverSide: true,
     processing: true,
@@ -11228,7 +11230,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     ajax: {
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
-      data: { idEstructuraOperacion, fecIni, fecFin },
+      data: { idEstructuraOperacion, fecIni, fecFin, auxIni, auxFin },
       dataFilter: function(data) {
         _DATA_PLANILLA = JSON.parse(data).aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
         return data;
@@ -11579,6 +11581,14 @@ $('#selectListaCentrosDeCostos').on('change', function (e) {
   e.stopImmediatePropagation();
   filtrosPlanilla();
 })
+
+function sanitizeDatePlanilla(fecha) {
+  var splitted = fecha.split('-');
+  if (splitted.length > 2) {
+    return `${splitted[0]}-${splitted[1]}`;
+  }
+  return "2020-01";
+}
 
 function filtrosPlanilla() {
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();

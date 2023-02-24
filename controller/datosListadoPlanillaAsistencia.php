@@ -10,13 +10,15 @@
     $idEstructuraOperacion = $_POST['idEstructuraOperacion'];
     $fecIni = $_POST['fecIni'];
     $fecFin = $_POST['fecFin'];
+    $auxIni = $_POST['auxIni'];
+    $auxFin = $_POST['auxFin'];
     $search = $_POST['search']['value'];
     $sortCol = $_POST['order'][0]['column'];
     $sortOrd = $_POST['order'][0]['dir'];
 
     // DB
-    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $search);
-    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $search, sanitizePlanillaCol($sortCol), $sortOrd);
+    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $search);
+    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $search, sanitizePlanillaCol($sortCol), $sortOrd);
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 
