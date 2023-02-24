@@ -20342,7 +20342,7 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN REFERENCIA2 R2 ON R2.CODIGO = P.REFERENCIA2
 			LEFT JOIN PROCESOS_PERIODO PP ON P.DNI = PP.EMPLEADO
 			WHERE PP.CECO IS NOT NULL
-			AND (PP.FECHAPROC IN ('2023-01', '2023-02'));";
+			AND (PP.FECHAPROC IN ('2023-01', '2023-02'))";
 			/*AND (PP.FECHAPROC IN ('$fechaIni', '$fechaFin'))";*/
 			if ((int)$idEstructuraOperacion > 0) {
 				$sql = $sql . " AND PP.CECO = $idEstructuraOperacion";
