@@ -29,7 +29,7 @@
 					$token = md5($pass . $rut . rand());
 					actualizaTokenLogin($rut, $token);
 					$_SESSION['rutUser'] = $rut;
-					setcookie("tk_w_o",$token,time()+300);
+					setcookie("tk_w_o",$token,time()+900);
 					$row['token'] = $token;
 					if($gc == 1){
 						$token_app = md5(rand());

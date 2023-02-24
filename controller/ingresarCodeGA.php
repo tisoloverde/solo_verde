@@ -19,7 +19,7 @@
       $token = md5($rut . rand());
       actualizaTokenLogin($rut, $token);
       $_SESSION['rutUser'] = $rut;
-      setcookie("tk_w_o",$token,time()+300);
+      setcookie("tk_w_o",$token,time()+900);
       $row['token'] = $token;
       echo "OK";
     } else {

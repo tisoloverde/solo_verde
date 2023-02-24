@@ -7,7 +7,7 @@
 		$con = conectar();
 		if($con != 'No conectado'){
 			$sql = "SELECT
-CASE WHEN TIMESTAMPDIFF(SECOND , TOKEN_WEB_TIME, NOW()) < 300 AND TOKEN_WEB IS NOT NULL AND LENGTH(TOKEN_WEB) > 1  THEN 'SI' ELSE 'NO' END 'CHECK'
+CASE WHEN TIMESTAMPDIFF(SECOND , TOKEN_WEB_TIME, NOW()) < 900 AND TOKEN_WEB IS NOT NULL AND LENGTH(TOKEN_WEB) > 1  THEN 'SI' ELSE 'NO' END 'CHECK'
 FROM USUARIO
 WHERE RUT = '{$rut}'";
 			if ($row = $con->query($sql)) {
@@ -100,7 +100,7 @@ WHERE RUT = '{$rut}'";
 		if($con != 'No conectado'){
 			$sql = "SELECT RUT
 FROM USUARIO
-WHERE TIMESTAMPDIFF(SECOND , TOKEN_WEB_TIME, NOW()) < 300
+WHERE TIMESTAMPDIFF(SECOND , TOKEN_WEB_TIME, NOW()) < 900
 AND TOKEN_WEB  = '{$token}'
 AND TOKEN_WEB <> ''";
 			if ($row = $con->query($sql)) {
