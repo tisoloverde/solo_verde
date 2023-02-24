@@ -11118,7 +11118,7 @@ async function listCentrosDeCostos() {
       var data = response.aaData;
       var html = "<option value='0'>Seleccione</option>";
       data.forEach((item) => {
-        html += `<option value="${item.IDESTRUCTURA_OPERACION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+        html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
       });
       $('#selectListaCentrosDeCostos').html(html);
     },
