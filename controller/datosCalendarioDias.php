@@ -5,7 +5,8 @@ session_start();
 $anho = $_POST['anho'];
 $nsemana = $_POST['nsemana'];
 
-$row = consultaListaDiasPorSemana($anho, $nsemana);
+$aux = consultaRangoDias($anho, $nsemana);
+$row = consultaListaDiasPorSemana($aux[0]['semana_inicio'], $aux[0]['semana_fin']);
 if (is_array($row)) {
   $results = [
     "sEcho" => 1,

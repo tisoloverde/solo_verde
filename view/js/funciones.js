@@ -11187,15 +11187,25 @@ $('#selectListaAnhos').on('change', function (e) {
     }
   })
   $('#selectListaSemanas').html(html);
-  listSemanas($('#selectListaSemanas').val());
+  listSemanas($('#selectListaSemanas').val(), $("#selectListaSemanas option:selected").text());
 })
 
 $('#selectListaSemanas').on('change', function (e) {
   e.stopImmediatePropagation();
-  listSemanas(this.value);
+  listSemanas(this.value, $("#selectListaSemanas option:selected").text());
 })
 
-function listSemanas(val) {
+function listSemanas(val, text) {
+  /* IMPORTANTE - SI CAMBIA EL TEXTO DEL SELECTOR DE SEMANA PUEDE FALLAR
+  var anhoIni = '2023';
+  var splitted = text.split('(');
+  if (splitted.length > 1) {
+    var splitted2 = splitted[1].split('-');
+    if (splitted2.length > 0) {
+      anhoIni = splitted2[0];
+    }
+  }*/
+
   var [anho, idx] = val.split('_');
   listDiasPorSemana(anho, _CALENDARIO_PLANILLA[anho][idx].SEMANA);
 

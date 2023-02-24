@@ -20108,14 +20108,37 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaDiasPorSemana($anho, $nsemana) {
+	function consultaRangoDias($anho, $nsemana) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				semana_inicio,
+				semana_fin
+			FROM CALENDARIO
+			WHERE anio_calendario = $anho
+			AND semana_del_anio = $nsemana
+			LIMIT 1;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaListaDiasPorSemana($fecIni, $fecFin) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				fecha_calendario as fecha
 			FROM CALENDARIO
-			WHERE anio_calendario = $anho
-			AND semana_del_anio = $nsemana;";
+			WHERE fecha_calendario between '$fecIni' and '$fecFin';";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
