@@ -11861,7 +11861,7 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
 
   var rowData = _TABLE_PLANILLA.DataTable().rows(indexes).data().toArray();
   var idPersonal = rowData[0]["IDPERSONAL"];
-  var lst = [18, 19, 20, 21, 22, 23, 24];
+  var lst = [17, 18, 19, 20, 21, 22, 23];
   lst.forEach((item) => {
     var aux = $(`#planilla-select-col${item}-${idPersonal}`).val();
     if (!aux || aux <= 0) {
@@ -11870,7 +11870,7 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
       var idPec = found.IDPERSONAL_ESTADO_CONCEPTO;
       var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
 
-      var idx = item - 18;
+      var idx = item - 17;
       _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
       _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
     }
