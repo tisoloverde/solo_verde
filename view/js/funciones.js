@@ -5985,7 +5985,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
       });
       $("#gj__cargo").html(html);
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log('--asdasd--')
       console.log(errorThrown)
     },
@@ -6838,7 +6838,7 @@ $("#editarJefatura").unbind("click").click(async function(){
       });
       $("#gj__cargo_").html(html);
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log('--asdasd--')
       console.log(errorThrown)
     },
@@ -7386,7 +7386,7 @@ $("#verUsuario").unbind("click").click(async function(){
       });
       $("#gj__cargo_").html(html);
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log('--asdasd--')
       console.log(errorThrown)
     },
@@ -11370,86 +11370,6 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       // Lunes
       try {
         if(data["Lunes"].split("selected>")[1].split("</option>")[0] != ""){
-          $($(row).find("td")[13]).css("border-top","6px solid green");
-        }
-        else{
-          $($(row).find("td")[13]).css("border-top","6px solid red");
-        }
-      } catch (error) {
-        try {
-          if(data["Lunes"].split("disabled")[1].split("</option>")[0] != ""){
-            $($(row).find("td")[13]).css("border-top","6px solid green");
-          }
-          else{
-            $($(row).find("td")[13]).css("border-top","6px solid red");
-          }
-        } catch (error) {
-          $($(row).find("td")[13]).css("border-top","6px solid red");
-        }
-      }
-      // Martes
-      try {
-        if(data["Martes"].split("selected>")[1].split("</option>")[0] != ""){
-          $($(row).find("td")[14]).css("border-top","6px solid green");
-        }
-        else{
-          $($(row).find("td")[14]).css("border-top","6px solid red");
-        }
-      } catch (error) {
-        try {
-          if(data["Martes"].split("disabled")[1].split("</option>")[0] != ""){
-            $($(row).find("td")[14]).css("border-top","6px solid green");
-          }
-          else{
-            $($(row).find("td")[14]).css("border-top","6px solid red");
-          }
-        } catch (error) {
-          $($(row).find("td")[14]).css("border-top","6px solid red");
-        }
-      }
-      // Miercoles
-      try {
-        if(data["Miercoles"].split("selected>")[1].split("</option>")[0] != ""){
-          $($(row).find("td")[15]).css("border-top","6px solid green");
-        }
-        else{
-          $($(row).find("td")[15]).css("border-top","6px solid red");
-        }
-      } catch (error) {
-        try {
-          if(data["Miercoles"].split("disabled")[1].split("</option>")[0] != ""){
-            $($(row).find("td")[15]).css("border-top","6px solid green");
-          }
-          else{
-            $($(row).find("td")[15]).css("border-top","6px solid red");
-          }
-        } catch (error) {
-          $($(row).find("td")[15]).css("border-top","6px solid red");
-        }
-      }
-      // Jueves
-      try {
-        if(data["Jueves"].split("selected>")[1].split("</option>")[0] != ""){
-          $($(row).find("td")[16]).css("border-top","6px solid green");
-        }
-        else{
-          $($(row).find("td")[16]).css("border-top","6px solid red");
-        }
-      } catch (error) {
-        try {
-          if(data["Jueves"].split("disabled")[1].split("</option>")[0] != ""){
-            $($(row).find("td")[16]).css("border-top","6px solid green");
-          }
-          else{
-            $($(row).find("td")[16]).css("border-top","6px solid red");
-          }
-        } catch (error) {
-          $($(row).find("td")[16]).css("border-top","6px solid red");
-        }
-      }
-      // Viernes
-      try {
-        if(data["Viernes"].split("selected>")[1].split("</option>")[0] != ""){
           $($(row).find("td")[17]).css("border-top","6px solid green");
         }
         else{
@@ -11457,7 +11377,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         }
       } catch (error) {
         try {
-          if(data["Viernes"].split("disabled")[1].split("</option>")[0] != ""){
+          if(data["Lunes"].split("disabled")[1].split("</option>")[0] != ""){
             $($(row).find("td")[17]).css("border-top","6px solid green");
           }
           else{
@@ -11467,9 +11387,9 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
           $($(row).find("td")[17]).css("border-top","6px solid red");
         }
       }
-      // Sabado
+      // Martes
       try {
-        if(data["Sabado"].split("selected>")[1].split("</option>")[0] != ""){
+        if(data["Martes"].split("selected>")[1].split("</option>")[0] != ""){
           $($(row).find("td")[18]).css("border-top","6px solid green");
         }
         else{
@@ -11477,7 +11397,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         }
       } catch (error) {
         try {
-          if(data["Sabado"].split("disabled")[1].split("</option>")[0] != ""){
+          if(data["Martes"].split("disabled")[1].split("</option>")[0] != ""){
             $($(row).find("td")[18]).css("border-top","6px solid green");
           }
           else{
@@ -11487,9 +11407,9 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
           $($(row).find("td")[18]).css("border-top","6px solid red");
         }
       }
-      // Domingo
+      // Miercoles
       try {
-        if(data["Domingo"].split("selected>")[1].split("</option>")[0] != ""){
+        if(data["Miercoles"].split("selected>")[1].split("</option>")[0] != ""){
           $($(row).find("td")[19]).css("border-top","6px solid green");
         }
         else{
@@ -11497,7 +11417,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         }
       } catch (error) {
         try {
-          if(data["Domingo"].split("disabled")[1].split("</option>")[0] != ""){
+          if(data["Miercoles"].split("disabled")[1].split("</option>")[0] != ""){
             $($(row).find("td")[19]).css("border-top","6px solid green");
           }
           else{
@@ -11505,6 +11425,86 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
           }
         } catch (error) {
           $($(row).find("td")[19]).css("border-top","6px solid red");
+        }
+      }
+      // Jueves
+      try {
+        if(data["Jueves"].split("selected>")[1].split("</option>")[0] != ""){
+          $($(row).find("td")[20]).css("border-top","6px solid green");
+        }
+        else{
+          $($(row).find("td")[20]).css("border-top","6px solid red");
+        }
+      } catch (error) {
+        try {
+          if(data["Jueves"].split("disabled")[1].split("</option>")[0] != ""){
+            $($(row).find("td")[20]).css("border-top","6px solid green");
+          }
+          else{
+            $($(row).find("td")[20]).css("border-top","6px solid red");
+          }
+        } catch (error) {
+          $($(row).find("td")[20]).css("border-top","6px solid red");
+        }
+      }
+      // Viernes
+      try {
+        if(data["Viernes"].split("selected>")[1].split("</option>")[0] != ""){
+          $($(row).find("td")[21]).css("border-top","6px solid green");
+        }
+        else{
+          $($(row).find("td")[21]).css("border-top","6px solid red");
+        }
+      } catch (error) {
+        try {
+          if(data["Viernes"].split("disabled")[1].split("</option>")[0] != ""){
+            $($(row).find("td")[21]).css("border-top","6px solid green");
+          }
+          else{
+            $($(row).find("td")[21]).css("border-top","6px solid red");
+          }
+        } catch (error) {
+          $($(row).find("td")[21]).css("border-top","6px solid red");
+        }
+      }
+      // Sabado
+      try {
+        if(data["Sabado"].split("selected>")[1].split("</option>")[0] != ""){
+          $($(row).find("td")[22]).css("border-top","6px solid green");
+        }
+        else{
+          $($(row).find("td")[22]).css("border-top","6px solid red");
+        }
+      } catch (error) {
+        try {
+          if(data["Sabado"].split("disabled")[1].split("</option>")[0] != ""){
+            $($(row).find("td")[22]).css("border-top","6px solid green");
+          }
+          else{
+            $($(row).find("td")[22]).css("border-top","6px solid red");
+          }
+        } catch (error) {
+          $($(row).find("td")[22]).css("border-top","6px solid red");
+        }
+      }
+      // Domingo
+      try {
+        if(data["Domingo"].split("selected>")[1].split("</option>")[0] != ""){
+          $($(row).find("td")[23]).css("border-top","6px solid green");
+        }
+        else{
+          $($(row).find("td")[23]).css("border-top","6px solid red");
+        }
+      } catch (error) {
+        try {
+          if(data["Domingo"].split("disabled")[1].split("</option>")[0] != ""){
+            $($(row).find("td")[23]).css("border-top","6px solid green");
+          }
+          else{
+            $($(row).find("td")[23]).css("border-top","6px solid red");
+          }
+        } catch (error) {
+          $($(row).find("td")[23]).css("border-top","6px solid red");
         }
       }
 
