@@ -11861,7 +11861,7 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
 
   var rowData = _TABLE_PLANILLA.DataTable().rows(indexes).data().toArray();
   var idPersonal = rowData[0]["IDPERSONAL"];
-  var lst = [14, 15, 16, 17, 18, 19, 20];
+  var lst = [18, 19, 20, 21, 22, 23, 24];
   lst.forEach((item) => {
     var aux = $(`#planilla-select-col${item}-${idPersonal}`).val();
     if (!aux || aux <= 0) {
