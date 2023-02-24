@@ -11870,7 +11870,7 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
       var idPec = found.IDPERSONAL_ESTADO_CONCEPTO;
       var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
 
-      var idx = item - 14;
+      var idx = item - 18;
       _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
       _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
     }
