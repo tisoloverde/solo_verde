@@ -20,7 +20,7 @@
     // $nivel   = $_POST['nivel'];
     // $mano   = $_POST['mano'];
     $sucursal = $_POST['sucursal'];
-    $idsubcontrato = $_POST['empresa'];
+    $idsubcontrato = isset($_POST['empresa']) && $_POST['empresa'] != '' ? "'" . $_POST['empresa'] . "'" : 'null';
     $idCeco = $_POST['idCeco'] != "" ? $_POST['idCeco'] : -1;
 
     $esProvisorio = isset($_POST['esProvisorio']) ? "'" . $_POST['esProvisorio'] . "'" : 'null';                // ¿?
@@ -57,8 +57,8 @@
     $razonRepitente = isset($_POST['razonRepitente']) ? "'" . $_POST['razonRepitente'] . "'" : 'null';          // PERSONAL - TRABAJO_ANTERIORMENTE_RAZON_SALIDA
 
     // 2. Antecedentes Previsionales
-    $afiliacionPrevision = isset($_POST['afiliacionPrevision']) ? $_POST['afiliacionPrevision'] : 'null'; // PERSONAL - IDAFP <-- AFP
-    $afiliacionSalud = isset($_POST['afiliacionSalud']) ? $_POST['afiliacionSalud'] : 'null'; // ¿?
+    $afiliacionPrevision = isset($_POST['afiliacionPrevision']) && $_POST['afiliacionPrevision'] != '' ? $_POST['afiliacionPrevision'] : 'null'; // PERSONAL - IDAFP <-- AFP
+    $afiliacionSalud = isset($_POST['afiliacionSalud']) && $_POST['afiliacionSalud'] != '' ? $_POST['afiliacionSalud'] : 'null'; // ¿?
 
     // 3. Forma de Pago
     $banco = isset($_POST['banco']) ? $_POST['banco'] : 'null';                             // PERSONAL - IDBANCO <-- BANCO
@@ -80,12 +80,12 @@
     $ref2 = isset($_POST['ref2']) ? "'" . $_POST['ref2'] . "'" : 'null';    // PERSONAL - REFERENCIA2
     $plaza = isset($_POST['plaza']) ? "'" . $_POST['plaza'] . "'" : 'null'; // PERSONAL - PLAZA_SECTOR
 
-    $row = editaPersonalGestOperacionEvol(
+    $row1 = editaPersonalGestOperacionEvol(
       $dni,$apellidos,$nombres,$cargo,
       $fono,$mail,$idsubcontrato
     );
 
-    $row = completaPersonalGestOperacion(
+    $row2 = completaPersonalGestOperacion(
       $dni,
 
       $esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
@@ -109,7 +109,7 @@
     if ($row != "Error" ) {
       editaPersonalGestOperacionACTEvol($dni,$sucursal,$idCeco);
       // ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad); NO SE USA PATENTE
-      echo $row;
+      echo $row1;
     } else {
       echo "Sin datos";
     }

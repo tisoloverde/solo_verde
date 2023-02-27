@@ -6864,7 +6864,7 @@ function ingresaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,
 			'{$cargo}',
 			'{$fono}',
 			'{$mail}',
-			'{$idsubcontrato}',
+			$idsubcontrato,
 			'3'
 		)";
 		if ($con->query($sql)) {
@@ -7129,7 +7129,7 @@ function editaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,$m
 			CARGO = '{$cargo}',
 			TELEFONO = '{$fono}',
 			EMAIL = '{$mail}',
-			IDSUBCONTRATISTAS = '{$idsubcontrato}'
+			IDSUBCONTRATISTAS = $idsubcontrato
 		WHERE DNI = '{$dni}'";
 		if ($con->query($sql)) {
 			$con->query("COMMIT");
@@ -7137,7 +7137,7 @@ function editaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,$m
 		} else {
 			// return $con->error;
 			$con->query("ROLLBACK");
-			return "Error";
+			return $sql;
 		}
 	} else {
 		$con->query("ROLLBACK");

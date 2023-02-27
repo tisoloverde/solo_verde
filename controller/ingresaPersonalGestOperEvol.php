@@ -19,7 +19,7 @@
     // $nivel = $_POST['nivel'];
     // $mano = $_POST['mano'];
     $sucursal = $_POST['sucursal'];
-    $idsubcontrato = $_POST['empresa'];
+    $idsubcontrato = isset($_POST['empresa']) && $_POST['empresa'] != '' ? "'" . $_POST['empresa'] . "'" : 'null';
     $idCeco = $_POST['idCeco'] != "" ? $_POST['idCeco'] : -1;
 
     $esProvisorio = isset($_POST['esProvisorio']) ? "'" . $_POST['esProvisorio'] . "'" : 'null';                // ¿?
@@ -81,7 +81,7 @@
 
     $row = ingresaPersonalGestOperacionEvol(
       $dni,$apellidos,$nombres,$cargo,
-      $fono,$mail, $idsubcontrato
+      $fono,$mail,$idsubcontrato
     );
 
     $row = completaPersonalGestOperacion(

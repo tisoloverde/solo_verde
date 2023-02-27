@@ -5560,9 +5560,13 @@ function initPersonal() {
   $("input[name='gj__afiliacion_prevision']").prop("checked", false); // radio
   $("#gj__nombreAfiliacionPrevision_FONASA").val("-1"); // select
   $("#gj__nombreAfiliacionPrevision_ISAPRE").val("-1"); // select
+  $("#gj__nombreAfiliacionPrevision_FONASA").css('display', 'none');
+  $("#gj__nombreAfiliacionPrevision_ISAPRE").css('display', 'none');
   $("input[name='gj__afiliacion_salud']").prop("checked", false); // radio
   $("#gj__nombreAfiliacionSalud_AFP").val("-1"); // select
   $("#gj__nombreAfiliacionSalud_INP").val("-1"); // select
+  $("#gj__nombreAfiliacionSalud_AFP").css('display', 'none');
+  $("#gj__nombreAfiliacionSalud_INP").css('display', 'none');
   $("#gj__banco").val("-1"); // select
   $("#gj__tipoCuenta").val("-1"); // select
   $("#gj__nroCuenta").val(""); // input
@@ -5643,9 +5647,13 @@ function initPersonal_() {
   $("input[name='gj__afiliacion_prevision']_").prop("checked", false); // radio
   $("#gj__nombreAfiliacionPrevision_FONASA_").val("-1"); // select
   $("#gj__nombreAfiliacionPrevision_ISAPRE_").val("-1"); // select
+  $("#gj__nombreAfiliacionPrevision_FONASA_").css('display', 'none');
+  $("#gj__nombreAfiliacionPrevision_ISAPRE_").css('display', 'none');
   $("input[name='gj__afiliacion_salud']_").prop("checked", false); // radio
   $("#gj__nombreAfiliacionSalud_AFP_").val("-1"); // select
   $("#gj__nombreAfiliacionSalud_INP_").val("-1"); // select
+  $("#gj__nombreAfiliacionSalud_AFP_").css('display', 'none');
+  $("#gj__nombreAfiliacionSalud_INP_").css('display', 'none');
   $("#gj__banco_").val("-1"); // select
   $("#gj__tipoCuenta_").val("-1"); // select
   $("#gj__nroCuenta_").val(""); // input
@@ -5986,7 +5994,8 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
 
       html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoLiquidacion'].forEach((item) => {
-        html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
+        // html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
+        html += `<option value="${item.CARGO}">${item.CARGO}</option>`;
       });
       $("#gj__cargo").html(html);
     },
@@ -6259,50 +6268,11 @@ var __GJ_AFILIACION_SALUD = '';
 var __GJ_AFILIACION_SALUD_ = '';
 
 $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
-  /*var rut = $("#rutIngresarPersonalOperaciones").val();
-  var apellidos = $("#apellidosIngresarPersonalOperaciones").val();
-  var nombres = $("#nombresIngresarPersonalOperaciones").val();
-  if(rut == '' || apellidos == '' || nombres == ''){
-    var random = Math.round(Math.random() * (1000000 - 1) + 1);
-    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe ingresar los valores obligatorios (*)");
-
-    if(rut == ''){
-      $("#rutIngresarPersonalOperaciones").addClass("is-invalid");
-    }
-    if(apellidos == ''){
-    $("#apellidosIngresarPersonalOperaciones").addClass("is-invalid");
-    }
-    if(nombres == ''){
-      $("#nombresIngresarPersonalOperaciones").addClass("is-invalid");
-    }
-  }
-  else{
-    $('#modalIngresarPersonalOperaciones').modal('hide');
-    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
-    $('#modalAlertasSplash').modal('show');
-    var sucursal = $("#sucursalIngresarPersonalOperaciones").val();
-    var funcion = $("#funcionIngresarPersonalOperaciones").val();
-    var externo = 0;
-    if($("#esSubcontratistaIngresarPersonalOperaciones").prop("checked") == true){
-      externo = 1;
-    }
-    else{
-      externo = 0;
-    }*/
-
     $('#modalIngresarPersonalOperaciones').modal('hide');
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
     $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
 
-    // var patente = $("#patenteIngresarPersonalOperaciones").val();
-    // var fono = $("#fonoIngresarPersonalOperaciones").val();
-    // var mail = $("#emailIngresarPersonalOperaciones").val();
-    // var empresa = $("#empresaIngresarPersonalOperaciones").val();
-    // var nivel = $("#nivelIngresarPersonalOperaciones").val();
-    // var mano = $("#moIngresarPersonalOperaciones").val();
-    // var idCeco = $("#cecoIngresarPersonalOperaciones").val();
     var parametros = {
       "rut": $("#gj__rut").val(), // rut.replace(".","").replace(".",""),
       "rutPExterno": $("#gj__rut").val(), // rut.replace(".","").replace(".",""),
@@ -6312,7 +6282,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
       // "externo": $("#esSubcontratistaIngresarPersonalOperaciones").prop("checked") ? 1 : 0,
       // "patente": patente,
       "fono": $("#gj__fono").val(),
-      "mail":  $("#gj__email").val(),
+      "mail": $("#gj__email").val(),
       // "nivel": nivel,
       // "mano": mano,
       "sucursal": $("#gj__sucursal").val(),
@@ -6476,55 +6446,10 @@ $("#apellidosIngresarPersonalOperaciones").on('input', function(){
 });
 
 $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
-  /*var rut = $("#rutEditaPersonalOperaciones").val();
-  var apellidos = $("#apellidosEditaPersonalOperaciones").val();
-  var nombres = $("#nombresEditaPersonalOperaciones").val();
-  if(rut == '' || apellidos == '' || nombres == ''){
-    var random = Math.round(Math.random() * (1000000 - 1) + 1);
-    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe ingresar los valores obligatorios (*)");
-
-    if(rut == ''){
-      $("#rutEditaPersonalOperaciones").addClass("is-invalid");
-    }
-    if(apellidos == ''){
-      $("#apellidosEditaPersonalOperaciones").addClass("is-invalid");
-    }
-    if(nombres == ''){
-      $("#nombresEditaPersonalOperaciones").addClass("is-invalid");
-    }
-  }
-  else{
     $('#modalEditaPersonalOperaciones').modal('hide');
     $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
     $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
     $('#modalAlertasSplash').modal('show');
-    var sucursal = $("#sucursalEditaPersonalOperaciones").val();
-    var funcion = $("#funcionEditaPersonalOperaciones").val();
-    var externo = 0;
-    if($("#esSubcontratistaEditaPersonalOperaciones").prop("checked") == true){
-      externo = 1;
-    }
-    else{
-      externo = 0;
-    }*/
-
-    $('#modalIngresarPersonalOperaciones').modal('hide');
-    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
-    $('#modalAlertasSplash').modal('show');
-
-    // var patente = $("#patenteEditaPersonalOperaciones").val();
-    // var fono = $("#fonoEditaPersonalOperaciones").val();
-    // var mail = $("#emailEditaPersonalOperaciones").val();
-    // var empresa = $("#empresaEditaPersonalOperaciones").val();
-    // var nivel = $("#nivelEditaPersonalOperaciones").val();
-    // var mano = $("#moEditaPersonalOperaciones").val();
-    // var idCeco = $("#cecoEditaPersonalOperaciones").val();
-
-    /* var table = $('#tablaJefatura').DataTable();
-    var patAnterior = $.map(table.rows('.selected').data(), function (item) {
-        return item.PATENTE;
-    });*/
 
     var parametros = {
       "rut": $("#gj__rut_").val(), // rut.replace(".","").replace(".",""),
@@ -6534,14 +6459,13 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
       "funcion": $("#gj__cargo_").val(),
       // "externo": externo,
       // "patente": patente,
-      "fono": fono,
-      "mail": mail,
-      // "patAnterior": patAnterior[0],
+      "fono": $("#gj__fono").val(),
+      "mail": $("#gj__email").val(),
       // "nivel": nivel,
       // "mano": mano,
-      "sucursal": sucursal,
-      "empresa": empresa,
-      "idCeco": idCeco
+      "sucursal": $("#gj__sucursal").val(),
+      "empresa": $("#gj__empresa").val(),
+      "idCeco": $("#gj__centroCosto").val()
     }
 
     /* Begin - New Params Personal */
@@ -6839,7 +6763,8 @@ $("#editarJefatura").unbind("click").click(async function(){
 
       html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoLiquidacion'].forEach((item) => {
-        html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
+        // html += `<option value="${item.IDCARGO_LIQUIDACION}">${item.CARGO}</option>`;
+        html += `<option value="${item.CARGO}">${item.CARGO}</option>`;
       });
       $("#gj__cargo_").html(html);
     },
@@ -6981,6 +6906,7 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__tieneClaveUnica_").prop("checked", Boolean(dt.tieneClaveUnica)),
       $("#gj__fechaIngresoEmprea_").val(dt.fechaIngresoEmpresa);
       $("#gj__tipoContrato_").val(dt.tipoContrato);
+      $("#gj__cargo_").val(dt.cargo);
       $("#gj__duracionInicialContrato_").val(dt.duracionContrato);
       $("#gj__cargoGenerico_").val(dt.cargoGenerico);
       $("#gj__jeas_").val(dt.jeas);
