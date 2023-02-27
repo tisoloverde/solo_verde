@@ -5522,7 +5522,7 @@ function initPersonal() {
   $("#gj__email").val(""); // input
   $("#gj__nombres").val(""); // input
   $("#gj__apellidos").val(""); // input
-  $("#gj__domicilio").val(); // input
+  $("#gj__domicilio").val(""); // input
   $("#gj__comuna").val("-1"); // select
   $("#gj__ciudad").val(""); // input
   $("#gj__fono").val(""); // input
@@ -5605,7 +5605,7 @@ function initPersonal_() {
   $("#gj__email_").val(""); // input
   $("#gj__nombres_").val(""); // input
   $("#gj__apellidos_").val(""); // input
-  $("#gj__domicilio_").val(); // input
+  $("#gj__domicilio_").val(""); // input
   $("#gj__comuna_").val("-1"); // select
   $("#gj__ciudad_").val(""); // input
   $("#gj__fono_").val(""); // input
