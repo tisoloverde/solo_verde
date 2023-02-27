@@ -2983,7 +2983,7 @@
               <label style="font-weight: bold;">¿Habla español?</label>
               <div style="display: flex;">
                 <label class="switch">
-                  <input id="gj__esHispanoHablante_" type="checkbox" disabled>
+                  <input id="gj__esHispanoHablante_" type="checkbox">
                   <span class="slider round"></span>
                 </label>
               </div>
