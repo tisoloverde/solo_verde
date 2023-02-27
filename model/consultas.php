@@ -19615,7 +19615,13 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaCentrosDeCosto() {
 		$con = conectar();
 		if ($con != 'No conectado') {
-			$sql = "SELECT IDESTRUCTURA_OPERACION, DEFINICION, NOMENCLATURA FROM ESTRUCTURA_OPERACION ORDER BY DEFINICION ASC";
+			$sql = "SELECT
+				IDESTRUCTURA_OPERACION,
+				DEFINICION,
+				NOMENCLATURA
+			FROM ESTRUCTURA_OPERACION
+			WHERE HABILITADO = 1
+			ORDER BY DEFINICION ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -20449,12 +20455,59 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN PROCESOS_PERIODO PP ON P.DNI = PP.EMPLEADO
 			WHERE PP.CECO IS NOT NULL
 			AND (PP.FECHAPROC IN ('$auxIni', '$auxFin'))";
-			/*AND (PP.FECHAPROC IN ('$fechaIni', '$fechaFin')";*/
 			if ((int)$idEstructuraOperacion >= 0) {
 				$sql = $sql . " AND PP.CECO = $idEstructuraOperacion";
 			}
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			// $sql = $sql . " ORDER BY $sortCol $sortOrd";
+			$sql = $sql . " UNION ALL ";
+			$sql = $sql . "SELECT
+				DISTINCT(P.IDPERSONAL),
+				P.DNI AS RUT,
+				CONCAT(
+				CASE WHEN (
+					SELECT COUNT(*)
+					FROM PERSONAL_ESTADO PH
+					WHERE PH.IDPERSONAL = P.IDPERSONAL
+					AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+				) >= 7 THEN '<b class=''fa fa-circle'' style=''color:  green; font-size: 10pt;'' title=''Asistencia ingresada''></b>'
+				ELSE
+					CASE WHEN (
+						SELECT COUNT(*)
+						FROM PERSONAL_ESTADO PH
+						WHERE PH.IDPERSONAL = P.IDPERSONAL
+						AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+					) >= 1 THEN '<b class=''fa fa-circle'' style=''color:  #ffd519; font-size: 10pt;'' title=''Asistencia ingresada parcialmente''></b>'
+					ELSE
+						'<b class=''fa fa-circle'' style=''color:  red; font-size: 10pt;'' title=''Asistencia no ingresada''></b>'
+					END
+				END,
+				' ',P.APELLIDOS, ' ', P.NOMBRES) AS NOMBRES,
+				P.CARGO AS CARGO_LIQUIDACION,
+				CGU.IDCARGO_GENERICO_UNIFICADO,
+				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
+				CL.IDCLASIFICACION,
+				CL.NOMBRE AS CLASIFICACION,
+				R1.IDREFERENCIA1,
+				R1.NOMBRE AS REFERENCIA1,
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2,
+				P.FECHA_INGRESO,
+				(SELECT FECHA_TERMINO FROM PERSONAL_ESTADO WHERE IDPERSONAL = P.IDPERSONAL ORDER BY IDPERSONAL_ESTADO DESC LIMIT 1) AS FECHA_TERMINO,
+				P.CLASIFICACION_CONTRATO,
+				P.TEMPORAL
+			FROM PERSONAL P
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
+			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1 ON R1.CODIGO = P.REFERENCIA1
+			LEFT JOIN REFERENCIA2 R2 ON R2.CODIGO = P.REFERENCIA2
+			LEFT JOIN ACT AC ON P.IDPERSONAL = AC.IDPERSONAL
+			LEFT JOIN ESTRUCTURA_OPERACION EO ON AC.IDESTRUCTURA_OPERACION = EO.IDESTRUCTURA_OPERACION
+			WHERE P.TEMPORAL = 1";
+			if ((int)$idEstructuraOperacion >= 0) {
+				$sql = $sql . " AND EO.DEFINICION = $idEstructuraOperacion";
+			}
+			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();

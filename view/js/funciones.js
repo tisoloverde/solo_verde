@@ -3451,8 +3451,13 @@ function dotacionGetId(strid) {
 }
 
 $(document).on('keypress', '.onlyNumbers', function (e) {
+  e.stopImmediatePropagation();
   var charCode = (e.which) ? e.which : event?.keyCode;
-  if (String.fromCharCode(charCode).match(/[^0-9]/g)) {
+  console.log(charCode)
+  if (String.fromCharCode(charCode).match(/[^0-9.]/g)) {
+    return false;
+  }
+  if (this.value?.toString().includes(".") && charCode == 46) {
     return false;
   }
 });
@@ -7044,11 +7049,11 @@ $("#gj__esPuebloOriginario").on('change', function(e) {
   e.preventDefault();
   if ($("#gj__esPuebloOriginario").is(':checked')) {
     $("#gj__puebloOriginario").removeAttr("disabled");
-    $("#gj__esHispanoHablante").removeAttr("disabled");
+    // $("#gj__esHispanoHablante").removeAttr("disabled");
   } else {
     $("#gj__esHispanoHablante").prop('checked', false);
     $("#gj__puebloOriginario").attr("disabled", "disabled");
-    $("#gj__esHispanoHablante").attr("disabled", "disabled");
+    // $("#gj__esHispanoHablante").attr("disabled", "disabled");
   }
 });
 
@@ -7057,11 +7062,11 @@ $("#gj__esPuebloOriginario_").on('change', function(e) {
   e.preventDefault();
   if ($("#gj__esPuebloOriginario_").is(':checked')) {
     $("#gj__puebloOriginario_").removeAttr("disabled");
-    $("#gj__esHispanoHablante_").removeAttr("disabled");
+    // $("#gj__esHispanoHablante_").removeAttr("disabled");
   } else {
     $("#gj__esHispanoHablante_").prop('checked', false);
     $("#gj__puebloOriginario_").attr("disabled", "disabled");
-    $("#gj__esHispanoHablante_").attr("disabled", "disabled");
+    // $("#gj__esHispanoHablante_").attr("disabled", "disabled");
   }
 });
 
