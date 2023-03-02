@@ -69,6 +69,7 @@
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
           "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
           "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
+          "OBSERVACION" => "<input id='planilla-input-col25-$idPersonal' class='planilla-input' style='border: none; text-align: center;' value='" . $found['OBSERVACION'] . "'>",
           "FECHA_INGRESO" => $lstPersonalCC[$i]['FECHA_INGRESO'],
           "FECHA_TERMINO" => $lstPersonalCC[$i]['FECHA_TERMINO'],
           "CLASIFICACION_CONTRATO" => $lstPersonalCC[$i]['CLASIFICACION_CONTRATO'],
@@ -76,6 +77,7 @@
           "__HE50" => $found['HE50'],
           "__HE100" => $found['HE100'],
           "__ATRASO" => $found['ATRASO'],
+          "__OBSERVACION" => $found['OBSERVACION'],
           "__DIAS_PLN" => [],
         ];
 

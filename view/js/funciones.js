@@ -11205,7 +11205,8 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       { data: 'NDIAS' , className: 'dt-center' },
       { data: 'HE50' , className: 'dt-center' },
       { data: 'HE100' , className: 'dt-center' },
-      { data: 'ATRASO' , className: 'dt-center' }
+      { data: 'ATRASO' , className: 'dt-center' },
+      { data: 'OBSERVACION' , className: 'dt-center' },
     ],
     buttons: [],
     fixedColumns:   {
