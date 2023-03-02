@@ -20295,6 +20295,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$he50,
 		$he100,
 		$atraso,
+		$obs,
 		$rutUsuario
 	) {
 		$con = conectar();
@@ -20309,6 +20310,7 @@ WHERE U.RUT = '{$rutUser}'";
 				$he50,
 				$he100,
 				$atraso,
+				'$obs',
 				'$rutUsuario'
 			)";
 			if ($row = $con->query($sql)) {
@@ -20332,6 +20334,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$he50,
 		$he100,
 		$atraso,
+		$obs,
 		$rutUsuario
 	) {
 		$con = conectar();
@@ -20345,6 +20348,7 @@ WHERE U.RUT = '{$rutUser}'";
 				$he50,
 				$he100,
 				$atraso,
+				'$obs',
 				'$rutUsuario'
 			)";
 			if ($row = $con->query($sql)) {

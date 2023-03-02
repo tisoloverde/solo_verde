@@ -11634,7 +11634,7 @@ $(document).on('change', '.planilla-input', function(e){
   var val = this.value;
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
 
-  var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : 'ATRASO';
+  var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : col == 24 ? 'ATRASO' : 'OBSERVACION';
   _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
   _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
 });
@@ -11759,6 +11759,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     __HE50,
     __HE100,
     __ATRASO,
+    __OBSERVACION,
     // __isEdited,
   }) => {
     var aux = {
@@ -11772,6 +11773,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
       HE50: __HE50 ?? 'null',
       HE100: __HE100 ?? 'null',
       ATRASO: __ATRASO ?? 'null',
+      OBSERVACION: __OBSERVACION ?? 'null',
     }
     // if (__isEdited) dataUpd.push(aux);
 

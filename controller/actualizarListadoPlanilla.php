@@ -18,20 +18,21 @@
       $he50 = $item['HE50'] ?? 'null';
       $he100 = $item['HE100'] ?? 'null';
       $atraso = $item['ATRASO'] ?? 'null';
+      $obs = $item['OBSERVACION'] ?? 'null';
 
       if (sizeof($daysPlanilla) > 0) {
         foreach ($daysPlanilla as $day) {
           $res[] = actualizarSemanaPlanilla(
             $idPersonal, $idCargoGenericoUnificadoB, $idReferencia1B, $idReferencia2B,
             $day['id'], $day['fecha'],
-            $he50, $he100, $atraso, $rut
+            $he50, $he100, $atraso, $obs, $rut
           );
         }
       } else {
         $res[] = actualizarSemanaPlanillaBasic(
           $idPersonal, $idCargoGenericoUnificadoB, $idReferencia1B, $idReferencia2B,
           $fechaBase,
-          $he50, $he100, $atraso, $rut
+          $he50, $he100, $atraso, $obs, $rut
         );
       }
     }
