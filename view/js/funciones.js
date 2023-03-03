@@ -5976,7 +5976,7 @@ $("#ingresarNuevoJefatura").unbind("click").click(async function(){
 
       html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoGenericoUnificado'].forEach((item) => {
-        html += `<option value="${item.CODIGO}" family="${item.FAMILIA}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
+        html += `<option value="${item.CODIGO}" family="${item.CLASIFICACION}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
       });
       $("#gj__cargoGenerico").html(html);
 
@@ -6745,7 +6745,7 @@ $("#editarJefatura").unbind("click").click(async function(){
 
       html = '<option selected value="-1">Sin asignar</option>';;
       response.aaData['cargoGenericoUnificado'].forEach((item) => {
-        html += `<option value="${item.CODIGO}" family="${item.FAMILIA}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
+        html += `<option value="${item.CODIGO}" family="${item.CLASIFICACION}">${item.CARGO_GENERICO_UNIFICADO}</option>`;
       });
       $("#gj__cargoGenerico_").html(html);
 
