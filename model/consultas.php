@@ -20438,6 +20438,7 @@ WHERE U.RUT = '{$rutUser}'";
 					END
 				END,
 				' ',P.APELLIDOS, ' ', P.NOMBRES) AS NOMBRES,
+				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
 				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
@@ -20463,7 +20464,6 @@ WHERE U.RUT = '{$rutUser}'";
 				$sql = $sql . " AND PP.CECO = $idEstructuraOperacion";
 			}
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
-			// $sql = $sql . " ORDER BY $sortCol $sortOrd";
 			$sql = $sql . " UNION ALL ";
 			$sql = $sql . "SELECT
 				DISTINCT(P.IDPERSONAL),
@@ -20487,6 +20487,7 @@ WHERE U.RUT = '{$rutUser}'";
 					END
 				END,
 				' ',P.APELLIDOS, ' ', P.NOMBRES) AS NOMBRES,
+				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
 				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
@@ -20512,6 +20513,7 @@ WHERE U.RUT = '{$rutUser}'";
 				$sql = $sql . " AND EO.DEFINICION = $idEstructuraOperacion";
 			}
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
+			$sql = $sql . " ORDER BY $sortCol $sortOrd";
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();

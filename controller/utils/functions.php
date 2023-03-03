@@ -15,26 +15,26 @@
   }
 
   function sanitizePlanillaCol($nCol) {
-    $col = (int)$nCol;
+    $col = (int)$nCol - 1;
     switch ($col) {
       case 0:
-        return "P.DNI";
+        return "RUT";
       case 1:
-        return "P.APELLIDOS";
+        return "APELLIDOS";
       case 2:
-        return "P.CARGO";
+        return "CARGO_LIQUIDACION";
       case 3:
-        return "CGU.NOMBRE";
+        return "CARGO_GENERICO_UNIFICADO";
       case 4:
-        return "CL.NOMBRE";
+        return "CLASIFICACION";
       case 5:
-        return "R1.NOMBRE";
+        return "REFERENCIA1";
       case 6:
-        return "R2.NOMBRE";
+        return "REFERENCIA2";
       default:
-        return "P.DNI";
+        return "RUT";
     }
-    return "P.DNI";
+    return "RUT";
   }
 
   function buscarDiaValidoPersonalEstadoConcepto($cons) {
