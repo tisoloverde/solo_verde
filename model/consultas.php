@@ -19621,6 +19621,14 @@ WHERE U.RUT = '{$rutUser}'";
 				NOMENCLATURA
 			FROM ESTRUCTURA_OPERACION
 			WHERE HABILITADO = 1
+			AND NOMENCLATURA NOT IN (
+				'CASA MATRIZ',
+				'Gerencia General',
+				'Gerencia Operaciones',
+				'Administracion y Finanzas',
+				'Gerencia Comercial',
+				'PROPUESTAS'
+			)
 			ORDER BY DEFINICION ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
