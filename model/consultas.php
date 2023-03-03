@@ -20398,7 +20398,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaCargoLiquidacion() {
 		$con = conectar();
 		if ($con != "No conectado") {
-			$sql = "SELECT * FROM CARGO_LIQUIDACION ORDER BY CARGO ASC";
+			$sql = "SELECT * FROM CARGO_LIQUIDACION WHERE CARGO NOT LIKE '%**%'  ORDER BY CARGO ASC";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
