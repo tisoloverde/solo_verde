@@ -11630,6 +11630,8 @@ $(document).on('change', '.planilla-select-day', function(e){
 });
 
 $(document).on('change', '.planilla-input', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
   var [col, idPersonal] = personalGetColAndId(this.id);
   var val = this.value;
   var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
@@ -11637,6 +11639,17 @@ $(document).on('change', '.planilla-input', function(e){
   var key = col == 22 ? 'HE50' : col == 23 ? 'HE100' : col == 24 ? 'ATRASO' : 'OBSERVACION';
   _DATA_PLANILLA[planillaIdx][`__${key}`] = val;
   _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
+
+  /* Begin - Validate Sum */
+  var he50 = _DATA_PLANILLA[planillaIdx]['__HE50'] ? parseFloat(_DATA_PLANILLA[planillaIdx]['__HE50']) : 0;
+  var he100 = _DATA_PLANILLA[planillaIdx]['__HE100'] ? parseFloat(_DATA_PLANILLA[planillaIdx]['__HE100']) : 0;
+  var atraso = _DATA_PLANILLA[planillaIdx]['__ATRASO'] ? parseFloat(_DATA_PLANILLA[planillaIdx]['__ATRASO']) : 0;
+  if (he50 + he100 + atraso > 10) {
+    alert(`La fila ${planillaIdx+1} tiene más de 10 horas. Por favor, corregir`)
+    _DATA_PLANILLA[planillaIdx][`__${key}`] = 0;
+    $(`#planilla-input-col${col}-${idPersonal}`).val('');
+  }
+  /* End - Validate Sum */
 });
 
 $(document).on('keypress', '.planilla-input', function(e){
