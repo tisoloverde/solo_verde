@@ -2943,7 +2943,7 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">Fono</label>
-              <input id="gj__fono_" class="form-control" type="text" value="">
+              <input id="gj__fono_" class="form-control onlyNumbers" type="text" value="">
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
@@ -3046,7 +3046,7 @@
               <label style="font-weight: bold;">Contacto de Emergencia</label>
               <div style="display: flex; gap: 20px;">
                 <input id="gj__nombreContactoEmergencia_" type="text" class="form-control" placeholder="Nombre" />
-                <input id="gj__fonoContactoEmergencia_" type="text" class="form-control" placeholder="Fono" />
+                <input id="gj__fonoContactoEmergencia_" type="text" class="form-control onlyNumbers" placeholder="Fono" />
               </div>
             </div>
 
@@ -3055,27 +3055,27 @@
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Camisa</span>
-                  <input id="gj__talla_camisa_" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_camisa_" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Guantes</span>
-                  <input id="gj__talla_guantes_" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_guantes_" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Pantalón</span>
-                  <input id="gj__talla_pantalon_" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_pantalon_" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Zapatos</span>
-                  <input id="gj__talla_zapatos_" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_zapatos_" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Casco</span>
-                  <input id="gj__talla_casco_" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_casco_" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Otros</span>
-                  <input id="gj__talla_otros_" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_otros_" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
               </div>
             </div>
@@ -3431,7 +3431,7 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">Fono</label>
-              <input id="gj__fono" class="form-control" type="text" value="">
+              <input id="gj__fono" class="form-control onlyNumbers" type="text" value="">
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
@@ -3533,7 +3533,7 @@
               <label style="font-weight: bold;">Contacto de Emergencia</label>
               <div style="display: flex; gap: 20px;">
                 <input id="gj__nombreContactoEmergencia" type="text" class="form-control" placeholder="Nombre" />
-                <input id="gj__fonoContactoEmergencia" type="text" class="form-control" placeholder="Fono" />
+                <input id="gj__fonoContactoEmergencia" type="text" class="form-control onlyNumbers" placeholder="Fono" />
               </div>
             </div>
 
@@ -3542,27 +3542,27 @@
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Camisa</span>
-                  <input id="gj__talla_camisa" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_camisa" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Guantes</span>
-                  <input id="gj__talla_guantes" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_guantes" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Pantalón</span>
-                  <input id="gj__talla_pantalon" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_pantalon" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Zapatos</span>
-                  <input id="gj__talla_zapatos" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_zapatos" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Casco</span>
-                  <input id="gj__talla_casco" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_casco" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Otros</span>
-                  <input id="gj__talla_otros" type="text" class="form-control" style="width: 100px;">
+                  <input id="gj__talla_otros" type="text" class="form-control onlyNumbers" style="width: 100px;">
                 </label>
               </div>
             </div>
