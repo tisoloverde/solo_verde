@@ -554,6 +554,39 @@ function Rut()
   return false;
 }
 
+function validarRUT(text) {
+  // Remove any non-digit characters from the RUT
+  var rut = text.replace(/\D/g, '');
+
+  // Check that the RUT is valid length
+  if (rut.length !== 9) return false;
+
+  // Extract the verification digit and the numeric part of the RUT
+  const verificationDigit = parseInt(rut.charAt(rut.length - 1), 10);
+  let numericRUT = parseInt(rut.substr(0, rut.length - 1), 10);
+
+  // Calculate the verification digit using the algorithm
+  let sum = 0;
+  let multiplier = 2;
+  while (numericRUT > 0) {
+    const digit = numericRUT % 10;
+    sum += digit * multiplier;
+    numericRUT = Math.floor(numericRUT / 10);
+    multiplier = multiplier === 7 ? 2 : multiplier + 1;
+  }
+  const calculatedVerificationDigit = 11 - (sum % 11);
+
+  // Compare the calculated verification digit with the extracted digit
+  if (calculatedVerificationDigit === 11) return verificationDigit === 0;
+  if (calculatedVerificationDigit === 10) return verificationDigit === 'K' || verificationDigit === 'k';
+  return verificationDigit === calculatedVerificationDigit;
+}
+
+function validarEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(email);
+}
+
 function revisarDigito2( dvr )
 {
   dv = dvr + ""
@@ -11833,6 +11866,52 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
     }
   });
 });
+
+function alertInvalid(id, field) {
+  var jId = `#${id}`;
+  alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Los datos ingresados no corresponden a un " + field + " válido");
+  $(jId).val("");
+  $(jId).addClass("is-invalid");
+  $(jId).focus();
+  $(jId).select();
+}
+
+$("#gj__rut").on('blur', function (e) {
+  e.stopImmediatePropagation();
+  var rut = $('#gj__rut').val();
+  var isValid = validarRUT(rut);
+  if (!isValid) alertInvalid("gj__rut", "DNI");
+  else $("#gj__rut").removeClass("is-invalid");
+  return isValid;
+});
+
+$("#gj__rut_").on('blur', function (e) {
+  e.stopImmediatePropagation();
+  var rut = $('#gj__rut_').val();
+  var isValid = validarRUT(rut);
+  if (!isValid) alertInvalid("gj__rut_", "DNI");
+  else $("#gj__rut_").removeClass("is-invalid");
+  return isValid;
+});
+
+$("#gj__email").on('blur', function (e) {
+  e.stopImmediatePropagation();
+  var email = $('#gj__email').val();
+  var isValid = validarEmail(email);
+  if (!isValid) alertInvalid("gj__email", "Email");
+  else $("#gj__email").removeClass("is-invalid");
+  return isValid;
+});
+
+$("#gj__email_").on('blur', function (e) {
+  e.stopImmediatePropagation();
+  var email = $('#gj__email_').val();
+  var isValid = validarEmail(email);
+  if (!isValid) alertInvalid("gj__email_", "Email");
+  else $("#gj__email_").removeClass("is-invalid");
+  return isValid;
+});
+
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
