@@ -3850,7 +3850,7 @@
         <!-- End - New -->
 			</div>
 			<div class="modal-footer" style="text-align: left;">
-				<button id="guardarIngresarPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+				<button id="guardarIngresarPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" disabled>Guardar</button>
 				<button id="cerrarIngresarPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>

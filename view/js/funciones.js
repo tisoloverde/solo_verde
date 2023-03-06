@@ -6309,6 +6309,84 @@ var __GJ_AFILIACION_PREVISION = '';
 var __GJ_AFILIACION_PREVISION_ = '';
 var __GJ_AFILIACION_SALUD = '';
 var __GJ_AFILIACION_SALUD_ = '';
+var __GJ_FORM_IS_VALID = false;
+var __GJ_FORM_IS_VALID_ = false;
+
+function validarFormularioPersonalPlanilla() {
+  var isValidRut = $('#gj__rut').val()
+    ? validarRUT($('#gj__rut').val())
+    : false;
+  var isValidEmail = $('#gj__email').val()
+    ? validarEmail($('#gj__email').val())
+    : false;
+  var isValidNombres = $('#gj__nombres').val()
+    ? validarNombresApellidos($('#gj__nombres').val())
+    : false;
+  var isValidApellidos = $('#gj__apellidos').val()
+    ? validarNombresApellidos($('#gj__apellidos').val())
+    : false;
+  var isValidTelefono = $('#gj__fono').val()
+    ? validarTelefono($('#gj__fono').val())
+    : false;
+  var isValidNombreContacto = $('#gj__nombreContactoEmergencia').val()
+    ? validarNombresApellidos($('#gj__nombreContactoEmergencia').val())
+    : false;
+  var isValidTelefonoContacto = $('#gj__fonoContactoEmergencia').val()
+    ? validarTelefono($('#gj__fonoContactoEmergencia').val())
+    : false;
+  var __GJ_FORM_IS_VALID = isValidRut && isValidEmail && isValidNombres && isValidApellidos && isValidTelefono && isValidNombreContacto && isValidTelefonoContacto;
+
+  if ($("#gj__tieneFamiliarEmpresa").is(':checked')) {
+    var isValidNombreFamiliar = $('#gj__nombreFamiliarEmpresa').val()
+      ? validarNombresApellidos($('#gj__nombreFamiliarEmpresa').val())
+      : false;
+    __GJ_FORM_IS_VALID = __GJ_FORM_IS_VALID && isValidNombreFamiliar;
+  }
+  
+  if (__GJ_FORM_IS_VALID) {
+    $("#guardarIngresarPersonalOperaciones").removeAttr("disabled");
+  } else {
+    $("#guardarIngresarPersonalOperaciones").attr("disabled","disabled");
+  }
+}
+
+function validarFormularioPersonalPlanilla_() {
+  var isValidRut = $('#gj__rut_').val()
+    ? validarRUT($('#gj__rut_').val())
+    : false;
+  var isValidEmail = $('#gj__email_').val()
+    ? validarEmail($('#gj__email_').val())
+    : false;
+  var isValidNombres = $('#gj__nombres_').val()
+    ? validarNombresApellidos($('#gj__nombres_').val())
+    : false;
+  var isValidApellidos = $('#gj__apellidos_').val()
+    ? validarNombresApellidos($('#gj__apellidos_').val())
+    : false;
+  var isValidTelefono = $('#gj__fono_').val()
+    ? validarTelefono($('#gj__fono_').val())
+    : false;
+  var isValidNombreContacto = $('#gj__nombreContactoEmergencia_').val()
+    ? validarNombresApellidos($('#gj__nombreContactoEmergencia_').val())
+    : false;
+  var isValidTelefonoContacto = $('#gj__fonoContactoEmergencia_').val()
+    ? validarTelefono($('#gj__fonoContactoEmergencia_').val())
+    : false;
+  var __GJ_FORM_IS_VALID_ = isValidRut && isValidEmail && isValidNombres && isValidApellidos && isValidTelefono && isValidNombreContacto && isValidTelefonoContacto;
+
+  if ($("#gj__tieneFamiliarEmpresa_").is(':checked')) {
+    var isValidNombreFamiliar = $('#gj__nombreFamiliarEmpresa_').val()
+      ? validarNombresApellidos($('#gj__nombreFamiliarEmpresa_').val())
+      : false;
+    __GJ_FORM_IS_VALID_ = __GJ_FORM_IS_VALID_ && isValidNombreFamiliar;
+  }
+
+  if (__GJ_FORM_IS_VALID_) {
+    $("#guardarEditaPersonalOperaciones").removeAttr("disabled");
+  } else {
+    $("#guardarEditaPersonalOperaciones").attr("disabled","disabled");
+  }
+}
 
 $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     var parametros = {
@@ -6417,10 +6495,9 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     console.log(news)
 
     /* Begin - Validacion */
-    if (!parametros.nombres) {
-      alertInvalid('gj__nombres', 'Nombres');
-    } else if (!paramentros.apellidos) {
-      alertInvalid('gj__apellidos', 'Apellidos');
+    if (!__GJ_FORM_IS_VALID) {
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar los datos del formualario");
+      return;
     }
     /* End - Validacion */
 
@@ -6497,11 +6574,6 @@ $("#apellidosIngresarPersonalOperaciones").on('input', function(){
 });
 
 $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
-    $('#modalEditaPersonalOperaciones').modal('hide');
-    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
-    $('#modalAlertasSplash').modal('show');
-
     var parametros = {
       "rut": $("#gj__rut_").val(), // rut.replace(".","").replace(".",""),
       "rutPExterno": $("#gj__rut_").val(), // rut.replace(".","").replace(".",""),
@@ -6606,6 +6678,18 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
     console.log('---data--');
     console.log(parametros)
     console.log(news)
+
+    /* Begin - Validacion */
+    if (!__GJ_FORM_IS_VALID_) {
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar los datos del formualario");
+      return;
+    }
+    /* End - Validacion */
+
+    $('#modalEditaPersonalOperaciones').modal('hide');
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
 
     $.ajax({
       url: "controller/editarPersonalGestOperEvol.php",
@@ -7084,6 +7168,10 @@ $("#gj__tieneFamiliarEmpresa").on('change', function(e) {
     $("#gj__cargoFamiliarEmpresa").attr("disabled", "disabled");
     $("#gj__parentescoFamiliarEmpresa").attr("disabled", "disabled");
     $("#gj__otroParentescoFamiliarEmpresa").attr("disabled", "disabled");
+
+    $("#gj__nombreFamiliarEmpresa").removeClass("is-invalid");
+    $("#gj__nombreFamiliarEmpresa").val("");
+    validarFormularioPersonalPlanilla();
   }
 });
 
@@ -7100,6 +7188,10 @@ $("#gj__tieneFamiliarEmpresa_").on('change', function(e) {
     $("#gj__cargoFamiliarEmpresa_").attr("disabled", "disabled");
     $("#gj__parentescoFamiliarEmpresa_").attr("disabled", "disabled");
     $("#gj__otroParentescoFamiliarEmpresa_").attr("disabled", "disabled");
+
+    $("#gj__nombreFamiliarEmpresa_").removeClass("is-invalid");
+    $("#gj__nombreFamiliarEmpresa_").val("");
+    validarFormularioPersonalPlanilla_();
   }
 });
 
@@ -11897,144 +11989,164 @@ function alertInvalid(id, field) {
 $("#gj__rut").on('blur', function (e) {
   e.stopImmediatePropagation();
   var rut = $('#gj__rut').val();
-  var isValid = validarRUT(rut);
+  var isValid = rut ? validarRUT(rut) : false;
   if (!isValid) alertInvalid("gj__rut", "DNI");
   else $("#gj__rut").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__rut_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var rut = $('#gj__rut_').val();
-  var isValid = validarRUT(rut);
+  var isValid = rut ? validarRUT(rut) : false;
   if (!isValid) alertInvalid("gj__rut_", "DNI");
   else $("#gj__rut_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__email").on('blur', function (e) {
   e.stopImmediatePropagation();
   var email = $('#gj__email').val();
-  var isValid = validarEmail(email);
+  var isValid = email ? validarEmail(email) : false;
   if (!isValid) alertInvalid("gj__email", "Email");
   else $("#gj__email").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__email_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var email = $('#gj__email_').val();
-  var isValid = validarEmail(email);
+  var isValid = email ? validarEmail(email) : false;
   if (!isValid) alertInvalid("gj__email_", "Email");
   else $("#gj__email_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__nombres").on('blur', function (e) {
   e.stopImmediatePropagation();
   var nombres = $('#gj__nombres').val();
-  var isValid = validarNombresApellidos(nombres);
+  var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombres", "Nombres");
   else $("#gj__nombres").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__nombres_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var nombres = $('#gj__nombres_').val();
-  var isValid = validarNombresApellidos(nombres);
+  var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombres_", "Nombres");
   else $("#gj__nombres_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__apellidos").on('blur', function (e) {
   e.stopImmediatePropagation();
   var apellidos = $('#gj__apellidos').val();
-  var isValid = validarNombresApellidos(apellidos);
+  var isValid = apellidos ? validarNombresApellidos(apellidos) : false;
   if (!isValid) alertInvalid("gj__apellidos", "Apellidos");
   else $("#gj__apellidos").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__apellidos_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var apellidos = $('#gj__apellidos_').val();
-  var isValid = validarNombresApellidos(apellidos);
+  var isValid = apellidos ? validarNombresApellidos(apellidos) : false;
   if (!isValid) alertInvalid("gj__apellidos_", "Apellidos");
   else $("#gj__apellidos_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__fono").on('blur', function (e) {
   e.stopImmediatePropagation();
   var telefono = $('#gj__fono').val();
-  var isValid = validarTelefono(telefono);
+  var isValid = telefono ? validarTelefono(telefono) : false;
   if (!isValid) alertInvalid("gj__fono", "Teléfono");
   else $("#gj__fono").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__fono_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var telefono = $('#gj__fono_').val();
-  var isValid = validarTelefono(telefono);
+  var isValid = telefono ? validarTelefono(telefono) : false;
   if (!isValid) alertInvalid("gj__fono_", "Teléfono");
   else $("#gj__fono_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__nombreContactoEmergencia").on('blur', function (e) {
   e.stopImmediatePropagation();
   var nombres = $('#gj__nombreContactoEmergencia').val();
-  var isValid = validarNombresApellidos(nombres);
+  var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombreContactoEmergencia", "Nombres");
   else $("#gj__nombreContactoEmergencia").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__nombreContactoEmergencia_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var nombres = $('#gj__nombreContactoEmergencia_').val();
-  var isValid = validarNombresApellidos(nombres);
+  var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombreContactoEmergencia_", "Nombres");
   else $("#gj__nombreContactoEmergencia_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__fonoContactoEmergencia").on('blur', function (e) {
   e.stopImmediatePropagation();
   var telefono = $('#gj__fonoContactoEmergencia').val();
-  var isValid = validarTelefono(telefono);
+  var isValid = telefono ? validarTelefono(telefono) : false;
   if (!isValid) alertInvalid("gj__fonoContactoEmergencia", "Teléfono");
   else $("#gj__fonoContactoEmergencia").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__fonoContactoEmergencia_").on('blur', function (e) {
   e.stopImmediatePropagation();
   var telefono = $('#gj__fonoContactoEmergencia_').val();
-  var isValid = validarTelefono(telefono);
+  var isValid = telefono ? validarTelefono(telefono) : false;
   if (!isValid) alertInvalid("gj__fonoContactoEmergencia_", "Teléfono");
   else $("#gj__fonoContactoEmergencia_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
 $("#gj__nombreFamiliarEmpresa").on('blur', function (e) {
   e.stopImmediatePropagation();
+  if (!$("#gj__tieneFamiliarEmpresa").is(':checked')) return true;
+
   var nombres = $('#gj__nombreFamiliarEmpresa').val();
-  var isValid = validarNombresApellidos(nombres);
+  var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombreFamiliarEmpresa", "Nombres");
   else $("#gj__nombreFamiliarEmpresa").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla();
   return isValid;
 });
 
 $("#gj__nombreFamiliarEmpresa_").on('blur', function (e) {
   e.stopImmediatePropagation();
+  if (!$("#gj__tieneFamiliarEmpresa_").is(':checked')) return true;
+
   var nombres = $('#gj__nombreFamiliarEmpresa_').val();
-  var isValid = validarNombresApellidos(nombres);
+  var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombreFamiliarEmpresa_", "Nombres");
   else $("#gj__nombreFamiliarEmpresa_").removeClass("is-invalid");
+  validarFormularioPersonalPlanilla_();
   return isValid;
 });
 
