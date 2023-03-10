@@ -7343,7 +7343,7 @@ $("#verUsuario").unbind("click").click(async function(){
   });
 
   await $.ajax({
-    url:   'controller/datosPatentesAsignar.php',
+    url:   'controller/datosSubcontratistasVehiculoInterno.php',
     type:  'post',
     data:  parametros,
     dataType: 'json',
@@ -7596,7 +7596,7 @@ $("#verUsuario").unbind("click").click(async function(){
         var aux3 = dt.lstCertificadosOtros.split('|');
         if (aux3.length > 0) {
           aux3.forEach((aux) => {
-            $(`#${aux}_`).prop("checked", true);
+            $(`#${aux}`).prop("checked", true);
           });
         }
       }
