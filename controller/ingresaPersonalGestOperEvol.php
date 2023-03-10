@@ -79,12 +79,12 @@
     $ref2 = isset($_POST['ref2']) ? "'" . $_POST['ref2'] . "'" : 'null';    // PERSONAL - REFERENCIA2
     $plaza = isset($_POST['plaza']) ? "'" . $_POST['plaza'] . "'" : 'null'; // PERSONAL - PLAZA_SECTOR
 
-    $row = ingresaPersonalGestOperacionEvol(
+    $row1 = ingresaPersonalGestOperacionEvol(
       $dni,$apellidos,$nombres,$cargo,
       $fono,$mail,$idsubcontrato
     );
 
-    $row = completaPersonalGestOperacion(
+    $row2 = completaPersonalGestOperacion(
       $dni,
 
       $esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
@@ -105,12 +105,15 @@
       $jeas, $ref1, $ref2, $plaza
     );
 
-    if ($row != "Error" ) {
-      ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco);
+    if ($row1 != "Error" && $row2 != "Error") {
+      $row = ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco);
       // ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad); NO SE USA PATENTE
-      echo $row;
+      echo [
+        "row1" => $row1,
+        "row2" => $row2,
+      ];
     } else {
-      echo "Sin datos";
+      echo $row1;
     }
   } else {
     echo "Sin datos";

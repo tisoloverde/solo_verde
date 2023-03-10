@@ -6493,12 +6493,13 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     console.log('---data--');
     console.log(parametros)
     console.log(news)
+    console.log(__GJ_FORM_IS_VALID)
 
     /* Begin - Validacion */
-    if (!__GJ_FORM_IS_VALID) {
+    /*if (!__GJ_FORM_IS_VALID) {
       alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar los datos del formualario");
       return;
-    }
+    }*/
     /* End - Validacion */
 
     $('#modalIngresarPersonalOperaciones').modal('hide');
@@ -6678,12 +6679,13 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
     console.log('---data--');
     console.log(parametros)
     console.log(news)
+    console.log(__GJ_FORM_IS_VALID_)
 
     /* Begin - Validacion */
-    if (!__GJ_FORM_IS_VALID_) {
+    /*if (!__GJ_FORM_IS_VALID_) {
       alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar los datos del formualario");
       return;
-    }
+    }*/
     /* End - Validacion */
 
     $('#modalEditaPersonalOperaciones').modal('hide');
@@ -6781,7 +6783,7 @@ $("#editarJefatura").unbind("click").click(async function(){
   });
 
   await $.ajax({
-    url:   'controller/datosPatentesAsignar.php',
+    url:   'controller/datosSubcontratistasVehiculoInterno.php', // 'controller/datosPatentesAsignar.php',
     type:  'post',
     data:  parametros,
     dataType: 'json',
