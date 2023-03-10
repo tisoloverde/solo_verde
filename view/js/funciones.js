@@ -6583,25 +6583,25 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
       "funcion": $("#gj__cargo_").val(),
       // "externo": externo,
       // "patente": patente,
-      "fono": $("#gj__fono").val(),
-      "mail": $("#gj__email").val(),
+      "fono": $("#gj__fono_").val(),
+      "mail": $("#gj__email_").val(),
       // "nivel": nivel,
       // "mano": mano,
-      "sucursal": $("#gj__sucursal").val(),
-      "empresa": $("#gj__empresa").val(),
-      "idCeco": $("#gj__centroCosto").val()
+      "sucursal": $("#gj__sucursal_").val(),
+      "empresa": $("#gj__empresa_").val(),
+      "idCeco": $("#gj__centroCosto_").val()
     }
 
     /* Begin - New Params Personal */
     var certificados = [];
-    $(".gj__certificados").each(function(e) {
+    $(".gj__certificados_").each(function(e) {
       var self = $(this);
       if (self.is(':checked')) {
         certificados.push(self.attr("id"));
       }
     });
     var certificadosOtros = [];
-    $(".gj__certificados_otros").each(function(e) {
+    $(".gj__certificados_otros_").each(function(e) {
       var self = $(this);
       if (self.is(':checked')) {
         certificadosOtros.push(self.attr("id"));
@@ -6967,8 +6967,9 @@ $("#editarJefatura").unbind("click").click(async function(){
         }
       }
       /* End - Talla Otros */
-      $("#gj__tieneFamiliarEmpresa_").prop("checked", Boolean(dt.tieneFamiliarEmpresa));
-      if (dt.tieneFamiliarEmpresa) {
+      var tieneFamiliarEmpresa = dt.tieneFamiliarEmpresa && dt.tieneFamiliarEmpresa?.toString() != "0";
+      $("#gj__tieneFamiliarEmpresa_").prop("checked", tieneFamiliarEmpresa);
+      if (tieneFamiliarEmpresa) {
         $("#gj__nombreFamiliarEmpresa_").removeAttr("disabled");
         $("#gj__cargoFamiliarEmpresa_").removeAttr("disabled");
         $("#gj__parentescoFamiliarEmpresa_").removeAttr("disabled");
@@ -6976,8 +6977,9 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__nombreFamiliarEmpresa_").val(dt.nombreFamiliarEmpresa);
       $("#gj__cargoFamiliarEmpresa_").val(dt.cargoFamiliarEmpresa);
       $("#gj__parentescoFamiliarEmpresa_").val(dt.parentescoFamiliarEmpresa);
-      $("#gj__esRepitente_").prop("checked", Boolean(dt.esRepitente));
-      if (dt.esRepitente) {
+      var esRepitente = dt.esRepitente && dt.esRepitente?.toString() != "0";
+      $("#gj__esRepitente_").prop("checked", esRepitente);
+      if (esRepitente) {
         $("#gj__cargoRepitente_").removeAttr("disabled");
         $("#gj__razonRepitente_").removeAttr("disabled");
       }
@@ -7027,7 +7029,7 @@ $("#editarJefatura").unbind("click").click(async function(){
         var aux2 = dt.lstCertificados.split('|');
         if (aux2.length > 0) {
           aux2.forEach((aux) => {
-            $(`#${aux}_`).prop("checked", true);
+            $(`#${aux}`).prop("checked", true);
           });
         }
       }
@@ -7035,7 +7037,7 @@ $("#editarJefatura").unbind("click").click(async function(){
         var aux3 = dt.lstCertificadosOtros.split('|');
         if (aux3.length > 0) {
           aux3.forEach((aux) => {
-            $(`#${aux}_`).prop("checked", true);
+            $(`#${aux}`).prop("checked", true);
           });
         }
       }
@@ -7524,8 +7526,9 @@ $("#verUsuario").unbind("click").click(async function(){
         }
       }
       /* End - Talla Otros */
-      $("#gj__tieneFamiliarEmpresa_").prop("checked", Boolean(dt.tieneFamiliarEmpresa));
-      if (dt.tieneFamiliarEmpresa) {
+      var tieneFamiliarEmpresa = dt.tieneFamiliarEmpresa && dt.tieneFamiliarEmpresa?.toString() != "0";
+      $("#gj__tieneFamiliarEmpresa_").prop("checked", tieneFamiliarEmpresa);
+      if (tieneFamiliarEmpresa) {
         $("#gj__nombreFamiliarEmpresa_").removeAttr("disabled");
         $("#gj__cargoFamiliarEmpresa_").removeAttr("disabled");
         $("#gj__parentescoFamiliarEmpresa_").removeAttr("disabled");
@@ -7533,8 +7536,9 @@ $("#verUsuario").unbind("click").click(async function(){
       $("#gj__nombreFamiliarEmpresa_").val(dt.nombreFamiliarEmpresa);
       $("#gj__cargoFamiliarEmpresa_").val(dt.cargoFamiliarEmpresa);
       $("#gj__parentescoFamiliarEmpresa_").val(dt.parentescoFamiliarEmpresa);
-      $("#gj__esRepitente_").prop("checked", Boolean(dt.esRepitente));
-      if (dt.esRepitente) {
+      var esRepitente = dt.esRepitente && dt.esRepitente?.toString() != "0";
+      $("#gj__esRepitente_").prop("checked", esRepitente);
+      if (esRepitente) {
         $("#gj__cargoRepitente_").removeAttr("disabled");
         $("#gj__razonRepitente_").removeAttr("disabled");
       }
@@ -7584,7 +7588,7 @@ $("#verUsuario").unbind("click").click(async function(){
         var aux2 = dt.lstCertificados.split('|');
         if (aux2.length > 0) {
           aux2.forEach((aux) => {
-            $(`#${aux}_`).prop("checked", true);
+            $(`#${aux}`).prop("checked", true);
           });
         }
       }
