@@ -2948,7 +2948,7 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">Fecha Nacimiento</label>
-              <input id="gj__fechaNacimiento_" class="form-control" type="date" value="">
+              <input id="gj__fechaNacimiento_" class="form-control" type="text" value="" readonly>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
@@ -3034,7 +3034,7 @@
 
             <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
               <label>Fecha de Vencimiento</label>
-              <input id="gj__fechaVencimientoLicencia_" type="date" class="form-control" disabled />
+              <input id="gj__fechaVencimientoLicencia_" type="text" class="form-control" readonly disabled />
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
@@ -3055,27 +3055,27 @@
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Camisa</span>
-                  <input id="gj__talla_camisa_" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_camisa_" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Guantes</span>
-                  <input id="gj__talla_guantes_" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_guantes_" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Pantalón</span>
-                  <input id="gj__talla_pantalon_" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_pantalon_" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Zapatos</span>
-                  <input id="gj__talla_zapatos_" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_zapatos_" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Casco</span>
-                  <input id="gj__talla_casco_" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_casco_" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Otros</span>
-                  <input id="gj__talla_otros_" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_otros_" type="text" class="form-control" style="width: 100px;">
                 </label>
               </div>
             </div>
@@ -3177,9 +3177,12 @@
               <label style="font-weight: bold;">Tipo de Cuenta</label>
               <select id="gj__tipoCuenta_" class="form-control">
                 <option value="-1">Sin asignar</option>
-                <option value="CuentaAhorro">Cuenta Ahorro</option>
-                <option value="CuentaMancomunada">Cuenta Mancomunada</option>
-                <option value="CuentaSueldo">Cuenta Sueldo</option>
+                <option value="CuentaCorriente">Cuenta Corriente</option>
+                <option value="CuentaVista">Cuenta Vista</option>
+                <option value="ChequeraElectronica">Chequera electrónica</option>
+                <option value="CuentaRUT">Cuenta RUT</option>
+                <option value="CuentaAhorro">Cuenta de Ahorro</option>
+                <option value="NoAplica">No Aplica</option>
               </select>
             </div>
 
@@ -3436,7 +3439,7 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">Fecha Nacimiento</label>
-              <input id="gj__fechaNacimiento" class="form-control" type="date" value="">
+              <input id="gj__fechaNacimiento" class="form-control" type="text" value="" readonly>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
@@ -3521,7 +3524,7 @@
 
             <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
               <label>Fecha de Vencimiento</label>
-              <input id="gj__fechaVencimientoLicencia" type="date" class="form-control" disabled/>
+              <input id="gj__fechaVencimientoLicencia" type="text" class="form-control" readonly disabled />
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
@@ -3542,27 +3545,27 @@
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Camisa</span>
-                  <input id="gj__talla_camisa" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_camisa" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Guantes</span>
-                  <input id="gj__talla_guantes" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_guantes" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Pantalón</span>
-                  <input id="gj__talla_pantalon" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_pantalon" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Zapatos</span>
-                  <input id="gj__talla_zapatos" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_zapatos" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Casco</span>
-                  <input id="gj__talla_casco" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_casco" type="text" class="form-control" style="width: 100px;">
                 </label>
                 <label style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 200px;">
                   <span>Otros</span>
-                  <input id="gj__talla_otros" type="text" class="form-control onlyNumbers" style="width: 100px;">
+                  <input id="gj__talla_otros" type="text" class="form-control" style="width: 100px;">
                 </label>
               </div>
             </div>
@@ -3664,9 +3667,12 @@
               <label style="font-weight: bold;">Tipo de Cuenta</label>
               <select id="gj__tipoCuenta" class="form-control">
                 <option value="-1">Sin asignar</option>
-                <option value="CuentaAhorro">Cuenta Ahorro</option>
-                <option value="CuentaMancomunada">Cuenta Mancomunada</option>
-                <option value="CuentaSueldo">Cuenta Sueldo</option>
+                <option value="CuentaCorriente">Cuenta Corriente</option>
+                <option value="CuentaVista">Cuenta Vista</option>
+                <option value="ChequeraElectronica">Chequera electrónica</option>
+                <option value="CuentaRUT">Cuenta RUT</option>
+                <option value="CuentaAhorro">Cuenta de Ahorro</option>
+                <option value="NoAplica">No Aplica</option>
               </select>
             </div>
 

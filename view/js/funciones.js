@@ -5644,6 +5644,40 @@ function initPersonal() {
   $("#gj__sucursal").val("-1"); // select
   $("#gj__empresa").val("-1"); // select
   $("#gj__centroCosto").val("-1"); // select
+
+  $("#gj__fechaNacimiento").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    // minDate: min,
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#gj__fechaVencimientoLicencia").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    minDate: new Date(),
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
 }
 
 function initPersonal_() {
@@ -5731,6 +5765,40 @@ function initPersonal_() {
   $("#gj__sucursal_").val("-1"); // select
   $("#gj__empresa_").val("-1"); // select
   $("#gj__centroCosto_").val("-1"); // select
+
+  $("#gj__fechaNacimiento_").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    // minDate: min,
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#gj__fechaVencimientoLicencia_").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    minDate: new Date(),
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
 }
 
 function initPersonal_disabled() {
@@ -5816,6 +5884,40 @@ function initPersonal_disabled() {
   $("#gj__sucursal_").attr("disabled", true); // select
   $("#gj__empresa_").attr("disabled", true); // select
   $("#gj__centroCosto_").attr("disabled", true); // select
+
+  $("#gj__fechaNacimiento_").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    // minDate: min,
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#gj__fechaVencimientoLicencia_").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    minDate: new Date(),
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
 }
 
 function initPersonal_enabled() {
@@ -5901,6 +6003,40 @@ function initPersonal_enabled() {
   $("#gj__sucursal_").removeAttr("disabled"); // select
   $("#gj__empresa_").removeAttr("disabled"); // select
   $("#gj__centroCosto_").removeAttr("disabled"); // select
+
+  $("#gj__fechaNacimiento_").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    // minDate: min,
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#gj__fechaVencimientoLicencia_").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    minDate: new Date(),
+    // maxDate: min,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
 }
 
 $("#ingresarNuevoJefatura").unbind("click").click(async function(){
@@ -6743,6 +6879,7 @@ $("#apellidosEditaPersonalOperaciones").on('input', function(){
 $("#editarJefatura").unbind("click").click(async function(){
   initPersonal_();
   initPersonal_enabled();
+  $("#guardarEditaPersonalOperaciones").show();
   $("#tituloModalPersonal").text("Editar personal");
 
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
@@ -7179,6 +7316,49 @@ $("#gj__tieneFamiliarEmpresa").on('change', function(e) {
   }
 });
 
+var _THEME_SELECT2 = {
+  theme: 'bootstrap4',
+  width: $(this).data('width')
+    ? $(this).data('width')
+    : $(this).hasClass('w-100')
+      ? '100%'
+      : 'style',
+  placeholder: $(this).data('placeholder'),
+  allowClear: Boolean($(this).data('allow-clear')),
+  closeOnSelect: !$(this).attr('multiple'),
+  // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+}
+
+$("#gj__banco").on('change', function(e) {
+  var banco = $("#gj__banco option:selected").text();
+  if (['Vale vista', 'Contado'].includes(banco)) {
+    $("#gj__tipoCuenta").val("NoAplica");
+    if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#gj__tipoCuenta").select2(_THEME_SELECT2);
+    }
+    $("#gj__tipoCuenta").attr("disabled", "disabled");
+    $("#gj__nroCuenta").attr("disabled", "disabled");
+    $("#gj__nroCuenta").val("");
+  } else {
+    $("#gj__nroCuenta").removeAttr("disabled");
+  }
+});
+
+$("#gj__banco_").on('change', function(e) {
+  var banco = $("#gj__banco_ option:selected").text();
+  if (['Vale vista', 'Contado'].includes(banco)) {
+    $("#gj__tipoCuenta_").val("NoAplica");
+    if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#gj__tipoCuenta_").select2(_THEME_SELECT2);
+    }
+    $("#gj__tipoCuenta_").attr("disabled", "disabled");
+    $("#gj__nroCuenta_").attr("disabled", "disabled");
+    $("#gj__nroCuenta_").val("");
+  } else {
+    $("#gj__nroCuenta_").removeAttr("disabled");
+  }
+});
+
 $("#gj__tieneFamiliarEmpresa_").on('change', function(e) {
   e.stopImmediatePropagation();
   e.preventDefault();
@@ -7303,6 +7483,7 @@ $("#gj__cargoGenerico_").on('change', function (e) {
 
 $("#verUsuario").unbind("click").click(async function(){
   initPersonal_();
+  $("#guardarEditaPersonalOperaciones").hide();
   $("#tituloModalPersonal").text("Ficha Personal");
 
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
