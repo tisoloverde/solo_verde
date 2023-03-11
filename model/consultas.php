@@ -322,6 +322,7 @@ ORDER BY ORDEN ASC";
 				P.TELEFONO as fono,
 				P.DOMICILIO as domicilio,
 				P.IDAREAFUNCIONAL_COMUNA_NAC as comuna,
+				P.CIUDAD as ciudad,
 				P.FECHA_NACIMIENTO as fechaNacimiento,
 				P.NACIONALIDAD as nacionalidad,
 				P.SEXO as sexo,
@@ -6966,6 +6967,7 @@ function completaPersonalGestOperacion(
 
 			DOMICILIO = $domicilio,
 			IDAREAFUNCIONAL_COMUNA_NAC = $comuna,
+			CIUDAD = $ciudad,
 
 			FECHA_NACIMIENTO = $fechaNacimiento,
 			NACIONALIDAD = $nacionalidad,

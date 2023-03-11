@@ -7062,6 +7062,7 @@ $("#editarJefatura").unbind("click").click(async function(){
       $("#gj__apellidos_").val(dt.apellidos);
       $("#gj__domicilio_").val(dt.domicilio);
       $("#gj__comuna_").val(dt.comuna);
+      $("#gj__ciudad_").val(dt.ciudad);
       $("#gj__fono_").val(dt.fono);
       // ciudad: "",
       $("#gj__fechaNacimiento_").val(dt.fechaNacimiento);
