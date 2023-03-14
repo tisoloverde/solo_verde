@@ -316,6 +316,7 @@ ORDER BY ORDEN ASC";
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				P.DNI as rut,
+				P.TEMPORAL as esProvisorio,
 				P.EMAIL as mail,
 				P.NOMBRES as nombres,
 				P.APELLIDOS as apellidos,
@@ -6964,6 +6965,7 @@ function completaPersonalGestOperacion(
 	$con->query("START TRANSACTION");
 	if ($con != 'No conectado') {
 		$sql = "UPDATE PERSONAL SET
+			TEMPORAL = $esProvisorio,
 
 			DOMICILIO = $domicilio,
 			IDAREAFUNCIONAL_COMUNA_NAC = $comuna,

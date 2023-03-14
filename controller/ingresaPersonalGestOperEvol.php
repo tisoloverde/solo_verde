@@ -22,7 +22,7 @@
     $idsubcontrato = isset($_POST['empresa']) && $_POST['empresa'] != '' ? "'" . $_POST['empresa'] . "'" : 'null';
     $idCeco = $_POST['idCeco'] != "" ? $_POST['idCeco'] : -1;
 
-    $esProvisorio = isset($_POST['esProvisorio']) ? "'" . $_POST['esProvisorio'] . "'" : 'null';                // ¿?
+    $esProvisorio = isset($_POST['esProvisorio']) ? $_POST['esProvisorio'] : 'null';                // ¿?
     $domicilio = isset($_POST['domicilio']) ? "'" . $_POST['domicilio'] . "'" : 'null';                         // PERSONAL - DOMICILIO
     $comuna = isset($_POST['comuna']) ? $_POST['comuna'] : 'null';  // ¿PERSONAL - IDAREAFUNCIONAL_COMUNA_NAC? <-- AREAFUNCIONAL
     $ciudad = isset($_POST['ciudad']) ? "'" . $_POST['ciudad'] . "'" : 'null';

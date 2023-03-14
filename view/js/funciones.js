@@ -6559,7 +6559,7 @@ $("#guardarIngresarPersonalOperaciones").unbind("click").click(function(){
     });
 
     var news = {
-      esProvisorio: $("#gj__provisorio").is(":checked"),
+      esProvisorio: $("#gj__provisorio").is(":checked") ? 1 : 0,
       domicilio: $("#gj__domicilio").val(),
       comuna: $("#gj__comuna").val() != "-1" ? $("#gj__comuna").val() : null,
       ciudad: $("#gj__ciudad").val(),
@@ -6745,7 +6745,7 @@ $("#guardarEditaPersonalOperaciones").unbind("click").click(function(){
     });
 
     var news = {
-      esProvisorio: $("#gj__provisorio_").is(":checked"),
+      esProvisorio: $("#gj__provisorio_").is(":checked") ? 1 : 0,
       domicilio: $("#gj__domicilio_").val(),
       comuna: $("#gj__comuna_").val() != "-1" ? $("#gj__comuna_").val() : null,
       ciudad: $("#gj__ciudad_").val(),
@@ -7056,7 +7056,7 @@ $("#editarJefatura").unbind("click").click(async function(){
     success: function (response) {
       var dt = response.aaData;
       $("#gj__rut_").val(dt.rut);
-      $("#gj__provisorio_").prop('checked', true);
+      $("#gj__provisorio_").prop('checked', `${dt.esProvisorio}` == "1");
       $("#gj__email_").val(dt.mail);
       $("#gj__nombres_").val(dt.nombres);
       $("#gj__apellidos_").val(dt.apellidos);
@@ -7660,7 +7660,7 @@ $("#verUsuario").unbind("click").click(async function(){
     success: function (response) {
       var dt = response.aaData;
       $("#gj__rut_").val(dt.rut);
-      $("#gj__provisorio_").prop('checked', true);
+      $("#gj__provisorio_").prop('checked', `${dt.esProvisorio}` == "1");
       $("#gj__email_").val(dt.mail);
       $("#gj__nombres_").val(dt.nombres);
       $("#gj__apellidos_").val(dt.apellidos);
