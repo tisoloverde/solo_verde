@@ -29,6 +29,7 @@
     $refs1 = consultaListaReferencia1();
     $refs2 = consultaListaReferencia2();
     $idConValid = buscarDiaValidoPersonalEstadoConcepto($cons);
+    $idsConValidDescuento = buscarDiaValidoPersonalEstadoConcepto_Descontar($cons);
     $idsConNotValid = buscarDiasNoValidoPersonalEstadoConcepto($cons);
     $idsConNotValid_Final = buscarDiasNoValidoPersonalEstadoConcepto_Final($cons);
 
@@ -42,9 +43,11 @@
         foreach ($lstPersonalEstado as $personalEstado) {
           if ($idPersonal == $personalEstado['IDPERSONAL']) {
             $found = $personalEstado;
-            if ($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'] != $idConValid) {
+            /*if ($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'] != $idConValid) {
               $ndias = $ndias - 1;
-            }
+            }*/
+            $key = $personalEstado['IDPERSONAL_ESTADO_CONCEPTO'];
+            $ndias = $ndias - $idsConValidDescuento["_" . $key];
           }
         }
 

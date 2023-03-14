@@ -47,6 +47,24 @@
     return $idConValid;
   }
 
+  function buscarDiaValidoPersonalEstadoConcepto_Descontar($cons) {
+    $idConValidDescuento = array();
+    foreach($cons as $con) {
+      $sigla = $con['SIGLA'];
+      $key = $con['IDPERSONAL_ESTADO_CONCEPTO'];
+      $val = 0;
+      if ($sigla == 'FMM' || $sigla == 'FMT' || $sigla == 'FMD') {
+        $val = 0.5;
+      } else if ($sigla == 'PER' || $sigla == 'FLT' || $sigla == 'PRA' || $sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR') {
+        $val = 1;
+      } else {
+        $val = 0;
+      }
+      $idConValidDescuento["_" . $key] = $val;
+    }
+    return $idConValidDescuento;
+  }
+
   function buscarDiasNoValidoPersonalEstadoConcepto($cons) {
     $idsConValid = [];
     foreach($cons as $con) {
