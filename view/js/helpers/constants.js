@@ -1,0 +1,25 @@
+var __CONSTANTS = {
+  months: [
+    { name: "Enero", short: "Ene" },
+    { name: "Febrero", short: "Feb" },
+    { name: "Marzo", short: "Mar" },
+    { name: "Abril", short: "Abr" },
+    { name: "Mayo", short: "May" },
+    { name: "Junio", short: "Jun" },
+    { name: "Julio", short: "Jul" },
+    { name: "Agosto", short: "Ago" },
+    { name: "Setiembre", short: "Sep" },
+    { name: "Octubre", short: "Oct" },
+    { name: "Noviembre", short: "Nov" },
+    { name: "Diciembre", short: "Dic" },
+  ],
+  days: [
+    { name: "Domingo", short: "Dom", min: "Do" },
+    { name: "Lunes", short: "Lun", min: "Lu" },
+    { name: "Martes", short: "Mar", min: "Ma" },
+    { name: "Miércoles", short: "Mié", min: "Mi" },
+    { name: "Jueves", short: "Jue", min: "Ju" },
+    { name: "Viernes", short: "Vie", min: "Vi" },
+    { name: "Sábado", short: "Sáb", min: "Sá" },
+  ],
+};
