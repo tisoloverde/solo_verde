@@ -6478,7 +6478,7 @@ function validarFormularioPersonalPlanilla() {
       : false;
     __GJ_FORM_IS_VALID = __GJ_FORM_IS_VALID && isValidNombreFamiliar;
   }
-  
+
   if (__GJ_FORM_IS_VALID) {
     $("#guardarIngresarPersonalOperaciones").removeAttr("disabled");
   } else {
@@ -11372,10 +11372,15 @@ async function listComunesPlanilla() {
 }
 
 async function listCentrosDeCostos() {
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
   $.ajax({
-    url: 'controller/datosCentrosDeCostos.php',
-    type: 'get',
+    url: 'controller/datosCentrosDeCostosPerfil.php',
+    type: 'post',
     dataType: 'json',
+    data: parametros,
     success: function (response) {
       var data = response.aaData;
       var html = "<option value='0'>Seleccione</option>";

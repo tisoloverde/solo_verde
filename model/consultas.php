@@ -2013,18 +2013,25 @@ ORDER BY A.ORDEN, A.SUBORDEN";
 		function consultaProyectos($idAreaWeb, $idPerfil){
 			$con = conectar();
 			if($con != 'No conectado'){
-				$sql = "SELECT  DISTINCT E.IDESTRUCTURA_OPERACION 'ID_ESTRUCTURA', CONCAT_WS(' / ', CONCAT_WS(' / ', S.SERVICIO, C.CLIENTE), A.ACTIVIDAD) AS PROYECTO, A.AREA, AE.IDESTRUCTURA_OPERACION
+				$sql = "SELECT  DISTINCT E.IDESTRUCTURA_OPERACION 'ID_ESTRUCTURA', CONCAT(E.NOMENCLATURA, ' - CECO: ', E.DEFINICION) AS PROYECTO, AE.IDESTRUCTURA_OPERACION
 FROM ESTRUCTURA_OPERACION E LEFT JOIN CLIENTE C
 ON E.IDCLIENTE = C.IDCLIENTE
 LEFT JOIN SERVICIO S
 ON E.IDSERVICIO = S.IDSERVICIO
-LEFT JOIN ACTIVIDAD A
-ON E.IDACTIVIDAD = A.IDACTIVIDAD
 LEFT JOIN PERMISOS_AE AE
 ON E.IDESTRUCTURA_OPERACION = AE.IDESTRUCTURA_OPERACION
-AND AE.IDAREAWEB = '$idAreaWeb'
-AND AE.IDPERFIL = '$idPerfil'
-ORDER BY A.AREA DESC, PROYECTO ASC";
+AND AE.IDAREAWEB = '{$idAreaWeb}'
+AND AE.IDPERFIL = '{$idPerfil}'
+AND E.HABILITADO = 1
+AND E.NOMENCLATURA NOT IN (
+	'CASA MATRIZ',
+	'Gerencia General',
+	'Gerencia Operaciones',
+	'Administracion y Finanzas',
+	'Gerencia Comercial',
+	'PROPUESTAS'
+)
+ORDER BY PROYECTO ASC";
 				if ($row = $con->query($sql)) {
 						while($array = $row->fetch_array(MYSQLI_BOTH)){
 							$return[] = $array;
@@ -20709,6 +20716,26 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 		} else{
 			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function consultaListaCentrosDeCostoPerfil($rut,$path){
+		$con = conectar();
+		if($con != 'No conectado'){
+			$sql = "CALL LISTADO_CECO_ASISTENCIA('{$rut}','{$path}')";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			}
+			else{
+				return "Error";
+			}
+		}
+		else{
 			return "Error";
 		}
 	}
