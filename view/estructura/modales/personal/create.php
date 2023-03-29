@@ -255,7 +255,10 @@
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Afiliado a Previsión:</label>
+              <label style="font-weight: bold;">
+                Afiliado a Previsión:
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
                   <input name="gj__afiliacion_prevision" type="radio" class="form-control" style="width: 20px;" value="fonasa">
@@ -271,7 +274,10 @@
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Afiliado a Salud:</label>
+              <label style="font-weight: bold;">
+                Afiliado a Salud:
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 10px;">
                 <label style="display: flex; align-items: center; gap: 10px; width: 180px;">
                   <input name="gj__afiliacion_salud" type="radio" class="form-control" style="width: 20px;" value="afp">
@@ -474,7 +480,10 @@
             </div>
 
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Empresa</label>
+              <label style="font-weight: bold;">
+                Empresa
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__empresa" class="form-control">
               </select>
             </div>

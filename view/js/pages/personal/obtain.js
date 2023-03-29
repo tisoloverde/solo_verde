@@ -122,12 +122,15 @@ async function fillPersonal(parametros) {
         $("#gj__esHispanoHablante_").removeAttr("disabled");
       }
       $("#gj__puebloOriginario_").val(dt.puebloOriginario);
-      $("#gj__esHispanoHablante_").prop("checked", dt.esHispanoHablante);
+      $("#gj__esHispanoHablante_").prop(
+        "checked",
+        `${dt.esHispanoHablante}` == "1"
+      );
       $("#gj__nivelEstudios_").val(dt.nivelEstudios);
-      $("#gj__sabeLeer_").prop("checked", dt.sabeLeer);
-      $("#gj__sabeEscribir_").prop("checked", dt.sabeEscribir);
-      $("#gj__tieneLicencia_").prop("checked", dt.tieneLicencia);
-      if (dt.tieneLicencia) {
+      $("#gj__sabeLeer_").prop("checked", `${dt.sabeLeer}` == "1");
+      $("#gj__sabeEscribir_").prop("checked", `${dt.sabeEscribir}` == "1");
+      $("#gj__tieneLicencia_").prop("checked", `${dt.tieneLicencia}` == "1");
+      if (`${dt.tieneLicencia}` == "1") {
         $("#gj__claseLicencia_").removeAttr("disabled");
         $("#gj__fechaVencimientoLicencia_").removeAttr("disabled");
       }
@@ -237,7 +240,10 @@ async function fillPersonal(parametros) {
         }
       }
       /* End - Certificados */
-      $("#gj__tieneClaveUnica_").prop("checked", Boolean(dt.tieneClaveUnica));
+      $("#gj__tieneClaveUnica_").prop(
+        "checked",
+        `${dt.tieneClaveUnica}` == "1"
+      );
       $("#gj__fechaIngresoEmprea_").val(dt.fechaIngresoEmpresa);
       $("#gj__tipoContrato_").val(dt.tipoContrato);
       $("#gj__cargo_").val(dt.cargo);

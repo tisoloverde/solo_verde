@@ -112,6 +112,8 @@
       echo json_encode([
         "request" => $_POST,
         "error" => "Sin datos",
+        "row1" => $row1,
+        "row2" => $row2,
       ]);
     }
   } else {

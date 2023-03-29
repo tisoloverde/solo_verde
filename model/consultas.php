@@ -6876,7 +6876,7 @@ function ingresaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,
 		} else {
 			// return $con->error;
 			$con->query("ROLLBACK");
-			return "Error";
+			return $sql;
 		}
 	} else {
 		$con->query("ROLLBACK");

@@ -222,12 +222,15 @@ async function fillPersonal_(parametros) {
         $("#gj__esHispanoHablante_").removeAttr("disabled");
       }
       $("#gj__puebloOriginario_").val(dt.puebloOriginario);
-      $("#gj__esHispanoHablante_").prop("checked", dt.esHispanoHablante);
+      $("#gj__esHispanoHablante_").prop(
+        "checked",
+        `${dt.esHispanoHablante}` == "1"
+      );
       $("#gj__nivelEstudios_").val(dt.nivelEstudios);
-      $("#gj__sabeLeer_").prop("checked", dt.sabeLeer);
-      $("#gj__sabeEscribir_").prop("checked", dt.sabeEscribir);
-      $("#gj__tieneLicencia_").prop("checked", dt.tieneLicencia);
-      if (dt.tieneLicencia) {
+      $("#gj__sabeLeer_").prop("checked", `${dt.sabeLeer}` == "1");
+      $("#gj__sabeEscribir_").prop("checked", `${dt.sabeEscribir}` == "1");
+      $("#gj__tieneLicencia_").prop("checked", `${dt.tieneLicencia}` == "1");
+      if (`${dt.tieneLicencia}` == "1") {
         $("#gj__claseLicencia_").removeAttr("disabled");
         $("#gj__fechaVencimientoLicencia_").removeAttr("disabled");
       }
@@ -342,7 +345,10 @@ async function fillPersonal_(parametros) {
         }
       }
       /* End - Certificados */
-      $("#gj__tieneClaveUnica_").prop("checked", Boolean(dt.tieneClaveUnica));
+      $("#gj__tieneClaveUnica_").prop(
+        "checked",
+        `${dt.tieneClaveUnica}` == "1"
+      );
       $("#gj__fechaIngresoEmprea_").val(dt.fechaIngresoEmpresa);
       $("#gj__tipoContrato_").val(dt.tipoContrato);
       $("#gj__cargo_").val(dt.cargo);
@@ -769,6 +775,10 @@ function validarFormularioPersonalPlanilla_() {
     alertRequired("gj__email_", "Email");
     return;
   }
+  if (!$("#gj__empresa_").val() || `${$("#gj__empresa_").val()}` == "-1") {
+    alertRequired("gj__empresa_", "Empresa");
+    return;
+  }
   // End - Validar datos requeridos
 
   var isValidRut = $("#gj__rut_").val()
@@ -779,19 +789,19 @@ function validarFormularioPersonalPlanilla_() {
     : false;
   var isValidNombres = $("#gj__nombres_").val()
     ? validarNombresApellidos($("#gj__nombres_").val())
-    : false;
+    : true;
   var isValidApellidos = $("#gj__apellidos_").val()
     ? validarNombresApellidos($("#gj__apellidos_").val())
-    : false;
+    : true;
   var isValidTelefono = $("#gj__fono_").val()
     ? validarTelefono($("#gj__fono_").val())
-    : false;
+    : true;
   var isValidNombreContacto = $("#gj__nombreContactoEmergencia_").val()
     ? validarNombresApellidos($("#gj__nombreContactoEmergencia_").val())
-    : false;
+    : true;
   var isValidTelefonoContacto = $("#gj__fonoContactoEmergencia_").val()
     ? validarTelefono($("#gj__fonoContactoEmergencia_").val())
-    : false;
+    : true;
 
   var isValid =
     isValidRut &&
@@ -815,23 +825,62 @@ function validarFormularioPersonalPlanilla_() {
 $("#guardarEditaPersonalOperaciones")
   .unbind("click")
   .click(function () {
+    if (!validarFormularioPersonalPlanilla_()) {
+      return;
+    }
+
+    var afiliacionPrevision =
+      __GJ_AFILIACION_PREVISION_ == "fonasa"
+        ? $("#gj__nombreAfiliacionPrevision_FONASA_").val()
+        : __GJ_AFILIACION_PREVISION_ == "isapre"
+        ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
+        : null;
+    if (!afiliacionPrevision || `${afiliacionPrevision}` == "-1") {
+      alertRequiredMany(
+        [
+          "gj__nombreAfiliacionPrevision_FONASA_",
+          "gj__nombreAfiliacionPrevision_ISAPRE_",
+        ],
+        "Afiliación a Previsión"
+      );
+      return;
+    } else {
+      $("#gj__nombreAfiliacionPrevision_FONASA_").removeClass("is-invalid");
+      $("#gj__nombreAfiliacionPrevision_ISAPRE_").removeClass("is-invalid");
+    }
+
+    var afiliacionSalud =
+      __GJ_AFILIACION_SALUD_ == "afp"
+        ? $("#gj__nombreAfiliacionSalud_AFP_").val()
+        : __GJ_AFILIACION_SALUD_ == "inp"
+        ? $("#gj__nombreAfiliacionSalud_INP_").val()
+        : null;
+    if (!afiliacionSalud || `${afiliacionSalud}` == "-1") {
+      alertRequiredMany(
+        ["gj__nombreAfiliacionSalud_AFP_", "gj__nombreAfiliacionSalud_INP_"],
+        "Afiliación a Salud"
+      );
+      return;
+    } else {
+      $("#gj__nombreAfiliacionSalud_AFP_").removeClass("is-invalid");
+      $("#gj__nombreAfiliacionSalud_INP_").removeClass("is-invalid");
+    }
+
     var parametros = {
-      rut: $("#gj__rut_").val() ? `'${$("#gj__rut_").val()}'` : `'null'`,
+      rut: $("#gj__rut_").val() ? `'${$("#gj__rut_").val()}'` : "null",
       apellidos: $("#gj__apellidos_").val()
         ? `'${$("#gj__apellidos_").val()}'`
-        : `'null'`,
+        : "null",
       nombres: $("#gj__nombres_").val()
         ? `'${$("#gj__nombres_").val()}'`
-        : `'null'`,
-      funcion: $("#gj__cargo_").val()
-        ? `'${$("#gj__cargo_").val()}'`
-        : `'null'`,
-      fono: $("#gj__fono_").val() ? `'${$("#gj__fono_").val()}'` : `'null'`,
-      mail: $("#gj__email_").val() ? `'${$("#gj__email_").val()}'` : `'null'`,
+        : "null",
+      funcion: $("#gj__cargo_").val() ? `'${$("#gj__cargo_").val()}'` : "null",
+      fono: $("#gj__fono_").val() ? `'${$("#gj__fono_").val()}'` : "null",
+      mail: $("#gj__email_").val() ? `'${$("#gj__email_").val()}'` : "null",
       sucursal: $("#gj__sucursal_").val(),
       idsubcontrato: $("#gj__empresa_").val()
         ? `'${$("#gj__empresa_").val()}'`
-        : `'null'`,
+        : "null",
       idCeco: $("#gj__centroCosto_").val()
         ? `'${$("#gj__centroCosto_").val()}'`
         : -1,
@@ -853,85 +902,77 @@ $("#guardarEditaPersonalOperaciones")
       esProvisorio: $("#gj__provisorio_").is(":checked") ? 1 : 0,
       domicilio: $("#gj__domicilio_").val()
         ? `'${$("#gj__domicilio_").val()}'`
-        : `'null'`,
-      comuna:
-        $("#gj__comuna_").val().toString() != "-1"
-          ? $("#gj__comuna_").val()
-          : `'null'`,
-      ciudad: $("#gj__ciudad_").val()
-        ? `'${$("#gj__ciudad_").val()}'`
-        : `'null'`,
+        : "null",
+      comuna: conditionNeg1AndEmpty($("#gj__comuna_").val())
+        ? $("#gj__comuna_").val()
+        : "null",
+      ciudad: $("#gj__ciudad_").val() ? `'${$("#gj__ciudad_").val()}'` : "null",
       fechaNacimiento: $("#gj__fechaNacimiento_").val()
         ? `'${$("#gj__fechaNacimiento_").val()}'`
-        : `'null'`,
-      nacionalidad:
-        $("#gj__nacionalidad_").val().toString() != "-1"
-          ? `'${$("#gj__nacionalidad_").val()}'`
-          : `'null'`,
-      sexo:
-        $("#gj__sexo_").val().toString() != "-1"
-          ? `'${$("#gj__sexo_").val()}'`
-          : `'null'`,
+        : "null",
+      nacionalidad: conditionNeg1AndEmpty($("#gj__nacionalidad_").val())
+        ? `'${$("#gj__nacionalidad_").val()}'`
+        : "null",
+      sexo: conditionNeg1AndEmpty($("#gj__sexo_").val())
+        ? `'${$("#gj__sexo_").val()}'`
+        : "null",
       puebloOriginario: $("#gj__esPuebloOriginario_").is(":checked")
         ? `'${$("#gj__puebloOriginario_").val()}'`
-        : `'null'`,
+        : "null",
       esHispanoHablante: $("#gj__esHispanoHablante_").is(":checked") ? 1 : 0,
-      nivelEstudios:
-        $("#gj__nivelEstudios_").val().toString() != "-1"
-          ? $("#gj__nivelEstudios_").val()
-          : `'null'`,
+      nivelEstudios: conditionNeg1AndEmpty($("#gj__nivelEstudios_").val())
+        ? $("#gj__nivelEstudios_").val()
+        : "null",
       sabeLeer: $("#gj__sabeLeer_").is(":checked") ? 1 : 0,
       sabeEscribir: $("#gj__sabeEscribir_").is(":checked") ? 1 : 0,
       tieneLicencia: $("#gj__tieneLicencia_").is(":checked") ? 1 : 0,
-      claseLicencia:
-        $("#gj__claseLicencia_").val().toString() != "-1"
-          ? $("#gj__claseLicencia_").val()
-          : `'null'`,
+      claseLicencia: conditionNeg1AndEmpty($("#gj__claseLicencia_").val())
+        ? $("#gj__claseLicencia_").val()
+        : "null",
       fechaVencimientoLicencia: $("#gj__fechaVencimientoLicencia_").val()
         ? `'${$("#gj__fechaVencimientoLicencia_").val()}'`
-        : `'null'`,
-      estadoCivil:
-        $("#gj__estadoCivil_").val().toString() != "-1"
-          ? $("#gj__estadoCivil_").val()
-          : `'null'`,
+        : "null",
+      estadoCivil: conditionNeg1AndEmpty($("#gj__estadoCivil_").val())
+        ? $("#gj__estadoCivil_").val()
+        : "null",
       nombreContactoEmergencia: $("#gj__nombreContactoEmergencia_").val()
         ? `'${$("#gj__nombreContactoEmergencia_").val()}'`
-        : `'null'`,
+        : "null",
       fonoContactoEmergencia: $("#gj__fonoContactoEmergencia_").val()
         ? `'${$("#gj__fonoContactoEmergencia_").val()}'`
-        : `'null'`,
+        : "null",
       tallaPolera: $("#gj__talla_camisa_").val()
         ? `'${$("#gj__talla_camisa_").val()}'`
-        : `'null'`,
+        : "null",
       tallaGuantes: $("#gj__talla_guantes_").val()
         ? `'${$("#gj__talla_guantes_").val()}'`
-        : `'null'`,
+        : "null",
       tallaPantalon: $("#gj__talla_pantalon_").val()
         ? `'${$("#gj__talla_pantalon_").val()}'`
-        : `'null'`,
+        : "null",
       tallaZapatos: $("#gj__talla_zapatos_").val()
         ? `'${$("#gj__talla_zapatos_").val()}'`
-        : `'null'`,
+        : "null",
       tallaLegionario: $("#gj__talla_casco_").val()
         ? `'${$("#gj__talla_casco_").val()}'`
-        : `'null'`,
-      tallaOverol: `'null'`,
+        : "null",
+      tallaOverol: "null",
       tallaOtros:
         $("#gj__talla_otros_").val() != "" &&
         $("#gj__otraTallaUniforme_").val() != ""
           ? `'${$("#gj__talla_otros_").val()}|${$(
               "#gj__otraTallaUniforme_"
             ).val()}'`
-          : `'null'`,
+          : "null",
       tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa_").is(":checked")
         ? 1
         : 0,
       nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa_").val()
         ? `'${$("#gj__nombreFamiliarEmpresa_").val()}'`
-        : `'null'`,
+        : "null",
       cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa_").val()
         ? `'${$("#gj__cargoFamiliarEmpresa_").val()}'`
-        : `'null'`,
+        : "null",
       parentescoFamiliarEmpresa:
         $("#gj__parentescoFamiliarEmpresa_").val() == "Otro"
           ? `'Otro|${$("#gj__otroParentescoFamiliarEmpresa_").val()}'`
@@ -939,64 +980,56 @@ $("#guardarEditaPersonalOperaciones")
       esRepitente: $("#gj__esRepitente_").is(":checked") ? 1 : 0,
       cargoRepitente: $("#gj__cargoRepitente_").val()
         ? `'${$("#gj__cargoRepitente_").val()}'`
-        : `'null'`,
+        : "null",
       razonRepitente: $("#gj__razonRepitente_").val()
         ? `'${$("#gj__razonRepitente_").val()}'`
-        : `'null'`,
+        : "null",
 
-      afiliacionPrevision:
-        __GJ_AFILIACION_PREVISION_ == "fonasa"
-          ? $("#gj__nombreAfiliacionPrevision_FONASA_").val()
-          : __GJ_AFILIACION_PREVISION_ == "isapre"
-          ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
-          : `'null'`,
-      afiliacionSalud:
-        __GJ_AFILIACION_SALUD_ == "afp"
-          ? $("#gj__nombreAfiliacionSalud_AFP_").val()
-          : __GJ_AFILIACION_SALUD_ == "inp"
-          ? $("#gj__nombreAfiliacionSalud_INP_").val()
-          : `'null'`,
+      afiliacionPrevision: afiliacionPrevision,
+      afiliacionSalud: afiliacionSalud,
 
-      banco: $("#gj__banco_").val() ? $("#gj__banco_").val() : `'null'`,
+      banco: conditionNeg1AndEmpty($("#gj__banco_").val())
+        ? $("#gj__banco_").val()
+        : "null",
       tipoCuenta: $("#gj__tipoCuenta_").val()
         ? `'${$("#gj__tipoCuenta_").val()}'`
-        : `'null'`,
+        : "null",
       nroCuenta: $("#gj__nroCuenta_").val()
         ? `'${$("#gj__nroCuenta_").val()}'`
-        : `'null'`,
+        : "null",
       lstCertificados: certificados.length
         ? `'${certificados.join("|")}'`
-        : `'null'`,
+        : "null",
       lstCertificadosOtros: certificadosOtros.length
         ? `'${certificadosOtros.join("|")}'`
-        : `'null'`,
+        : "null",
       tieneClaveUnica: $("#gj__tieneClaveUnica_").is(":checked")
         ? `'1'`
         : `'0'`,
       fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea_").val()
         ? `'${$("#gj__fechaIngresoEmprea_").val()}'`
-        : `'null'`,
-      tipoContrato: $("#gj__tipoContrato_").val()
+        : "null",
+      tipoContrato: conditionNeg1AndEmpty($("#gj__tipoContrato_").val())
         ? $("#gj__tipoContrato_").val()
-        : `'null'`,
+        : "null",
       duracionContrato: $("#gj__duracionInicialContrato_").val()
         ? `'${$("#gj__duracionInicialContrato_").val()}'`
-        : `'null'`,
+        : "null",
       cargoGenerico: $("#gj__cargoGenerico_").val()
         ? `'${$("#gj__cargoGenerico_").val()}'`
-        : `'null'`,
-      ref1: $("#gj__ref1_").val() ? `'${$("#gj__ref1_").val()}'` : `'null'`,
-      ref2: $("#gj__ref2_").val() ? `'${$("#gj__ref2_").val()}'` : `'null'`,
-      plaza: $("#gj__plaza_").val() ? `'${$("#gj__plaza_").val()}'` : `'null'`,
+        : "null",
+      ref1: $("#gj__ref1_").val() ? `'${$("#gj__ref1_").val()}'` : "null",
+      ref2: $("#gj__ref2_").val() ? `'${$("#gj__ref2_").val()}'` : "null",
+      plaza: $("#gj__plaza_").val() ? `'${$("#gj__plaza_").val()}'` : "null",
     };
     /* End - New Params Personal */
 
     $("#modalEditaPersonalOperaciones").modal("hide");
     loading(true);
-    update({ ...parametros, ...news });
+    updatePersonalPlanilla({ ...parametros, ...news });
   });
 
-function update(data) {
+function updatePersonalPlanilla(data) {
   $.ajax({
     url: "controller/personal/editarPersonalGestOperEvol.php",
     type: "POST",
@@ -1004,15 +1037,15 @@ function update(data) {
     dataType: "json",
     success: function (response) {
       if (response["error"] != null) {
-        error();
+        error_();
       } else {
-        success();
+        success_();
       }
     },
   });
 }
 
-function success() {
+function success_() {
   var table = $("#tablaJefatura").DataTable();
   table.ajax.reload();
   alertasToast(
@@ -1023,7 +1056,7 @@ function success() {
   }, 1000);
 }
 
-function error() {
+function error_() {
   alertasToast(
     "<img src='view/img/error.gif' class='splash_load'><br/>Error al editar personal, si el problema persiste favor comuniquese con soporte"
   );

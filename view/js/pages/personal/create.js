@@ -508,6 +508,10 @@ function validarFormularioPersonalPlanilla() {
     alertRequired("gj__email", "Email");
     return;
   }
+  if (!$("#gj__empresa").val() || `${$("#gj__empresa").val()}` == "-1") {
+    alertRequired("gj__empresa", "Empresa");
+    return;
+  }
   // End - Validar datos requeridos
 
   var isValidRut = $("#gj__rut").val()
@@ -518,19 +522,19 @@ function validarFormularioPersonalPlanilla() {
     : false;
   var isValidNombres = $("#gj__nombres").val()
     ? validarNombresApellidos($("#gj__nombres").val())
-    : false;
+    : true;
   var isValidApellidos = $("#gj__apellidos").val()
     ? validarNombresApellidos($("#gj__apellidos").val())
-    : false;
+    : true;
   var isValidTelefono = $("#gj__fono").val()
     ? validarTelefono($("#gj__fono").val())
-    : false;
+    : true;
   var isValidNombreContacto = $("#gj__nombreContactoEmergencia").val()
     ? validarNombresApellidos($("#gj__nombreContactoEmergencia").val())
-    : false;
+    : true;
   var isValidTelefonoContacto = $("#gj__fonoContactoEmergencia").val()
     ? validarTelefono($("#gj__fonoContactoEmergencia").val())
-    : false;
+    : true;
 
   var isValid =
     isValidRut &&
@@ -559,21 +563,58 @@ $("#guardarIngresarPersonalOperaciones")
       return;
     }
 
+    var afiliacionPrevision =
+      __GJ_AFILIACION_PREVISION == "fonasa"
+        ? $("#gj__nombreAfiliacionPrevision_FONASA").val()
+        : __GJ_AFILIACION_PREVISION == "isapre"
+        ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
+        : null;
+    if (!afiliacionPrevision || `${afiliacionPrevision}` == "-1") {
+      alertRequiredMany(
+        [
+          "gj__nombreAfiliacionPrevision_FONASA",
+          "gj__nombreAfiliacionPrevision_ISAPRE",
+        ],
+        "Afiliación a Previsión"
+      );
+      return;
+    } else {
+      $("#gj__nombreAfiliacionPrevision_FONASA").removeClass("is-invalid");
+      $("#gj__nombreAfiliacionPrevision_ISAPRE").removeClass("is-invalid");
+    }
+
+    var afiliacionSalud =
+      __GJ_AFILIACION_SALUD == "afp"
+        ? $("#gj__nombreAfiliacionSalud_AFP").val()
+        : __GJ_AFILIACION_SALUD == "inp"
+        ? $("#gj__nombreAfiliacionSalud_INP").val()
+        : null;
+    if (!afiliacionSalud || `${afiliacionSalud}` == "-1") {
+      alertRequiredMany(
+        ["gj__nombreAfiliacionSalud_AFP", "gj__nombreAfiliacionSalud_INP"],
+        "Afiliación a Salud"
+      );
+      return;
+    } else {
+      $("#gj__nombreAfiliacionSalud_AFP").removeClass("is-invalid");
+      $("#gj__nombreAfiliacionSalud_INP").removeClass("is-invalid");
+    }
+
     var parametros = {
-      rut: $("#gj__rut").val() ? `'${$("#gj__rut").val()}'` : `'null'`,
+      rut: $("#gj__rut").val() ? `'${$("#gj__rut").val()}'` : "null",
       apellidos: $("#gj__apellidos").val()
         ? `'${$("#gj__apellidos").val()}'`
-        : `'null'`,
+        : "null",
       nombres: $("#gj__nombres").val()
         ? `'${$("#gj__nombres").val()}'`
-        : `'null'`,
-      funcion: $("#gj__cargo").val() ? `'${$("#gj__cargo").val()}'` : `'null'`,
-      fono: $("#gj__fono").val() ? `'${$("#gj__fono").val()}'` : `'null'`,
-      mail: $("#gj__email").val() ? `'${$("#gj__email").val()}'` : `'null'`,
+        : "null",
+      funcion: $("#gj__cargo").val() ? `'${$("#gj__cargo").val()}'` : "null",
+      fono: $("#gj__fono").val() ? `'${$("#gj__fono").val()}'` : "null",
+      mail: $("#gj__email").val() ? `'${$("#gj__email").val()}'` : "null",
       sucursal: $("#gj__sucursal").val(),
       idsubcontrato: $("#gj__empresa").val()
         ? `'${$("#gj__empresa").val()}'`
-        : `'null'`,
+        : "null",
       idCeco: $("#gj__centroCosto").val()
         ? `'${$("#gj__centroCosto").val()}'`
         : -1,
@@ -595,83 +636,77 @@ $("#guardarIngresarPersonalOperaciones")
       esProvisorio: $("#gj__provisorio").is(":checked") ? 1 : 0,
       domicilio: $("#gj__domicilio").val()
         ? `'${$("#gj__domicilio").val()}'`
-        : `'null'`,
-      comuna:
-        $("#gj__comuna").val().toString() != "-1"
-          ? $("#gj__comuna").val()
-          : `'null'`,
-      ciudad: $("#gj__ciudad").val() ? `'${$("#gj__ciudad").val()}'` : `'null'`,
+        : "null",
+      comuna: conditionNeg1AndEmpty($("#gj__comuna").val())
+        ? $("#gj__comuna").val()
+        : "null",
+      ciudad: $("#gj__ciudad").val() ? `'${$("#gj__ciudad").val()}'` : "null",
       fechaNacimiento: $("#gj__fechaNacimiento").val()
         ? `'${$("#gj__fechaNacimiento").val()}'`
-        : `'null'`,
-      nacionalidad:
-        $("#gj__nacionalidad").val().toString() != "-1"
-          ? `'${$("#gj__nacionalidad").val()}'`
-          : `'null'`,
-      sexo:
-        $("#gj__sexo").val().toString() != "-1"
-          ? `'${$("#gj__sexo").val()}'`
-          : `'null'`,
+        : "null",
+      nacionalidad: conditionNeg1AndEmpty($("#gj__nacionalidad").val())
+        ? `'${$("#gj__nacionalidad").val()}'`
+        : "null",
+      sexo: conditionNeg1AndEmpty($("#gj__sexo").val())
+        ? `'${$("#gj__sexo").val()}'`
+        : "null",
       puebloOriginario: $("#gj__esPuebloOriginario").is(":checked")
         ? `'${$("#gj__puebloOriginario").val()}'`
-        : `'null'`,
+        : "null",
       esHispanoHablante: $("#gj__esHispanoHablante").is(":checked") ? 1 : 0,
-      nivelEstudios:
-        $("#gj__nivelEstudios").val().toString() != "-1"
-          ? $("#gj__nivelEstudios").val()
-          : `'null'`,
+      nivelEstudios: conditionNeg1AndEmpty($("#gj__nivelEstudios").val())
+        ? $("#gj__nivelEstudios").val()
+        : "null",
       sabeLeer: $("#gj__sabeLeer").is(":checked") ? 1 : 0,
       sabeEscribir: $("#gj__sabeEscribir").is(":checked") ? 1 : 0,
       tieneLicencia: $("#gj__tieneLicencia").is(":checked") ? 1 : 0,
-      claseLicencia:
-        $("#gj__claseLicencia").val().toString() != "-1"
-          ? $("#gj__claseLicencia").val()
-          : `'null'`,
+      claseLicencia: conditionNeg1AndEmpty($("#gj__claseLicencia").val())
+        ? $("#gj__claseLicencia").val()
+        : "null",
       fechaVencimientoLicencia: $("#gj__fechaVencimientoLicencia").val()
         ? `'${$("#gj__fechaVencimientoLicencia").val()}'`
-        : `'null'`,
-      estadoCivil:
-        $("#gj__estadoCivil").val().toString() != "-1"
-          ? $("#gj__estadoCivil").val()
-          : `'null'`,
+        : "null",
+      estadoCivil: conditionNeg1AndEmpty($("#gj__estadoCivil").val())
+        ? $("#gj__estadoCivil").val()
+        : "null",
       nombreContactoEmergencia: $("#gj__nombreContactoEmergencia").val()
         ? `'${$("#gj__nombreContactoEmergencia").val()}'`
-        : `'null'`,
+        : "null",
       fonoContactoEmergencia: $("#gj__fonoContactoEmergencia").val()
         ? `'${$("#gj__fonoContactoEmergencia").val()}'`
-        : `'null'`,
+        : "null",
       tallaPolera: $("#gj__talla_camisa").val()
         ? `'${$("#gj__talla_camisa").val()}'`
-        : `'null'`,
+        : "null",
       tallaGuantes: $("#gj__talla_guantes").val()
         ? `'${$("#gj__talla_guantes").val()}'`
-        : `'null'`,
+        : "null",
       tallaPantalon: $("#gj__talla_pantalon").val()
         ? `'${$("#gj__talla_pantalon").val()}'`
-        : `'null'`,
+        : "null",
       tallaZapatos: $("#gj__talla_zapatos").val()
         ? `'${$("#gj__talla_zapatos").val()}'`
-        : `'null'`,
+        : "null",
       tallaLegionario: $("#gj__talla_casco").val()
         ? `'${$("#gj__talla_casco").val()}'`
-        : `'null'`,
-      tallaOverol: `'null'`,
+        : "null",
+      tallaOverol: "null",
       tallaOtros:
         $("#gj__talla_otros").val() != "" &&
         $("#gj__otraTallaUniforme").val() != ""
           ? `'${$("#gj__talla_otros").val()}|${$(
               "#gj__otraTallaUniforme"
             ).val()}'`
-          : `'null'`,
+          : "null",
       tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa").is(":checked")
         ? 1
         : 0,
       nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa").val()
         ? `'${$("#gj__nombreFamiliarEmpresa").val()}'`
-        : `'null'`,
+        : "null",
       cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa").val()
         ? `'${$("#gj__cargoFamiliarEmpresa").val()}'`
-        : `'null'`,
+        : "null",
       parentescoFamiliarEmpresa:
         $("#gj__parentescoFamiliarEmpresa").val() == "Otro"
           ? `'Otro|${$("#gj__otroParentescoFamiliarEmpresa").val()}'`
@@ -679,53 +714,45 @@ $("#guardarIngresarPersonalOperaciones")
       esRepitente: $("#gj__esRepitente").is(":checked") ? 1 : 0,
       cargoRepitente: $("#gj__cargoRepitente").val()
         ? `'${$("#gj__cargoRepitente").val()}'`
-        : `'null'`,
+        : "null",
       razonRepitente: $("#gj__razonRepitente").val()
         ? `'${$("#gj__razonRepitente").val()}'`
-        : `'null'`,
+        : "null",
 
-      afiliacionPrevision:
-        __GJ_AFILIACION_PREVISION == "fonasa"
-          ? $("#gj__nombreAfiliacionPrevision_FONASA").val()
-          : __GJ_AFILIACION_PREVISION == "isapre"
-          ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
-          : `'null'`,
-      afiliacionSalud:
-        __GJ_AFILIACION_SALUD == "afp"
-          ? $("#gj__nombreAfiliacionSalud_AFP").val()
-          : __GJ_AFILIACION_SALUD == "inp"
-          ? $("#gj__nombreAfiliacionSalud_INP").val()
-          : `'null'`,
+      afiliacionPrevision: afiliacionPrevision,
+      afiliacionSalud: afiliacionSalud,
 
-      banco: $("#gj__banco").val() ? $("#gj__banco").val() : `'null'`,
+      banco: conditionNeg1AndEmpty($("#gj__banco").val())
+        ? $("#gj__banco").val()
+        : "null",
       tipoCuenta: $("#gj__tipoCuenta").val()
         ? `'${$("#gj__tipoCuenta").val()}'`
-        : `'null'`,
+        : "null",
       nroCuenta: $("#gj__nroCuenta").val()
         ? `'${$("#gj__nroCuenta").val()}'`
-        : `'null'`,
+        : "null",
       lstCertificados: certificados.length
         ? `'${certificados.join("|")}'`
-        : `'null'`,
+        : "null",
       lstCertificadosOtros: certificadosOtros.length
         ? `'${certificadosOtros.join("|")}'`
-        : `'null'`,
+        : "null",
       tieneClaveUnica: $("#gj__tieneClaveUnica").is(":checked") ? `'1'` : `'0'`,
       fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea").val()
         ? `'${$("#gj__fechaIngresoEmprea").val()}'`
-        : `'null'`,
-      tipoContrato: $("#gj__tipoContrato").val()
+        : "null",
+      tipoContrato: conditionNeg1AndEmpty($("#gj__tipoContrato").val())
         ? $("#gj__tipoContrato").val()
-        : `'null'`,
+        : "null",
       duracionContrato: $("#gj__duracionInicialContrato").val()
         ? `'${$("#gj__duracionInicialContrato").val()}'`
-        : `'null'`,
+        : "null",
       cargoGenerico: $("#gj__cargoGenerico").val()
         ? `'${$("#gj__cargoGenerico").val()}'`
-        : `'null'`,
-      ref1: $("#gj__ref1").val() ? `'${$("#gj__ref1").val()}'` : `'null'`,
-      ref2: $("#gj__ref2").val() ? `'${$("#gj__ref2").val()}'` : `'null'`,
-      plaza: $("#gj__plaza").val() ? `'${$("#gj__plaza").val()}'` : `'null'`,
+        : "null",
+      ref1: $("#gj__ref1").val() ? `'${$("#gj__ref1").val()}'` : "null",
+      ref2: $("#gj__ref2").val() ? `'${$("#gj__ref2").val()}'` : "null",
+      plaza: $("#gj__plaza").val() ? `'${$("#gj__plaza").val()}'` : "null",
     };
     /* End - New Params Personal */
 
@@ -748,13 +775,13 @@ $("#guardarIngresarPersonalOperaciones")
             }, 1000);
           }
         } else {
-          create({ ...parametros, ...news });
+          createPersonalPlanilla({ ...parametros, ...news });
         }
       },
     });
   });
 
-function create(data) {
+function createPersonalPlanilla(data) {
   $.ajax({
     url: "controller/personal/ingresaPersonalGestOperEvol.php",
     type: "POST",

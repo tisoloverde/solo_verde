@@ -34,3 +34,20 @@ function alertRequired(id, name) {
   $(jId).focus();
   $(jId).select();
 }
+
+function alertRequiredMany(ids, name) {
+  var jIds = ids.map((id) => `#${id}`);
+  alertasToast(
+    `<img src='view/img/info.png' class='splash_load'><br/>El campo ${name} es requerido`
+  );
+  jIds.forEach((jId) => {
+    $(jId).val("");
+    $(jId).addClass("is-invalid");
+    $(jId).focus();
+    $(jId).select();
+  });
+}
+
+function conditionNeg1AndEmpty(val) {
+  return val != null && `${val}` != "-1" && val != "";
+}
