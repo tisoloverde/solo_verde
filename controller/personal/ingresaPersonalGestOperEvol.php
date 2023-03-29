@@ -101,12 +101,13 @@
     );
 
     if ($row1 != "Error" && $row2 != "Error") {
-      $row = ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco);
+      $row3 = ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco);
       // ingresaPersonalGestOperacionPatente($idpatente,$servicio,$cliente,$actividad); NO SE USA PATENTE
       echo json_encode([
         "request" => $_POST,
         "row1" => $row1,
         "row2" => $row2,
+        "row3" => $row3,
       ]);
     } else {
       echo json_encode([

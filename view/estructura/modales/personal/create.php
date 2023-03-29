@@ -474,7 +474,10 @@
             </div>
 
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Sucursal</label>
+              <label style="font-weight: bold;">
+                Sucursal
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__sucursal" class="form-control">
               </select>
             </div>
@@ -489,7 +492,10 @@
             </div>
 
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Centro de Costo</label>
+              <label style="font-weight: bold;">
+                Centro de Costo
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__centroCosto" class="form-control">
               </select>
             </div>

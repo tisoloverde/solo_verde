@@ -775,8 +775,19 @@ function validarFormularioPersonalPlanilla_() {
     alertRequired("gj__email_", "Email");
     return;
   }
+  if (!$("#gj__sucursal_").val() || `${$("#gj__sucursal_").val()}` == "-1") {
+    alertRequired("gj__sucursal_", "Sucursal");
+    return;
+  }
   if (!$("#gj__empresa_").val() || `${$("#gj__empresa_").val()}` == "-1") {
     alertRequired("gj__empresa_", "Empresa");
+    return;
+  }
+  if (
+    !$("#gj__centroCosto_").val() ||
+    `${$("#gj__centroCosto_").val()}` == "-1"
+  ) {
+    alertRequired("gj__centroCosto_", "Centro de Costo");
     return;
   }
   // End - Validar datos requeridos

@@ -6934,7 +6934,7 @@ function ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco){
 		} else {
 			// return $con->error;
 			$con->query("ROLLBACK");
-			return "Error";
+			return $sql;
 		}
 	} else {
 		$con->query("ROLLBACK");

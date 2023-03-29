@@ -508,8 +508,19 @@ function validarFormularioPersonalPlanilla() {
     alertRequired("gj__email", "Email");
     return;
   }
+  if (!$("#gj__sucursal").val() || `${$("#gj__sucursal").val()}` == "-1") {
+    alertRequired("gj__sucursal", "Sucursal");
+    return;
+  }
   if (!$("#gj__empresa").val() || `${$("#gj__empresa").val()}` == "-1") {
     alertRequired("gj__empresa", "Empresa");
+    return;
+  }
+  if (
+    !$("#gj__centroCosto").val() ||
+    `${$("#gj__centroCosto").val()}` == "-1"
+  ) {
+    alertRequired("gj__centroCosto", "Centro de Costo");
     return;
   }
   // End - Validar datos requeridos
