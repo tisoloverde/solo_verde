@@ -9254,10 +9254,15 @@ async function listComunesPlanilla() {
 }
 
 async function listCentrosDeCostos() {
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
   $.ajax({
-    url: 'controller/datosCentrosDeCostos.php',
-    type: 'get',
+    url: 'controller/datosCentrosDeCostosPerfil.php',
+    type: 'post',
     dataType: 'json',
+    data: parametros,
     success: function (response) {
       var data = response.aaData;
       var html = "<option value='0'>Seleccione</option>";
