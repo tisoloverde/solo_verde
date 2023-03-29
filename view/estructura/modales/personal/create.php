@@ -14,7 +14,10 @@
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">RUT</label>
+              <label disabled style="font-weight: bold;">
+                RUT
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__rut" class="form-control" type="text" value="">
             </div>
 
@@ -27,7 +30,10 @@
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Email</label>
+              <label disabled style="font-weight: bold;">
+                Email
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__email" class="form-control" type="text" value="">
             </div>
 
@@ -429,7 +435,7 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Duración Inicial Contrato</label>
-              <input id="gj__duracionInicialContrato" type="text" class="form-control" />
+              <input id="gj__duracionInicialContrato" type="text" class="form-control onlyNumbers" />
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
@@ -482,7 +488,7 @@
         <!-- End - New -->
 			</div>
 			<div class="modal-footer" style="text-align: left;">
-				<button id="guardarIngresarPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" disabled>Guardar</button>
+				<button id="guardarIngresarPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
 				<button id="cerrarIngresarPersonalOperaciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>

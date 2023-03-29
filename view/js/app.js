@@ -1995,6 +1995,10 @@ app.controller("jefaturaController", function(){
               js = document.createElement('script');
               js.src = 'view/js/helpers/validations.js?idload=31';
               document.getElementsByTagName('head')[0].appendChild(js);
+
+              js = document.createElement('script');
+              js.src = 'view/js/helpers/functions.js?idload=31';
+              document.getElementsByTagName('head')[0].appendChild(js);
               /* End - New Struct */
 
               js = document.createElement('script');

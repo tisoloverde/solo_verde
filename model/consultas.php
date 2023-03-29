@@ -367,7 +367,7 @@ ORDER BY ORDEN ASC";
 				P.DURACION_INICIAL_CONTRATO as duracionContrato,
 				CL.CARGO as cargo,
 				CGU.CODIGO as cargoGenerico,
-				F.NOMBRE as jeas,
+				CS.NOMBRE as jeas,
 				P.REFERENCIA1 as ref1,
 				P.REFERENCIA2 as ref2,
 				P.PLAZA_SECTOR as plaza,
@@ -379,6 +379,7 @@ ORDER BY ORDEN ASC";
 			LEFT JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
 			LEFT JOIN CARGO_LIQUIDACION CL ON CL.CARGO = P.CARGO
 			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
+			LEFT JOIN CLASIFICACION CS ON CS.IDCLASIFICACION = CGU.IDCLASIFICACION
 			LEFT JOIN CARGO_GENERICO_UNIFICADO_FAMILIA CGUF ON CGUF.IDCARGO_GENERICO_UNIFICADO = CGU.IDCARGO_GENERICO_UNIFICADO
 			LEFT JOIN FAMILIA F ON F.IDFAMILIA = CGUF.IDFAMILIA
 			LEFT JOIN SALUD SA ON SA.IDSALUD = P.IDSALUD
@@ -6860,12 +6861,12 @@ function ingresaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,
 			IDSUBCONTRATISTAS,
 			IDESTADO_SOLICITUD
 		) VALUES (
-			'{$dni}',
-			'{$apellidos}',
-			'{$nombres}',
-			'{$cargo}',
-			'{$fono}',
-			'{$mail}',
+			$dni,
+			$apellidos,
+			$nombres,
+			$cargo,
+			$fono,
+			$mail,
 			$idsubcontrato,
 			'3'
 		)";
@@ -6921,11 +6922,11 @@ function ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco){
 			IDSUCURSAL,
 			IDESTRUCTURA_OPERACION
 		) VALUES (
-			(SELECT IDPERSONAL FROM PERSONAL WHERE DNI = '{$dni}'),
-			CASE WHEN '{$sucursal}' = -1
+			(SELECT IDPERSONAL FROM PERSONAL WHERE DNI = $dni),
+			CASE WHEN $sucursal = -1
 			THEN NULL
-			ELSE '{$sucursal}' END,
-			'{$idCeco}'
+			ELSE $sucursal END,
+			$idCeco
 		)";
 		if ($con->query($sql)) {
 			$con->query("COMMIT");
@@ -7015,14 +7016,13 @@ function completaPersonalGestOperacion(
 			IDTIPO_CONTRATO = $tipoContrato,
 			DURACION_INICIAL_CONTRATO = $duracionContrato,
 			CARGO_GENERICO_CODIGO = $cargoGenerico,
-			CLASIFICACION = $jeas,
 			REFERENCIA1 = $ref1,
 			REFERENCIA2 = $ref2,
 			PLAZA_SECTOR = $plaza
-		WHERE DNI = '$dni';";
+		WHERE DNI = $dni;";
     if ($con->query($sql)) {
 			$con->query("COMMIT");
-			return "Ok";
+			return $sql;
 		} else {
 			// return $con->error;
 			$con->query("ROLLBACK");
@@ -7128,13 +7128,13 @@ function editaPersonalGestOperacionEvol($dni,$apellidos,$nombres,$cargo,$fono,$m
 	$con->query("START TRANSACTION");
 	if($con != 'No conectado'){
 		$sql = "UPDATE PERSONAL SET
-			APELLIDOS = '{$apellidos}',
-			NOMBRES  = '{$nombres}',
-			CARGO = '{$cargo}',
-			TELEFONO = '{$fono}',
-			EMAIL = '{$mail}',
+			APELLIDOS = $apellidos,
+			NOMBRES  = $nombres,
+			CARGO = $cargo,
+			TELEFONO = $fono,
+			EMAIL = $mail,
 			IDSUBCONTRATISTAS = $idsubcontrato
-		WHERE DNI = '{$dni}'";
+		WHERE DNI = $dni";
 		if ($con->query($sql)) {
 			$con->query("COMMIT");
 			return "Ok";
@@ -7192,13 +7192,13 @@ function editaPersonalGestOperacionACTEvol($dni,$sucursal,$idCeco) {
 	if($con != 'No conectado'){
 		$sql = "UPDATE ACT SET
 			IDSUCURSAL =
-						CASE WHEN '{$sucursal}' = -1 THEN NULL
-						ELSE '{$sucursal}' END,
+						CASE WHEN $sucursal = -1 THEN NULL
+						ELSE $sucursal END,
 			IDESTRUCTURA_OPERACION =
-						CASE WHEN '{$idCeco}' = -1 THEN NULL
-						ELSE '{$idCeco}' END
+						CASE WHEN $idCeco = -1 THEN NULL
+						ELSE $idCeco END
 			WHERE IDPERSONAL = (
-				SELECT IDPERSONAL FROM PERSONAL WHERE DNI = '{$dni}'
+				SELECT IDPERSONAL FROM PERSONAL WHERE DNI = $dni
 			)";
 		if ($con->query($sql)) {
 			$con->query("COMMIT");
@@ -20709,6 +20709,42 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 		} else{
 			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function consultaRutYaExistente($rut) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT DNI FROM PERSONAL WHERE DNI = '$rut'";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function consultaEmailYaExistente($email) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT EMAIL FROM PERSONAL WHERE EMAIL = '$email'";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
 			return "Error";
 		}
 	}

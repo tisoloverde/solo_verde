@@ -1,5 +1,5 @@
 <?php
-  require("../model/consultas.php");
+  require("../../model/consultas.php");
   session_start();
 
   $rut = $_POST["rut"];

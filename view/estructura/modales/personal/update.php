@@ -18,7 +18,7 @@
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
               <label disabled style="font-weight: bold;">RUT</label>
-              <input id="gj__rut_" class="form-control" type="text" value="">
+              <input id="gj__rut_" class="form-control" type="text" value="" disabled>
             </div>
 
             <div class="col-xl-2 col-md-2" style="display: grid; margin-top: 10pt;">
@@ -431,7 +431,7 @@
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
               <label style="font-weight: bold;">Duración Inicial Contrato</label>
-              <input id="gj__duracionInicialContrato_" type="text" class="form-control" />
+              <input id="gj__duracionInicialContrato_" type="text" class="form-control onlyNumbers" />
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
