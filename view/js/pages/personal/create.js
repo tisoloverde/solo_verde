@@ -617,14 +617,17 @@ $("#gj__banco").on("change", function (e) {
   var banco = $("#gj__banco option:selected").text();
   if (["Vale vista", "Contado"].includes(banco)) {
     $("#gj__tipoCuenta").val("NoAplica");
-    if (validarNavegador(navigator)) {
-      $("#gj__tipoCuenta").select2(__CONFIG.select2);
-    }
+    $("#gj__nroCuenta").val("");
     $("#gj__tipoCuenta").attr("disabled", "disabled");
     $("#gj__nroCuenta").attr("disabled", "disabled");
-    $("#gj__nroCuenta").val("");
   } else {
+    $("#gj__tipoCuenta").val("-1");
+    $("#gj__tipoCuenta").removeAttr("disabled");
     $("#gj__nroCuenta").removeAttr("disabled");
+  }
+
+  if (validarNavegador(navigator)) {
+    $("#gj__tipoCuenta").select2(__CONFIG.select2);
   }
 });
 

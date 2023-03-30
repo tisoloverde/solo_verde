@@ -706,14 +706,17 @@ $("#gj__banco_").on("change", function (e) {
   var banco = $("#gj__banco_ option:selected").text();
   if (["Vale vista", "Contado"].includes(banco)) {
     $("#gj__tipoCuenta_").val("NoAplica");
-    if (validarNavegador(navigator)) {
-      $("#gj__tipoCuenta_").select2(__CONFIG.select2);
-    }
+    $("#gj__nroCuenta_").val("");
     $("#gj__tipoCuenta_").attr("disabled", "disabled");
     $("#gj__nroCuenta_").attr("disabled", "disabled");
-    $("#gj__nroCuenta_").val("");
   } else {
+    $("#gj__tipoCuenta_").val("-1");
+    $("#gj__tipoCuenta_").removeAttr("disabled");
     $("#gj__nroCuenta_").removeAttr("disabled");
+  }
+
+  if (validarNavegador(navigator)) {
+    $("#gj__tipoCuenta_").select2(__CONFIG.select2);
   }
 });
 
