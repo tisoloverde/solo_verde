@@ -707,7 +707,7 @@ $("#gj__banco_").on("change", function (e) {
   if (["Vale vista", "Contado"].includes(banco)) {
     $("#gj__tipoCuenta_").val("NoAplica");
     if (validarNavegador(navigator)) {
-      $("#gj__tipoCuenta_").select2(_THEME_SELECT2);
+      $("#gj__tipoCuenta_").select2(__CONFIG.select2);
     }
     $("#gj__tipoCuenta_").attr("disabled", "disabled");
     $("#gj__nroCuenta_").attr("disabled", "disabled");
