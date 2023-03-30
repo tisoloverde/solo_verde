@@ -112,7 +112,7 @@ function initPersonal_enabled() {
   $("#gj__nacionalidad_").removeAttr("disabled"); // select
   $("#gj__sexo_").removeAttr("disabled"); // select
   $("#gj__esPuebloOriginario_").removeAttr("disabled"); // checkbox
-  if ($("#gj__esPuebloOriginario").is(":checked")) {
+  if ($("#gj__esPuebloOriginario_").is(":checked")) {
     $("#gj__puebloOriginario_").removeAttr("disabled"); // input
   }
   $("#gj__esHispanoHablante_").removeAttr("disabled"); // checkbox
@@ -120,8 +120,12 @@ function initPersonal_enabled() {
   $("#gj__sabeLeer_").removeAttr("disabled"); // checkbox
   $("#gj__sabeEscribir_").removeAttr("disabled"); // checkbox
   $("#gj__tieneLicencia_").removeAttr("disabled"); // checkbox
-  $("#gj__claseLicencia_").removeAttr("disabled"); // select
-  $("#gj__fechaVencimientoLicencia_").removeAttr("disabled"); // input
+  if ($("#gj__tieneLicencia_").is(":checked")) {
+    $("#gj__claseLicencia_").removeAttr("disabled"); // select
+    if (conditionNeg1AndEmpty($("#gj__claseLicencia_").val())) {
+      $("#gj__fechaVencimientoLicencia_").removeAttr("disabled"); // input
+    }
+  }
   $("#gj__estadoCivil_").removeAttr("disabled"); // select
   $("#gj__nombreContactoEmergencia_").removeAttr("disabled"); // input
   $("#gj__fonoContactoEmergencia_").removeAttr("disabled"); // input
@@ -134,14 +138,16 @@ function initPersonal_enabled() {
   $("#gj__talla_otros_").removeAttr("disabled"); // input
   $("#gj__otraTallaUniforme_").removeAttr("disabled"); // input
   $("#gj__tieneFamiliarEmpresa_").removeAttr("disabled"); // checkbox
-  if ($("#gj__tieneFamiliarEmpresa").is(":checked")) {
+  if ($("#gj__tieneFamiliarEmpresa_").is(":checked")) {
     $("#gj__nombreFamiliarEmpresa_").removeAttr("disabled"); // input
     $("#gj__cargoFamiliarEmpresa_").removeAttr("disabled"); // input
     $("#gj__parentescoFamiliarEmpresa_").removeAttr("disabled"); // select
-    $("#gj__otroParentescoFamiliarEmpresa_").removeAttr("disabled"); // input
+    if ($("#gj__parentescoFamiliarEmpresa_").val() == "Otro") {
+      $("#gj__otroParentescoFamiliarEmpresa_").removeAttr("disabled"); // input
+    }
   }
   $("#gj__esRepitente_").removeAttr("disabled"); // checkbox
-  if ($("#gj__esRepitente").is(":checked")) {
+  if ($("#gj__esRepitente_").is(":checked")) {
     $("#gj__cargoRepitente_").removeAttr("disabled"); // input
     $("#gj__razonRepitente_").removeAttr("disabled"); // input
   }

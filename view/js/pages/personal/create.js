@@ -98,10 +98,213 @@ function initPersonal() {
   });
 }
 
+function initPersonal_dis() {
+  // $("#gj__rut").attr("disabled", true); // input
+  $("#gj__provisorio").attr("disabled", true); // checkbox
+  $("#gj__email").attr("disabled", true); // input
+  $("#gj__nombres").attr("disabled", true); // input
+  $("#gj__apellidos").attr("disabled", true); // input
+  $("#gj__domicilio").attr("disabled", true); // input
+  $("#gj__comuna").attr("disabled", true); // select
+  $("#gj__ciudad").attr("disabled", true); // input
+  $("#gj__fono").attr("disabled", true); // input
+  $("#gj__fechaNacimiento").attr("disabled", true); // input
+  $("#gj__nacionalidad").attr("disabled", true); // select
+  $("#gj__sexo").attr("disabled", true); // select
+  $("#gj__esPuebloOriginario").attr("disabled", true); // checkbox
+  $("#gj__puebloOriginario").attr("disabled", true); // input
+  $("#gj__esHispanoHablante").attr("disabled", true); // checkbox
+  $("#gj__nivelEstudios").attr("disabled", true); // select
+  $("#gj__sabeLeer").attr("disabled", true); // checkbox
+  $("#gj__sabeEscribir").attr("disabled", true); // checkbox
+  $("#gj__tieneLicencia").attr("disabled", true); // checkbox
+  $("#gj__claseLicencia").attr("disabled", true); // select
+  $("#gj__fechaVencimientoLicencia").attr("disabled", true); // input
+  $("#gj__estadoCivil").attr("disabled", true); // select
+  $("#gj__nombreContactoEmergencia").attr("disabled", true); // input
+  $("#gj__fonoContactoEmergencia").attr("disabled", true); // input
+  $("#gj__talla_camisa").attr("disabled", true); // input
+  $("#gj__talla_guantes").attr("disabled", true); // input
+  $("#gj__talla_pantalon").attr("disabled", true); // input
+  $("#gj__talla_zapatos").attr("disabled", true); // input
+  $("#gj__talla_casco").attr("disabled", true); // input
+  // tallaOverol: null,
+  $("#gj__talla_otros").attr("disabled", true); // input
+  $("#gj__otraTallaUniforme").attr("disabled", true); // input
+  $("#gj__tieneFamiliarEmpresa").attr("disabled", true); // checkbox
+  $("#gj__nombreFamiliarEmpresa").attr("disabled", true); // input
+  $("#gj__cargoFamiliarEmpresa").attr("disabled", true); // input
+  $("#gj__parentescoFamiliarEmpresa").attr("disabled", true); // select
+  $("#gj__otroParentescoFamiliarEmpresa").attr("disabled", true); // input
+  $("#gj__esRepitente").attr("disabled", true); // checkbox
+  $("#gj__cargoRepitente").attr("disabled", true); // input
+  $("#gj__razonRepitente").attr("disabled", true); // input
+  $("#gj__afiliacion_prevision_fonasa").attr("disabled", true); // radio
+  $("#gj__afiliacion_prevision_isapre").attr("disabled", true); // radio
+  $("#gj__nombreAfiliacionPrevision_FONASA").attr("disabled", true); // select
+  $("#gj__nombreAfiliacionPrevision_ISAPRE").attr("disabled", true); // select
+  $("#gj__afiliacion_salud_afp").attr("disabled", true); // radio
+  $("#gj__afiliacion_salud_inp").attr("disabled", true); // radio
+  $("#gj__nombreAfiliacionSalud_AFP").attr("disabled", true); // select
+  $("#gj__nombreAfiliacionSalud_INP").attr("disabled", true); // select
+  $("#gj__banco").attr("disabled", true); // select
+  $("#gj__tipoCuenta").attr("disabled", true); // select
+  $("#gj__nroCuenta").attr("disabled", true); // input
+  $("#gj__certificados_estudios").attr("disabled", true); // checkbox
+  $("#gj__certificados_antecedentes").attr("disabled", true); // checkbox
+  $("#gj__certificados_deExcencion").attr("disabled", true); // checkbox
+  $("#gj__certificados_residencia").attr("disabled", true); // checkbox
+  $("#gj__certificados_pension").attr("disabled", true); // checkbox
+  $("#gj__certificados_discapacidad").attr("disabled", true); // checkbox
+  $("#gj__certificados_afp").attr("disabled", true); // checkbox
+  $("#gj__certificados_fonasa").attr("disabled", true); // checkbox
+  $("#gj__certificados_isapre").attr("disabled", true); // checkbox
+  $("#gj__certificados_seguroCovid19").attr("disabled", true); // checkbox
+  $("#gj__certificados_conadi").attr("disabled", true); // checkbox
+  $("#gj__certificados_cursoOS10").attr("disabled", true); // checkbox
+  $("#gj__certificados_cursoSupervisor").attr("disabled", true); // checkbox
+  $("#gj__certificados_certificadoVacunas").attr("disabled", true); // checkbox
+  $("#gj__certificados_otros_cedulaDeIdentidad").attr("disabled", true); // checkbox
+  $("#gj__certificados_otros_licenciaDeConducir").attr("disabled", true); // checkbox
+  $("#gj__certificados_otros_curriculum").attr("disabled", true); // checkbox
+  $("#gj__certificados_otros_hojaDeVida").attr("disabled", true); // checkbox
+  $("#gj__tieneClaveUnica").attr("disabled", true); // checkbox
+  $("#gj__fechaIngresoEmprea").attr("disabled", true); // input
+  $("#gj__tipoContrato").attr("disabled", true); // select
+  $("#gj__cargo").attr("disabled", true); // select
+  $("#gj__duracionInicialContrato").attr("disabled", true); // input
+  $("#gj__cargoGenerico").attr("disabled", true); // select
+  $("#gj__jeas").attr("disabled", true); // input
+  $("#gj__ref1").attr("disabled", true); // select
+  $("#gj__ref2").attr("disabled", true); // select
+  $("#gj__plaza").attr("disabled", true); // input
+  $("#gj__sucursal").attr("disabled", true); // select
+  $("#gj__empresa").attr("disabled", true); // select
+  $("#gj__centroCosto").attr("disabled", true); // select
+
+  $("#gj__fechaNacimiento").datepicker({
+    maxDate: subtractYears(new Date(), 18),
+    ...__CONFIG.datePicker,
+  });
+
+  $("#gj__fechaVencimientoLicencia").datepicker({
+    minDate: new Date(),
+    ...__CONFIG.datePicker,
+  });
+}
+
+function initPersonal_en() {
+  // $("#gj__rut").removeAttr("disabled"); // input
+  $("#gj__provisorio").removeAttr("disabled"); // checkbox
+  $("#gj__email").removeAttr("disabled"); // input
+  $("#gj__nombres").removeAttr("disabled"); // input
+  $("#gj__apellidos").removeAttr("disabled"); // input
+  $("#gj__domicilio").removeAttr("disabled"); // input
+  $("#gj__comuna").removeAttr("disabled"); // select
+  $("#gj__ciudad").removeAttr("disabled"); // input
+  $("#gj__fono").removeAttr("disabled"); // input
+  $("#gj__fechaNacimiento").removeAttr("disabled"); // input
+  $("#gj__nacionalidad").removeAttr("disabled"); // select
+  $("#gj__sexo").removeAttr("disabled"); // select
+  $("#gj__esPuebloOriginario").removeAttr("disabled"); // checkbox
+  if ($("#gj__esPuebloOriginario").is(":checked")) {
+    $("#gj__puebloOriginario").removeAttr("disabled"); // input
+  }
+  $("#gj__esHispanoHablante").removeAttr("disabled"); // checkbox
+  $("#gj__nivelEstudios").removeAttr("disabled"); // select
+  $("#gj__sabeLeer").removeAttr("disabled"); // checkbox
+  $("#gj__sabeEscribir").removeAttr("disabled"); // checkbox
+  $("#gj__tieneLicencia").removeAttr("disabled"); // checkbox
+  if ($("#gj__tieneLicencia").is(":checked")) {
+    $("#gj__claseLicencia").removeAttr("disabled"); // select
+    if (conditionNeg1AndEmpty($("#gj__claseLicencia").val())) {
+      $("#gj__fechaVencimientoLicencia").removeAttr("disabled"); // input
+    }
+  }
+  $("#gj__estadoCivil").removeAttr("disabled"); // select
+  $("#gj__nombreContactoEmergencia").removeAttr("disabled"); // input
+  $("#gj__fonoContactoEmergencia").removeAttr("disabled"); // input
+  $("#gj__talla_camisa").removeAttr("disabled"); // input
+  $("#gj__talla_guantes").removeAttr("disabled"); // input
+  $("#gj__talla_pantalon").removeAttr("disabled"); // input
+  $("#gj__talla_zapatos").removeAttr("disabled"); // input
+  $("#gj__talla_casco").removeAttr("disabled"); // input
+  // tallaOverol: null,
+  $("#gj__talla_otros").removeAttr("disabled"); // input
+  $("#gj__otraTallaUniforme").removeAttr("disabled"); // input
+  $("#gj__tieneFamiliarEmpresa").removeAttr("disabled"); // checkbox
+  if ($("#gj__tieneFamiliarEmpresa").is(":checked")) {
+    $("#gj__nombreFamiliarEmpresa").removeAttr("disabled"); // input
+    $("#gj__cargoFamiliarEmpresa").removeAttr("disabled"); // input
+    $("#gj__parentescoFamiliarEmpresa").removeAttr("disabled"); // select
+    if ($("#gj__parentescoFamiliarEmpresa").val() == "Otro") {
+      $("#gj__otroParentescoFamiliarEmpresa").removeAttr("disabled"); // input
+    }
+  }
+  $("#gj__esRepitente").removeAttr("disabled"); // checkbox
+  if ($("#gj__esRepitente").is(":checked")) {
+    $("#gj__cargoRepitente").removeAttr("disabled"); // input
+    $("#gj__razonRepitente").removeAttr("disabled"); // input
+  }
+  $("#gj__afiliacion_prevision_fonasa").removeAttr("disabled"); // radio
+  $("#gj__afiliacion_prevision_isapre").removeAttr("disabled"); // radio
+  $("#gj__nombreAfiliacionPrevision_FONASA").removeAttr("disabled"); // select
+  $("#gj__nombreAfiliacionPrevision_ISAPRE").removeAttr("disabled"); // select
+  $("#gj__afiliacion_salud_afp").removeAttr("disabled"); // radio
+  $("#gj__afiliacion_salud_inp").removeAttr("disabled"); // radio
+  $("#gj__nombreAfiliacionSalud_AFP").removeAttr("disabled"); // select
+  $("#gj__nombreAfiliacionSalud_INP").removeAttr("disabled"); // select
+  $("#gj__banco").removeAttr("disabled"); // select
+  $("#gj__tipoCuenta").removeAttr("disabled"); // select
+  $("#gj__nroCuenta").removeAttr("disabled"); // input
+  $("#gj__certificados_estudios").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_antecedentes").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_deExcencion").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_residencia").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_pension").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_discapacidad").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_afp").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_fonasa").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_isapre").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_seguroCovid19").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_conadi").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_cursoOS10").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_cursoSupervisor").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_certificadoVacunas").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_otros_cedulaDeIdentidad").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_otros_licenciaDeConducir").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_otros_curriculum").removeAttr("disabled"); // checkbox
+  $("#gj__certificados_otros_hojaDeVida").removeAttr("disabled"); // checkbox
+  $("#gj__tieneClaveUnica").removeAttr("disabled"); // checkbox
+  $("#gj__fechaIngresoEmprea").removeAttr("disabled"); // input
+  $("#gj__tipoContrato").removeAttr("disabled"); // select
+  $("#gj__cargo").removeAttr("disabled"); // select
+  $("#gj__duracionInicialContrato").removeAttr("disabled"); // input
+  $("#gj__cargoGenerico").removeAttr("disabled"); // select
+  // $("#gj__jeas").removeAttr("disabled"); // input
+  $("#gj__ref1").removeAttr("disabled"); // select
+  $("#gj__ref2").removeAttr("disabled"); // select
+  $("#gj__plaza").removeAttr("disabled"); // input
+  $("#gj__sucursal").removeAttr("disabled"); // select
+  $("#gj__empresa").removeAttr("disabled"); // select
+  $("#gj__centroCosto").removeAttr("disabled"); // select
+
+  $("#gj__fechaNacimiento").datepicker({
+    maxDate: subtractYears(new Date(), 18),
+    ...__CONFIG.datePicker,
+  });
+
+  $("#gj__fechaVencimientoLicencia").datepicker({
+    minDate: new Date(),
+    ...__CONFIG.datePicker,
+  });
+}
+
 $("#ingresarNuevoJefatura")
   .unbind("click")
   .click(async function () {
     initPersonal();
+    initPersonal_dis();
     loading(true);
 
     await $.ajax({
@@ -278,6 +481,8 @@ $("#ingresarNuevoJefatura")
     $("#gj__nombreAfiliacionPrevision_ISAPRE").hide();
     $("#gj__nombreAfiliacionSalud_AFP").hide();
     $("#gj__nombreAfiliacionSalud_INP").hide();
+
+    initPersonal_en();
 
     setTimeout(function () {
       loading(false);
