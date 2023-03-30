@@ -112,7 +112,9 @@ function initPersonal_enabled() {
   $("#gj__nacionalidad_").removeAttr("disabled"); // select
   $("#gj__sexo_").removeAttr("disabled"); // select
   $("#gj__esPuebloOriginario_").removeAttr("disabled"); // checkbox
-  $("#gj__puebloOriginario_").removeAttr("disabled"); // input
+  if ($("#gj__esPuebloOriginario").is(":checked")) {
+    $("#gj__puebloOriginario_").removeAttr("disabled"); // input
+  }
   $("#gj__esHispanoHablante_").removeAttr("disabled"); // checkbox
   $("#gj__nivelEstudios_").removeAttr("disabled"); // select
   $("#gj__sabeLeer_").removeAttr("disabled"); // checkbox
@@ -132,13 +134,17 @@ function initPersonal_enabled() {
   $("#gj__talla_otros_").removeAttr("disabled"); // input
   $("#gj__otraTallaUniforme_").removeAttr("disabled"); // input
   $("#gj__tieneFamiliarEmpresa_").removeAttr("disabled"); // checkbox
-  $("#gj__nombreFamiliarEmpresa_").removeAttr("disabled"); // input
-  $("#gj__cargoFamiliarEmpresa_").removeAttr("disabled"); // input
-  $("#gj__parentescoFamiliarEmpresa_").removeAttr("disabled"); // select
-  $("#gj__otroParentescoFamiliarEmpresa_").removeAttr("disabled"); // input
+  if ($("#gj__tieneFamiliarEmpresa").is(":checked")) {
+    $("#gj__nombreFamiliarEmpresa_").removeAttr("disabled"); // input
+    $("#gj__cargoFamiliarEmpresa_").removeAttr("disabled"); // input
+    $("#gj__parentescoFamiliarEmpresa_").removeAttr("disabled"); // select
+    $("#gj__otroParentescoFamiliarEmpresa_").removeAttr("disabled"); // input
+  }
   $("#gj__esRepitente_").removeAttr("disabled"); // checkbox
-  $("#gj__cargoRepitente_").removeAttr("disabled"); // input
-  $("#gj__razonRepitente_").removeAttr("disabled"); // input
+  if ($("#gj__esRepitente").is(":checked")) {
+    $("#gj__cargoRepitente_").removeAttr("disabled"); // input
+    $("#gj__razonRepitente_").removeAttr("disabled"); // input
+  }
   $("#gj__afiliacion_prevision_fonasa_").removeAttr("disabled"); // radio
   $("#gj__afiliacion_prevision_isapre_").removeAttr("disabled"); // radio
   $("#gj__nombreAfiliacionPrevision_FONASA_").removeAttr("disabled"); // select
