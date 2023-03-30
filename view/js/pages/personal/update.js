@@ -373,9 +373,10 @@ $("#editarJefatura")
     var rut = $.map(table.rows(".selected").data(), (item) => item.DNI);
     var parametros = { rut: rut[0] };
 
-    initPersonal_();
     $("#guardarEditaPersonalOperaciones").show();
     $("#tituloModalPersonal").text("Editar personal");
+
+    initPersonal_();
     loading(true);
 
     await $.ajax({
@@ -577,16 +578,32 @@ $("#editarJefatura")
       var h = $(window).height() - 200;
       $("#bodyEditaPersonalOperaciones").css("height", h);
       $("#modalEditaPersonalOperaciones").modal("show");
-    }, 500);
+    }, 3000);
   });
 
 /*$("#gj__rut_").on("blur", function (e) {
-  e.stopImmediatePropagation();
-  var rut = $("#gj__rut_").val();
-  var isValid = rut ? validarRUT(rut) : false;
-  if (!isValid) alertInvalid("gj__rut_", "DNI");
-  else $("#gj__rut_").removeClass("is-invalid");
-});*/
+    e.stopImmediatePropagation();
+    var rut = $("#gj__rut_").val();
+    if (!rut) return;
+    var isValid = rut ? validarRUT(rut) : false;
+    if (!isValid) {
+      alertInvalid("gj__rut_", "DNI");
+    } else {
+      $("#modalIngresarPersonalOperaciones").modal("hide");
+      loading(true);
+      validaPersonalExistente("rut", rut).then((res) => {
+        if (res.aaData.length) {
+          alertField("gj__rut_", "¡Este RUT ya se encuentra registrado!");
+        } else {
+          $("#gj__rut_").removeClass("is-invalid");
+        }
+        setTimeout(() => {
+          loading(false);
+          $("#modalIngresarPersonalOperaciones").modal("show");
+        }, 1000);
+      });
+    }
+  });
 
 $("#gj__email_").on("blur", function (e) {
   e.stopImmediatePropagation();
@@ -618,7 +635,7 @@ $("#gj__fono_").on("blur", function (e) {
   var isValid = telefono ? validarTelefono(telefono) : false;
   if (!isValid) alertInvalid("gj__fono_", "Teléfono");
   else $("#gj__fono_").removeClass("is-invalid");
-});
+});*/
 
 $("#gj__esPuebloOriginario_").on("change", function (e) {
   e.stopImmediatePropagation();
@@ -739,7 +756,7 @@ $("#gj__cargoGenerico_").on("change", function (e) {
   $("#gj__jeas_").val(familia);
 });
 
-$("#gj__nombreContactoEmergencia_").on("blur", function (e) {
+/*$("#gj__nombreContactoEmergencia_").on("blur", function (e) {
   e.stopImmediatePropagation();
   var nombres = $("#gj__nombreContactoEmergencia_").val();
   var isValid = nombres ? validarNombresApellidos(nombres) : false;
@@ -763,82 +780,114 @@ $("#gj__nombreFamiliarEmpresa_").on("blur", function (e) {
   var isValid = nombres ? validarNombresApellidos(nombres) : false;
   if (!isValid) alertInvalid("gj__nombreFamiliarEmpresa_", "Nombres");
   else $("#gj__nombreFamiliarEmpresa_").removeClass("is-invalid");
-});
+});*/
 
 function validarFormularioPersonalPlanilla_() {
   // Begin - Validar datos requeridos
-  if (!$("#gj__rut_").val()) {
-    alertRequired("gj__rut_", "RUT");
-    return;
-  }
-  if (!$("#gj__email_").val()) {
-    alertRequired("gj__email_", "Email");
-    return;
-  }
-  if (!$("#gj__sucursal_").val() || `${$("#gj__sucursal_").val()}` == "-1") {
-    alertRequired("gj__sucursal_", "Sucursal");
-    return;
-  }
-  if (!$("#gj__empresa_").val() || `${$("#gj__empresa_").val()}` == "-1") {
-    alertRequired("gj__empresa_", "Empresa");
-    return;
-  }
-  if (
-    !$("#gj__centroCosto_").val() ||
-    `${$("#gj__centroCosto_").val()}` == "-1"
-  ) {
-    alertRequired("gj__centroCosto_", "Centro de Costo");
-    return;
-  }
+  var requires = [
+    { id: "gj__rut_", name: "RUT" },
+    { id: "gj__email_", name: "Email" },
+    { id: "gj__nombres_", name: "Nombres" },
+    { id: "gj__apellidos_", name: "Apellidos" },
+    { id: "gj__comuna_", name: "Comuna" },
+    { id: "gj__ciudad_", name: "Ciudad" },
+    { id: "gj__fechaNacimiento_", name: "Fecha de Nacimiento" },
+    { id: "gj__nacionalidad_", name: "Nacionalidad" },
+    { id: "gj__sexo_", name: "Sexo" },
+    { id: "gj__nivelEstudios_", name: "Nivel de Estudios" },
+    { id: "gj__estadoCivil_", name: "Estado Civil" },
+    { id: "gj__banco_", name: "Banco" },
+    { id: "gj__fechaIngresoEmprea_", name: "Fecha de Ingreso a la Empresa" },
+    { id: "gj__tipoContrato_", name: "Tipo de Contrato" },
+    { id: "gj__cargo_", name: "Cargo" },
+    {
+      id: "gj__duracionInicialContrato_",
+      name: "Duración inicial de Contrato",
+    },
+    { id: "gj__cargoGenerico_", name: "Cargo Genérico" },
+    { id: "gj__ref1_", name: "Referencia 1" },
+    { id: "gj__ref2_", name: "Referencia 2" },
+    { id: "gj__plaza_", name: "Plaza/Sector" },
+    { id: "gj__sucursal_", name: "Sucursal" },
+    { id: "gj__empresa_", name: "Empresa" },
+    { id: "gj__centroCosto_", name: "Centro de Costo" },
+  ];
+
+  var someFailRequired = 1;
+
+  requires.forEach(({ id, name }) => {
+    var val = $(`#${id}`).val();
+    if (!conditionNeg1AndEmpty(val)) {
+      alertRequired(id, name, false);
+      someFailRequired = someFailRequired * 0;
+    } else {
+      cleanField(id);
+      var flag = true;
+      switch (id) {
+        case "gj__rut_":
+          flag = validarRUT(val);
+          if (!flag) alertInvalid("gj__rut_", "DNI");
+          else cleanField("gj__rut_");
+          break;
+        case "gj__email_":
+          flag = validarEmail(val);
+          if (!flag) alertInvalid("gj__email_", "DNI");
+          else cleanField("gj__email_");
+          break;
+        case "gj__nombres_":
+          flag = validarNombresApellidos(val);
+          if (!flag) alertInvalid("gj__nombres_", "Nombres");
+          else cleanField("gj__nombres_");
+          break;
+        case "gj__apellidos_":
+          flag = validarNombresApellidos(val);
+          if (!flag) alertInvalid("gj__apellidos_", "Apellidos");
+          else cleanField("gj__apellidos_");
+          break;
+        default:
+          break;
+      }
+      if (!flag) someFailRequired = someFailRequired * 0;
+    }
+  });
   // End - Validar datos requeridos
 
-  var isValidRut = $("#gj__rut_").val()
-    ? validarRUT($("#gj__rut_").val())
-    : false;
-  var isValidEmail = $("#gj__email_").val()
-    ? validarEmail($("#gj__email_").val())
-    : false;
-  var isValidNombres = $("#gj__nombres_").val()
-    ? validarNombresApellidos($("#gj__nombres_").val())
-    : true;
-  var isValidApellidos = $("#gj__apellidos_").val()
-    ? validarNombresApellidos($("#gj__apellidos_").val())
-    : true;
+  if (someFailRequired == 0) return 0;
+
   var isValidTelefono = $("#gj__fono_").val()
     ? validarTelefono($("#gj__fono_").val())
     : true;
+  if (!isValidTelefono) return 0;
+  else cleanField("gj__fono_");
+
   var isValidNombreContacto = $("#gj__nombreContactoEmergencia_").val()
     ? validarNombresApellidos($("#gj__nombreContactoEmergencia_").val())
     : true;
+  if (!isValidNombreContacto) return 0;
+  else cleanField("gj__nombreContactoEmergencia_");
+
   var isValidTelefonoContacto = $("#gj__fonoContactoEmergencia_").val()
     ? validarTelefono($("#gj__fonoContactoEmergencia_").val())
     : true;
-
-  var isValid =
-    isValidRut &&
-    isValidEmail &&
-    isValidNombres &&
-    isValidApellidos &&
-    isValidTelefono &&
-    isValidNombreContacto &&
-    isValidTelefonoContacto;
+  if (!isValidTelefonoContacto) return 0;
+  else cleanField("gj__fonoContactoEmergencia_");
 
   if ($("#gj__tieneFamiliarEmpresa_").is(":checked")) {
     var isValidNombreFamiliar = $("#gj__nombreFamiliarEmpresa_").val()
       ? validarNombresApellidos($("#gj__nombreFamiliarEmpresa_").val())
       : false;
-    isValid = isValid && isValidNombreFamiliar;
+    if (!isValidNombreFamiliar) return 0;
+    else cleanField("gj__nombreFamiliarEmpresa_");
   }
 
-  return isValid;
+  return someFailRequired;
 }
 
 $("#guardarEditaPersonalOperaciones")
   .unbind("click")
   .click(function () {
-    if (!validarFormularioPersonalPlanilla_()) {
-      return;
-    }
+    var someFailRequired = validarFormularioPersonalPlanilla_();
+    if (someFailRequired == 0) return;
 
     var afiliacionPrevision =
       __GJ_AFILIACION_PREVISION_ == "fonasa"
@@ -846,18 +895,19 @@ $("#guardarEditaPersonalOperaciones")
         : __GJ_AFILIACION_PREVISION_ == "isapre"
         ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
         : null;
-    if (!afiliacionPrevision || `${afiliacionPrevision}` == "-1") {
+    if (!conditionNeg1AndEmpty(afiliacionPrevision)) {
       alertRequiredMany(
         [
           "gj__nombreAfiliacionPrevision_FONASA_",
           "gj__nombreAfiliacionPrevision_ISAPRE_",
         ],
-        "Afiliación a Previsión"
+        "Afiliación a Previsión",
+        true
       );
       return;
     } else {
-      $("#gj__nombreAfiliacionPrevision_FONASA_").removeClass("is-invalid");
-      $("#gj__nombreAfiliacionPrevision_ISAPRE_").removeClass("is-invalid");
+      cleanField("gj__nombreAfiliacionPrevision_FONASA_");
+      cleanField("gj__nombreAfiliacionPrevision_ISAPRE_");
     }
 
     var afiliacionSalud =
@@ -869,12 +919,13 @@ $("#guardarEditaPersonalOperaciones")
     if (!afiliacionSalud || `${afiliacionSalud}` == "-1") {
       alertRequiredMany(
         ["gj__nombreAfiliacionSalud_AFP_", "gj__nombreAfiliacionSalud_INP_"],
-        "Afiliación a Salud"
+        "Afiliación a Salud",
+        true
       );
       return;
     } else {
-      $("#gj__nombreAfiliacionSalud_AFP_").removeClass("is-invalid");
-      $("#gj__nombreAfiliacionSalud_INP_").removeClass("is-invalid");
+      cleanField("gj__nombreAfiliacionSalud_AFP_");
+      cleanField("gj__nombreAfiliacionSalud_INP_");
     }
 
     var parametros = {

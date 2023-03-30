@@ -3,7 +3,8 @@
   session_start();
 
 	if(count($_POST) >= 0){
-        $row = datosCecoEmpresa();
+        // $row = datosCecoEmpresa();
+        $row = consultaListaCentrosDeCosto();
 
         if(is_array($row))
         {

@@ -1982,43 +1982,24 @@ app.controller("jefaturaController", function(){
               }
             });
 
-            setTimeout(function(){
-              /* Begin - New Struct */
-              js = document.createElement('script');
-              js.src = 'view/js/helpers/constants.js?idload=29';
-              document.getElementsByTagName('head')[0].appendChild(js);
-
-              var js = document.createElement('script');
-              js.src = 'view/js/helpers/config.js?idload=30';
-              document.getElementsByTagName('head')[0].appendChild(js);
-
-              js = document.createElement('script');
-              js.src = 'view/js/helpers/validations.js?idload=31';
-              document.getElementsByTagName('head')[0].appendChild(js);
-
-              js = document.createElement('script');
-              js.src = 'view/js/helpers/functions.js?idload=31';
-              document.getElementsByTagName('head')[0].appendChild(js);
-              /* End - New Struct */
-
-              js = document.createElement('script');
-              js.src = 'view/js/funciones.js?idload=32';
-              document.getElementsByTagName('head')[0].appendChild(js);
-
-              /* Begin - New Struct */
-              js = document.createElement('script');
-              js.src = 'view/js/pages/personal/create.js?idload=33';
-              document.getElementsByTagName('head')[0].appendChild(js);
-
-              js = document.createElement('script');
-              js.src = 'view/js/pages/personal/update.js?idload=34';
-              document.getElementsByTagName('head')[0].appendChild(js);
-
-              js = document.createElement('script');
-              js.src = 'view/js/pages/personal/obtain.js?idload=35';
-              document.getElementsByTagName('head')[0].appendChild(js);
-              /* End - New Struct */
-            },500);
+            var lst = [
+              'view/js/helpers/constants.js',
+              'view/js/helpers/config.js',
+              'view/js/helpers/validations.js',
+              'view/js/helpers/functions.js',
+              'view/js/pages/personal/create.js',
+              'view/js/pages/personal/update.js',
+              'view/js/pages/personal/obtain.js',
+              'view/js/funciones.js',
+            ];
+            lst.forEach((fl, idx) => {
+              setTimeout(function(){
+                var idload = 29 + idx;
+                var js = document.createElement('script');
+                js.src = `${fl}?idload=${idload}`;
+                document.getElementsByTagName('head')[0].appendChild(js);
+              }, 1000);
+            });
 
             var table = $('#tablaJefatura').DataTable();
 

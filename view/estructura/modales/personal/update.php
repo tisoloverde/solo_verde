@@ -41,12 +41,18 @@
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Nombres</label>
+              <label disabled style="font-weight: bold;">
+                Nombres
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__nombres_" class="form-control" type="text" value="">
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Apellidos</label>
+              <label disabled style="font-weight: bold;">
+                Apellidos
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__apellidos_" class="form-control" type="text" value="">
             </div>
 
@@ -56,13 +62,19 @@
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Comuna</label>
+              <label disabled style="font-weight: bold;">
+                Comuna
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <!--<input name="gj__comuna" class="form-control" type="text" value="">-->
               <select id="gj__comuna_" class="form-control"></select>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Ciudad</label>
+              <label disabled style="font-weight: bold;">
+                Ciudad
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__ciudad_" class="form-control" type="text" value="">
             </div>
 
@@ -72,18 +84,27 @@
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Fecha Nacimiento</label>
+              <label disabled style="font-weight: bold;">
+                Fecha Nacimiento
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__fechaNacimiento_" class="form-control" type="text" value="" readonly>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Nacionalidad</label>
+              <label disabled style="font-weight: bold;">
+                Nacionalidad
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <!--<input name="gj__nacionalidad" class="form-control" type="text" value="">-->
               <select id="gj__nacionalidad_" class="form-control"></select>
             </div>
 
             <div class="col-xl-4 col-md-4" style="margin-top: 10pt;">
-              <label disabled style="font-weight: bold;">Sexo</label>
+              <label disabled style="font-weight: bold;">
+                Sexo
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__sexo_" class="form-control">
                 <option value="-1">Sin asignar</option>
                 <option value="Hombre">Hombre</option>
@@ -115,7 +136,10 @@
             </div>
 
             <div class="col-xl-2 col-md-2" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Nivel de Estudios</label>
+              <label style="font-weight: bold;">
+                Nivel de Estudios
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__nivelEstudios_" class="form-control"></select>
             </div>
 
@@ -163,7 +187,10 @@
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Estado Civil</label>
+              <label style="font-weight: bold;">
+                Estado Civil
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__estadoCivil_" class="form-control"></select>
             </div>
 
@@ -300,7 +327,10 @@
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Banco</label>
+              <label style="font-weight: bold;">
+                Banco
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__banco_" class="form-control"></select>
             </div>
 
@@ -393,7 +423,7 @@
               <div style="display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; column-gap: 40px;">
                 <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
                   <input id="gj__certificados_otros_cedulaDeIdentidad_" type="checkbox" class="form-control gj__certificados_otros_" style="width: 20px;">
-                  <span>Cédula de Identidad</span>
+                  <span>Cédula de Identidad</span> <!-- ES OBLIGATORIO - POR DEFECTO CHECKOUT - NO CAMBIO-->
                 </label>
                 <label style="display: flex; justify-content: center; align-items: center; gap: 10px;">
                   <input id="gj__certificados_otros_licenciaDeConducir_" type="checkbox" class="form-control gj__certificados_otros_" style="width: 20px;">
@@ -423,12 +453,18 @@
             </div>
             
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Fecha Ingreso Empresa</label>
+              <label style="font-weight: bold;">
+                Fecha Ingreso Empresa
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__fechaIngresoEmprea_" type="date" class="form-control" />
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Tipo Contrato</label>
+              <label style="font-weight: bold;">
+                Tipo Contrato
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__tipoContrato_" class="form-control">
                 <option value="PlazoFijo">Plazo Fijo</option>
                 <option value="PorTemporada">Por Temporada</option>
@@ -437,17 +473,26 @@
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Cargo a Desempeñar</label>
+              <label style="font-weight: bold;">
+                Cargo a Desempeñar
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__cargo_" class="form-control"></select>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Duración Inicial Contrato</label>
+              <label style="font-weight: bold;">
+                Duración Inicial Contrato
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__duracionInicialContrato_" type="text" class="form-control onlyNumbers" />
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Cargo Genérico</label>
+              <label style="font-weight: bold;">
+                Cargo Genérico
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__cargoGenerico_" class="form-control"></select>
             </div>
 
@@ -457,17 +502,26 @@
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">REF1</label>
+              <label style="font-weight: bold;">
+                REF1
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__ref1_" class="form-control"></select>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">REF2</label>
+              <label style="font-weight: bold;">
+                REF2
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <select id="gj__ref2_" class="form-control"></select>
             </div>
 
             <div class="col-xl-3 col-md-3" style="margin-top: 10pt;">
-              <label style="font-weight: bold;">Plaza/Sector</label>
+              <label style="font-weight: bold;">
+                Plaza/Sector
+                <span style="font-weight: bold; color: red;">*</span>
+              </label>
               <input id="gj__plaza_" class="form-control">
             </div>
 

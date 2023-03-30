@@ -24,28 +24,35 @@ function alertField(id, msg) {
   $(jId).select();
 }
 
-function alertRequired(id, name) {
+function alertRequired(id, name, showAlert) {
   var jId = `#${id}`;
-  alertasToast(
-    `<img src='view/img/info.png' class='splash_load'><br/>El campo ${name} es requerido`
-  );
+  if (showAlert)
+    alertasToast(
+      `<img src='view/img/info.png' class='splash_load'><br/>El campo ${name} es requerido`
+    );
   $(jId).val("");
   $(jId).addClass("is-invalid");
   $(jId).focus();
   $(jId).select();
 }
 
-function alertRequiredMany(ids, name) {
+function alertRequiredMany(ids, name, showAlert) {
   var jIds = ids.map((id) => `#${id}`);
-  alertasToast(
-    `<img src='view/img/info.png' class='splash_load'><br/>El campo ${name} es requerido`
-  );
+  if (showAlert)
+    alertasToast(
+      `<img src='view/img/info.png' class='splash_load'><br/>El campo ${name} es requerido`
+    );
   jIds.forEach((jId) => {
     $(jId).val("");
     $(jId).addClass("is-invalid");
     $(jId).focus();
     $(jId).select();
   });
+}
+
+function cleanField(id) {
+  var jId = `#${id}`;
+  $(jId).removeClass("is-invalid");
 }
 
 function conditionNeg1AndEmpty(val) {
