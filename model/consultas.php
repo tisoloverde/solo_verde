@@ -19710,6 +19710,57 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaPersonal() {
+		$con = conectar();
+		mysqli_set_charset($con, "utf8mb4");
+		if ($con != 'No conectado') {
+			$sql = "SELECT
+				' ' AS S,
+				P.IDPERSONAL,
+				P.DNI AS RUT,
+				P.IDSUBCONTRATISTAS AS IDEMPRESA,
+				S.NOMBRE_SUBCONTRATO AS EMPRESA,
+				P.NOMBRES,
+				P.APELLIDOS,
+				P.CARGO,
+				P.EMAIL,
+				P.FECHA_INGRESO,
+				P.IDAFP,
+				AP.AFP,
+				P.IDSALUD,
+				SA.SALUD,
+				P.TELEFONO,
+				P.IDAREAFUNCIONAL_COMUNA_NAC AS IDCOMUNA,
+				AF.COMUNA,
+				AF.REGION,
+				A.IDSUCURSAL,
+				SU.NOMBRE AS SUCURSAL,
+				A.IDESTRUCTURA_OPERACION,
+				EO.DEFINICION AS CODIGO_CECO,
+				EO.NOMENCLATURA AS CECO
+			FROM PERSONAL P
+			LEFT JOIN SUBCONTRATISTAS S ON S.IDSUBCONTRATO = P.IDSUBCONTRATISTAS
+			LEFT JOIN AFP AP ON AP.IDAFP = P.IDAFP
+			LEFT JOIN SALUD SA ON SA.IDSALUD = P.IDSALUD
+			LEFT JOIN AREAFUNCIONAL AF ON AF.IDAREAFUNCIONAL = P.IDAREAFUNCIONAL_COMUNA_NAC
+			LEFT JOIN ACT A ON A.IDPERSONAL = P.IDPERSONAL
+			LEFT JOIN SUCURSAL SU ON SU.IDSUCURSAL = A.IDSUCURSAL
+			LEFT JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
+			LIMIT 10";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+	
 	function consultaListaPersonalOfertados() {
 		$con = conectar();
 		if ($con != 'No conectado') {

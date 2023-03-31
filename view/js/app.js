@@ -1821,8 +1821,9 @@ app.controller("jefaturaController", function(){
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/22);
           await $('#tablaJefatura').DataTable( {
             ajax: {
-              url: "controller/datosJefaturaSide.php",
-              type: 'POST'
+              url: "controller/personal/listaPersonal.php",
+              type: 'POST',
+              dataType: 'json',
             },
             processing: true,
             search: {
@@ -1831,29 +1832,22 @@ app.controller("jefaturaController", function(){
             serverSide: true,
             columns: [
               { data: 'S'},
-              { data: 'RUTA_IMG_PERFIL', className: "centerDataTable" },
-              { data: 'DNI'},
+              { data: 'IDPERSONAL', className: "centerDataTable" },
+              { data: 'RUT'},
+              { data: 'EMPRESA' },
               { data: 'NOMBRES' },
-              { data: 'APELLIDOS' },
-              { data: 'EMPRESA'},
-              { data: 'CLASIFICACION', className: "centerDataTable" },
-              { data: 'NIVEL', className: "centerDataTable" },
-              { data: 'GERENCIA'},
-              { data: 'SUBGERENCIA'},
-              { data: 'CLIENTE'},
-              { data: 'NOMENCLATURA'},
-              { data: 'DENOMINACION'},
+              { data: 'APELLIDOS'},
+              { data: 'CARGO', className: "centerDataTable" },
+              { data: 'EMAIL', className: "centerDataTable" },
+              { data: 'FECHA_INGRESO'},
+              { data: 'AFP'},
+              { data: 'SALUD'},
+              { data: 'TELEFONO'},
               { data: 'COMUNA'},
               { data: 'REGION'},
-              { data: 'CARGO' },
-              { data: 'PATENTE' },
-              { data: 'EMAIL' },
-              { data: 'TELEFONO' },
-              { data: 'SOLICITUD'},
-              { data: 'JEFE' },
-              { data: 'IDPERSONAL' },
-              { data: 'EXTERNO' },
-              { data: 'SUCURSAL' }
+              { data: 'SUCURSAL' },
+              { data: 'CODIGO_CECO' },
+              { data: 'CECO' },
             ],
             buttons: [
               {
@@ -1890,17 +1884,7 @@ app.controller("jefaturaController", function(){
               {
                 "visible": false,
                 "searchable": false,
-                "targets": [ 21 ]
-              },
-              {
-                "visible": false,
-                "searchable": false,
-                "targets": [ 22 ]
-              },
-              {
-                "visible": false,
-                "searchable": false,
-                "targets": [ 23 ]
+                "targets": [ 1 ]
               },
             ],
             "select": {
@@ -2000,8 +1984,6 @@ app.controller("jefaturaController", function(){
                 document.getElementsByTagName('head')[0].appendChild(js);
               }, 1000);
             });
-
-            var table = $('#tablaJefatura').DataTable();
 
             $('#contenido').show();
             $('#menu-lateral').show();
