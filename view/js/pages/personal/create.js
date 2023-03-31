@@ -572,11 +572,10 @@ $("#gj__esPuebloOriginario").on("change", function (e) {
   e.preventDefault();
   if ($("#gj__esPuebloOriginario").is(":checked")) {
     $("#gj__puebloOriginario").removeAttr("disabled");
-    // $("#gj__esHispanoHablante").removeAttr("disabled");
   } else {
+    $("#gj__puebloOriginario").val("");
     $("#gj__esHispanoHablante").prop("checked", false);
     $("#gj__puebloOriginario").attr("disabled", "disabled");
-    // $("#gj__esHispanoHablante").attr("disabled", "disabled");
   }
 });
 
@@ -587,8 +586,20 @@ $("#gj__tieneLicencia").on("change", function (e) {
     $("#gj__claseLicencia").removeAttr("disabled");
     $("#gj__fechaVencimientoLicencia").removeAttr("disabled");
   } else {
+    $("#gj__claseLicencia").val("-1");
+    $("#gj__fechaVencimientoLicencia").val("");
     $("#gj__claseLicencia").attr("disabled", "disabled");
     $("#gj__fechaVencimientoLicencia").attr("disabled", "disabled");
+  }
+
+  if (validarNavegador(navigator)) {
+    $("#gj__claseLicencia").select2(__CONFIG.select2);
+  }
+});
+
+$("#gj__claseLicencia").on("change", function (e) {
+  if ($("#gj__claseLicencia").val() == "-1") {
+    $("#gj__fechaVencimientoLicencia").val("");
   }
 });
 
@@ -599,15 +610,21 @@ $("#gj__tieneFamiliarEmpresa").on("change", function (e) {
     $("#gj__nombreFamiliarEmpresa").removeAttr("disabled");
     $("#gj__cargoFamiliarEmpresa").removeAttr("disabled");
     $("#gj__parentescoFamiliarEmpresa").removeAttr("disabled");
-    // $("#gj__otroParentescoFamiliarEmpresa").removeAttr("disabled");
   } else {
+    $("#gj__nombreFamiliarEmpresa").removeClass("is-invalid");
     $("#gj__nombreFamiliarEmpresa").attr("disabled", "disabled");
     $("#gj__cargoFamiliarEmpresa").attr("disabled", "disabled");
     $("#gj__parentescoFamiliarEmpresa").attr("disabled", "disabled");
     $("#gj__otroParentescoFamiliarEmpresa").attr("disabled", "disabled");
 
-    $("#gj__nombreFamiliarEmpresa").removeClass("is-invalid");
     $("#gj__nombreFamiliarEmpresa").val("");
+    $("#gj__cargoFamiliarEmpresa").val("");
+    $("#gj__parentescoFamiliarEmpresa").val("-1");
+    $("#gj__otroParentescoFamiliarEmpresa").val("");
+  }
+
+  if (validarNavegador(navigator)) {
+    $("#gj__parentescoFamiliarEmpresa").select2(__CONFIG.select2);
   }
 });
 
@@ -617,24 +634,7 @@ $("#gj__parentescoFamiliarEmpresa").on("change", function (e) {
     $("#gj__otroParentescoFamiliarEmpresa").removeAttr("disabled");
   } else {
     $("#gj__otroParentescoFamiliarEmpresa").attr("disabled", "disabled");
-  }
-});
-
-$("#gj__banco").on("change", function (e) {
-  var banco = $("#gj__banco option:selected").text();
-  if (["Vale vista", "Contado"].includes(banco)) {
-    $("#gj__tipoCuenta").val("NoAplica");
-    $("#gj__nroCuenta").val("");
-    $("#gj__tipoCuenta").attr("disabled", "disabled");
-    $("#gj__nroCuenta").attr("disabled", "disabled");
-  } else {
-    $("#gj__tipoCuenta").val("-1");
-    $("#gj__tipoCuenta").removeAttr("disabled");
-    $("#gj__nroCuenta").removeAttr("disabled");
-  }
-
-  if (validarNavegador(navigator)) {
-    $("#gj__tipoCuenta").select2(__CONFIG.select2);
+    $("#gj__otroParentescoFamiliarEmpresa").val("");
   }
 });
 
@@ -647,6 +647,8 @@ $("#gj__esRepitente").on("change", function (e) {
   } else {
     $("#gj__cargoRepitente").attr("disabled", "disabled");
     $("#gj__razonRepitente").attr("disabled", "disabled");
+    $("#gj__cargoRepitente").val("");
+    $("#gj__razonRepitente").val("");
   }
 });
 
@@ -681,6 +683,38 @@ $("input[name='gj__afiliacion_salud']").on("change", function (e) {
       break;
     default:
       break;
+  }
+});
+
+$("#gj__banco").on("change", function (e) {
+  var banco = $("#gj__banco option:selected").text();
+  if (["Vale vista", "Contado"].includes(banco)) {
+    $("#gj__tipoCuenta").val("NoAplica");
+    $("#gj__nroCuenta").val("");
+    $("#gj__tipoCuenta").attr("disabled", "disabled");
+    $("#gj__nroCuenta").attr("disabled", "disabled");
+  } else if (banco == "-1") {
+    $("#gj__tipoCuenta").val("-1");
+    $("#gj__tipoCuenta").attr("disabled", "disabled");
+    $("#gj__nroCuenta").attr("disabled", "disabled");
+  } else {
+    $("#gj__tipoCuenta").val("-1");
+    $("#gj__tipoCuenta").removeAttr("disabled");
+    $("#gj__nroCuenta").removeAttr("disabled");
+  }
+
+  if (validarNavegador(navigator)) {
+    $("#gj__tipoCuenta").select2(__CONFIG.select2);
+  }
+});
+
+$("#gj__tipoCuenta").on("change", function (e) {
+  var tipoCuenta = $("#gj__tipoCuenta").val();
+  if (tipoCuenta == "NoAplica" || tipoCuenta == "-1") {
+    $("#gj__nroCuenta").attr("disabled", "disabled");
+    $("#gj__nroCuenta").val("");
+  } else {
+    $("#gj__nroCuenta").removeAttr("disabled");
   }
 });
 
