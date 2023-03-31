@@ -508,6 +508,13 @@ $("#gj__rut").on("blur", function (e) {
   e.stopImmediatePropagation();
   var rut = $("#gj__rut").val();
   if (!rut) return;
+
+  var lastc = rut[rut.length - 1];
+  var aux = rut.slice(0, -1);
+
+  rut = `${aux}-${lastc}`;
+  $("#gj__rut").val(rut);
+
   var isValid = rut ? validarRUT(rut) : false;
   if (!isValid) {
     alertInvalid("gj__rut", "DNI");
