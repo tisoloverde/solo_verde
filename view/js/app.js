@@ -1821,7 +1821,8 @@ app.controller("jefaturaController", function(){
           var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/22);
           await $('#tablaJefatura').DataTable( {
             ajax: {
-              url: "controller/personal/listaPersonal.php",
+              // url: "controller/personal/listaPersonal.php",
+              url: 'controller/personal/datosJefaturaSide.php',
               type: 'POST',
               dataType: 'json',
             },
@@ -1833,7 +1834,7 @@ app.controller("jefaturaController", function(){
             columns: [
               { data: 'S'},
               { data: 'IDPERSONAL', className: "centerDataTable" },
-              { data: 'RUT'},
+              { data: 'DNI'},
               { data: 'EMPRESA' },
               { data: 'NOMBRES' },
               { data: 'APELLIDOS'},
