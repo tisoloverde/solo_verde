@@ -19710,7 +19710,7 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaPersonal() {
+	function consultaListaPersonal_NO_EN_USO() {
 		$con = conectar();
 		mysqli_set_charset($con, "utf8");
 		if ($con != 'No conectado') {

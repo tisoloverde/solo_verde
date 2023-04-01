@@ -3,7 +3,7 @@
   session_start();
 
   if(count($_POST) >= 0){
-        $row = consultaListaPersonal();
+        $row = consultaListaPersonal_NO_EN_USO();
 
         if(is_array($row))
         {
