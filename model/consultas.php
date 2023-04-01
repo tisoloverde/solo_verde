@@ -19712,7 +19712,7 @@ WHERE U.RUT = '{$rutUser}'";
 
 	function consultaListaPersonal() {
 		$con = conectar();
-		$con->set_charset("utf-8");
+		mysqli_set_charset($con, "utf8");
 		if ($con != 'No conectado') {
 			$sql = "SELECT
 				' ' AS S,
