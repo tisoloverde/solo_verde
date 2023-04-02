@@ -38,10 +38,16 @@
       for ($i=0; $i<count($lstPersonalCC); $i++) {
         $idPersonal = $lstPersonalCC[$i]['IDPERSONAL'];
 
+        $ndias = 7;
         $found = [];
         foreach ($lstPersonalEstado as $personalEstado) {
           if ($idPersonal == $personalEstado['IDPERSONAL']) {
             $found = $personalEstado;
+            /*if ($personalEstado['IDPERSONAL_ESTADO_CONCEPTO'] != $idConValid) {
+              $ndias = $ndias - 1;
+            }*/
+            $key = $personalEstado['IDPERSONAL_ESTADO_CONCEPTO'];
+            $ndias = $ndias - $idsConValidDescuento["_" . $key];
           }
         }
 
@@ -63,7 +69,7 @@
           "REFERENCIA2_B" => "",
           "RUT_REEMPLAZO" => "<button id='planilla-input-$idPersonal' class='planilla-modal' disabled>Asignar</button>",
           "FECHA_REEMPLAZO" => "",
-          // "NDIAS" => $ndias,
+          "NDIAS" => $ndias,
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
           "HE100" => "<input id='planilla-input-col23-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE100'] . "'>",
           "ATRASO" => "<input id='planilla-input-col24-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['ATRASO'] . "'>",
@@ -154,7 +160,6 @@
         /* Begin - Week */
         $col = 13;
         $colBreak = 100;
-        $ndias = 7;
         foreach ($lstDiasSemana as $dia) {
           /* begin - search */
           $found = array();
@@ -167,6 +172,7 @@
           /* end - search */
 
           $col = $col + 1;
+
           if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid_Final)) {
             $colBreak = $col;
           }
@@ -175,8 +181,6 @@
             $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
             $select = $select . "<option>" . $found['PERSONAL_ESTADO_CONCEPTO'] . "</option>";
             $select = $select . "</select>";
-
-            $ndias -= $idsConValidDescuento["_" . $found['IDPERSONAL_ESTADO_CONCEPTO']];
           } else {
             if ($col <= $colBreak) {
               $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
@@ -184,29 +188,21 @@
               foreach ($consClean as $con) {
                 $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
                 $pec = $con['SIGLA'];
+                // $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO'] ?? $idConValid) == $idPec
                 $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO']) == $idPec
                   ? "<option value='$idPec' selected>$pec</option>"
                   : "<option value='$idPec'>$pec</option>");
-              }
-
-              if (isset($found['IDPERSONAL_ESTADO_CONCEPTO'])) {
-                $ndias -= $idsConValidDescuento["_" . $found['IDPERSONAL_ESTADO_CONCEPTO']];
-              } else {
-                $ndias -= 1;
               }
             } else {
               $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
               $select = $select . "<option>DSR</option>";
               $select = $select . "</select>";
-
-              $ndias -= 1;
             }
           }
 
           $row[sanitizeWord($dia['DIA'])] = $select;
           // $row[$dia['DIA'] . "__"] = $found;
         }
-        $row['NDIAS'] = $ndias;
         /* End - Week */
 
         $rows[] = $row;
