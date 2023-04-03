@@ -2360,7 +2360,7 @@ WHERE P.DNI = '{$rut}'";
   function listadoPersonalYJefaturas() {
     $con = conectar();
     if($con != 'No conectado') {
-      $sql = "CALL LISTADOJEFATURAS";
+      $sql = "SELECT * FROM LISTADOJEFATURAS_VIEW;";
       if ($row = $con->query($sql)) {
         $return = array();
         while ($array = $row->fetch_array(MYSQLI_BOTH)) {

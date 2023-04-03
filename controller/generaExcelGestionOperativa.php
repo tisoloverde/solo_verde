@@ -13,10 +13,10 @@
 		// var_dump($row);
 
     $detalle = array();
-    $detalle[] = array('IDPERSONAL',	'RUT',	'EMPRESA',	'NOMBRES',	'APELLIDOS',	'CARGO',	'EMAIL',	'TELEFONO',	'RUTJEFEDIRECTO',	'JEFE',	'CONTACTO',	'GERENCIA',	'SUBGERENCIA',	'CLIENTE',	'COMUNA',	'REGION',	'PATENTE',	'EXTERNO',	'SUCURSAL',	'CLASIFICACION',	'NIVEL',	'CENTRO_COSTO');
+    $detalle[] = array('IDPERSONAL',	'RUT',	'EMPRESA',	'NOMBRES',	'APELLIDOS',	'CARGO',	'EMAIL',	'FECHA_INGRESO',	'AFP',	'SALUD',	'TELEFONO',	'COMUNA',	'REGION',	'SUCURSAL',	'CODIGO_CECO','CECO');
 
     for($i = 0; $i < count($row); $i++){
-        $detalle[] = array($row[$i]['IDPERSONAL'],	$row[$i]['DNI'],	$row[$i]['EMPRESA'],	$row[$i]['NOMBRES'],	$row[$i]['APELLIDOS'],	$row[$i]['CARGO'],	$row[$i]['EMAIL'],	str_replace('<br>', '/',$row[$i]['TELEFONO']),	$row[$i]['RUTJEFEDIRECTO'],	$row[$i]['JEFE'],	$row[$i]['CONTACTO'],	$row[$i]['GERENCIA'],	$row[$i]['SUBGERENCIA'],	$row[$i]['CLIENTE'],	$row[$i]['COMUNA'],	$row[$i]['REGION'],	$row[$i]['PATENTE'],	$row[$i]['EXTERNO'],	$row[$i]['SUCURSAL'],	$row[$i]['CLASIFICACION'],	$row[$i]['NIVEL'],	$row[$i]['NOMENCLATURA']);
+        $detalle[] = array($row[$i]['IDPERSONAL'],	$row[$i]['DNI'],	$row[$i]['EMPRESA'],	$row[$i]['NOMBRES'],	$row[$i]['APELLIDOS'],	$row[$i]['CARGO'],	$row[$i]['EMAIL'], $row[$i]['FECHA_INGRESO'],	$row[$i]['AFP'], $row[$i]['SALUD'], str_replace('<br>', '/',$row[$i]['TELEFONO']),	$row[$i]['COMUNA'],	$row[$i]['REGION'],	$row[$i]['SUCURSAL'],	$row[$i]['CODIGO_CECO'],	$row[$i]['CECO']);
     }
 
     //Generamos archivo excel
@@ -45,13 +45,6 @@
     $excel->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
     $excel->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
     $excel->getActiveSheet()->getColumnDimension('P')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('S')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('T')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('U')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('V')->setAutoSize(true);
-    $excel->getActiveSheet()->getColumnDimension('W')->setAutoSize(true);
 
     $writer = new Xlsx($excel);
 
