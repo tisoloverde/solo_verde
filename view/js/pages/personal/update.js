@@ -245,8 +245,10 @@ async function fillPersonal_(parametros) {
       if (`${dt.tieneLicencia}` == "1") {
         $("#gj__claseLicencia_").removeAttr("disabled");
         $("#gj__fechaVencimientoLicencia_").removeAttr("disabled");
+        $("#gj__claseLicencia_").val(dt.claseLicencia);
+      } else {
+        $("#gj__claseLicencia_").val("-1");
       }
-      $("#gj__claseLicencia_").val(dt.claseLicencia);
       $("#gj__fechaVencimientoLicencia_").val(dt.fechaVencimientoLicencia);
       $("#gj__estadoCivil_").val(dt.estadoCivil);
       $("#gj__esRepitente_").prop(
@@ -906,27 +908,43 @@ function validarFormularioPersonalPlanilla_() {
   var isValidTelefono = $("#gj__fono_").val()
     ? validarTelefono($("#gj__fono_").val())
     : true;
-  if (!isValidTelefono) return 0;
-  else cleanField("gj__fono_");
+  if (!isValidTelefono) {
+    alertField("gj__fono_", "El campo Teléfono tiene un formato inválido");
+    return 0;
+  } else {
+    cleanField("gj__fono_");
+  }
 
   var isValidNombreContacto = $("#gj__nombreContactoEmergencia_").val()
     ? validarNombresApellidos($("#gj__nombreContactoEmergencia_").val())
     : true;
-  if (!isValidNombreContacto) return 0;
-  else cleanField("gj__nombreContactoEmergencia_");
+  if (!isValidNombreContacto) {
+    alertField("gj__nombreContactoEmergencia_", "El campo Nombre de Contacto de Emergencia tiene un formato inválido");
+    return 0;
+  } else {
+    cleanField("gj__nombreContactoEmergencia_");
+  }
 
   var isValidTelefonoContacto = $("#gj__fonoContactoEmergencia_").val()
     ? validarTelefono($("#gj__fonoContactoEmergencia_").val())
     : true;
-  if (!isValidTelefonoContacto) return 0;
-  else cleanField("gj__fonoContactoEmergencia_");
+  if (!isValidTelefonoContacto) {
+    alertField("gj__fonoContactoEmergencia_", "El campo Teléfono de Contacto de Emergencia tiene un formato inválido");
+    return 0;
+  } else {
+    cleanField("gj__fonoContactoEmergencia_");
+  }
 
   if ($("#gj__tieneFamiliarEmpresa_").is(":checked")) {
     var isValidNombreFamiliar = $("#gj__nombreFamiliarEmpresa_").val()
       ? validarNombresApellidos($("#gj__nombreFamiliarEmpresa_").val())
       : false;
-    if (!isValidNombreFamiliar) return 0;
-    else cleanField("gj__nombreFamiliarEmpresa_");
+    if (!isValidNombreFamiliar) {
+      alertField("gj__nombreFamiliarEmpresa_", "El campo Nombre de Familiar en Empresa tiene un formato inválido");
+      return 0;
+    } else {
+      cleanField("gj__nombreFamiliarEmpresa_");
+    }
   }
 
   return someFailRequired;
@@ -942,8 +960,8 @@ $("#guardarEditaPersonalOperaciones")
       __GJ_AFILIACION_PREVISION_ == "fonasa"
         ? $("#gj__nombreAfiliacionPrevision_FONASA_").val()
         : __GJ_AFILIACION_PREVISION_ == "isapre"
-        ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
-        : null;
+          ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
+          : null;
     if (!conditionNeg1AndEmpty(afiliacionPrevision)) {
       alertRequiredMany(
         [
@@ -963,8 +981,8 @@ $("#guardarEditaPersonalOperaciones")
       __GJ_AFILIACION_SALUD_ == "afp"
         ? $("#gj__nombreAfiliacionSalud_AFP_").val()
         : __GJ_AFILIACION_SALUD_ == "inp"
-        ? $("#gj__nombreAfiliacionSalud_INP_").val()
-        : null;
+          ? $("#gj__nombreAfiliacionSalud_INP_").val()
+          : null;
     if (!afiliacionSalud || `${afiliacionSalud}` == "-1") {
       alertRequiredMany(
         ["gj__nombreAfiliacionSalud_AFP_", "gj__nombreAfiliacionSalud_INP_"],
@@ -1070,10 +1088,10 @@ $("#guardarEditaPersonalOperaciones")
       tallaOverol: "null",
       tallaOtros:
         $("#gj__talla_otros_").val() != "" &&
-        $("#gj__otraTallaUniforme_").val() != ""
+          $("#gj__otraTallaUniforme_").val() != ""
           ? `'${$("#gj__talla_otros_").val()}|${$(
-              "#gj__otraTallaUniforme_"
-            ).val()}'`
+            "#gj__otraTallaUniforme_"
+          ).val()}'`
           : "null",
       tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa_").is(":checked")
         ? 1
