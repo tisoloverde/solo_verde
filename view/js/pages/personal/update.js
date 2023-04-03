@@ -245,8 +245,10 @@ async function fillPersonal_(parametros) {
       if (`${dt.tieneLicencia}` == "1") {
         $("#gj__claseLicencia_").removeAttr("disabled");
         $("#gj__fechaVencimientoLicencia_").removeAttr("disabled");
+        $("#gj__claseLicencia_").val(dt.claseLicencia);
+      } else {
+        $("#gj__claseLicencia_").val("-1");
       }
-      $("#gj__claseLicencia_").val(dt.claseLicencia);
       $("#gj__fechaVencimientoLicencia_").val(dt.fechaVencimientoLicencia);
       $("#gj__estadoCivil_").val(dt.estadoCivil);
       $("#gj__esRepitente_").prop(
