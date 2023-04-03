@@ -20450,7 +20450,7 @@ WHERE U.RUT = '{$rutUser}'";
 			if ((int)$idEstructuraOperacion > 0) {
 				$sql = $sql . " AND PP.CECO = $idEstructuraOperacion";
 			}
-			$sql = $sql . " AND (P.FECHA_INGRESO BETWEEN '$fechaIni' AND '$fechaIni')";
+			$sql = $sql . " AND (P.FECHA_INGRESO <= '$fechaFin')";
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			if ($row = $con->query($sql)) {
 				$return = array();
@@ -20547,7 +20547,7 @@ WHERE U.RUT = '{$rutUser}'";
 			if ((int)$idEstructuraOperacion >= 0) {
 				$sql = $sql . " AND PP.CECO = $idEstructuraOperacion";
 			}
-			$sql = $sql . " AND (P.FECHA_INGRESO BETWEEN '$fechaIni' AND '$fechaFin')";
+			$sql = $sql . " AND (P.FECHA_INGRESO <= '$fechaFin')";
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			$sql = $sql . " AND PE.IDPERSONAL IS NULL";
 			$sql = $sql . " UNION ALL ";
@@ -20606,7 +20606,7 @@ WHERE U.RUT = '{$rutUser}'";
 			if ((int)$idEstructuraOperacion >= 0) {
 				$sql = $sql . " AND EO.DEFINICION = $idEstructuraOperacion";
 			}
-			$sql = $sql . " AND (P.FECHA_INGRESO BETWEEN '$fechaIni' AND '$fechaFin')";
+			$sql = $sql . " AND (P.FECHA_INGRESO <= '$fechaFin')";
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			$sql = $sql . " ORDER BY $sortCol $sortOrd";
 			$sql = $sql . " LIMIT $limit OFFSET $offset;";
@@ -20730,15 +20730,18 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaUsuariosTemporals() {
+	function consultaListaUsuariosTemporals($codCECO) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
-				IDPERSONAL,
-				DNI AS RUT,
-				CONCAT(NOMBRES, ' ', APELLIDOS) AS FULLNAME
-			FROM PERSONAL
-			WHERE TEMPORAL = 1";
+				P.IDPERSONAL,
+				P.DNI AS RUT,
+				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS FULLNAME
+			FROM PERSONAL P
+			INNER JOIN ACT A ON A.IDPERSONAL = P.IDPERSONAL
+			INNER JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
+			WHERE P.TEMPORAL = 1
+			AND EO.DEFINICION = '$codCECO'";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

@@ -9220,9 +9220,11 @@ var _MODAL_PLANILLA_USUARIOS_TEMPORALES = [];
 var _MODAL_PLANILLA_DIAS_A_ASIGNAR = [];
 
 async function listUsuariosTemporales() {
-  $.ajax({
+  var codCECO = $('#selectListaCentrosDeCostos').val();
+  await $.ajax({
     url: 'controller/datosListaPersonalTemporales.php',
-    type: 'get',
+    type: 'post',
+    data: { codCECO },
     dataType: 'json',
     success: function (response) {
       _MODAL_PLANILLA_USUARIOS_TEMPORALES = response.aaData;

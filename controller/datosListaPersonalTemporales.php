@@ -4,7 +4,8 @@
   session_start();
 
 	if(count($_POST) >= 0) {
-    $row = consultaListaUsuariosTemporals();
+    $codCECO = $_POST['codCECO'];
+    $row = consultaListaUsuariosTemporals($codCECO);
     if(is_array($row)) {
       $results = array(
         "sEcho" => 1,
