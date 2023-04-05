@@ -2375,6 +2375,115 @@ WHERE P.DNI = '{$rut}'";
     }
   }
 
+	function listadoPersonalYJefaturasExcel($search) {
+    $con = conectar();
+    if($con != 'No conectado') {
+      $sql = "SELECT * FROM LISTADOJEFATURAS_VIEW";
+
+			/* BEGIN */
+			$where_condition = $sqlTot = $sqlRec = "";
+			$searchData = explode(' ', $search);
+			for($i = 0; $i < count($searchData); $i++){
+				if($i == 0 && ($i + 1) == count($searchData)){
+					$where_condition .=	" WHERE ";
+					$where_condition .= "( DNI LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR EMPRESA LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMBRES  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR APELLIDOS  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CARGO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR EMAIL  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR TELEFONO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR JEFE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CONTACTO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR GERENCIA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR SUBGERENCIA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CLIENTE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR COMUNA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR REGION  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR PATENTE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NIVEL  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMENCLATURA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMENCLATURA_AGRUPADA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR DENOMINACION  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR DENOMINACION_AGRUPADA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR AFP  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR SALUD  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CODIGO_CECO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CECO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR FECHA_INGRESO LIKE '%".$searchData[$i]."%' )";
+				} else if($i == 0){
+					$where_condition .=	" WHERE ";
+					$where_condition .= "( DNI LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR EMPRESA LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMBRES  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR APELLIDOS  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CARGO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR EMAIL  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR TELEFONO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR JEFE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CONTACTO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR GERENCIA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR SUBGERENCIA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CLIENTE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR COMUNA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR REGION  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR PATENTE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NIVEL  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMENCLATURA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMENCLATURA_AGRUPADA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR DENOMINACION  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR DENOMINACION_AGRUPADA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR AFP  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR SALUD  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CODIGO_CECO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CECO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR FECHA_INGRESO LIKE '%".$searchData[$i]."%' ) AND";
+				} else {
+					$where_condition .= "(DNI LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR EMPRESA LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMBRES  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR APELLIDOS  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CARGO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR EMAIL  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR TELEFONO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR JEFE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CONTACTO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR GERENCIA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR SUBGERENCIA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CLIENTE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR COMUNA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR REGION  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR PATENTE  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NIVEL  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMENCLATURA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR NOMENCLATURA_AGRUPADA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR DENOMINACION  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR DENOMINACION_AGRUPADA  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR AFP  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR SALUD  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CODIGO_CECO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR CECO  LIKE '%".$searchData[$i]."%' ";
+					$where_condition .= "OR FECHA_INGRESO LIKE '%".$searchData[$i]."%' )";
+				}
+			}
+			/* END */
+
+			$sql .= $where_condition;
+
+      if ($row = $con->query($sql)) {
+        $return = array();
+        while ($array = $row->fetch_array(MYSQLI_BOTH)) {
+          $return[] = $array;
+        }
+        return $return;
+      } else {
+        return "Error";
+      }
+    } else {
+      return "Error";
+    }
+  }
+
 	function listadoPersonalYJefaturas_Cambio($personal) {
     $con = conectar();
     if($con != 'No conectado') {

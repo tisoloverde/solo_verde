@@ -1,5 +1,5 @@
 <?php
-    ini_set('display_errors', 'Off');
+    ini_set('display_errors', 'On');
     require('phpSpreadsheet/vendor/autoload.php');
     require('../model/consultas.php');
 
@@ -9,8 +9,9 @@
     session_start();
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-    $row = listadoPersonalYJefaturas();
-		// var_dump($row);
+    $search = $_POST['search'];
+
+    $row = listadoPersonalYJefaturasExcel($search);
 
     $detalle = array();
     $detalle[] = array('IDPERSONAL',	'RUT',	'EMPRESA',	'NOMBRES',	'APELLIDOS',	'CARGO',	'EMAIL',	'FECHA_INGRESO',	'AFP',	'SALUD',	'TELEFONO',	'COMUNA',	'REGION',	'SUCURSAL',	'CODIGO_CECO','CECO');

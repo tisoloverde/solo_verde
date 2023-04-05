@@ -1862,7 +1862,10 @@ app.controller("jefaturaController", function(){
                   $.ajax({
                     url:   'controller/generaExcelGestionOperativa.php',
                     type:  'post',
-                    data:  parametros,
+                    data:  {
+                      search: $("#inputRodrigo").val(),
+                      ...parametros,
+                    },
                     success:  function (response) {
                       $('#modalAlertasSplash').modal('hide');
                       var random = Math.round(Math.random() * (1000000 - 1) + 1);
@@ -1938,6 +1941,11 @@ app.controller("jefaturaController", function(){
             "initComplete": function( settings, json) {
 
             }
+          });
+
+          $('#tablaJefatura').on('search.dt', function() {
+            var value = $('.dataTables_filter input').val();
+            $("#inputRodrigo").val(value);
           });
 
           await esconderMenu();
