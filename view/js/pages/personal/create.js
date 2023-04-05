@@ -300,11 +300,109 @@ function initPersonal_en() {
   });
 }
 
+function cleanFieldsPersonal() {
+  cleanField("gj__rut");
+  cleanField("gj__provisorio");
+  cleanField("gj__email");
+  cleanField("gj__nombres");
+  cleanField("gj__apellidos");
+  cleanField("gj__domicilio");
+  cleanField("gj__comuna");
+  cleanField("gj__ciudad");
+  cleanField("gj__fono");
+  cleanField("gj__fechaNacimiento");
+  cleanField("gj__nacionalidad");
+  cleanField("gj__sexo");
+  cleanField("gj__esPuebloOriginario");
+  cleanField("gj__puebloOriginario");
+  cleanField("gj__esHispanoHablante");
+  cleanField("gj__nivelEstudios");
+  cleanField("gj__sabeLeer");
+  cleanField("gj__sabeEscribir");
+  cleanField("gj__tieneLicencia");
+  cleanField("gj__claseLicencia");
+  cleanField("gj__fechaVencimientoLicencia");
+  cleanField("gj__estadoCivil");
+  cleanField("gj__nombreContactoEmergencia");
+  cleanField("gj__fonoContactoEmergencia");
+  cleanField("gj__talla_camisa");
+  cleanField("gj__talla_guantes");
+  cleanField("gj__talla_pantalon");
+  cleanField("gj__talla_zapatos");
+  cleanField("gj__talla_casco");
+  // tallaOverol: null,
+  cleanField("gj__talla_otros");
+  cleanField("gj__otraTallaUniforme");
+  cleanField("gj__tieneFamiliarEmpresa");
+  cleanField("gj__nombreFamiliarEmpresa");
+  cleanField("gj__cargoFamiliarEmpresa");
+  cleanField("gj__parentescoFamiliarEmpresa");
+  cleanField("gj__otroParentescoFamiliarEmpresa");
+  cleanField("gj__esRepitente");
+  cleanField("gj__cargoRepitente");
+  cleanField("gj__razonRepitente");
+  cleanField("nput[name='gj__afiliacion_prevision']");
+  cleanField("gj__nombreAfiliacionPrevision_FONASA");
+  cleanField("gj__nombreAfiliacionPrevision_ISAPRE");
+  cleanField("gj__nombreAfiliacionPrevision_FONASA");
+  cleanField("gj__nombreAfiliacionPrevision_ISAPRE");
+  cleanField("nput[name='gj__afiliacion_salud']");
+  cleanField("gj__nombreAfiliacionSalud_AFP");
+  cleanField("gj__nombreAfiliacionSalud_INP");
+  cleanField("gj__nombreAfiliacionSalud_AFP");
+  cleanField("gj__nombreAfiliacionSalud_INP");
+  cleanField("gj__banco");
+  cleanField("gj__tipoCuenta");
+  cleanField("gj__nroCuenta");
+  cleanField("gj__certificados_estudios");
+  cleanField("gj__certificados_antecedentes");
+  cleanField("gj__certificados_deExcencion");
+  cleanField("gj__certificados_residencia");
+  cleanField("gj__certificados_pension");
+  cleanField("gj__certificados_discapacidad");
+  cleanField("gj__certificados_afp");
+  cleanField("gj__certificados_fonasa");
+  cleanField("gj__certificados_isapre");
+  cleanField("gj__certificados_seguroCovid19");
+  cleanField("gj__certificados_conadi");
+  cleanField("gj__certificados_cursoOS10");
+  cleanField("gj__certificados_cursoSupervisor");
+  cleanField("gj__certificados_certificadoVacunas");
+  cleanField("gj__certificados_otros_cedulaDeIdentidad");
+  cleanField("gj__certificados_otros_licenciaDeConducir");
+  cleanField("gj__certificados_otros_curriculum");
+  cleanField("gj__certificados_otros_hojaDeVida");
+  cleanField("gj__tieneClaveUnica");
+  cleanField("gj__fechaIngresoEmprea");
+  cleanField("gj__tipoContrato");
+  cleanField("gj__cargo");
+  cleanField("gj__duracionInicialContrato");
+  cleanField("gj__cargoGenerico");
+  cleanField("gj__jeas");
+  cleanField("gj__ref1");
+  cleanField("gj__ref2");
+  cleanField("gj__plaza");
+  cleanField("gj__sucursal");
+  cleanField("gj__empresa");
+  cleanField("gj__centroCosto");
+
+  $("#gj__fechaNacimiento_").datepicker({
+    maxDate: subtractYears(new Date(), 18),
+    ...__CONFIG.datePicker,
+  });
+
+  $("#gj__fechaVencimientoLicencia_").datepicker({
+    minDate: new Date(),
+    ...__CONFIG.datePicker,
+  });
+}
+
 $("#ingresarNuevoJefatura")
   .unbind("click")
   .click(async function () {
     initPersonal();
     initPersonal_dis();
+    cleanFieldsPersonal();
     loading(true);
 
     await $.ajax({

@@ -98,6 +98,103 @@ function initPersonal_() {
   });
 }
 
+function cleanFieldsPersonal_() {
+  cleanField("gj__rut_");
+  cleanField("gj__provisorio_");
+  cleanField("gj__email_");
+  cleanField("gj__nombres_");
+  cleanField("gj__apellidos_");
+  cleanField("gj__domicilio_");
+  cleanField("gj__comuna_");
+  cleanField("gj__ciudad_");
+  cleanField("gj__fono_");
+  cleanField("gj__fechaNacimiento_");
+  cleanField("gj__nacionalidad_");
+  cleanField("gj__sexo_");
+  cleanField("gj__esPuebloOriginario_");
+  cleanField("gj__puebloOriginario_");
+  cleanField("gj__esHispanoHablante_");
+  cleanField("gj__nivelEstudios_");
+  cleanField("gj__sabeLeer_");
+  cleanField("gj__sabeEscribir_");
+  cleanField("gj__tieneLicencia_");
+  cleanField("gj__claseLicencia_");
+  cleanField("gj__fechaVencimientoLicencia_");
+  cleanField("gj__estadoCivil_");
+  cleanField("gj__nombreContactoEmergencia_");
+  cleanField("gj__fonoContactoEmergencia_");
+  cleanField("gj__talla_camisa_");
+  cleanField("gj__talla_guantes_");
+  cleanField("gj__talla_pantalon_");
+  cleanField("gj__talla_zapatos_");
+  cleanField("gj__talla_casco_");
+  // tallaOverol: null,
+  cleanField("gj__talla_otros_");
+  cleanField("gj__otraTallaUniforme_");
+  cleanField("gj__tieneFamiliarEmpresa_");
+  cleanField("gj__nombreFamiliarEmpresa_");
+  cleanField("gj__cargoFamiliarEmpresa_");
+  cleanField("gj__parentescoFamiliarEmpresa_");
+  cleanField("gj__otroParentescoFamiliarEmpresa_");
+  cleanField("gj__esRepitente_");
+  cleanField("gj__cargoRepitente_");
+  cleanField("gj__razonRepitente_");
+  cleanField("nput[name='gj__afiliacion_prevision']_");
+  cleanField("gj__nombreAfiliacionPrevision_FONASA_");
+  cleanField("gj__nombreAfiliacionPrevision_ISAPRE_");
+  cleanField("gj__nombreAfiliacionPrevision_FONASA_");
+  cleanField("gj__nombreAfiliacionPrevision_ISAPRE_");
+  cleanField("nput[name='gj__afiliacion_salud']_");
+  cleanField("gj__nombreAfiliacionSalud_AFP_");
+  cleanField("gj__nombreAfiliacionSalud_INP_");
+  cleanField("gj__nombreAfiliacionSalud_AFP_");
+  cleanField("gj__nombreAfiliacionSalud_INP_");
+  cleanField("gj__banco_");
+  cleanField("gj__tipoCuenta_");
+  cleanField("gj__nroCuenta_");
+  cleanField("gj__certificados_estudios_");
+  cleanField("gj__certificados_antecedentes_");
+  cleanField("gj__certificados_deExcencion_");
+  cleanField("gj__certificados_residencia_");
+  cleanField("gj__certificados_pension_");
+  cleanField("gj__certificados_discapacidad_");
+  cleanField("gj__certificados_afp_");
+  cleanField("gj__certificados_fonasa_");
+  cleanField("gj__certificados_isapre_");
+  cleanField("gj__certificados_seguroCovid19_");
+  cleanField("gj__certificados_conadi_");
+  cleanField("gj__certificados_cursoOS10_");
+  cleanField("gj__certificados_cursoSupervisor_");
+  cleanField("gj__certificados_certificadoVacunas_");
+  cleanField("gj__certificados_otros_cedulaDeIdentidad_");
+  cleanField("gj__certificados_otros_licenciaDeConducir_");
+  cleanField("gj__certificados_otros_curriculum_");
+  cleanField("gj__certificados_otros_hojaDeVida_");
+  cleanField("gj__tieneClaveUnica_");
+  cleanField("gj__fechaIngresoEmprea_");
+  cleanField("gj__tipoContrato_");
+  cleanField("gj__cargo_");
+  cleanField("gj__duracionInicialContrato_");
+  cleanField("gj__cargoGenerico_");
+  cleanField("gj__jeas_");
+  cleanField("gj__ref1_");
+  cleanField("gj__ref2_");
+  cleanField("gj__plaza_");
+  cleanField("gj__sucursal_");
+  cleanField("gj__empresa_");
+  cleanField("gj__centroCosto_");
+
+  $("#gj__fechaNacimiento_").datepicker({
+    maxDate: subtractYears(new Date(), 18),
+    ...__CONFIG.datePicker,
+  });
+
+  $("#gj__fechaVencimientoLicencia_").datepicker({
+    minDate: new Date(),
+    ...__CONFIG.datePicker,
+  });
+}
+
 function initPersonal_enabled() {
   // $("#gj__rut_").removeAttr("disabled"); // input
   $("#gj__provisorio_").removeAttr("disabled"); // checkbox
@@ -391,6 +488,7 @@ $("#editarJefatura")
     $("#tituloModalPersonal").text("Editar personal");
 
     initPersonal_();
+    cleanFieldsPersonal_();
     loading(true);
 
     await $.ajax({
@@ -919,7 +1017,10 @@ function validarFormularioPersonalPlanilla_() {
     ? validarNombresApellidos($("#gj__nombreContactoEmergencia_").val())
     : true;
   if (!isValidNombreContacto) {
-    alertField("gj__nombreContactoEmergencia_", "El campo Nombre de Contacto de Emergencia tiene un formato inválido");
+    alertField(
+      "gj__nombreContactoEmergencia_",
+      "El campo Nombre de Contacto de Emergencia tiene un formato inválido"
+    );
     return 0;
   } else {
     cleanField("gj__nombreContactoEmergencia_");
@@ -929,7 +1030,10 @@ function validarFormularioPersonalPlanilla_() {
     ? validarTelefono($("#gj__fonoContactoEmergencia_").val())
     : true;
   if (!isValidTelefonoContacto) {
-    alertField("gj__fonoContactoEmergencia_", "El campo Teléfono de Contacto de Emergencia tiene un formato inválido");
+    alertField(
+      "gj__fonoContactoEmergencia_",
+      "El campo Teléfono de Contacto de Emergencia tiene un formato inválido"
+    );
     return 0;
   } else {
     cleanField("gj__fonoContactoEmergencia_");
@@ -940,7 +1044,10 @@ function validarFormularioPersonalPlanilla_() {
       ? validarNombresApellidos($("#gj__nombreFamiliarEmpresa_").val())
       : false;
     if (!isValidNombreFamiliar) {
-      alertField("gj__nombreFamiliarEmpresa_", "El campo Nombre de Familiar en Empresa tiene un formato inválido");
+      alertField(
+        "gj__nombreFamiliarEmpresa_",
+        "El campo Nombre de Familiar en Empresa tiene un formato inválido"
+      );
       return 0;
     } else {
       cleanField("gj__nombreFamiliarEmpresa_");
@@ -960,8 +1067,8 @@ $("#guardarEditaPersonalOperaciones")
       __GJ_AFILIACION_PREVISION_ == "fonasa"
         ? $("#gj__nombreAfiliacionPrevision_FONASA_").val()
         : __GJ_AFILIACION_PREVISION_ == "isapre"
-          ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
-          : null;
+        ? $("#gj__nombreAfiliacionPrevision_ISAPRE_").val()
+        : null;
     if (!conditionNeg1AndEmpty(afiliacionPrevision)) {
       alertRequiredMany(
         [
@@ -981,8 +1088,8 @@ $("#guardarEditaPersonalOperaciones")
       __GJ_AFILIACION_SALUD_ == "afp"
         ? $("#gj__nombreAfiliacionSalud_AFP_").val()
         : __GJ_AFILIACION_SALUD_ == "inp"
-          ? $("#gj__nombreAfiliacionSalud_INP_").val()
-          : null;
+        ? $("#gj__nombreAfiliacionSalud_INP_").val()
+        : null;
     if (!afiliacionSalud || `${afiliacionSalud}` == "-1") {
       alertRequiredMany(
         ["gj__nombreAfiliacionSalud_AFP_", "gj__nombreAfiliacionSalud_INP_"],
@@ -1088,10 +1195,10 @@ $("#guardarEditaPersonalOperaciones")
       tallaOverol: "null",
       tallaOtros:
         $("#gj__talla_otros_").val() != "" &&
-          $("#gj__otraTallaUniforme_").val() != ""
+        $("#gj__otraTallaUniforme_").val() != ""
           ? `'${$("#gj__talla_otros_").val()}|${$(
-            "#gj__otraTallaUniforme_"
-          ).val()}'`
+              "#gj__otraTallaUniforme_"
+            ).val()}'`
           : "null",
       tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa_").is(":checked")
         ? 1

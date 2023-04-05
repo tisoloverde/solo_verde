@@ -269,6 +269,7 @@ $("#verUsuario")
     var parametros = { rut: rut[0] };
 
     initPersonal_();
+    cleanFieldsPersonal_();
     $("#guardarEditaPersonalOperaciones").hide();
     $("#tituloModalPersonal").text("Ficha Personal");
     loading(true);
