@@ -508,6 +508,9 @@ $("#gj__rut").on("blur", function (e) {
   e.stopImmediatePropagation();
   var rut = $("#gj__rut").val();
   if (!rut) return;
+  [",", ".", "(", ")", "{", "}", "-", "_", " ", "|", ":"].forEach((el) => {
+    rut = rut.replaceAll(el, "");
+  });
 
   var lastc = rut[rut.length - 1];
   var aux = rut.slice(0, -1);
@@ -832,7 +835,10 @@ function validarFormularioPersonalPlanilla() {
     ? validarNombresApellidos($("#gj__nombreContactoEmergencia").val())
     : true;
   if (!isValidNombreContacto) {
-    alertField("gj__nombreContactoEmergencia", "El campo Nombre de Contacto de Emergencia tiene un formato inválido");
+    alertField(
+      "gj__nombreContactoEmergencia",
+      "El campo Nombre de Contacto de Emergencia tiene un formato inválido"
+    );
     return 0;
   } else {
     cleanField("gj__nombreContactoEmergencia");
@@ -842,7 +848,10 @@ function validarFormularioPersonalPlanilla() {
     ? validarTelefono($("#gj__fonoContactoEmergencia").val())
     : true;
   if (!isValidTelefonoContacto) {
-    alertField("gj__fonoContactoEmergencia", "El campo Teléfono de Contacto de Emergencia tiene un formato inválido");
+    alertField(
+      "gj__fonoContactoEmergencia",
+      "El campo Teléfono de Contacto de Emergencia tiene un formato inválido"
+    );
     return 0;
   } else {
     cleanField("gj__fonoContactoEmergencia");
@@ -853,7 +862,10 @@ function validarFormularioPersonalPlanilla() {
       ? validarNombresApellidos($("#gj__nombreFamiliarEmpresa").val())
       : false;
     if (!isValidNombreFamiliar) {
-      alertField("gj__nombreFamiliarEmpresa", "El campo Nombre de Familiar en Empresa tiene un formato inválido");
+      alertField(
+        "gj__nombreFamiliarEmpresa",
+        "El campo Nombre de Familiar en Empresa tiene un formato inválido"
+      );
       return 0;
     } else {
       cleanField("gj__nombreFamiliarEmpresa");
@@ -873,8 +885,8 @@ $("#guardarIngresarPersonalOperaciones")
       __GJ_AFILIACION_PREVISION == "fonasa"
         ? $("#gj__nombreAfiliacionPrevision_FONASA").val()
         : __GJ_AFILIACION_PREVISION == "isapre"
-          ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
-          : null;
+        ? $("#gj__nombreAfiliacionPrevision_ISAPRE").val()
+        : null;
     if (!conditionNeg1AndEmpty(afiliacionPrevision)) {
       alertRequiredMany(
         [
@@ -894,8 +906,8 @@ $("#guardarIngresarPersonalOperaciones")
       __GJ_AFILIACION_SALUD == "afp"
         ? $("#gj__nombreAfiliacionSalud_AFP").val()
         : __GJ_AFILIACION_SALUD == "inp"
-          ? $("#gj__nombreAfiliacionSalud_INP").val()
-          : null;
+        ? $("#gj__nombreAfiliacionSalud_INP").val()
+        : null;
     if (!conditionNeg1AndEmpty(afiliacionSalud)) {
       alertRequiredMany(
         ["gj__nombreAfiliacionSalud_AFP", "gj__nombreAfiliacionSalud_INP"],
@@ -1001,10 +1013,10 @@ $("#guardarIngresarPersonalOperaciones")
       tallaOverol: "null",
       tallaOtros:
         $("#gj__talla_otros").val() != "" &&
-          $("#gj__otraTallaUniforme").val() != ""
+        $("#gj__otraTallaUniforme").val() != ""
           ? `'${$("#gj__talla_otros").val()}|${$(
-            "#gj__otraTallaUniforme"
-          ).val()}'`
+              "#gj__otraTallaUniforme"
+            ).val()}'`
           : "null",
       tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa").is(":checked")
         ? 1
