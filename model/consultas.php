@@ -20706,7 +20706,6 @@ WHERE U.RUT = '{$rutUser}'";
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				PE.IDPERSONAL_ESTADO,
-				PE.RUT_REEMPLAZO,
 				PE.FECHA_INICIO,
 				PE.RUT_REEMPLAZO,
 				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS REEMPLAZO

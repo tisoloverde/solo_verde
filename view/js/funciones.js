@@ -9896,7 +9896,7 @@ $(document).on('click', '.planilla-modal', async function(e){
       <span style="width: 30%; text-align: center; font-weight: bold; font-size: 18px">Rut</span>
       <span style="width: 40%; text-align: center; font-weight: bold; font-size: 18px">Nombre</span>
     </div>`;
-    _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item, index) => {
+    _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item) => {
       var select = `<select id='planilla-modal-personal-${item.IDPERSONAL_ESTADO}' class='planilla-modal-personal' style='width: 30%;'>`
       select += `<option value='0'>Seleccione</option>`;
       _MODAL_PLANILLA_USUARIOS_TEMPORALES.forEach((el) => {
@@ -9908,10 +9908,12 @@ $(document).on('click', '.planilla-modal', async function(e){
       })
       select += `</select>`;
 
+      var found = _MODAL_PLANILLA_USUARIOS_TEMPORALES.find((el) => el.RUT == item.RUT_REEMPLAZO)
+
       html += `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%;'>
         <span style="width: 30%; text-align: center;">${item.FECHA_INICIO}</span>
         ${select}
-        <span id="planilla-modal-personal-nombre-${item.IDPERSONAL_ESTADO}" style="width: 40%; padding-left: 10px;">${item.REEMPLAZO ?? ''}</span>
+        <span id="planilla-modal-personal-nombre-${item.IDPERSONAL_ESTADO}" style="width: 40%; padding-left: 10px;">${found?.FULLNAME ?? ''}</span>
       </div>`;
     })
     $('#personalTemporalPlanilla').html(html);
