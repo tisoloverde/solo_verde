@@ -1834,6 +1834,7 @@ app.controller("jefaturaController", function(){
             columns: [
               { data: 'S'},
               { data: 'IDPERSONAL', className: "centerDataTable" },
+              { data: 'RUTA_IMG_PERFIL', className: "centerDataTable"},
               { data: 'DNI'},
               { data: 'EMPRESA' },
               { data: 'NOMBRES' },
