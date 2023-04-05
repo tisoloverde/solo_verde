@@ -166,14 +166,20 @@
 
             <div class="col-xl-4 col-md-4" style="display: grid; margin-top: 10pt;">
               <label style="font-weight: bold;">¿Licencia de Conducir?</label>
-              <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-                <div style="width: 100px;">
-                  <label class="switch">
-                    <input id="gj__tieneLicencia" type="checkbox">
-                    <span class="slider round"></span>
-                  </label>
+              <div class="row">
+                <div class="col-xl-6 col-md-6">
+                  <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                    <div style="width: 100px;">
+                      <label class="switch">
+                        <input id="gj__tieneLicencia" type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <select id="gj__claseLicencia" class="form-control" disabled></select>
+                <div class="col-xl-6 col-md-6">
+                  <select id="gj__claseLicencia" class="form-control" disabled></select>
+                </div>
               </div>
             </div>
 
