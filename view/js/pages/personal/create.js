@@ -896,7 +896,7 @@ function validarFormularioPersonalPlanilla() {
           break;
         case "gj__email":
           flag = validarEmail(val);
-          if (!flag) alertInvalid("gj__email", "DNI");
+          if (!flag) alertInvalid("gj__email", "Email");
           else cleanField("gj__email");
           break;
         case "gj__nombres":
