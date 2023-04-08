@@ -55,7 +55,7 @@
       $val = 0;
       if ($sigla == 'FMM' || $sigla == 'FMT' || $sigla == 'FMD' || $sigla == 'PMD') {
         $val = 0.5;
-      } else if ($sigla == 'PER' || $sigla == 'FLT' || $sigla == 'PRA' || $sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR') {
+      } else if ($sigla == 'PER' || $sigla == 'FLT' || $sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR') {
         $val = 1;
       } else {
         $val = 0;
