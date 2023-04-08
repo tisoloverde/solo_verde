@@ -20553,6 +20553,10 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN REFERENCIA1 R1 ON R1.CODIGO = P.REFERENCIA1
 			LEFT JOIN REFERENCIA2 R2 ON R2.CODIGO = P.REFERENCIA2
 			LEFT JOIN PROCESOS_PERIODO PP ON P.DNI = PP.EMPLEADO
+			LEFT JOIN PERSONAL_ESTADO PE ON P.IDPERSONAL = PE.IDPERSONAL
+				AND PE.IDPERSONAL_ESTADO_CONCEPTO = 13
+				AND PE.FECHA_INICIO < '$fechaIni'
+				AND PE.FECHA_INICIO = (SELECT MAX(FECHA_INICIO) FROM PERSONAL_ESTADO WHERE IDPERSONAL = P.IDPERSONAL)
 			WHERE PP.CECO IS NOT NULL
 			AND (PP.FECHAPROC IN ('$auxIni', '$auxFin'))";
 			/*AND (PP.FECHAPROC IN ('$fechaIni', '$fechaFin'))";*/
@@ -20561,6 +20565,7 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 			$sql = $sql . " AND (P.FECHA_INGRESO <= '$fechaFin')";
 			$sql = $sql . " AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
+			$sql = $sql . " AND PE.IDPERSONAL IS NULL";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
