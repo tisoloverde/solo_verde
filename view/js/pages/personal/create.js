@@ -1018,6 +1018,25 @@ $("#guardarIngresarPersonalOperaciones")
       cleanField("gj__nombreAfiliacionSalud_INP");
     }
 
+    var banco = $("#gj__banco option:selected").text();
+    if (["Vale vista", "Contado"].includes(banco)) {
+      cleanField("gj__tipoCuenta");
+      cleanField("gj__nroCuenta");
+    } else {
+      if (!conditionNeg1AndEmpty($("#gj__tipoCuenta").val())) {
+        alertRequired("gj__tipoCuenta", "", false);
+        return;
+      } else {
+        cleanField("gj__tipoCuenta");
+      }
+      if (!conditionNeg1AndEmpty($("#gj__nroCuenta").val())) {
+        alertRequired("gj__nroCuenta", "", false);
+        return;
+      } else {
+        cleanField("gj__nroCuenta");
+      }
+    }
+
     var parametros = {
       rut: $("#gj__rut").val() ? `'${$("#gj__rut").val()}'` : "null",
       apellidos: $("#gj__apellidos").val()

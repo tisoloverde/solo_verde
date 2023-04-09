@@ -980,7 +980,7 @@ function validarFormularioPersonalPlanilla_() {
           break;
         case "gj__email_":
           flag = validarEmail(val);
-          if (!flag) alertInvalid("gj__email_", "DNI");
+          if (!flag) alertInvalid("gj__email_", "Email");
           else cleanField("gj__email_");
           break;
         case "gj__nombres_":
@@ -1100,6 +1100,25 @@ $("#guardarEditaPersonalOperaciones")
     } else {
       cleanField("gj__nombreAfiliacionSalud_AFP_");
       cleanField("gj__nombreAfiliacionSalud_INP_");
+    }
+
+    var banco = $("#gj__banco_ option:selected").text();
+    if (["Vale vista", "Contado"].includes(banco)) {
+      cleanField("gj__tipoCuenta_");
+      cleanField("gj__nroCuenta_");
+    } else {
+      if (!conditionNeg1AndEmpty($("#gj__tipoCuenta_").val())) {
+        alertRequired("gj__tipoCuenta_", "", false);
+        return;
+      } else {
+        cleanField("gj__tipoCuenta_");
+      }
+      if (!conditionNeg1AndEmpty($("#gj__nroCuenta_").val())) {
+        alertRequired("gj__nroCuenta_", "", false);
+        return;
+      } else {
+        cleanField("gj__nroCuenta_");
+      }
     }
 
     var parametros = {
