@@ -19869,7 +19869,7 @@ WHERE U.RUT = '{$rutUser}'";
 			return "Error";
 		}
 	}
-	
+
 	function consultaListaPersonalOfertados() {
 		$con = conectar();
 		if ($con != 'No conectado') {
@@ -20636,7 +20636,7 @@ WHERE U.RUT = '{$rutUser}'";
 				P.FECHA_INGRESO,
 				(
 					SELECT
-						FECHA_INICIO
+						DATE_ADD(FECHA_INICIO,INTERVAL -1 DAY)
 					FROM PERSONAL_ESTADO
 					WHERE IDPERSONAL = P.IDPERSONAL
 					AND IDPERSONAL_ESTADO_CONCEPTO = 13
@@ -20700,7 +20700,7 @@ WHERE U.RUT = '{$rutUser}'";
 				P.FECHA_INGRESO,
 				(
 					SELECT
-						FECHA_INICIO
+						DATE_ADD(FECHA_INICIO,INTERVAL -1 DAY)
 					FROM PERSONAL_ESTADO
 					WHERE IDPERSONAL = P.IDPERSONAL
 					AND IDPERSONAL_ESTADO_CONCEPTO = 13
