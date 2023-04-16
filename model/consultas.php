@@ -20597,6 +20597,136 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function consultaListaACTHistorial2(
+		$offset,
+		$limit,
+		$idEstructuraOperacion,
+		$fechaIni,
+		$fechaFin,
+		$auxIni,
+		$auxFin,
+		$diaFinMes,
+		$search,
+		$sortCol,
+		$sortOrd
+	) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sqlAux = "SELECT
+				date_add(PE_.FECHA_INICIO, INTERVAL -1 day)
+				PE_.FECHA_INICIO
+			FROM PERSONAL_ESTADO PE_
+			INNER JOIN PERSONAL P_ ON P_.IDPERSONAL = PE_.IDPERSONAL
+			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC_ ON PEC_.IDPERSONAL_ESTADO_CONCEPTO = PE_.IDPERSONAL_ESTADO_CONCEPTO
+			WHERE P_.IDPERSONAL = P.IDPERSONAL AND PEC_.SIGLA = 'DSR'
+			ORDER BY PE_.IDPERSONAL_ESTADO DESC
+			LIMIT 1";
+
+			$sql = "SELECT
+				P.IDPERSONAL,
+				P.DNI AS RUT,
+				P.NOMBRES,
+				P.APELLIDOS AS APELLIDOS,
+				P.CARGO AS CARGO_LIQUIDACION,
+				CGU.IDCARGO_GENERICO_UNIFICADO,
+				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
+				CL.IDCLASIFICACION,
+				CL.NOMBRE AS CLASIFICACION,
+				R1.IDREFERENCIA1,
+				R1.NOMBRE AS REFERENCIA1,
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2,
+
+    		P.FECHA_INGRESO,
+				($sqlAux) AS FECHA_TERMINO,
+    
+				P.CLASIFICACION_CONTRATO,
+				P.TEMPORAL
+
+			FROM PERSONAL P
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
+			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = P.REFERENCIA1
+			LEFT JOIN REFERENCIA2 R2 ON R2.IDREFERENCIA2 = P.REFERENCIA2
+
+			LEFT JOIN PERSONAL_ESTADO PE ON PE.IDPERSONAL = P.IDPERSONAL
+			LEFT JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
+			LEFT JOIN PROCESOS_PERIODO PP ON PP.EMPLEADO = P.DNI
+			WHERE 
+			(
+				CASE WHEN PEC.SIGLA = 'DSR' THEN
+					PE.FECHA_INICIO <= '$diaFinMes'
+				ELSE
+					PE.FECHA_INICIO IS NOT NULL
+				END
+      )
+			AND (
+				CASE WHEN PP.FECHAPROC >= '$auxFin' THEN
+					PP.FECHAPROC IN ('$auxIni', '$auxFin')
+				ELSE
+					TIMESTAMPDIFF(MONTH, ($sqlAux), '$auxIni-01') <= 0
+				END
+			)
+			AND PP.CECO = $idEstructuraOperacion
+			AND P.FECHA_INGRESO <= '$fechaFin'
+			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')
+
+			GROUP BY P.IDPERSONAL
+			
+			UNION ALL
+			
+			SELECT
+				P.IDPERSONAL,
+				P.DNI AS RUT,
+				P.NOMBRES,
+				P.APELLIDOS AS APELLIDOS,
+				P.CARGO AS CARGO_LIQUIDACION,
+				CGU.IDCARGO_GENERICO_UNIFICADO,
+				CGU.NOMBRE AS CARGO_GENERICO_UNIFICADO,
+				CL.IDCLASIFICACION,
+				CL.NOMBRE AS CLASIFICACION,
+				R1.IDREFERENCIA1,
+				R1.NOMBRE AS REFERENCIA1,
+				R2.IDREFERENCIA2,
+				R2.NOMBRE AS REFERENCIA2,
+
+    		P.FECHA_INGRESO,
+    		($sqlAux) AS FECHA_TERMINO,
+    
+    		P.CLASIFICACION_CONTRATO,
+    		P.TEMPORAL
+
+			FROM PERSONAL P
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
+			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1 ON R1.IDREFERENCIA1 = P.REFERENCIA1
+			LEFT JOIN REFERENCIA2 R2 ON R2.IDREFERENCIA2 = P.REFERENCIA2
+
+			LEFT JOIN ACT AC ON AC.IDPERSONAL = P.IDPERSONAL
+			LEFT JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = AC.IDESTRUCTURA_OPERACION
+			WHERE P.TEMPORAL = 1
+			AND EO.DEFINICION = $idEstructuraOperacion
+			AND P.FECHA_INGRESO <= '$fechaFin'
+			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')
+
+			GROUP BY P.IDPERSONAL
+
+			ORDER BY RUT ASC
+			LIMIT $limit OFFSET $offset;";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return $sql;
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $auxIni, $auxFin, $diaFinMes, $search, $sortCol, $sortOrd) {
 		$con = conectar();
 		if ($con != "No conectado") {
@@ -20730,7 +20860,7 @@ WHERE U.RUT = '{$rutUser}'";
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
 					$return[] = $array;
 				}
-				return $return;
+				return $sql;
 			} else {
 				return "Error";
 			}

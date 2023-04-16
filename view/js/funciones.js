@@ -9384,7 +9384,8 @@ function disableSelectionCols(lst) {
 async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   var auxIni = sanitizeDatePlanilla(fecIni);
   var auxFin = sanitizeDatePlanilla(fecFin);
-  var diaFinMes = findFecEndByYearMonth(auxIni).format('YYYY-MM-DD');
+  var auxFinMes = findFecEndByYearMonth(auxFin);
+  var diaFinMes = auxFinMes.format('YYYY-MM-DD');
 
   await _TABLE_PLANILLA.DataTable({
     serverSide: true,
