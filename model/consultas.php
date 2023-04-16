@@ -20622,10 +20622,31 @@ WHERE U.RUT = '{$rutUser}'";
 			ORDER BY PE_.IDPERSONAL_ESTADO DESC
 			LIMIT 1";
 
+			$sqlRodrigo = "CONCAT(
+				CASE WHEN (
+					SELECT COUNT(*)
+					FROM PERSONAL_ESTADO PH
+					WHERE PH.IDPERSONAL = P.IDPERSONAL
+					AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+				) >= 7 THEN '<b class=''fa fa-circle'' style=''color:  green; font-size: 10pt;'' title=''Asistencia ingresada''></b>'
+				ELSE
+					CASE WHEN (
+						SELECT COUNT(*)
+						FROM PERSONAL_ESTADO PH
+						WHERE PH.IDPERSONAL = P.IDPERSONAL
+						AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+					) >= 1 THEN '<b class=''fa fa-circle'' style=''color:  #ffd519; font-size: 10pt;'' title=''Asistencia ingresada parcialmente''></b>'
+					ELSE
+						'<b class=''fa fa-circle'' style=''color:  red; font-size: 10pt;'' title=''Asistencia no ingresada''></b>'
+					END
+				END,
+				' ',P.APELLIDOS, ' ', P.NOMBRES
+			)";
+
 			$sql = "SELECT
 				P.IDPERSONAL,
 				P.DNI AS RUT,
-				P.NOMBRES,
+				($sqlRodrigo) AS NOMBRES,
 				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
@@ -20682,7 +20703,7 @@ WHERE U.RUT = '{$rutUser}'";
 			SELECT
 				P.IDPERSONAL,
 				P.DNI AS RUT,
-				P.NOMBRES,
+				($sqlRodrigo) AS NOMBRES,
 				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
