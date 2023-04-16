@@ -20613,7 +20613,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sqlAux = "SELECT
-				date_add(PE_.FECHA_INICIO, INTERVAL -1 day)
+				-- date_add(PE_.FECHA_INICIO, INTERVAL -1 day)
 				PE_.FECHA_INICIO
 			FROM PERSONAL_ESTADO PE_
 			INNER JOIN PERSONAL P_ ON P_.IDPERSONAL = PE_.IDPERSONAL
