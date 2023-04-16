@@ -18,9 +18,9 @@
     $sortOrd = $_POST['order'][0]['dir'];
 
     // DB
-    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
+    $total = consultaListaACTHistorialCOUNT2($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
     $lstPersonalCC = consultaListaACTHistorial2($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search, sanitizePlanillaCol($sortCol), $sortOrd);
-    $sql = [];
+    $sql = 0;
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 
