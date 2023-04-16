@@ -20542,7 +20542,7 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin, $auxIni, $auxFin, $search) {
+	function consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fechaIni, $fechaFin, $auxIni, $auxFin, $diaFinMes, $search) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT ' ' AS S,
@@ -20559,7 +20559,6 @@ WHERE U.RUT = '{$rutUser}'";
 				AND PE.FECHA_INICIO = (SELECT MAX(FECHA_INICIO) FROM PERSONAL_ESTADO WHERE IDPERSONAL = P.IDPERSONAL)
 			WHERE PP.CECO IS NOT NULL
 			AND (PP.FECHAPROC IN ('$auxIni', '$auxFin'))";
-			/*AND (PP.FECHAPROC IN ('$fechaIni', '$fechaFin'))";*/
 			if ((int)$idEstructuraOperacion > 0) {
 				$sql = $sql . " AND PP.CECO = $idEstructuraOperacion";
 			}
@@ -20598,31 +20597,32 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
-	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $auxIni, $auxFin, $search, $sortCol, $sortOrd) {
+	function consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fechaIni, $fechaFin, $auxIni, $auxFin, $diaFinMes, $search, $sortCol, $sortOrd) {
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				DISTINCT(P.IDPERSONAL),
 				P.DNI AS RUT,
 				CONCAT(
-				CASE WHEN (
-					SELECT COUNT(*)
-					FROM PERSONAL_ESTADO PH
-					WHERE PH.IDPERSONAL = P.IDPERSONAL
-					AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
-				) >= 7 THEN '<b class=''fa fa-circle'' style=''color:  green; font-size: 10pt;'' title=''Asistencia ingresada''></b>'
-				ELSE
 					CASE WHEN (
 						SELECT COUNT(*)
 						FROM PERSONAL_ESTADO PH
 						WHERE PH.IDPERSONAL = P.IDPERSONAL
 						AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
-					) >= 1 THEN '<b class=''fa fa-circle'' style=''color:  #ffd519; font-size: 10pt;'' title=''Asistencia ingresada parcialmente''></b>'
+					) >= 7 THEN '<b class=''fa fa-circle'' style=''color:  green; font-size: 10pt;'' title=''Asistencia ingresada''></b>'
 					ELSE
-						'<b class=''fa fa-circle'' style=''color:  red; font-size: 10pt;'' title=''Asistencia no ingresada''></b>'
-					END
-				END,
-				' ',P.APELLIDOS, ' ', P.NOMBRES) AS NOMBRES,
+						CASE WHEN (
+							SELECT COUNT(*)
+							FROM PERSONAL_ESTADO PH
+							WHERE PH.IDPERSONAL = P.IDPERSONAL
+							AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+						) >= 1 THEN '<b class=''fa fa-circle'' style=''color:  #ffd519; font-size: 10pt;'' title=''Asistencia ingresada parcialmente''></b>'
+						ELSE
+							'<b class=''fa fa-circle'' style=''color:  red; font-size: 10pt;'' title=''Asistencia no ingresada''></b>'
+						END
+					END,
+					' ',P.APELLIDOS, ' ', P.NOMBRES
+				) AS NOMBRES,
 				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
@@ -20669,24 +20669,25 @@ WHERE U.RUT = '{$rutUser}'";
 				DISTINCT(P.IDPERSONAL),
 				P.DNI AS RUT,
 				CONCAT(
-				CASE WHEN (
-					SELECT COUNT(*)
-					FROM PERSONAL_ESTADO PH
-					WHERE PH.IDPERSONAL = P.IDPERSONAL
-					AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
-				) >= 7 THEN '<b class=''fa fa-circle'' style=''color:  green; font-size: 10pt;'' title=''Asistencia ingresada''></b>'
-				ELSE
 					CASE WHEN (
 						SELECT COUNT(*)
 						FROM PERSONAL_ESTADO PH
 						WHERE PH.IDPERSONAL = P.IDPERSONAL
 						AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
-					) >= 1 THEN '<b class=''fa fa-circle'' style=''color:  #ffd519; font-size: 10pt;'' title=''Asistencia ingresada parcialmente''></b>'
+					) >= 7 THEN '<b class=''fa fa-circle'' style=''color:  green; font-size: 10pt;'' title=''Asistencia ingresada''></b>'
 					ELSE
-						'<b class=''fa fa-circle'' style=''color:  red; font-size: 10pt;'' title=''Asistencia no ingresada''></b>'
-					END
-				END,
-				' ',P.APELLIDOS, ' ', P.NOMBRES) AS NOMBRES,
+						CASE WHEN (
+							SELECT COUNT(*)
+							FROM PERSONAL_ESTADO PH
+							WHERE PH.IDPERSONAL = P.IDPERSONAL
+							AND PH.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
+						) >= 1 THEN '<b class=''fa fa-circle'' style=''color:  #ffd519; font-size: 10pt;'' title=''Asistencia ingresada parcialmente''></b>'
+						ELSE
+							'<b class=''fa fa-circle'' style=''color:  red; font-size: 10pt;'' title=''Asistencia no ingresada''></b>'
+						END
+					END,
+					' ',P.APELLIDOS, ' ', P.NOMBRES
+				) AS NOMBRES,
 				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,

@@ -58,3 +58,24 @@ function cleanField(id) {
 function conditionNeg1AndEmpty(val) {
   return val != null && `${val}` != "-1" && val != "";
 }
+
+function findFecIniByYearMonth(yearmonth) {
+  var splitted = yearmonth.split("-");
+  if (splitted.length > 1) {
+    return moment(`${yearmonth}-01`);
+  }
+  return moment(new Date());
+}
+
+function findFecEndByYearMonth(yearmonth) {
+  var splitted = yearmonth.split("-");
+  if (splitted.length > 1) {
+    var idx = Number(splitted[1]);
+    var month = __CONSTANTS.months[idx - 1];
+    if (month) {
+      return moment(`${yearmonth}-${month.numDays}`);
+    }
+    return moment(new Date());
+  }
+  return moment(new Date());
+}

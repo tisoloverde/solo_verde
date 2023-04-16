@@ -9384,6 +9384,8 @@ function disableSelectionCols(lst) {
 async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   var auxIni = sanitizeDatePlanilla(fecIni);
   var auxFin = sanitizeDatePlanilla(fecFin);
+  var diaFinMes = findFecEndByYearMonth(auxIni).format('YYYY-MM-DD');
+
   await _TABLE_PLANILLA.DataTable({
     serverSide: true,
     processing: true,
@@ -9391,7 +9393,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     ajax: {
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
-      data: { idEstructuraOperacion, fecIni, fecFin, auxIni, auxFin },
+      data: { idEstructuraOperacion, fecIni, fecFin, auxIni, auxFin, diaFinMes },
       dataFilter: function(data) {
         _DATA_PLANILLA = JSON.parse(data).aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
         return data;

@@ -12,13 +12,14 @@
     $fecFin = $_POST['fecFin'];
     $auxIni = $_POST['auxIni'];
     $auxFin = $_POST['auxFin'];
+    $diaFinMes = $_POST['diaFinMes'];
     $search = $_POST['search']['value'];
     $sortCol = $_POST['order'][0]['column'];
     $sortOrd = $_POST['order'][0]['dir'];
 
     // DB
-    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $search);
-    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $search, sanitizePlanillaCol($sortCol), $sortOrd);
+    $total = consultaListaACTHistorialCOUNT($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
+    $lstPersonalCC = consultaListaACTHistorial($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search, sanitizePlanillaCol($sortCol), $sortOrd);
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 
@@ -216,6 +217,7 @@
         // "sEcho" => 1,
         /*"iTotalRecords" => (int)$total[0]['CONT'],
         "iTotalDisplayRecords" => count($rows),*/
+        "sql1" => $sql,
         "recordsTotal" => (int)$total[0]['CONT'],
         "recordsFiltered" => (int)$total[0]['CONT'],
         "aaData"=>$rows,
@@ -223,6 +225,7 @@
       echo json_encode($results);
     } else {
       $results = array(
+        "sql2" => $sql,
         "sEcho" => 1,
         "iTotalRecords" => 0,
         "iTotalDisplayRecords" => 0,
