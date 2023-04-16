@@ -20613,8 +20613,8 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sqlAux = "SELECT
-				-- date_add(PE_.FECHA_INICIO, INTERVAL -1 day)
-				PE_.FECHA_INICIO
+				date_add(PE_.FECHA_INICIO, INTERVAL -1 day)
+				-- PE_.FECHA_INICIO
 			FROM PERSONAL_ESTADO PE_
 			INNER JOIN PERSONAL P_ ON P_.IDPERSONAL = PE_.IDPERSONAL
 			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC_ ON PEC_.IDPERSONAL_ESTADO_CONCEPTO = PE_.IDPERSONAL_ESTADO_CONCEPTO
@@ -20664,7 +20664,11 @@ WHERE U.RUT = '{$rutUser}'";
 				CASE WHEN PP.FECHAPROC >= '$auxFin' THEN
 					PP.FECHAPROC IN ('$auxIni', '$auxFin')
 				ELSE
-					TIMESTAMPDIFF(MONTH, ($sqlAux), '$auxIni-01') <= 0
+					TIMESTAMPDIFF(
+						MONTH,
+						CONCAT(LEFT(($sqlAux),7),'-01'),
+						'$auxIni-01'
+					) <= 0
 				END
 			)
 			AND PP.CECO = $idEstructuraOperacion
