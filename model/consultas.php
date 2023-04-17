@@ -21086,8 +21086,8 @@ WHERE U.RUT = '{$rutUser}'";
 			FROM PERSONAL P
 			INNER JOIN ACT A ON A.IDPERSONAL = P.IDPERSONAL
 			INNER JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
-			WHERE P.TEMPORAL = 1";
-			/*AND EO.DEFINICION = '$codCECO'";*/
+			WHERE P.TEMPORAL = 1
+			AND EO.DEFINICION = '$codCECO'";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
