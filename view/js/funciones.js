@@ -9232,11 +9232,11 @@ async function listUsuariosTemporales() {
   })
 }
 
-async function listDiasReemplazoTemporal(idPersonal, fecIni, fecFin) {
+async function listDiasReemplazoTemporal(dias, rutPersonal, idPersonal, fecIni, fecFin) {
   await $.ajax({
     url:   'controller/datosListaDiasReemplazoTemporal.php',
     type:  'post',
-    data: { idPersonal, fecIni, fecFin },
+    data: { dias, rutPersonal, idPersonal, fecIni, fecFin },
     dataType: 'json',
     success:  function (response) {
       _MODAL_PLANILLA_DIAS_A_ASIGNAR = response.aaData;
@@ -9885,13 +9885,17 @@ $(document).on('keypress', '.planilla-input', function(e){
 $(document).on('click', '.planilla-modal', async function(e){
   e.stopImmediatePropagation();
   e.preventDefault();
-  var idPersonal = Number(this.id.replace('planilla-input-', ''));
+  var aux = this.id.replace('planilla-input-', '');
+  var aux2 = aux.split('--');
+  var rutPersonal = aux2[0];
+  var idPersonal = Number(aux2[1]);
+
   var fecIni = _DIAS_PLANILLA[0]['fecha'];
   var fecFin = _DIAS_PLANILLA[_DIAS_PLANILLA.length - 1]['fecha'];
 
   loading(true);
   await listUsuariosTemporales();
-  await listDiasReemplazoTemporal(idPersonal, fecIni, fecFin);
+  await listDiasReemplazoTemporal(_DIAS_PLANILLA, rutPersonal, idPersonal, fecIni, fecFin);
   setTimeout(function() {
     // var h = $(window).height() - 200;
     var html = `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%;'>
@@ -9899,9 +9903,10 @@ $(document).on('click', '.planilla-modal', async function(e){
       <span style="width: 30%; text-align: center; font-weight: bold; font-size: 18px">Rut</span>
       <span style="width: 40%; text-align: center; font-weight: bold; font-size: 18px">Nombre</span>
     </div>`;
-    _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item) => {
-      var select = `<select id='planilla-modal-personal-${item.IDPERSONAL_ESTADO}' class='planilla-modal-personal' style='width: 30%;'>`
+    _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item, index) => {
+      var select = `<select id='planilla-modal-personal-${item.RUT}--${index}' class='planilla-modal-personal' style='width: 30%;'>`
       select += `<option value='0'>Seleccione</option>`;
+
       _MODAL_PLANILLA_USUARIOS_TEMPORALES.forEach((el) => {
         if (el.RUT == item.RUT_REEMPLAZO) {
           select += `<option value='${el.RUT}' selected>${el.RUT}</option>`;
@@ -9913,10 +9918,10 @@ $(document).on('click', '.planilla-modal', async function(e){
 
       var found = _MODAL_PLANILLA_USUARIOS_TEMPORALES.find((el) => el.RUT == item.RUT_REEMPLAZO)
 
-      html += `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%;'>
+      html += `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;'>
         <span style="width: 30%; text-align: center;">${item.FECHA_INICIO}</span>
         ${select}
-        <span id="planilla-modal-personal-nombre-${item.IDPERSONAL_ESTADO}" style="width: 40%; padding-left: 10px;">${found?.FULLNAME ?? ''}</span>
+        <span id="planilla-modal-personal-nombre-${item.RUT}--${index}" style="width: 40%; padding-left: 10px;">${found?.FULLNAME ?? ''}</span>
       </div>`;
     })
     $('#personalTemporalPlanilla').html(html);
@@ -9933,9 +9938,12 @@ $(document).on('click', '.planilla-modal', async function(e){
       closeOnSelect: !$(this).attr('multiple'),
       // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
     }
-    if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      $(".planilla-modal-personal").select2(theme);
-    }
+
+    _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item, index) => {
+      if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        $(`#planilla-modal-personal-${item.RUT}--${index}`).select2(theme);
+      }
+    });
 
     $("#modalIngresoTemporalPlanilla").modal("show");
     loading(false);
@@ -9946,10 +9954,14 @@ $(document).on('change', '.planilla-modal-personal', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
 
-  var idPersonalEstado = Number(e.target.id.replace('planilla-modal-personal-', ''));
+  var aux = e.target.id.replace('planilla-modal-personal-', '');
+  var aux2 = aux.split("--");
+  var rutPersonal = aux2[0];
+  var index = Number(aux2[1]);
+
   var rut = $(`#${e.target.id}`).val();
   var reemplazo = _MODAL_PLANILLA_USUARIOS_TEMPORALES.find((item) => item.RUT == rut)
-  $(`#planilla-modal-personal-nombre-${idPersonalEstado}`).text(reemplazo ? reemplazo.FULLNAME : '');
+  $(`#planilla-modal-personal-nombre-${rutPersonal}--${index}`).text(reemplazo ? reemplazo.FULLNAME : '');
 });
 
 $('#guardarIngresoTemporalPlanilla').on('click', async function(e) {
@@ -9958,14 +9970,24 @@ $('#guardarIngresoTemporalPlanilla').on('click', async function(e) {
 
   var lst = [];
   $('.planilla-modal-personal').each(function () {
-    var idPersonalEstado = Number(this.id.replace('planilla-modal-personal-', ''));
+    var aux = this.id.replace('planilla-modal-personal-', '');
+    var aux2 = aux.split("--");
+    var rutPersonal = aux2[0];
+    var index = Number(aux2[1]);
+
     var rutReemplazo = $(`#${this.id}`).val();
-    if (`${rutReemplazo}` != '0') lst.push({ idPersonalEstado, rutReemplazo });
+    if (`${rutReemplazo}` != '0') {
+      lst.push({
+        rut_personal: rutPersonal,
+        rut_reemplazo: rutReemplazo,
+        fecha: _MODAL_PLANILLA_DIAS_A_ASIGNAR[index]['FECHA_INICIO'],
+      });
+    }
   })
   $("#modalIngresoTemporalPlanilla").modal("hide");
   loading(true);
   await $.ajax({
-    url:   'controller/actualizarPlanillaRutReemplazo.php',
+    url:   'controller/ingresarPlanillaRutReemplazo.php',
     type:  'post',
     data: { lst },
     success:  function (response) {

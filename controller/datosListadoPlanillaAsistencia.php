@@ -39,6 +39,7 @@
     if (is_array($lstPersonalCC)) {
       for ($i=0; $i<count($lstPersonalCC); $i++) {
         $idPersonal = $lstPersonalCC[$i]['IDPERSONAL'];
+        $rutPersonal = $lstPersonalCC[$i]['RUT'];
 
         $found = [];
         foreach ($lstPersonalEstado as $personalEstado) {
@@ -46,6 +47,12 @@
             $found = $personalEstado;
           }
         }
+
+        $boton_asignar = isset($lstPersonalCC[$i]['FECHA_TERMINO']) ?
+          $lstPersonalCC[$i]['FECHA_TERMINO'] <= $fecFin
+            ? ""
+            : "disabled"
+          : "disabled";
 
         $row = [
           "S" => $lstPersonalCC[$i]['S'],
@@ -63,7 +70,7 @@
           "REFERENCIA1_B_TEXT" => "",
           "IDREFERENCIA2_B" => 0,
           "REFERENCIA2_B" => "",
-          "RUT_REEMPLAZO" => "<button id='planilla-input-$idPersonal' class='planilla-modal' disabled>Asignar</button>",
+          "RUT_REEMPLAZO" => "<button id='planilla-input-$rutPersonal--$idPersonal' class='btn btn-info btn-sm planilla-modal' $boton_asignar>Asignar</button>",
           "FECHA_REEMPLAZO" => "",
           // "NDIAS" => $ndias,
           "HE50" => "<input id='planilla-input-col22-$idPersonal' class='planilla-input onlyNumbers' style='border: none; text-align: center;' value='" . $found['HE50'] . "'>",
@@ -157,6 +164,13 @@
         $col = 13;
         $colBreak = 100;
         $ndias = 7;
+
+        if (isset($row['FECHA_TERMINO'])) {
+          if ($row['FECHA_TERMINO'] <= $lstDiasSemana[0]['FECHA']) {
+            $colBreak = 0;
+          }
+        }
+
         foreach ($lstDiasSemana as $dia) {
           /* begin - search */
           $found = array();

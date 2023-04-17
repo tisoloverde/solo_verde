@@ -21043,16 +21043,25 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
-				PE.IDPERSONAL_ESTADO,
-				PE.FECHA_INICIO,
-				PE.RUT_REEMPLAZO,
-				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS REEMPLAZO
-			FROM PERSONAL_ESTADO PE
-			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
-			LEFT JOIN PERSONAL P ON P.DNI = PE.RUT_REEMPLAZO
-			WHERE PE.IDPERSONAL = $idPersonal
-			AND PE.FECHA_INICIO BETWEEN '$fechaIni' AND '$fechaFin'
-			AND PEC.SIGLA IN ('DSR');";
+				P.DNI AS DNI_PERSONAL,
+				CONCAT(
+					-- P.DNI,
+					P.NOMBRES,
+					P.APELLIDOS
+				) AS PERSONAL,
+				Q.DNI AS DNI_REEMPLAZO,
+				CONCAT(
+					-- Q.DNI,
+					Q.NOMBRES,
+					Q.APELLIDOS
+				) AS REEMPLAZO,
+				PR.FECHA
+			FROM PERSONAL_REEMPLAZOS PR
+			inner join PERSONAL P ON P.DNI = PR.RUT_PERSONAL
+			inner join PERSONAL Q on Q.DNI = PR.RUT_REEMPLAZO
+			WHERE P.IDPERSONAL = $idPersonal
+			AND PR.FECHA BETWEEN '$fechaIni' AND '$fechaFin'";
+
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -21077,8 +21086,8 @@ WHERE U.RUT = '{$rutUser}'";
 			FROM PERSONAL P
 			INNER JOIN ACT A ON A.IDPERSONAL = P.IDPERSONAL
 			INNER JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
-			WHERE P.TEMPORAL = 1
-			AND EO.DEFINICION = '$codCECO'";
+			WHERE P.TEMPORAL = 1";
+			/*AND EO.DEFINICION = '$codCECO'";*/
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -21157,6 +21166,58 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT EMAIL FROM PERSONAL WHERE EMAIL = '$email'";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+	function ingresarPlanillaRutReemplazo($rut_personal, $rut_reemplazo, $fecha) {
+		$con = conectar();
+		$con->query("START TRANSACTION");
+		if($con != 'No conectado'){
+			$sql = "INSERT PERSONAL_REEMPLAZOS(
+				RUT_PERSONAL,
+				RUT_REEMPLAZO,
+				FECHA
+			) VALUES (
+				'$rut_personal',
+				'$rut_reemplazo',
+				'$fecha'
+			)";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return $sql;
+			} else {
+				// return $con->error;
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else{
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function consultaFechaDSR($idPersonal) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				date_add(PE_.FECHA_INICIO, INTERVAL -1 day) AS FECHA_TERMINO
+			FROM PERSONAL_ESTADO PE_
+			INNER JOIN PERSONAL P_ ON P_.IDPERSONAL = PE_.IDPERSONAL
+			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC_ ON PEC_.IDPERSONAL_ESTADO_CONCEPTO = PE_.IDPERSONAL_ESTADO_CONCEPTO
+			WHERE P_.IDPERSONAL = $idPersonal AND PEC_.SIGLA = 'DSR'
+			ORDER BY PE_.IDPERSONAL_ESTADO DESC
+			LIMIT 1";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
