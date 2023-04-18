@@ -20387,7 +20387,7 @@ WHERE U.RUT = '{$rutUser}'";
 		if ($con != "No conectado") {
 			$sql = "SELECT IDPERSONAL_ESTADO_CONCEPTO, SIGLA
 			FROM PERSONAL_ESTADO_CONCEPTO
-			WHERE SIGLA NOT IN ('DSR', 'V', 'LIC', 'LAC', 'FMD');";
+			WHERE SIGLA NOT IN ('DSR', 'V', 'LIC', 'LAC', 'PMD', 'FLJ');";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -21211,7 +21211,8 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
-				date_add(PE_.FECHA_INICIO, INTERVAL -1 day) AS FECHA_TERMINO
+				-- date_add(PE_.FECHA_INICIO, INTERVAL -1 day) AS FECHA_TERMINO
+				PE_.FECHA_INICIO AS FECHA_TERMINO
 			FROM PERSONAL_ESTADO PE_
 			INNER JOIN PERSONAL P_ ON P_.IDPERSONAL = PE_.IDPERSONAL
 			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC_ ON PEC_.IDPERSONAL_ESTADO_CONCEPTO = PE_.IDPERSONAL_ESTADO_CONCEPTO
