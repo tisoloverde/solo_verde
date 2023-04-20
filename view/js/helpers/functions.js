@@ -67,13 +67,22 @@ function findFecIniByYearMonth(yearmonth) {
   return moment(new Date());
 }
 
+function esBisiesto(anio) {
+  return (anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0;
+}
+
 function findFecEndByYearMonth(yearmonth) {
   var splitted = yearmonth.split("-");
   if (splitted.length > 1) {
+    var year = Number(splitted[0]);
     var idx = Number(splitted[1]);
     var month = __CONSTANTS.months[idx - 1];
     if (month) {
-      return moment(`${yearmonth}-${month.numDays}`);
+      if (month.name == "Febrero") {
+        return moment(`${yearmonth}-${esBisiesto(year) ? 29 : 28}`);
+      } else {
+        return moment(`${yearmonth}-${month.numDays}`);
+      }
     }
     return moment(new Date());
   }
