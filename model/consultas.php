@@ -20582,20 +20582,20 @@ WHERE U.RUT = '{$rutUser}'";
 					PE.FECHA_INICIO IS NOT NULL
 				END
 			)
+			AND PP.FECHAPROC IN ('$auxIni', '$auxFin')
 			AND (
-				CASE WHEN PP.FECHAPROC >= '$auxFin' THEN
-					PP.FECHAPROC IN ('$auxIni', '$auxFin')
-				ELSE
 					TIMESTAMPDIFF(
 						MONTH,
 						CONCAT(LEFT(($sqlAux),7),'-01'),
 						'$auxIni-01'
 					) <= 0
-				END
+					OR
+					($sqlAux) IS NULL
 			)
 			AND PP.CECO = $idEstructuraOperacion
 			AND P.FECHA_INGRESO <= '$fechaFin'
-			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
+			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')
+			AND (P.TEMPORAL IS NULL OR P.TEMPORAL != 1)";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
@@ -20749,20 +20749,20 @@ WHERE U.RUT = '{$rutUser}'";
 					PE.FECHA_INICIO IS NOT NULL
 				END
       )
+			AND PP.FECHAPROC IN ('$auxIni', '$auxFin')
 			AND (
-				CASE WHEN PP.FECHAPROC >= '$auxFin' THEN
-					PP.FECHAPROC IN ('$auxIni', '$auxFin')
-				ELSE
 					TIMESTAMPDIFF(
 						MONTH,
 						CONCAT(LEFT(($sqlAux),7),'-01'),
 						'$auxIni-01'
 					) <= 0
-				END
+					OR
+					($sqlAux) IS NULL
 			)
 			AND PP.CECO = $idEstructuraOperacion
 			AND P.FECHA_INGRESO <= '$fechaFin'
 			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')
+			AND (P.TEMPORAL IS NULL OR P.TEMPORAL != 1)
 
 			GROUP BY P.IDPERSONAL
 			
