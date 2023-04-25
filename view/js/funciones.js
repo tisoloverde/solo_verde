@@ -9431,7 +9431,34 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
       { data: 'ATRASO' , className: 'dt-center' },
       { data: 'OBSERVACION' , className: 'dt-center' },
     ],
-    buttons: [],
+    buttons: [
+      {
+        text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Seleccionar todo',
+        action: function ( e, dt, node, config ) {
+          var table = $('#tablaListadoPlanillaAsistencia').DataTable();
+          // $("#disponiblePersonal").attr("disabled","disabled");
+          // $("#ausentePersonal").attr("disabled","disabled");
+          // $("#transferirJefatura").attr("disabled","disabled");
+          // $("#transferirJefaturaRespuesta").attr("disabled","disabled");
+          // $("#solicitarJefaturaRespuesta").attr("disabled","disabled");
+          // $("#desasignarJefaturaRespuesta").attr("disabled","disabled");
+          table.rows().select();
+        }
+      },
+      {
+        text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+        action: function ( e, dt, node, config ) {
+          var table = $('#tablaListadoPlanillaAsistencia').DataTable();
+          // $("#disponiblePersonal").attr("disabled","disabled");
+          // $("#ausentePersonal").attr("disabled","disabled");
+          // $("#transferirJefatura").attr("disabled","disabled");
+          // $("#transferirJefaturaRespuesta").attr("disabled","disabled");
+          // $("#solicitarJefaturaRespuesta").attr("disabled","disabled");
+          // $("#desasignarJefaturaRespuesta").attr("disabled","disabled");
+          table.rows().deselect();
+        }
+      }
+    ],
     fixedColumns:   {
       leftColumns: 3
     },
