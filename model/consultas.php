@@ -20804,7 +20804,7 @@ WHERE U.RUT = '{$rutUser}'";
 
 			GROUP BY P.IDPERSONAL
 
-			ORDER BY RUT ASC
+			ORDER BY $sortCol $sortOrd
 			LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();
