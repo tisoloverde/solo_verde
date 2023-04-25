@@ -10088,6 +10088,10 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
 });
 
 _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
+  ponerDiasEn1s(indexes);
+});
+
+function ponerDiasEn1s(indexes) {
   var found = _COMUNES_PLANILLA.estadoConcepto.find((item) => `${item.SIGLA}` == "1");
 
   var rowData = _TABLE_PLANILLA.DataTable().rows(indexes).data().toArray();
@@ -10106,7 +10110,7 @@ _TABLE_PLANILLA.DataTable().on('select', function (e, dt, type, indexes) {
       _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
     }
   });
-});
+}
 
 function alertInvalid(id, field) {
   var jId = `#${id}`;
