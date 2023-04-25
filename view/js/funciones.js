@@ -9479,7 +9479,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     select: {
       style: 'multi',
       // selector: 'td:not(:nth-child(8),:nth-child(11))'
-      selector: disableSelectionCols([9,11,12,13,14,15,16,17,18,19,20,22,23,24]),
+      selector: disableSelectionCols([9,11,12,13,14,15,16,17,18,19,20,21,22,23,24]),
     },
     destroy: true,
     autoWidth: false,
