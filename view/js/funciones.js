@@ -9433,7 +9433,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     ],
     buttons: [
       {
-        text: '<span class=fas fa-check-double"></span>&nbsp;&nbsp;Seleccionar todo',
+        text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Seleccionar todo',
         action: function ( e, dt, node, config ) {
           var table = $('#tablaListadoPlanillaAsistencia').DataTable();
           table.rows().select();
