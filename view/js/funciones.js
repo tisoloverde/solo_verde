@@ -9433,29 +9433,16 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     ],
     buttons: [
       {
-        text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Seleccionar todo',
+        text: '<span class=fas fa-check-double"></span>&nbsp;&nbsp;Seleccionar todo',
         action: function ( e, dt, node, config ) {
           var table = $('#tablaListadoPlanillaAsistencia').DataTable();
-          // $("#disponiblePersonal").attr("disabled","disabled");
-          // $("#ausentePersonal").attr("disabled","disabled");
-          // $("#transferirJefatura").attr("disabled","disabled");
-          // $("#transferirJefaturaRespuesta").attr("disabled","disabled");
-          // $("#solicitarJefaturaRespuesta").attr("disabled","disabled");
-          // $("#desasignarJefaturaRespuesta").attr("disabled","disabled");
           table.rows().select();
-        }
-      },
-      {
-        text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
-        action: function ( e, dt, node, config ) {
-          var table = $('#tablaListadoPlanillaAsistencia').DataTable();
-          // $("#disponiblePersonal").attr("disabled","disabled");
-          // $("#ausentePersonal").attr("disabled","disabled");
-          // $("#transferirJefatura").attr("disabled","disabled");
-          // $("#transferirJefaturaRespuesta").attr("disabled","disabled");
-          // $("#solicitarJefaturaRespuesta").attr("disabled","disabled");
-          // $("#desasignarJefaturaRespuesta").attr("disabled","disabled");
-          table.rows().deselect();
+  				setTimeout(function(){
+            var datos = table.rows('.selected').data();
+            for(var i = 0; i < datos.length; i++){
+              ponerDiasEn1s(i);
+            }
+          },100);
         }
       }
     ],
