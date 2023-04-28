@@ -9930,6 +9930,7 @@ $(document).on('click', '.planilla-modal', async function(e){
       <span style="width: 30%; text-align: center; font-weight: bold; font-size: 18px">Rut</span>
       <span style="width: 40%; text-align: center; font-weight: bold; font-size: 18px">Nombre</span>
     </div>`;
+    var idReemplazo;
     _MODAL_PLANILLA_DIAS_A_ASIGNAR.forEach((item, index) => {
       var select = `<select id='planilla-modal-personal-${item.RUT}--${index}' class='planilla-modal-personal' style='width: 30%;'>`
       select += `<option value='0'>Seleccione</option>`;
@@ -9944,6 +9945,7 @@ $(document).on('click', '.planilla-modal', async function(e){
       select += `</select>`;
 
       var found = _MODAL_PLANILLA_USUARIOS_TEMPORALES.find((el) => el.RUT == item.RUT_REEMPLAZO)
+      if (found) idReemplazo = `planilla-modal-personal-${item.RUT}--${index}`;
 
       html += `<div style='display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;'>
         <span style="width: 30%; text-align: center;">${item.FECHA_INICIO}</span>
@@ -9972,6 +9974,13 @@ $(document).on('click', '.planilla-modal', async function(e){
       }
     });
 
+    if (idReemplazo) {
+      $('.planilla-modal-personal').attr("disabled", "disabled");
+      $(`#${idReemplazo}`).removeAttr("disabled");
+    } else {
+      $('.planilla-modal-personal').removeAttr("disabled");
+    }
+
     $("#modalIngresoTemporalPlanilla").modal("show");
     loading(false);
   }, 500);
@@ -9981,12 +9990,44 @@ $(document).on('change', '.planilla-modal-personal', async (e) => {
   e.stopImmediatePropagation();
   e.preventDefault();
 
-  var aux = e.target.id.replace('planilla-modal-personal-', '');
+  var theme = {
+    theme: 'bootstrap4',
+    width: $(this).data('width')
+      ? $(this).data('width')
+      : $(this).hasClass('w-100')
+        ? '100%'
+        : 'style',
+    placeholder: $(this).data('placeholder'),
+    allowClear: Boolean($(this).data('allow-clear')),
+    closeOnSelect: !$(this).attr('multiple'),
+    // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+  }
+
+  var id = e.target.id
+
+  if ($(`#${id}`).val().toString() == '0') {
+    $('.planilla-modal-personal').removeAttr("disabled");
+  } else {
+    $('.planilla-modal-personal').attr("disabled","disabled");
+  }
+
+  $('.planilla-modal-personal').each(function() {
+    if (id == this.id) {
+      $(`#${this.id}`).removeAttr("disabled");
+    } else {
+      $(`#${this.id}`).val('0');
+      if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        $(`#${this.id}`).select2(theme);
+      }
+    }
+  });
+
+  var aux = id.replace('planilla-modal-personal-', '');
   var aux2 = aux.split("--");
   var rutPersonal = aux2[0];
   var index = Number(aux2[1]);
 
-  var rut = $(`#${e.target.id}`).val();
+  var rut = $(`#${id}`).val();
   var reemplazo = _MODAL_PLANILLA_USUARIOS_TEMPORALES.find((item) => item.RUT == rut)
   $(`#planilla-modal-personal-nombre-${rutPersonal}--${index}`).text(reemplazo ? reemplazo.FULLNAME : '');
 });
