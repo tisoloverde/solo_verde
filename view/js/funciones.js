@@ -2605,10 +2605,11 @@ $("#guardarPermisoPerfil").unbind('click').click(async function(){
       var parametros = [];
       parametros.push(idPerfil[0]);
       parametros.push(idArea[0]);
+      parametros.push(filtro);
       af  = $("#areaFuncionalPerfil").val();
       pr = $("#proyectoPerfil").val();
-      parametros[2] = af;
-      parametros[3] = pr;
+      parametros[3] = af;
+      parametros[4] = pr;
       $.ajax({
         url:   'controller/ingresaMultiseleccionPermisos.php',
         type:  'post',
