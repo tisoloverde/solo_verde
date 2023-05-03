@@ -2605,20 +2605,8 @@ $("#guardarPermisoPerfil").unbind('click').click(async function(){
       var parametros = [];
       parametros.push(idPerfil[0]);
       parametros.push(idArea[0]);
-      af = [];
-      pr = [];
-      if($("#areaFuncionalPerfil").val() <= 0){
-        af.push(-1);
-      }
-      else{
-        af  = $("#areaFuncionalPerfil").val();
-      }
-      if($("#proyectoPerfil").val() <= 0){
-        pr.push(-1);
-      }
-      else{
-        pr  = $("#proyectoPerfil").val();
-      }
+      af  = $("#areaFuncionalPerfil").val();
+      pr = $("#proyectoPerfil").val();
       parametros[2] = af;
       parametros[3] = pr;
       $.ajax({

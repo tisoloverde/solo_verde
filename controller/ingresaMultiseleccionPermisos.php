@@ -11,13 +11,13 @@
         $row = '';
         borrarPermisosJefaturaTodos($idPerfil, $idAreaWeb);
         borrarPermisosMultiselect($idPerfil, $idAreaWeb);
-        if (sizeof($data[3]) == 0){
+        if (count($data[3]) == 0){
           for($i = 0; $i < count($data[2]); $i++){
               $idAreaFuncional = $data[2][$i];
               $row = ingresaAreaFuncionalMultiSel($idAreaWeb, $idPerfil, $idAreaFuncional);
           }
         }
-        if (sizeof($data[2]) == 0){
+        if (count($data[2]) == 0){
           for($i = 0; $i < count($data[3]); $i++){
               $idEstructura = $data[3][$i];
               $row = ingresaProyectosMultiSel($idAreaWeb, $idPerfil, $idEstructura);
