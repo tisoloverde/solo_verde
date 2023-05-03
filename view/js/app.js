@@ -3110,7 +3110,7 @@ app.controller("planillaAsistenciaController", function(){
 
           await listComunesPlanilla();
           await listCentrosDeCostos();
-          await listCalendario();
+          await listCalendarioSegunPerfil(path);
           await listPlanillaAsistencia('null', 'null', 'null');
           esconderMenu();
           menuElegant();

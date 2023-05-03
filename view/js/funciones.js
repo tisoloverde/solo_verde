@@ -9276,15 +9276,45 @@ async function listCentrosDeCostos() {
   })
 }
 
-async function listCalendario() {
+async function listCalendarioSegunPerfil(path) {
+  await $.ajax({
+    url:   'controller/datosFiltroPerfil.php',
+    type:  'post',
+    dataType: 'json',
+    data: { path },
+    success:  async function (response) {
+      var data = response.aaData;
+      var filtro = data.length
+        ? data[0].FILTRO
+          ? Number(data[0].FILTRO.replace("semanas=", ""))
+          : null
+        : null;
+      await listCalendario(filtro);
+    }
+  })
+}
+
+async function listCalendario(filtro) {
   await $.ajax({
     url:   'controller/datosCalendario2.php',
     type:  'get',
     dataType: 'json',
     success:  function (response) {
-      if (!response.aaData?.length) return
+      var aux = response.aaData;
+      if (!aux?.length) return
+
+      // total=10 , curr=8, semana=3 --> [5 - 8]
+      // total=10 , curr=6, semana=3 --> [3 - 6]
+      if (filtro > 0) {
+        var currentWeek = aux.findIndex(({ ES_ACTUAL}) => `${ES_ACTUAL}` == '1');
+        aux = aux.splice(
+          currentWeek - filtro > 0 ? currentWeek - filtro : 0,
+          currentWeek,
+        );
+      }
+
       var dt = {}
-      response.aaData.forEach(({ ANHO, ...item }) => {
+      aux.forEach(({ ANHO, ...item }) => {
         if (!dt[ANHO]) dt[ANHO] = []
         dt[ANHO].push(item)
       });
