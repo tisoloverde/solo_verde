@@ -1461,12 +1461,16 @@ $("#guardarAgregarAreaPerfil").unbind('click').click(async function(){
   });
 
   var parametros = [];
+  var ap = $("#areaPerfil").val();
   parametros.push(idPerfil[0]);
-  parametros.push($("#areaPerfil").val());
+  for(x = 0; x < ap.length; x++){
+    parametros.push(ap[x]);
+  }
+
   $.ajax({
     url:   'controller/ingresaMultiseleccionAreas.php',
     type:  'post',
-    data:  {'parametros': JSON.stringify(parametros)},
+    data:  {array : parametros},
     success:  function (response) {
       var p = response.split(",");
       if(response.localeCompare("Sin datos")!= 0 && response != ""){
@@ -2600,13 +2604,15 @@ $("#guardarPermisoPerfil").unbind('click').click(async function(){
     else{
       var parametros = [];
       parametros.push(idPerfil[0]);
-      parametros.push($("#areaFuncionalPerfil").val());
-      parametros.push($("#proyectoPerfil").val());
       parametros.push(idArea[0]);
+      af  = $("#areaFuncionalPerfil").val();
+      pr = $("#proyectoPerfil").val();
+      parametros[2] = af;
+      parametros[3] = pr;
       $.ajax({
         url:   'controller/ingresaMultiseleccionPermisos.php',
         type:  'post',
-        data:  {'parametros': JSON.stringify(parametros)},
+        data:  {array : parametros},
         success:  function (response) {
           var p = response.split(",");
           if(response.localeCompare("Sin datos")!= 0 && response != ""){

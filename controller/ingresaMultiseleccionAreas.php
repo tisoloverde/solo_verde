@@ -3,7 +3,7 @@
     require('../model/consultas.php');
     session_start();
     if(count($_POST) > 0){
-        $data = json_decode($_POST['parametros']);
+        $data = $_POST['array'];
 
         $idPerfil = $data[0];
 
@@ -13,8 +13,8 @@
           $f = 0;
           for($j = 0; $j < count($rowSel); $j++){
             $f = 0;
-            for($k = 0; $k < count($data[1]); $k++){
-              if($rowSel[$j]['IDAREAWEB'] === $data[1][$k]){
+            for($k = 1; $k < count($data); $k++){
+              if($rowSel[$j]['IDAREAWEB'] === $data[$k]){
                 $f = 1;
               }
             }
@@ -29,17 +29,17 @@
 
         $row = '';
 
-        for($i = 0; $i < count($data[1]); $i++){
+        for($i = 1; $i < count($data); $i++){
             $f = 0;
             if(!is_null($rowSel2)){
               for($k = 0; $k < count($rowSel2); $k++){
-                if($rowSel2[$k]['IDAREAWEB'] === $data[1][$i]){
+                if($rowSel2[$k]['IDAREAWEB'] === $data[$i]){
                   $f = 1;
                 }
               }
             }
             if($f === 0){
-              $idArea = $data[1][$i];
+              $idArea = $data[$i];
               $row = ingresaAreaMultiSel($idPerfil, $idArea);
             }
         }
