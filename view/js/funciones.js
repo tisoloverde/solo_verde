@@ -1348,7 +1348,7 @@ $("#asignarAreasPerfil").unbind('click').click(function(){
             $('#modalAlertasSplash').modal('hide');
             setTimeout(function(){
               $('#tablaListadoAreasPerfiles').DataTable().columns.adjust();
-            },500);
+            },1500);
           },200);
         }
     });
