@@ -11,7 +11,7 @@
         $row = '';
         borrarPermisosJefaturaTodos($idPerfil, $idAreaWeb);
         borrarPermisosMultiselect($idPerfil, $idAreaWeb);
-        if (sizeof($data[2]) == 0){
+        if (sizeof($data[3]) == 0){
           for($i = 0; $i < count($data[2]); $i++){
               $idAreaFuncional = $data[2][$i];
               $row = ingresaAreaFuncionalMultiSel($idAreaWeb, $idPerfil, $idAreaFuncional);
