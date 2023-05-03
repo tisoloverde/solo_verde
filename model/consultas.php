@@ -20574,9 +20574,9 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN PERSONAL_ESTADO PE ON PE.IDPERSONAL = P.IDPERSONAL
 			LEFT JOIN PERSONAL_ESTADO_CONCEPTO PEC ON PEC.IDPERSONAL_ESTADO_CONCEPTO = PE.IDPERSONAL_ESTADO_CONCEPTO
 			LEFT JOIN PROCESOS_PERIODO PP ON PP.EMPLEADO = P.DNI
-			WHERE 
+			WHERE
 
-			P.IDPERSONAL NOT IN 
+			P.IDPERSONAL NOT IN
 				(
 					SELECT P.IDPERSONAL
 					FROM PERSONAL P
@@ -20739,7 +20739,7 @@ WHERE U.RUT = '{$rutUser}'";
 
     		P.FECHA_INGRESO,
 				($sqlAux) AS FECHA_TERMINO,
-    
+
 				P.CLASIFICACION_CONTRATO,
 				P.TEMPORAL
 
@@ -20754,7 +20754,7 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN PROCESOS_PERIODO PP ON PP.EMPLEADO = P.DNI
 			WHERE
 
-			P.IDPERSONAL NOT IN 
+			P.IDPERSONAL NOT IN
 				(
 					SELECT P.IDPERSONAL
 					FROM PERSONAL P
@@ -20787,9 +20787,9 @@ WHERE U.RUT = '{$rutUser}'";
 			AND (P.TEMPORAL IS NULL OR P.TEMPORAL != 1)
 
 			GROUP BY P.IDPERSONAL
-			
+
 			UNION ALL
-			
+
 			SELECT
 				P.IDPERSONAL,
 				P.DNI AS RUT,
@@ -20807,7 +20807,7 @@ WHERE U.RUT = '{$rutUser}'";
 
     		P.FECHA_INGRESO,
     		($sqlAux) AS FECHA_TERMINO,
-    
+
     		P.CLASIFICACION_CONTRATO,
     		P.TEMPORAL
 
@@ -21254,4 +21254,26 @@ WHERE U.RUT = '{$rutUser}'";
 			return "Error";
 		}
 	}
+
+	function ingresarPermisoMultiFilter($idPerfil, $idArea, $filtro){
+				$con = conectar();
+				if ($con != 'No conectado') {
+						$sql = "UPDATE PERMISOS
+										SET JEFATURA = NULL, TODOS = NULL, FILTRO = '{$filtro}'
+										WHERE IDPERFIL = '$idPerfil' AND IDAREAWEB = '$idArea'";
+						if ($con->query($sql)) {
+							$con->query("COMMIT");
+							return "Ok";
+						}
+						else{
+							// return $con->error;
+							$con->query("ROLLBACK");
+							return "Error";
+						}
+					}
+					else{
+						$con->query("ROLLBACK");
+						return "Error";
+					}
+		}
 ?>

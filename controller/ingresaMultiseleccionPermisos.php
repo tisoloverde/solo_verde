@@ -13,7 +13,7 @@
         borrarPermisosJefaturaTodos($idPerfil, $idAreaWeb);
         borrarPermisosMultiselect($idPerfil, $idAreaWeb);
 
-        ingresarPermisoTodos($idPerfil, $idAreaWeb, '', $filtro);
+        ingresarPermisoMultiFilter($idPerfil, $idAreaWeb, $filtro);
 
         $a = 0;
         $b = 0;
