@@ -2608,13 +2608,13 @@ $("#guardarPermisoPerfil").unbind('click').click(async function(){
       af = [];
       pr = [];
       if($("#areaFuncionalPerfil").val() <= 0){
-        af = [-1];
+        af.push(-1);
       }
       else{
         af  = $("#areaFuncionalPerfil").val();
       }
       if($("#proyectoPerfil").val() <= 0){
-        pr = [-1];
+        pr.push(-1);
       }
       else{
         pr  = $("#proyectoPerfil").val();
