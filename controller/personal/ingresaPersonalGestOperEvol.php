@@ -82,7 +82,7 @@
     $row2 = completaPersonalGestOperacion(
       $dni,
 
-      $esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
+      true, $esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
       $sexo, $puebloOriginario, $esHispanoHablante, $nivelEstudios, $sabeLeer,
       $sabeEscribir, $tieneLicencia, $claseLicencia, $fechaVencimientoLicencia,
       $estadoCivil, $nombreContactoEmergencia, $fonoContactoEmergencia, $tallaPolera,

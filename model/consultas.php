@@ -7061,7 +7061,7 @@ function ingresaPersonalGestOperacionACTEvol($dni, $sucursal, $idCeco){
 function completaPersonalGestOperacion(
 	$dni,
 
-	$esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
+	$esTemporal, $esProvisorio, $domicilio, $comuna, $ciudad, $fechaNacimiento, $nacionalidad,
 	$sexo, $puebloOriginario, $esHispanoHablante, $nivelEstudios, $sabeLeer,
 	$sabeEscribir, $tieneLicencia, $claseLicencia, $fechaVencimientoLicencia,
 	$estadoCivil, $nombreContactoEmergencia, $fonoContactoEmergencia, $tallaPolera,
@@ -7082,8 +7082,11 @@ function completaPersonalGestOperacion(
 	$con->query("START TRANSACTION");
 	if ($con != 'No conectado') {
 		$sql = "UPDATE PERSONAL SET
-			TEMPORAL = $esProvisorio,
-
+      PROVISORIO = $esProvisorio,";
+    if ($esTemporal) {
+      $sql = $sql . " TEMPORAL = 1, ";
+    }
+    $sql = $sql . "
 			DOMICILIO = $domicilio,
 			IDAREAFUNCIONAL_COMUNA_NAC = $comuna,
 			CIUDAD = $ciudad,
