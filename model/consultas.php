@@ -316,7 +316,8 @@ ORDER BY ORDEN ASC";
 		if ($con != "No conectado") {
 			$sql = "SELECT
 				P.DNI as rut,
-				P.TEMPORAL as esProvisorio,
+				-- P.TEMPORAL as esProvisorio,
+        P.PROVISORIO as esProvisorio,
 				P.EMAIL as mail,
 				P.NOMBRES as nombres,
 				P.APELLIDOS as apellidos,
