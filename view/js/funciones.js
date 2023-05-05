@@ -9480,6 +9480,21 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
               ponerDiasEn1s(i);
             }
           },100);
+          setTimeout(async function(){
+            var table2 = $('#tablaListadoPlanillaAsistencia').DataTable();
+            var datos2 = table2.rows('.selected').data();
+            if(table2.rows('.selected').data().length > 0){
+              if(table2.rows('.selected').data().length > 1){
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              }
+              else{
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              }
+            }
+            else{
+              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+            }
+          },100);
         }
       }
     ],
