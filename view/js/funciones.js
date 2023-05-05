@@ -10161,6 +10161,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
       setTimeout(function(){
         _TABLE_PLANILLA.DataTable().ajax.reload();
+        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
         loading(false);
       },1000);
     }
