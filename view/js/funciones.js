@@ -10125,7 +10125,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
       HE50: __HE50 ?? 'null',
       HE100: __HE100 ?? 'null',
       ATRASO: __ATRASO ?? 'null',
-      OBSERVACION: __OBSERVACION ? `'${__OBSERVACION}'` : "null",
+      OBSERVACION: __OBSERVACION ? `${__OBSERVACION}` : "null",
     }
     // if (__isEdited) dataUpd.push(aux);
 
