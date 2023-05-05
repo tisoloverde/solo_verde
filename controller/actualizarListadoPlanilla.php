@@ -18,7 +18,7 @@
       $he50 = $item['HE50'] ?? 'null';
       $he100 = $item['HE100'] ?? 'null';
       $atraso = $item['ATRASO'] ?? 'null';
-      $obs = $item['OBSERVACION'];
+      $obs = $item['OBSERVACION'] == 'null' ? "null" : "'" . $item['OBSERVACION'] . "'";
 
       if (sizeof($daysPlanilla) > 0) {
         foreach ($daysPlanilla as $day) {
