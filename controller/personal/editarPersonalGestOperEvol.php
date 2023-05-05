@@ -7,16 +7,16 @@
     $row = '';
 
     // 1. Antecedentes Personales
-    $dni = $_POST['rut'];                   // PERSONAL - DNI
-    $apellidos = $_POST['apellidos'];       // PERSONAL - APELLIDOS
-    $nombres = $_POST['nombres'];           // PERSONAL - NOMBRES
-    $cargo = $_POST['funcion'];             // PERSONAL - CARGO
-    $fono = $_POST['fono'];                 // PERSONAL - TELEFONO
-    $mail = $_POST['mail'];                 // PERSONAL - EMAIL
+    $dni = $_POST['rut'] == 'null' ? 'null' : "'" . $_POST['rut'] . "'";                   // PERSONAL - DNI
+    $apellidos = $_POST['apellidos'] == 'null' ? 'null' : "'" . $_POST['apellidos'] . "'";       // PERSONAL - APELLIDOS
+    $nombres = $_POST['nombres'] == 'null' ? 'null' : "'" . $_POST['nombres'] . "'";           // PERSONAL - NOMBRES
+    $cargo = $_POST['funcion'] == 'null' ? 'null' : "'" . $_POST['funcion'] . "'";             // PERSONAL - CARGO
+    $fono = $_POST['fono'] == 'null' ? 'null' : "'" . $_POST['fono'] . "'";                 // PERSONAL - TELEFONO
+    $mail = $_POST['mail'] == 'null' ? 'null' : "'" . $_POST['mail'] . "'";                 // PERSONAL - EMAIL
 
     $sucursal = $_POST['sucursal'];
-    $idsubcontrato = $_POST['idsubcontrato'];
-    $idCeco = $_POST['idCeco'];
+    $idsubcontrato = $_POST['idsubcontrato'] == 'null' ? 'null' : "'" . $_POST['idsubcontrato'] . "'";
+    $idCeco = $_POST['idCeco'] == -1 ? -1 : "'" . $_POST['idCeco'] . "'";
 
     $esProvisorio = $_POST['esProvisorio'];
     $domicilio = $_POST['domicilio'] == 'null' ? 'null' : "'" . $_POST['domicilio'] . "'";                         // PERSONAL - DOMICILIO

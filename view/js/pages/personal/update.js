@@ -1122,23 +1122,15 @@ $("#guardarEditaPersonalOperaciones")
     }
 
     var parametros = {
-      rut: $("#gj__rut_").val() ? `'${$("#gj__rut_").val()}'` : "null",
-      apellidos: $("#gj__apellidos_").val()
-        ? `'${$("#gj__apellidos_").val()}'`
-        : "null",
-      nombres: $("#gj__nombres_").val()
-        ? `'${$("#gj__nombres_").val()}'`
-        : "null",
-      funcion: $("#gj__cargo_").val() ? `'${$("#gj__cargo_").val()}'` : "null",
-      fono: $("#gj__fono_").val() ? `'${$("#gj__fono_").val()}'` : "null",
-      mail: $("#gj__email_").val() ? `'${$("#gj__email_").val()}'` : "null",
+      rut: $("#gj__rut_").val() ?? "null",
+      apellidos: $("#gj__apellidos_").val() ?? "null",
+      nombres: $("#gj__nombres_").val() ?? "null",
+      funcion: $("#gj__cargo_").val() ?? "null",
+      fono: $("#gj__fono_").val() ?? "null",
+      mail: $("#gj__email_").val() ?? "null",
       sucursal: $("#gj__sucursal_").val(),
-      idsubcontrato: $("#gj__empresa_").val()
-        ? `'${$("#gj__empresa_").val()}'`
-        : "null",
-      idCeco: $("#gj__centroCosto_").val()
-        ? `'${$("#gj__centroCosto_").val()}'`
-        : -1,
+      idsubcontrato: $("#gj__empresa_").val() ?? "null",
+      idCeco: $("#gj__centroCosto_").val() ? $("#gj__centroCosto_").val() : -1,
     };
 
     /* Begin - New Params Personal */

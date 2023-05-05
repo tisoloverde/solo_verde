@@ -1038,23 +1038,15 @@ $("#guardarIngresarPersonalOperaciones")
     }
 
     var parametros = {
-      rut: $("#gj__rut").val() ? `'${$("#gj__rut").val()}'` : "null",
-      apellidos: $("#gj__apellidos").val()
-        ? `'${$("#gj__apellidos").val()}'`
-        : "null",
-      nombres: $("#gj__nombres").val()
-        ? `'${$("#gj__nombres").val()}'`
-        : "null",
-      funcion: $("#gj__cargo").val() ? `'${$("#gj__cargo").val()}'` : "null",
-      fono: $("#gj__fono").val() ? `'${$("#gj__fono").val()}'` : "null",
-      mail: $("#gj__email").val() ? `'${$("#gj__email").val()}'` : "null",
+      rut: $("#gj__rut").val() ?? "null",
+      apellidos: $("#gj__apellidos").val() ?? "null",
+      nombres: $("#gj__nombres").val() ?? "null",
+      funcion: $("#gj__cargo").val() ?? "null",
+      fono: $("#gj__fono").val() ?? "null",
+      mail: $("#gj__email").val() ?? "null",
       sucursal: $("#gj__sucursal").val(),
-      idsubcontrato: $("#gj__empresa").val()
-        ? `'${$("#gj__empresa").val()}'`
-        : "null",
-      idCeco: $("#gj__centroCosto").val()
-        ? `'${$("#gj__centroCosto").val()}'`
-        : -1,
+      idsubcontrato: $("#gj__empresa").val() ?? "null",
+      idCeco: $("#gj__centroCosto").val() ? $("#gj__centroCosto").val() : -1,
     };
 
     /* Begin - New Params Personal */
