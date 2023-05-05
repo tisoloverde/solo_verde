@@ -4,7 +4,7 @@
 
   if (count($_POST)) {
     $rut = $_SESSION['rutUser'];
-    $dataUpd = $_POST['dataUpd'];
+    $dataUpd = $_POST['array'];
 
     $res = [];
 

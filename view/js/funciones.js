@@ -10141,7 +10141,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
   await $.ajax({
     url:   'controller/actualizarListadoPlanilla.php',
     type:  'post',
-    data: { dataUpd },
+    data: { array: dataUpd },
     success:  function (response) {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
       setTimeout(function(){
