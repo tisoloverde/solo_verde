@@ -1155,24 +1155,20 @@ $("#guardarEditaPersonalOperaciones")
 
     var news = {
       esProvisorio: $("#gj__provisorio_").is(":checked") ? 1 : 0,
-      domicilio: $("#gj__domicilio_").val()
-        ? `'${$("#gj__domicilio_").val()}'`
-        : "null",
+      domicilio: $("#gj__domicilio_").val() ?? "null",
       comuna: conditionNeg1AndEmpty($("#gj__comuna_").val())
         ? $("#gj__comuna_").val()
         : "null",
-      ciudad: $("#gj__ciudad_").val() ? `'${$("#gj__ciudad_").val()}'` : "null",
-      fechaNacimiento: $("#gj__fechaNacimiento_").val()
-        ? `'${$("#gj__fechaNacimiento_").val()}'`
-        : "null",
+      ciudad: $("#gj__ciudad_").val() ?? "null",
+      fechaNacimiento: $("#gj__fechaNacimiento_").val() ?? "null",
       nacionalidad: conditionNeg1AndEmpty($("#gj__nacionalidad_").val())
-        ? `'${$("#gj__nacionalidad_").val()}'`
+        ? $("#gj__nacionalidad_").val()
         : "null",
       sexo: conditionNeg1AndEmpty($("#gj__sexo_").val())
-        ? `'${$("#gj__sexo_").val()}'`
+        ? $("#gj__sexo_").val()
         : "null",
       puebloOriginario: $("#gj__esPuebloOriginario_").is(":checked")
-        ? `'${$("#gj__puebloOriginario_").val()}'`
+        ? $("#gj__puebloOriginario_").val()
         : "null",
       esHispanoHablante: $("#gj__esHispanoHablante_").is(":checked") ? 1 : 0,
       nivelEstudios: conditionNeg1AndEmpty($("#gj__nivelEstudios_").val())
@@ -1184,61 +1180,39 @@ $("#guardarEditaPersonalOperaciones")
       claseLicencia: conditionNeg1AndEmpty($("#gj__claseLicencia_").val())
         ? $("#gj__claseLicencia_").val()
         : "null",
-      fechaVencimientoLicencia: $("#gj__fechaVencimientoLicencia_").val()
-        ? `'${$("#gj__fechaVencimientoLicencia_").val()}'`
-        : "null",
+      fechaVencimientoLicencia:
+        $("#gj__fechaVencimientoLicencia_").val() ?? "null",
       estadoCivil: conditionNeg1AndEmpty($("#gj__estadoCivil_").val())
         ? $("#gj__estadoCivil_").val()
         : "null",
-      nombreContactoEmergencia: $("#gj__nombreContactoEmergencia_").val()
-        ? `'${$("#gj__nombreContactoEmergencia_").val()}'`
-        : "null",
-      fonoContactoEmergencia: $("#gj__fonoContactoEmergencia_").val()
-        ? `'${$("#gj__fonoContactoEmergencia_").val()}'`
-        : "null",
-      tallaPolera: $("#gj__talla_camisa_").val()
-        ? `'${$("#gj__talla_camisa_").val()}'`
-        : "null",
-      tallaGuantes: $("#gj__talla_guantes_").val()
-        ? `'${$("#gj__talla_guantes_").val()}'`
-        : "null",
-      tallaPantalon: $("#gj__talla_pantalon_").val()
-        ? `'${$("#gj__talla_pantalon_").val()}'`
-        : "null",
-      tallaZapatos: $("#gj__talla_zapatos_").val()
-        ? `'${$("#gj__talla_zapatos_").val()}'`
-        : "null",
-      tallaLegionario: $("#gj__talla_casco_").val()
-        ? `'${$("#gj__talla_casco_").val()}'`
-        : "null",
+      nombreContactoEmergencia:
+        $("#gj__nombreContactoEmergencia_").val() ?? "null",
+      fonoContactoEmergencia: $("#gj__fonoContactoEmergencia_").val() ?? "null",
+      tallaPolera: $("#gj__talla_camisa_").val() ?? "null",
+      tallaGuantes: $("#gj__talla_guantes_").val() ?? "null",
+      tallaPantalon: $("#gj__talla_pantalon_").val() ?? "null",
+      tallaZapatos: $("#gj__talla_zapatos_").val() ?? "null",
+      tallaLegionario: $("#gj__talla_casco_").val() ?? "null",
       tallaOverol: "null",
       tallaOtros:
         $("#gj__talla_otros_").val() != "" &&
         $("#gj__otraTallaUniforme_").val() != ""
-          ? `'${$("#gj__talla_otros_").val()}|${$(
+          ? `${$("#gj__talla_otros_").val()}|${$(
               "#gj__otraTallaUniforme_"
-            ).val()}'`
+            ).val()}`
           : "null",
       tieneFamiliarEmpresa: $("#gj__tieneFamiliarEmpresa_").is(":checked")
         ? 1
         : 0,
-      nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa_").val()
-        ? `'${$("#gj__nombreFamiliarEmpresa_").val()}'`
-        : "null",
-      cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa_").val()
-        ? `'${$("#gj__cargoFamiliarEmpresa_").val()}'`
-        : "null",
+      nombreFamiliarEmpresa: $("#gj__nombreFamiliarEmpresa_").val() ?? "null",
+      cargoFamiliarEmpresa: $("#gj__cargoFamiliarEmpresa_").val() ?? "null",
       parentescoFamiliarEmpresa:
         $("#gj__parentescoFamiliarEmpresa_").val() == "Otro"
-          ? `'Otro|${$("#gj__otroParentescoFamiliarEmpresa_").val()}'`
-          : `'${$("#gj__parentescoFamiliarEmpresa_").val()}'`,
+          ? `Otro|${$("#gj__otroParentescoFamiliarEmpresa_").val()}'`
+          : $("#gj__parentescoFamiliarEmpresa_").val(),
       esRepitente: $("#gj__esRepitente_").is(":checked") ? 1 : 0,
-      cargoRepitente: $("#gj__cargoRepitente_").val()
-        ? `'${$("#gj__cargoRepitente_").val()}'`
-        : "null",
-      razonRepitente: $("#gj__razonRepitente_").val()
-        ? `'${$("#gj__razonRepitente_").val()}'`
-        : "null",
+      cargoRepitente: $("#gj__cargoRepitente_").val() ?? "null",
+      razonRepitente: $("#gj__razonRepitente_").val() ?? "null",
 
       afiliacionPrevision: afiliacionPrevision,
       afiliacionSalud: afiliacionSalud,
@@ -1246,36 +1220,22 @@ $("#guardarEditaPersonalOperaciones")
       banco: conditionNeg1AndEmpty($("#gj__banco_").val())
         ? $("#gj__banco_").val()
         : "null",
-      tipoCuenta: $("#gj__tipoCuenta_").val()
-        ? `'${$("#gj__tipoCuenta_").val()}'`
-        : "null",
-      nroCuenta: $("#gj__nroCuenta_").val()
-        ? `'${$("#gj__nroCuenta_").val()}'`
-        : "null",
-      lstCertificados: certificados.length
-        ? `'${certificados.join("|")}'`
-        : "null",
+      tipoCuenta: $("#gj__tipoCuenta_").val() ?? "null",
+      nroCuenta: $("#gj__nroCuenta_").val() ?? "null",
+      lstCertificados: certificados.length ? certificados.join("|") : "null",
       lstCertificadosOtros: certificadosOtros.length
-        ? `'${certificadosOtros.join("|")}'`
+        ? certificadosOtros.join("|")
         : "null",
-      tieneClaveUnica: $("#gj__tieneClaveUnica_").is(":checked")
-        ? `'1'`
-        : `'0'`,
-      fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea_").val()
-        ? `'${$("#gj__fechaIngresoEmprea_").val()}'`
-        : "null",
+      tieneClaveUnica: $("#gj__tieneClaveUnica_").is(":checked") ? `1` : `0`,
+      fechaIngresoEmpresa: $("#gj__fechaIngresoEmprea_").val() ?? "null",
       tipoContrato: conditionNeg1AndEmpty($("#gj__tipoContrato_").val())
         ? $("#gj__tipoContrato_").val()
         : "null",
-      duracionContrato: $("#gj__duracionInicialContrato_").val()
-        ? `'${$("#gj__duracionInicialContrato_").val()}'`
-        : "null",
-      cargoGenerico: $("#gj__cargoGenerico_").val()
-        ? `'${$("#gj__cargoGenerico_").val()}'`
-        : "null",
-      ref1: $("#gj__ref1_").val() ? `'${$("#gj__ref1_").val()}'` : "null",
-      ref2: $("#gj__ref2_").val() ? `'${$("#gj__ref2_").val()}'` : "null",
-      plaza: $("#gj__plaza_").val() ? `'${$("#gj__plaza_").val()}'` : "null",
+      duracionContrato: $("#gj__duracionInicialContrato_").val() ?? "null",
+      cargoGenerico: $("#gj__cargoGenerico_").val() ?? "null",
+      ref1: $("#gj__ref1_").val() ?? "null",
+      ref2: $("#gj__ref2_").val() ?? "null",
+      plaza: $("#gj__plaza_").val() ?? "null",
     };
     /* End - New Params Personal */
 
