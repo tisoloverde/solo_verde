@@ -3154,13 +3154,21 @@ app.controller("planillaAsistenciaController", function(){
             $("#modalGeneraInformeRexmas1").modal("hide");
             splashOpen();
 
-            var parametros = {
+            var parametros2 = {
               "ceco": $("#cecoGeneraInformeRexmas1").val(),
               "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
               "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1]
             }
 
-
+            await $.ajax({
+              url: 'controller/solicitudInformeRexmas.php',
+              type: 'post',
+              dataType: 'json',
+              data: parametros2,
+              success: function (response) {
+                
+              },
+            });
 
             setTimeout(function(){
               $("#modalAlertasSplash").modal("hide");
