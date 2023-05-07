@@ -14,15 +14,15 @@
   $hora = date("Y-m-d H:i:s");
   $rut = '17092695-1';
   $nombreDoc = 'Carga_Rexmas_' . $hora . ".csv";
-  $nombreDoc2 = 'Carga_Rexmas_UT8' . $hora . ".csv";
+  $nombreDoc2 = 'Carga_Rexmas_UT8_' . $hora . ".csv";
   $ceco = 213;
   $fechaIni = '2023-04-01';
   $fechaFin = '2023-04-30';
   $delimiter = ",";
 
-  // $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $hora . "_log.txt", 'a') or die("Error creando archivo");
-  // fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
-  // fclose($logFile);
+  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
+  fclose($logFile);
 
   $row = cosultaInformeRexmas($ceco,$fechaIni,$fechaFin);
 
@@ -43,8 +43,9 @@
   file_put_contents($ruta . "controller/repositorio/temp/" . $nombreDoc2, $data);
 
   fclose($report);
+  unlink($ruta . "controller/repositorio/temp/" . $nombreDoc);
 
-  // $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $hora . "_log.txt", 'a') or die("Error creando archivo");
-  // fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Término proceso =============") or die("Error escribiendo en el archivo");
-  // fclose($logFile);
+  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Archivo generado =============") or die("Error escribiendo en el archivo");
+  fclose($logFile);
 ?>
