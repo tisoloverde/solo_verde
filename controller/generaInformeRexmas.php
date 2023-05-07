@@ -90,16 +90,10 @@
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
             <div style='width: 100%; text-align: justify; margin: 0 auto;'>
     <font style='font-size: 14px;'>
-    Estimado " . $nombre . ",
+    Estimado,
     <br />
     <br />
-    Le informamos que su contraseña ha sido restablecida en el Sistema de Gestión CIMAURBANO.<br /><br />
-    A continuación le indicamos sus credenciales de acceso:<br /><br />
-    URL: <a href='" . $rowUrl[0]['domain'] . "'>" . $rowUrl[0]['domain'] . "</a>
-    <br />
-    Usuario: " . $rut . "
-    <br />
-    Contraseña: " . trim($pass) . "<br />
+    Adjuntamos informe de carga rexmas según solicitud en portal Solo Verde.<br />
     <br />
     </font>
     <div'>
@@ -127,10 +121,10 @@
     $fecha = strtotime('+0 day');
     $fecha = $dias[date('w', $fecha)]." ".date('d', $fecha)." de ".$meses[date('n', $fecha)-1]. " ".date('Y', $fecha) . " a las " . date('h:i:s A', $fecha);
 
-    $mail->Subject = "Restablecimiento de contraseña " . $fecha . "";
+    $mail->Subject = "Carga archivo rexmas " . $fecha . "";
 
     //Puedo definir un cuerpo alternativo del mensaje, que contenga solo texto
-    $mail->AltBody = "Restablecimiento de contraseña " . $fecha . "";
+    $mail->AltBody = "Carga archivo rexmas " . $fecha . "";
 
     //inserto el texto del mensaje en formato HTML
     $mail->MsgHTML($body);
@@ -138,6 +132,9 @@
     //envío el mensaje, comprobando si se envió correctamente
     if($mail->Send()) {
       echo "Ok";
+      $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+      fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Email enviado =============") or die("Error escribiendo en el archivo");
+      fclose($logFile);
     }
     else{
       echo $mail->ErrorInfo;
