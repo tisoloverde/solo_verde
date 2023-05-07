@@ -18,8 +18,8 @@
   $nombreDoc = 'Carga_Rexmas_' . $rut . '_' . $hora . ".csv";
   $nombreDoc2 = 'Carga_Rexmas_UT8_' . $rut . '_' . $hora . ".csv";
   $ceco = $_SERVER['argv'][3];
-  $fechaIni = '2023-04-01';
-  $fechaFin = '2023-04-30';
+  $fechaIni = $_SERVER['argv'][4];
+  $fechaFin = $_SERVER['argv'][5];
   $delimiter = ",";
 
   $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
