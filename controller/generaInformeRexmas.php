@@ -32,7 +32,7 @@
     fputcsv($report, $lineData, $delimiter);
   }
 
-  fseek($f, 0);
+  fseek($report, 0);
   fclose($report);
 
   // $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $hora . "_log.txt", 'a') or die("Error creando archivo");
