@@ -13,9 +13,9 @@
   $fechaInicio = $_POST['fechaInicio'];
   $fechaFin = $_POST['fechaFin'];
 
-  // exec('php -f ' . $ruta . 'controller/generaInformeRexmas.php' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
+  exec('php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
 
-  echo 'php -f ' . $ruta . 'controller/generaInformeRexmas.php' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &';
+  // echo 'php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &';
 
 	echo "Ok";
 ?>
