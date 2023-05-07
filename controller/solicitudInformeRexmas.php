@@ -1,8 +1,9 @@
 <?php
   ini_set('display_errors', 'On');
 	date_default_timezone_set('America/Santiago');
-
   session_start();
+  
+  require('../model/consultas.php');
 
   $rutUser = $_SESSION['rutUser'];
   $row = chequeaUsuarioEmail($rutUser);
