@@ -82,10 +82,8 @@
             </font>
             <br>";
 
-    $mail->AddEmbeddedImage('../view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
+    $mail->AddEmbeddedImage($ruta . 'view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
     $mail->AddAttachment($ruta . "controller/repositorio/temp/" . $nombreDoc2, $nombreDoc2);
-
-    $rowUrl = datosHost($_SERVER['SERVER_NAME']);
 
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
             <div style='width: 100%; text-align: justify; margin: 0 auto;'>
