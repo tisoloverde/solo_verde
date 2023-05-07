@@ -3166,14 +3166,12 @@ app.controller("planillaAsistenciaController", function(){
               dataType: 'json',
               data: parametros2,
               success: function (response) {
-
-              },
+                setTimeout(function(){
+                  $("#modalAlertasSplash").modal("hide");
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail.");
+                },500);
+              }
             });
-
-            setTimeout(function(){
-              $("#modalAlertasSplash").modal("hide");
-              alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail.");
-            },500);
           });
 
           await listComunesPlanilla();
