@@ -27,8 +27,11 @@
 
   $report = fopen($ruta . "controller/repositorio/temp/" . $nombreDoc, 'a');
 
+  $lineData = array('empleado_id',	'contratos',	'tipo',	'fecha_inicio',	'fecha_termino',	'dias',	'descripcion',	'tipo_medio_dia',	'envia_email_supervisor',	'numero_licencia',	'dias_a_pagar',	'no_rebaja',	'fecha_concepcion',	'fecha_aplicacion',	'goce_sueldo',	'subtipo_ausencia',	'medico_tratante',	'especialidad');
+  fputcsv($report, $lineData, $delimiter);
+
   for($i = 0; $i < count($row); $i++){
-    $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14],$row[$i][15],$row[$i][16],$row[$i][17],$row[$i][18],$row[$i][19]);
+    $lineData = array($row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14],$row[$i][15],$row[$i][16],$row[$i][17],$row[$i][18],$row[$i][19]);
     fputcsv($report, $lineData, $delimiter);
   }
 
