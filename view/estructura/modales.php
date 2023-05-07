@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=51';
+  js.src = 'view/js/funciones.js?idload=52';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -11287,3 +11287,40 @@ include "./modales/personal/update.php";
   </div>
 </div>
 <!-- END - INGRESO TEMPORAL PLANILLA -->
+
+<!-- Generacion Informe Rexms -->
+<div id="modalGeneraInformeRexmas1" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-md" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;
+					<span>Crear estado siniestro</span>
+					<span id="tituloGeneraInformeRexmas1" style="font-size: 12pt;"></span>
+					<input id="idGeneraInformeRexmas1" type="hidden" value="">
+				</h5>
+      </div>
+
+      <div id="bodyGeneraInformeRexmas1" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Rut</label>
+            <select id="cecoGeneraInformeRexmas1" class="form-control"></select>
+          </div>
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Año</label>
+            <input id="rangoGeneraInformeRexmas1" class="form-control" type="text" value="">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="text-align: left;">
+        <button id="generarGeneraInformeRexmas1" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Generar</button>
+        <button id="cancelarGeneraInformeRexmas1" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Fin Generacion Informe Rexms -->
