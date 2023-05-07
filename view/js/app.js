@@ -3122,7 +3122,7 @@ app.controller("planillaAsistenciaController", function(){
               success: function (response) {
                 var data = response.aaData;
                 var html = "<option selected value='0'>Seleccione</option>";
-                var html = "<option value='-1'>Todos</option>";
+                var html += "<option value='-1'>Todos</option>";
                 data.forEach((item) => {
                   html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
                 });
