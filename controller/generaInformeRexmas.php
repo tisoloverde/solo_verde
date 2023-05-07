@@ -13,11 +13,11 @@
   use PHPMailer\PHPMailer\Exception;
 
   $hora = date("Y-m-d H:i:s");
-  $rut = '17092695-1';
-  $email = 'rodrigo.riveros@cryptodata.cl';
+  $rut = $_SERVER['argv'][1];
+  $email = $_SERVER['argv'][2];
   $nombreDoc = 'Carga_Rexmas_' . $rut . '_' . $hora . ".csv";
   $nombreDoc2 = 'Carga_Rexmas_UT8_' . $rut . '_' . $hora . ".csv";
-  $ceco = 213;
+  $ceco = $_SERVER['argv'][3];
   $fechaIni = '2023-04-01';
   $fechaFin = '2023-04-30';
   $delimiter = ",";
