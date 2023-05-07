@@ -16,7 +16,7 @@
   $rut = $_SERVER['argv'][1];
   $email = $_SERVER['argv'][2];
   $nombreDoc = 'Carga_Rexmas_' . $rut . '_' . $hora . ".csv";
-  $nombreDoc2 = 'Carga_Rexmas_UT8_' . $rut . '_' . $hora . ".csv";
+  $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $rut . '_' . $hora . ".csv";
   $ceco = $_SERVER['argv'][3];
   $fechaIni = $_SERVER['argv'][4];
   $fechaFin = $_SERVER['argv'][5];
