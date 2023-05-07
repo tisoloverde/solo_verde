@@ -13,13 +13,13 @@
   $fechaInicio = $_POST['fechaInicio'];
   $fechaFin = $_POST['fechaFin'];
 
-  exec('php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin, $output);
+  exec('php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
 
-	foreach ($output as $line) {
-	    echo $line . "<br>";
-	}
+	// foreach ($output as $line) {
+	//     echo $line . "<br>";
+	// }
 
   // echo 'php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &';
 	//
-	// echo "Ok";
+	echo "Ok";
 ?>
