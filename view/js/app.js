@@ -3150,7 +3150,7 @@ app.controller("planillaAsistenciaController", function(){
             },500);
           });
 
-          $("#generarGeneraInformeRexmas1").click(function(){
+          $("#generarGeneraInformeRexmas1").click(async function(){
             $("#modalGeneraInformeRexmas1").modal("hide");
             splashOpen();
 
@@ -3166,7 +3166,7 @@ app.controller("planillaAsistenciaController", function(){
               dataType: 'json',
               data: parametros2,
               success: function (response) {
-                
+
               },
             });
 
