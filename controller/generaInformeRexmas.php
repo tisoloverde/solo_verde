@@ -14,6 +14,7 @@
   $hora = date("Y-m-d H:i:s");
   $rut = '17092695-1';
   $nombreDoc = 'Carga_Rexmas_' . $hora . ".csv";
+  $nombreDoc2 = 'Carga_Rexmas_UT8' . $hora . ".csv";
   $ceco = 213;
   $fechaIni = '2023-04-01';
   $fechaFin = '2023-04-30';
@@ -36,6 +37,10 @@
   }
 
   fseek($report, 0);
+
+  stream_filter_append($report, 'convert.iconv.UTF-8/OLD-ENCODING');
+  stream_copy_to_stream($report, fopen($nombreDoc2, 'w'));
+
   fclose($report);
 
   // $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $hora . "_log.txt", 'a') or die("Error creando archivo");
