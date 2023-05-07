@@ -3160,10 +3160,9 @@ app.controller("planillaAsistenciaController", function(){
               "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1]
             }
 
-            await $.ajax({
-              url: 'controller/solicitudInformeRexmas.php',
-              type: 'post',
-              dataType: 'json',
+            $.ajax({
+              url:   'controller/solicitudInformeRexmas.php',
+              type:  'post',
               data: parametros2,
               success: function (response) {
                 setTimeout(function(){
