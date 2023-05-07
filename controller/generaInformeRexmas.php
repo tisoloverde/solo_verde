@@ -38,8 +38,9 @@
 
   fseek($report, 0);
 
-  stream_filter_append($report, 'convert.iconv.UTF-8/OLD-ENCODING');
-  stream_copy_to_stream($report, fopen($nombreDoc2, 'w'));
+  $data = file_get_contents($ruta . "controller/repositorio/temp/" . $nombreDoc);
+  $data = mb_convert_encoding($data, 'UTF-8', 'OLD-ENCODING');
+  file_put_contents($ruta . "controller/repositorio/temp/" . $nombreDoc2, $data);
 
   fclose($report);
 
