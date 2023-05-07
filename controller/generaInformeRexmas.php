@@ -1,5 +1,6 @@
 <?php
   // ini_set('display_errors', 'On');
+  date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
 
   require($ruta . 'model/consultas.php');
