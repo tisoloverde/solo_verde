@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=53';
+  js.src = 'view/js/funciones.js?idload=54';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -11295,7 +11295,7 @@ include "./modales/personal/update.php";
 
       <div class="modal-header">
 				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;
-					<span>Crear estado siniestro</span>
+					<span>Generar informe Rexmas</span>
 					<span id="tituloGeneraInformeRexmas1" style="font-size: 12pt;"></span>
 					<input id="idGeneraInformeRexmas1" type="hidden" value="">
 				</h5>
