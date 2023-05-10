@@ -15,14 +15,14 @@
   $hora = date("Y-m-d H:i:s");
   $rut = $_SERVER['argv'][1];
   $email = $_SERVER['argv'][2];
-  $nombreDoc = 'Carga_Rexmas_' . $rut . '_' . $hora . ".csv";
-  $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $rut . '_' . $hora . ".csv";
   $ceco = $_SERVER['argv'][3];
   $fechaIni = $_SERVER['argv'][4];
   $fechaFin = $_SERVER['argv'][5];
-  $delimiter = ",";
+  $nombreDoc = 'Carga_Rexmas_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
+  $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
+  $delimiter = ";";
 
-  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
   fclose($logFile);
 
@@ -47,7 +47,7 @@
   fclose($report);
   unlink($ruta . "controller/repositorio/temp/" . $nombreDoc);
 
-  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Archivo generado =============") or die("Error escribiendo en el archivo");
   fclose($logFile);
 
@@ -131,7 +131,7 @@
     //envío el mensaje, comprobando si se envió correctamente
     if($mail->Send()) {
       echo "Ok";
-      $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+      $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
       fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Email enviado =============") or die("Error escribiendo en el archivo");
       fclose($logFile);
     }
