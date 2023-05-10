@@ -20,7 +20,7 @@
     // DB
     $total = consultaListaACTHistorialCOUNT2($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
     $lstPersonalCC = consultaListaACTHistorial2($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search, sanitizePlanillaCol($sortCol), $sortOrd);
-    $sql = 0;
+    $sql = [];
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
     $lstDiasSemana = consultaListaSemanaCalendario($fecIni, $fecFin);
 
@@ -162,6 +162,7 @@
 
         /* Begin - Week */
         $col = 13;
+        $colStart = -1;
         $colBreak = 100;
         $ndias = 7;
 
@@ -183,6 +184,9 @@
           /* end - search */
 
           $col = $col + 1;
+          if ($dia['FECHA'] < $row['FECHA_INGRESO']) {
+            $colStart = $col;
+          }
           if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid_Final)) {
             $colBreak = $col;
           }
@@ -194,7 +198,12 @@
 
             $ndias -= $idsConValidDescuento["_" . $found['IDPERSONAL_ESTADO_CONCEPTO']];
           } else {
-            if ($col <= $colBreak) {
+            if ($col <= $colStart) {
+              $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
+              $select = $select . "</select>";
+
+              $ndias -= 1;
+            } else if ($col <= $colBreak) {
               $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
               $select = $select . "<option value='0'></option>";
               foreach ($consClean as $con) {
