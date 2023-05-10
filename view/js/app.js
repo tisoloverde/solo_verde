@@ -3131,6 +3131,7 @@ app.controller("planillaAsistenciaController", function(){
             });
 
             await $("#rangoGeneraInformeRexmas1").daterangepicker({
+              drops: 'up',
               timePicker: true,
               startDate: moment().startOf('hour'),
               endDate: moment().startOf('hour'),
