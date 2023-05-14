@@ -34,7 +34,7 @@
   fputcsv($report, $lineData, $delimiter);
 
   for($i = 0; $i < count($row); $i++){
-    $lineData = array($row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14],$row[$i][15],$row[$i][16],$row[$i][17],$row[$i][18],$row[$i][19]);
+    $lineData = array(utf8_encode($row[$i][2]),utf8_encode($row[$i][3]),utf8_encode($row[$i][4]),utf8_encode($row[$i][5]),utf8_encode($row[$i][6]),utf8_encode($row[$i][7]),utf8_encode($row[$i][8]),utf8_encode($row[$i][9]),utf8_encode($row[$i][10]),utf8_encode($row[$i][11]),utf8_encode($row[$i][12]),utf8_encode($row[$i][13]),utf8_encode($row[$i][14]),utf8_encode($row[$i][15]),utf8_encode($row[$i][16]),utf8_encode($row[$i][17]),utf8_encode($row[$i][18]),utf8_encode($row[$i][19]));
     fputcsv($report, $lineData, $delimiter);
   }
 
