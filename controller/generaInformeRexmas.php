@@ -34,18 +34,18 @@
   fputcsv($report, $lineData, $delimiter);
 
   for($i = 0; $i < count($row); $i++){
-    $lineData = array($row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14],$row[$i][15],$row[$i][16],$row[$i][17],$row[$i][18],$row[$i][19]);
+    $lineData = array($row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],utf8_decode($row[$i][8]),$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14],$row[$i][15],$row[$i][16],$row[$i][17],$row[$i][18],$row[$i][19]);
     fputcsv($report, $lineData, $delimiter);
   }
 
-  fseek($report, 0);
-
-  $data = file_get_contents($ruta . "controller/repositorio/temp/" . $nombreDoc);
-  $data = mb_convert_encoding($data, 'UTF-8', 'auto');
-  file_put_contents($ruta . "controller/repositorio/temp/" . $nombreDoc2, $data);
+  // fseek($report, 0);
+  //
+  // $data = file_get_contents($ruta . "controller/repositorio/temp/" . $nombreDoc);
+  // $data = mb_convert_encoding($data, 'UTF-8', 'auto');
+  // file_put_contents($ruta . "controller/repositorio/temp/" . $nombreDoc2, $data);
 
   fclose($report);
-  unlink($ruta . "controller/repositorio/temp/" . $nombreDoc);
+  // unlink($ruta . "controller/repositorio/temp/" . $nombreDoc);
 
   $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Archivo generado =============") or die("Error escribiendo en el archivo");
@@ -84,7 +84,7 @@
             <br>";
 
     $mail->AddEmbeddedImage($ruta . 'view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
-    $mail->AddAttachment($ruta . "controller/repositorio/temp/" . $nombreDoc2, $nombreDoc2);
+    $mail->AddAttachment($ruta . "controller/repositorio/temp/" . $nombreDoc, $nombreDoc);
 
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
             <div style='width: 100%; text-align: justify; margin: 0 auto;'>
