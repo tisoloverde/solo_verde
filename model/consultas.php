@@ -20830,8 +20830,11 @@ WHERE U.RUT = '{$rutUser}'";
 
 			GROUP BY P.IDPERSONAL
 
-			ORDER BY $sortCol $sortOrd
-			LIMIT $limit OFFSET $offset;";
+			ORDER BY $sortCol $sortOrd ";
+      if ($search == '') {
+        $offset = $offset + 1;
+      }
+      $sql = $sql . "LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

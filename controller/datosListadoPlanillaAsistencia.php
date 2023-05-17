@@ -5,7 +5,7 @@
 
 	if (count($_POST) >= 0) {
     // POST
-    $offset = $_POST['start'] + 1;
+    $offset = $_POST['start'];
     $limit = $_POST['length'];
     $idEstructuraOperacion = $_POST['idEstructuraOperacion'];
     $fecIni = $_POST['fecIni'];
