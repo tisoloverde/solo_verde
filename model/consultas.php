@@ -20730,6 +20730,7 @@ WHERE U.RUT = '{$rutUser}'";
 				P.IDPERSONAL,
 				P.DNI AS RUT,
 				($sqlRodrigo) AS NOMBRES,
+        P.NOMBRES AS NOMBRECITOS,
 				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
@@ -20798,6 +20799,7 @@ WHERE U.RUT = '{$rutUser}'";
 				P.IDPERSONAL,
 				P.DNI AS RUT,
 				($sqlRodrigo) AS NOMBRES,
+        P.NOMBRES AS NOMBRECITOS,
 				P.APELLIDOS AS APELLIDOS,
 				P.CARGO AS CARGO_LIQUIDACION,
 				CGU.IDCARGO_GENERICO_UNIFICADO,
@@ -20830,10 +20832,16 @@ WHERE U.RUT = '{$rutUser}'";
 
 			GROUP BY P.IDPERSONAL
 
-			ORDER BY $sortCol $sortOrd ";
-      if ($search == '') {
-        $offset = $offset + 1;
+      ORDER BY $sortCol $sortOrd ";
+
+      if ($sortCol == 'APELLIDOS') {
+        $sql = $sql . ", NOMBRECITOS $sortOrd ";
       }
+
+      if ($search != '' && $offset == 0) {
+        $offset = 0;
+      }
+
       $sql = $sql . "LIMIT $limit OFFSET $offset;";
 			if ($row = $con->query($sql)) {
 				$return = array();
