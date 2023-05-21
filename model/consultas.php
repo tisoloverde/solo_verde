@@ -20588,13 +20588,6 @@ WHERE U.RUT = '{$rutUser}'";
 					WHERE (E.IDPERSONAL_ESTADO_CONCEPTO = 13
 					AND E.FECHA_INICIO < '$auxIni-01')
 				)
-			/*(
-				CASE WHEN PEC.SIGLA = 'DSR' THEN
-					PE.FECHA_INICIO <= '$diaFinMes'
-				ELSE
-					PE.FECHA_INICIO IS NOT NULL
-				END
-			)*/
 
 			AND PP.FECHAPROC IN ('$auxIni', '$auxFin')
 			AND (
@@ -20610,6 +20603,55 @@ WHERE U.RUT = '{$rutUser}'";
 			AND P.FECHA_INGRESO <= '$fechaFin'
 			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')
 			AND (P.TEMPORAL IS NULL OR P.TEMPORAL != 1)";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return $sql;
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+  function consultaListaACTHistorialCOUNT2Temporal(
+		$idEstructuraOperacion,
+		$fechaIni,
+		$fechaFin,
+		$auxIni,
+		$auxFin,
+		$diaFinMes,
+		$search
+	) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sqlAux = "SELECT
+				date_add(PE_.FECHA_INICIO, INTERVAL -1 day)
+				-- PE_.FECHA_INICIO
+			FROM PERSONAL_ESTADO PE_
+			INNER JOIN PERSONAL_ESTADO_CONCEPTO PEC_ ON PEC_.IDPERSONAL_ESTADO_CONCEPTO = PE_.IDPERSONAL_ESTADO_CONCEPTO
+			WHERE PE_.IDPERSONAL = P.IDPERSONAL AND PEC_.SIGLA = 'DSR'
+			ORDER BY PE_.FECHA_INICIO DESC
+			LIMIT 1";
+
+			$sql = "SELECT
+				COUNT(DISTINCT P.IDPERSONAL) AS CONT
+			FROM PERSONAL P
+			LEFT JOIN CARGO_GENERICO_UNIFICADO CGU ON CGU.CODIGO = P.CARGO_GENERICO_CODIGO
+			LEFT JOIN CLASIFICACION CL ON CL.IDCLASIFICACION = CGU.IDCLASIFICACION
+			LEFT JOIN REFERENCIA1 R1 ON R1.CODIGO = P.REFERENCIA1
+			LEFT JOIN REFERENCIA2 R2 ON R2.CODIGO = P.REFERENCIA2
+
+			LEFT JOIN ACT AC ON AC.IDPERSONAL = P.IDPERSONAL
+			LEFT JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = AC.IDESTRUCTURA_OPERACION
+			WHERE P.TEMPORAL = 1
+		
+			AND EO.DEFINICION = $idEstructuraOperacion
+			AND P.FECHA_INGRESO <= '$fechaFin'
+			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

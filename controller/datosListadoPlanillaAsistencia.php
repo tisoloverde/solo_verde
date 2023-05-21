@@ -18,7 +18,8 @@
     $sortOrd = $_POST['order'][0]['dir'];
 
     // DB
-    $total = consultaListaACTHistorialCOUNT2($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
+    $total_general = consultaListaACTHistorialCOUNT2($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
+    $total_temporal = consultaListaACTHistorialCOUNT2Temporal($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
     $lstPersonalCC = consultaListaACTHistorial2($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search, sanitizePlanillaCol($sortCol), $sortOrd);
     $sql = [];
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
@@ -237,13 +238,15 @@
         $rows[] = $row;
       }
 
+      $total = (int)$total_general[0]['CONT'] + (int)$total_temporal[0]['CONT'];
+
       $results = array(
         // "sEcho" => 1,
         /*"iTotalRecords" => (int)$total[0]['CONT'],
         "iTotalDisplayRecords" => count($rows),*/
         "sql1" => $sql,
-        "recordsTotal" => (int)$total[0]['CONT'],
-        "recordsFiltered" => (int)$total[0]['CONT'],
+        "recordsTotal" => $total,
+        "recordsFiltered" => $total,
         "aaData"=>$rows,
       );
       echo json_encode($results);
