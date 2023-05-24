@@ -3163,6 +3163,8 @@ app.controller("planillaAsistenciaController", function(){
             }
             else{
               if($("#tipoInformeGeneraInformeRexmas1").val() == "faltas"){
+                $("#modalGeneraInformeRexmas1").modal("hide");
+                
                 splashOpen();
 
                 var parametros2 = {
@@ -3203,6 +3205,8 @@ app.controller("planillaAsistenciaController", function(){
                   alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe seleccionar una opción de hora extra y/o atraso");
                 }
                 else{
+                  $("#modalGeneraInformeRexmas1").modal("hide");
+
                   splashOpen();
 
                   var parametros2 = {
@@ -3228,7 +3232,6 @@ app.controller("planillaAsistenciaController", function(){
                   });
                 }
               }
-              $("#modalGeneraInformeRexmas1").modal("hide");
             }
           });
 
