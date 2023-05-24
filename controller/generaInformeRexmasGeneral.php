@@ -146,10 +146,10 @@
     $fecha = strtotime('+0 day');
     $fecha = $dias[date('w', $fecha)]." ".date('d', $fecha)." de ".$meses[date('n', $fecha)-1]. " ".date('Y', $fecha) . " a las " . date('h:i:s A', $fecha);
 
-    $mail->Subject = "Carga archivo rexmas " . $fecha . "";
+    $mail->Subject = "Informe general rexmas " . $fecha . "";
 
     //Puedo definir un cuerpo alternativo del mensaje, que contenga solo texto
-    $mail->AltBody = "Carga archivo rexmas " . $fecha . "";
+    $mail->AltBody = "Informe general rexmas " . $fecha . "";
 
     //inserto el texto del mensaje en formato HTML
     $mail->MsgHTML($body);
