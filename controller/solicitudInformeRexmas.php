@@ -25,7 +25,10 @@
 		exec('php -f ' . $ruta . 'controller/generaInformeRexmasHE.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' ' . $he50 . ' ' . $he100 . ' ' . $atraso . ' > /dev/null 2>&1 &');
 	}
 	else if($tipo == "general"){
-		$line = exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin);
+		$output = array(); // Variable para almacenar la salida del comando
+		$returnValue = 0; // Variable para almacenar el valor de retorno del comando
+
+		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin, $output, $returnValue);
 
 		foreach ($output as $line) {
 		    echo $line . "<br>";
