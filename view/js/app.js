@@ -3159,7 +3159,7 @@ app.controller("planillaAsistenciaController", function(){
           //Llamado a generaciónd e informes
           $("#generarGeneraInformeRexmas1").click(async function(){
             if($("#cecoGeneraInformeRexmas1").val() == 0){
-              alertasToast("<img src='view/img/info.png class='splash_load'><br/>Debe seleccionar una opción de CECO");
+              alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe seleccionar una opción de CECO");
             }
             else{
               if($("#tipoInformeGeneraInformeRexmas1").val() == "faltas"){
