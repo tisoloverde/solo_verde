@@ -77,7 +77,7 @@
   }
   // ATRASO
   if($atraso == "1"){
-    $row = cosultaInformeRexmasHE100($ceco,$fechaIni,$fechaFin);
+    $row = cosultaInformeRexmasATRASO($ceco,$fechaIni,$fechaFin);
 
     $report = fopen($ruta . "controller/repositorio/temp/ATRASO" . $nombreDoc, 'a');
 

@@ -3185,8 +3185,6 @@ app.controller("planillaAsistenciaController", function(){
                 });
               }
               else if($("#tipoInformeGeneraInformeRexmas1").val() == "heAtrasos"){
-                splashOpen();
-
                 var he50 = 0;
                 var he100 = 0;
                 var atraso = 0;
@@ -3201,27 +3199,34 @@ app.controller("planillaAsistenciaController", function(){
                   atraso = 1;
                 }
 
-                var parametros2 = {
-                  "ceco": $("#cecoGeneraInformeRexmas1").val(),
-                  "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
-                  "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1],
-                  "tipo": $("#tipoInformeGeneraInformeRexmas1").val(),
-                  "he50": he50,
-                  "he100": he100,
-                  "atraso": atraso
+                if(he50 == 0 && he100 == 0 && atraso == 0){
+                  alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe seleccionar una opción de hora extra y/o atraso");
                 }
+                else{
+                  splashOpen();
 
-                $.ajax({
-                  url:   'controller/solicitudInformeRexmas.php',
-                  type:  'post',
-                  data: parametros2,
-                  success: function (response) {
-                    setTimeout(function(){
-                      $("#modalAlertasSplash").modal("hide");
-                      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
-                    },500);
+                  var parametros2 = {
+                    "ceco": $("#cecoGeneraInformeRexmas1").val(),
+                    "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
+                    "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1],
+                    "tipo": $("#tipoInformeGeneraInformeRexmas1").val(),
+                    "he50": he50,
+                    "he100": he100,
+                    "atraso": atraso
                   }
-                });
+
+                  $.ajax({
+                    url:   'controller/solicitudInformeRexmas.php',
+                    type:  'post',
+                    data: parametros2,
+                    success: function (response) {
+                      setTimeout(function(){
+                        $("#modalAlertasSplash").modal("hide");
+                        alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
+                      },500);
+                    }
+                  });
+                }
               }
               $("#modalGeneraInformeRexmas1").modal("hide");
             }
