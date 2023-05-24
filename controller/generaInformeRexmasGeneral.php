@@ -29,7 +29,7 @@
   $nombreDoc2 = 'General_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".xlsx";
   $delimiter = ";";
 
-  $logFile = fopen($ruta . "/repositorio/temp/General_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  $logFile = fopen($ruta . "/controller/repositorio/temp/General_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
   fclose($logFile);
 
@@ -156,7 +156,7 @@
     //envío el mensaje, comprobando si se envió correctamente
     if($mail->Send()) {
       echo "Ok";
-      $logFile = fopen($ruta . "/repositorio/temp/General_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+      $logFile = fopen($ruta . "/controller/repositorio/temp/General_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
       fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Email enviado =============") or die("Error escribiendo en el archivo");
       fclose($logFile);
     }
