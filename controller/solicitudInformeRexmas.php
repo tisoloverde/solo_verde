@@ -30,6 +30,11 @@
 
 		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin, $output, $returnValue);
 
+		echo 'php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin;
+
+		var_dump($output);
+		var_dump($returnValue);
+
 		foreach ($output as $line) {
 		    echo $line . "<br>";
 		}
