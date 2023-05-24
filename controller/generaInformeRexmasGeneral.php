@@ -1,7 +1,9 @@
 <?php
-  // ini_set('display_errors', 'On');
+  ini_set('display_errors', 'On');
   date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
+
+  var_dump($ruta);
 
   require($ruta . 'model/consultas.php');
 
@@ -15,8 +17,6 @@
 
   use PhpOffice\PhpSpreadsheet\Spreadsheet;
   use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
-  session_start();
 
   $hora = date("Y-m-d H:i:s");
   $rut = $_SERVER['argv'][1];
