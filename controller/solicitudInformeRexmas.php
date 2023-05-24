@@ -5,7 +5,7 @@
 
   require('../model/consultas.php');
 
-  $ruta = str_replace("controller", "", getcwd()) . '/';
+  $ruta = str_replace("controller", "", getcwd());
 
   $rutUser = $_SESSION['rutUser'];
   $row = chequeaUsuarioEmail($rutUser);
