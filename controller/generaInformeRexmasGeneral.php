@@ -68,7 +68,7 @@
 
   $ruta = str_replace("generaPDF", "", getcwd());
 
-  $name = $ruta . "/controller/repositorio/temp/" . $nombreDoc;
+  $name = $ruta . "/repositorio/temp/" . $nombreDoc;
 
   $writer->save($name);
 
