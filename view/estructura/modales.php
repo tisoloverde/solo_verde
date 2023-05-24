@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=55';
+  js.src = 'view/js/funciones.js?idload=56';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -11305,13 +11305,48 @@ include "./modales/personal/update.php";
         <div class="row" style="text-align: left; margin-bottom: 20pt;">
 
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Rut</label>
+            <label style="font-weight: bold;">CECO</label>
             <select id="cecoGeneraInformeRexmas1" class="form-control"></select>
           </div>
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Año</label>
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Periodo</label>
             <input id="rangoGeneraInformeRexmas1" class="form-control" type="text" value="">
           </div>
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo informe</label>
+            <select id="tipoInformeGeneraInformeRexmas1" class="form-control">
+							<option value="faltas">Faltas y permisos</option>
+							<option value="heAtrasos">Horas extras y atrasos</option>
+						</select>
+          </div>
+					<div id="selTipoInformeGeneraInformeRexmas1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; display: none;">
+						<div class="row" style="text-align: left; margin-bottom: 20pt;">
+							<div style="margin-top: 10pt; text-align: center;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+								<span>HE50</span>
+								<br>
+								<label style="margin-top: 10pt;" class="switch">
+									<input id="he50GeneraInformeRexmas1" type="checkbox" title="HE50" checked="checked">
+									<span class="slider round"></span>
+								</label>
+							</div>
+							<div style="margin-top: 10pt; text-align: center;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+								<span>HE100</span>
+								<br>
+								<label style="margin-top: 10pt;" class="switch">
+									<input id="he100GeneraInformeRexmas1" type="checkbox" title="HE100" checked="checked">
+									<span class="slider round"></span>
+								</label>
+							</div>
+							<div style="margin-top: 10pt; text-align: center;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+								<span>Atraso</span>
+								<br>
+								<label style="margin-top: 10pt;" class="switch">
+									<input id="atrasoGeneraInformeRexmas1" type="checkbox" title="Atraso" checked="checked">
+									<span class="slider round"></span>
+								</label>
+							</div>
+						</div>
+					</div>
         </div>
       </div>
 

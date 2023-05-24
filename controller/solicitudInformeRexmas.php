@@ -12,8 +12,18 @@
   $ceco = $_POST['ceco'];
   $fechaInicio = $_POST['fechaInicio'];
   $fechaFin = $_POST['fechaFin'];
+	$tipo = $_POST['tipo'];
 
-  exec('php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
+	if($tipo == "faltas"){
+		exec('php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
+	}
+	else if($tipo == "heAtrasos"){
+		$he50 = $_POST['he50'];
+		$he100 = $_POST['he100'];
+		$atraso = $_POST['atraso'];
+
+		exec('php -f ' . $ruta . 'controller/generaInformeRexmasHE.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' ' . $he50 . ' ' . $he100 . ' ' . $atraso . ' > /dev/null 2>&1 &');
+	}
 
 	// foreach ($output as $line) {
 	//     echo $line . "<br>";

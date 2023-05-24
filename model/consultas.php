@@ -20648,7 +20648,7 @@ WHERE U.RUT = '{$rutUser}'";
 			LEFT JOIN ACT AC ON AC.IDPERSONAL = P.IDPERSONAL
 			LEFT JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = AC.IDESTRUCTURA_OPERACION
 			WHERE P.TEMPORAL = 1
-		
+
 			AND EO.DEFINICION = $idEstructuraOperacion
 			AND P.FECHA_INGRESO <= '$fechaFin'
 			AND (P.NOMBRES LIKE '%$search%' OR P.APELLIDOS LIKE '%$search%' OR P.DNI LIKE '%$search%' OR P.CARGO LIKE '%$search%' OR CGU.NOMBRE LIKE '%$search%')";
@@ -21336,6 +21336,60 @@ WHERE U.RUT = '{$rutUser}'";
 			$con = conectar();
 			if ($con != "No conectado") {
 				$sql = "CALL INFORME_REXMAS('{$ceco}','{$fechaIni}','$fechaFin')";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				} else {
+					return "Error";
+				}
+			} else {
+				return "Error";
+			}
+		}
+
+		function cosultaInformeRexmasHE50($ceco,$fechaIni,$fechaFin) {
+			$con = conectar();
+			if ($con != "No conectado") {
+				$sql = "CALL INFORME_REXMAS_HE50('{$ceco}','{$fechaIni}','$fechaFin')";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				} else {
+					return "Error";
+				}
+			} else {
+				return "Error";
+			}
+		}
+
+		function cosultaInformeRexmasHE100($ceco,$fechaIni,$fechaFin) {
+			$con = conectar();
+			if ($con != "No conectado") {
+				$sql = "CALL INFORME_REXMAS_HE100('{$ceco}','{$fechaIni}','$fechaFin')";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				} else {
+					return "Error";
+				}
+			} else {
+				return "Error";
+			}
+		}
+
+		function cosultaInformeRexmasATRASO($ceco,$fechaIni,$fechaFin) {
+			$con = conectar();
+			if ($con != "No conectado") {
+				$sql = "CALL INFORME_REXMAS_ATRASO('{$ceco}','{$fechaIni}','$fechaFin')";
 				if ($row = $con->query($sql)) {
 					$return = array();
 					while($array = $row->fetch_array(MYSQLI_BOTH)){

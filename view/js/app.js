@@ -7,98 +7,98 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idload=55"
+        templateUrl : "view/home/login.html?idload=56"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=55"
+        templateUrl : "view/home/home.html?idload=56"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idload=55"
+        templateUrl : "view/home/home.html?idload=56"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idload=55"
+        templateUrl : "view/home/changePass.html?idload=56"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idload=55"
+        templateUrl : "view/usuario/usuarios.html?idload=56"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idload=55"
+        templateUrl : "view/usuario/perfiles.html?idload=56"
     })
     .when("/dotacion", {
         controller: "dotacionController",
         controllerAs: "vm",
-        templateUrl : "view/personal/dotacion.html?idload=55"
+        templateUrl : "view/personal/dotacion.html?idload=56"
     })
     .when("/subcontratistas", {
         controller: "subcontratistasController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/subcontratistas.html?idload=55"
+        templateUrl : "view/controlling/subcontratistas.html?idload=56"
     })
     .when("/gerencia", {
         controller: "gerenciaController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/gerencia.html?idload=55"
+        templateUrl : "view/controlling/gerencia.html?idload=56"
     })
     .when("/estadoProyecto", {
         controller: "estadoProyectoController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/estadoProyecto.html?idload=55"
+        templateUrl : "view/controlling/estadoProyecto.html?idload=56"
     })
     .when("/clienteProyecto", {
         controller: "clienteController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/cliente.html?idload=55"
+        templateUrl : "view/controlling/cliente.html?idload=56"
     })
     .when("/centro_costos",{
         controller: "proyectosController",
         controllerAs: "wm",
-        templateUrl: "view/controlling/proyecto.html?idload=55"
+        templateUrl: "view/controlling/proyecto.html?idload=56"
     })
     .when("/gestionJefatura", {
       controller: "jefaturaController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/gestionJefatura.html?idload=55"
+      templateUrl : "view/adminPersonal/gestionJefatura.html?idload=56"
     })
     .when("/areaFuncional", {
         controller: "mantenedorAreaFuncionalController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/areaFuncional.html?idload=55"
+        templateUrl : "view/adminPersonal/areaFuncional.html?idload=56"
     })
     // Sucursales
     .when("/sucursales", {
       controller: "sucursalController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/sucursal.html?idload=55"
+      templateUrl : "view/adminPersonal/sucursal.html?idload=56"
     })
     .when("/paises", {
         controller: "mantenedorPaisesController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/paises.html?idload=55"
+        templateUrl : "view/adminPersonal/paises.html?idload=56"
     })
     .when("/equipo", {
         controller: "personalController",
         controllerAs: "vm",
-        templateUrl : "view/personal/personal.html?idload=55"
+        templateUrl : "view/personal/personal.html?idload=56"
     })
     .when("/planillaAsistencia", {
       controller: "planillaAsistenciaController",
       controllerAs: "vm",
-      templateUrl : "view/personal/planillaAsistencia.html?idload=55"
+      templateUrl : "view/personal/planillaAsistencia.html?idload=56"
     })
     .when("/indicadorAusentismo", {
       controller: "indicadorAusentismoController",
       controllerAs: "vm",
-      templateUrl : "view/reporteria/ausentismo.html?idload=55"
+      templateUrl : "view/reporteria/ausentismo.html?idload=56"
     })
     .otherwise({redirectTo: '/home'});
 
@@ -667,7 +667,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idload=55';
+                      js.src = 'view/js/funciones.js?idload=56';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -1024,7 +1024,7 @@ app.controller("subcontratistasController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idload=55';
+                    js.src = 'view/js/funciones.js?idload=56';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
                 },100);
@@ -1204,7 +1204,7 @@ app.controller("gerenciaController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idload=55';
+                js.src = 'view/js/funciones.js?idload=56';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1380,7 +1380,7 @@ app.controller("estadoProyectoController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idload=55';
+                js.src = 'view/js/funciones.js?idload=56';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1551,7 +1551,7 @@ app.controller("clienteController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idload=55';
+                js.src = 'view/js/funciones.js?idload=56';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1755,7 +1755,7 @@ app.controller("proyectosController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idload=55';
+                js.src = 'view/js/funciones.js?idload=56';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
 
@@ -2153,7 +2153,7 @@ app.controller("sucursalController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idload=55';
+                      js.src = 'view/js/funciones.js?idload=56';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -2321,7 +2321,7 @@ app.controller("mantenedorAreaFuncionalController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idload=55';
+                    js.src = 'view/js/funciones.js?idload=56';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -2480,7 +2480,7 @@ app.controller("mantenedorPaisesController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idload=55';
+                    js.src = 'view/js/funciones.js?idload=56';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -3144,6 +3144,9 @@ app.controller("planillaAsistenciaController", function(){
               $("#cecoGeneraInformeRexmas1").select2({
                   theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
               });
+              $("#tipoInformeGeneraInformeRexmas1").select2({
+                  theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+              });
             }
 
             setTimeout(function(){
@@ -3153,31 +3156,85 @@ app.controller("planillaAsistenciaController", function(){
             },500);
           });
 
+          //Llamado a generaciónd e informes
           $("#generarGeneraInformeRexmas1").click(async function(){
             if($("#cecoGeneraInformeRexmas1").val() == 0){
               alertasToast("<img src='view/img/info.png class='splash_load'><br/>Debe seleccionar una opción de CECO");
             }
             else{
-              $("#modalGeneraInformeRexmas1").modal("hide");
-              splashOpen();
+              if($("#tipoInformeGeneraInformeRexmas1").val() == "faltas"){
+                splashOpen();
 
-              var parametros2 = {
-                "ceco": $("#cecoGeneraInformeRexmas1").val(),
-                "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
-                "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1]
-              }
-
-              $.ajax({
-                url:   'controller/solicitudInformeRexmas.php',
-                type:  'post',
-                data: parametros2,
-                success: function (response) {
-                  setTimeout(function(){
-                    $("#modalAlertasSplash").modal("hide");
-                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
-                  },500);
+                var parametros2 = {
+                  "ceco": $("#cecoGeneraInformeRexmas1").val(),
+                  "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
+                  "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1],
+                  "tipo": $("#tipoInformeGeneraInformeRexmas1").val()
                 }
-              });
+
+                $.ajax({
+                  url:   'controller/solicitudInformeRexmas.php',
+                  type:  'post',
+                  data: parametros2,
+                  success: function (response) {
+                    setTimeout(function(){
+                      $("#modalAlertasSplash").modal("hide");
+                      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
+                    },500);
+                  }
+                });
+              }
+              else if($("#tipoInformeGeneraInformeRexmas1").val() == "heAtrasos"){
+                splashOpen();
+
+                var he50 = 0;
+                var he100 = 0;
+                var atraso = 0;
+
+                if($('#he50GeneraInformeRexmas1').is(':checked')){
+                  he50 = 1;
+                }
+                if($('#he100GeneraInformeRexmas1').is(':checked')){
+                  he100 = 1;
+                }
+                if($('#atrasoGeneraInformeRexmas1').is(':checked')){
+                  atraso = 1;
+                }
+
+                var parametros2 = {
+                  "ceco": $("#cecoGeneraInformeRexmas1").val(),
+                  "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
+                  "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1],
+                  "tipo": $("#tipoInformeGeneraInformeRexmas1").val().
+                  "he50": he50,
+                  "he100": he100,
+                  "atraso": atraso
+                }
+
+                $.ajax({
+                  url:   'controller/solicitudInformeRexmas.php',
+                  type:  'post',
+                  data: parametros2,
+                  success: function (response) {
+                    setTimeout(function(){
+                      $("#modalAlertasSplash").modal("hide");
+                      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
+                    },500);
+                  }
+                });
+              }
+              $("#modalGeneraInformeRexmas1").modal("hide");
+            }
+          });
+
+          $("#tipoInformeGeneraInformeRexmas1").unbind("click").change(async function(e){
+            e.preventDefault()
+            e.stopImmediatePropagation();
+            if($("#tipoInformeGeneraInformeRexmas1").val() == "heAtrasos"){
+              $("#selTipoInformeGeneraInformeRexmas1").show();
+            }
+            else{
+              $("#selTipoInformeGeneraInformeRexmas1").hide();
             }
           });
 
