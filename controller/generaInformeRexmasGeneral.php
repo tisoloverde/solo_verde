@@ -108,8 +108,8 @@
             </font>
             <br>";
 
-    $mail->AddEmbeddedImage($ruta . '/view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
-    $mail->AddAttachment($ruta . "/controller/repositorio/temp/" . $nombreDoc, $nombreDoc);
+    $mail->AddEmbeddedImage($ruta . '/img/logo_home.png', 'firmaPng', 'firmaPng.png');
+    $mail->AddAttachment($ruta . "/repositorio/temp/" . $nombreDoc, $nombreDoc);
 
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
             <div style='width: 100%; text-align: justify; margin: 0 auto;'>
@@ -156,7 +156,7 @@
     //envío el mensaje, comprobando si se envió correctamente
     if($mail->Send()) {
       echo "Ok";
-      $logFile = fopen($ruta . "/controller/repositorio/temp/General_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+      $logFile = fopen($ruta . "/repositorio/temp/General_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
       fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Email enviado =============") or die("Error escribiendo en el archivo");
       fclose($logFile);
     }
