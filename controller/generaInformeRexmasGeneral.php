@@ -3,20 +3,21 @@
   date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
 
-  var_dump($ruta);
-
   require($ruta . 'model/consultas.php');
 
-  require $ruta . 'controller/phpSpreadsheet/vendor/autoload.php';
-  require $ruta . 'controller/phpmailer/src/Exception.php';
-  require $ruta . 'controller/phpmailer/src/PHPMailer.php';
-  require $ruta . 'controller/phpmailer/src/SMTP.php';
+  require 'phpSpreadsheet/vendor/autoload.php';
+  require 'phpmailer/src/Exception.php';
+  require 'phpmailer/src/PHPMailer.php';
+  require 'phpmailer/src/SMTP.php';
 
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\Exception;
 
   use PhpOffice\PhpSpreadsheet\Spreadsheet;
   use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+  session_start();
+  error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
   $hora = date("Y-m-d H:i:s");
   $rut = $_SERVER['argv'][1];
