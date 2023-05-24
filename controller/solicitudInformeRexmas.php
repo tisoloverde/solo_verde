@@ -25,16 +25,11 @@
 		exec('php -f ' . $ruta . 'controller/generaInformeRexmasHE.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' ' . $he50 . ' ' . $he100 . ' ' . $atraso . ' > /dev/null 2>&1 &');
 	}
 	else if($tipo == "general"){
-		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
+		$line = exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin);
 
-		echo 'php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &';
+		foreach ($output as $line) {
+		    echo $line . "<br>";
+		}
 	}
-
-	// foreach ($output as $line) {
-	//     echo $line . "<br>";
-	// }
-
-  // echo 'php -f ' . $ruta . 'controller/generaInformeRexmas.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &';
-	//
 	echo "Ok";
 ?>
