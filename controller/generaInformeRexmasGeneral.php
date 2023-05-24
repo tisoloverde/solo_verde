@@ -68,7 +68,7 @@
 
   $ruta = str_replace("generaPDF", "", getcwd());
 
-  $name = $ruta . "controller/repositorio/temp/" . $nombreDoc;
+  $name = $ruta . "/controller/repositorio/temp/" . $nombreDoc;
 
   $writer->save($name);
 
@@ -109,7 +109,7 @@
             <br>";
 
     $mail->AddEmbeddedImage($ruta . 'view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
-    $mail->AddAttachment($ruta . "controller/repositorio/temp/" . $nombreDoc, $nombreDoc);
+    $mail->AddAttachment($ruta . "/controller/repositorio/temp/" . $nombreDoc, $nombreDoc);
 
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
             <div style='width: 100%; text-align: justify; margin: 0 auto;'>
