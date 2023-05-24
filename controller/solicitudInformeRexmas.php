@@ -25,19 +25,21 @@
 		exec('php -f ' . $ruta . 'controller/generaInformeRexmasHE.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' ' . $he50 . ' ' . $he100 . ' ' . $atraso . ' > /dev/null 2>&1 &');
 	}
 	else if($tipo == "general"){
-		$output = array(); // Variable para almacenar la salida del comando
-		$returnValue = 0; // Variable para almacenar el valor de retorno del comando
+		// $output = array(); // Variable para almacenar la salida del comando
+		// $returnValue = 0; // Variable para almacenar el valor de retorno del comando
 
-		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin, $output, $returnValue);
+		// exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin, $output, $returnValue);
 
-		echo 'php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin;
+		// echo 'php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin;
+		//
+		// var_dump($output);
+		// var_dump($returnValue);
+		//
+		// foreach ($output as $line) {
+		//     echo $line . "<br>";
+		// }
 
-		var_dump($output);
-		var_dump($returnValue);
-
-		foreach ($output as $line) {
-		    echo $line . "<br>";
-		}
+		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneral.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $fechaInicio . ' ' . $fechaFin . ' > /dev/null 2>&1 &');
 	}
 	echo "Ok";
 ?>
