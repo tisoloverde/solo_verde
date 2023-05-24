@@ -5,10 +5,10 @@
 
   require($ruta . 'model/consultas.php');
 
-  require 'phpSpreadsheet/vendor/autoload.php';
-  require 'phpmailer/src/Exception.php';
-  require 'phpmailer/src/PHPMailer.php';
-  require 'phpmailer/src/SMTP.php';
+  require $ruta . 'controller/phpSpreadsheet/vendor/autoload.php';
+  require $ruta . 'controller/phpmailer/src/Exception.php';
+  require $ruta . 'controller/phpmailer/src/PHPMailer.php';
+  require $ruta . 'controller/phpmailer/src/SMTP.php';
 
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\Exception;
