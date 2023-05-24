@@ -17,7 +17,6 @@
   use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
   session_start();
-  error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
   $hora = date("Y-m-d H:i:s");
   $rut = $_SERVER['argv'][1];
