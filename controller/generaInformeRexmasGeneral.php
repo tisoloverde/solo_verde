@@ -1,5 +1,5 @@
 <?php
-  ini_set('display_errors', 'On');
+  // ini_set('display_errors', 'On');
   date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
 
@@ -108,7 +108,7 @@
             </font>
             <br>";
 
-    $mail->AddEmbeddedImage($ruta . '/img/logo_home.png', 'firmaPng', 'firmaPng.png');
+    $mail->AddEmbeddedImage('/var/www/html/aplicaciones/view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
     $mail->AddAttachment($ruta . "/repositorio/temp/" . $nombreDoc, $nombreDoc);
 
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
