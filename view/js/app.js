@@ -3205,7 +3205,7 @@ app.controller("planillaAsistenciaController", function(){
                   "ceco": $("#cecoGeneraInformeRexmas1").val(),
                   "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
                   "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1],
-                  "tipo": $("#tipoInformeGeneraInformeRexmas1").val().
+                  "tipo": $("#tipoInformeGeneraInformeRexmas1").val(),
                   "he50": he50,
                   "he100": he100,
                   "atraso": atraso
