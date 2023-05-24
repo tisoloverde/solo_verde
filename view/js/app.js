@@ -3164,7 +3164,7 @@ app.controller("planillaAsistenciaController", function(){
             else{
               if($("#tipoInformeGeneraInformeRexmas1").val() == "faltas"){
                 $("#modalGeneraInformeRexmas1").modal("hide");
-                
+
                 splashOpen();
 
                 var parametros2 = {
@@ -3243,6 +3243,15 @@ app.controller("planillaAsistenciaController", function(){
             }
             else{
               $("#selTipoInformeGeneraInformeRexmas1").hide();
+            }
+
+            if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+              $("#cecoGeneraInformeRexmas1").select2({
+                  theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+              });
+              $("#tipoInformeGeneraInformeRexmas1").select2({
+                  theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+              });
             }
           });
 
