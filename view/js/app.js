@@ -3232,6 +3232,30 @@ app.controller("planillaAsistenciaController", function(){
                   });
                 }
               }
+              else if($("#tipoInformeGeneraInformeRexmas1").val() == "general"){
+                $("#modalGeneraInformeRexmas1").modal("hide");
+
+                splashOpen();
+
+                var parametros2 = {
+                  "ceco": $("#cecoGeneraInformeRexmas1").val(),
+                  "fechaInicio": $("#rangoGeneraInformeRexmas1").val().split(" - ")[0],
+                  "fechaFin": $("#rangoGeneraInformeRexmas1").val().split(" - ")[1],
+                  "tipo": $("#tipoInformeGeneraInformeRexmas1").val()
+                }
+
+                $.ajax({
+                  url:   'controller/solicitudInformeRexmas.php',
+                  type:  'post',
+                  data: parametros2,
+                  success: function (response) {
+                    setTimeout(function(){
+                      $("#modalAlertasSplash").modal("hide");
+                      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
+                    },500);
+                  }
+                });
+              }
             }
           });
 

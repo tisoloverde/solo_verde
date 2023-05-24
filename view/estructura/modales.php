@@ -11317,6 +11317,7 @@ include "./modales/personal/update.php";
             <select id="tipoInformeGeneraInformeRexmas1" class="form-control">
 							<option value="faltas">Faltas y permisos</option>
 							<option value="heAtrasos">Horas extras y atrasos</option>
+							<option value="general">General</option>
 						</select>
           </div>
 					<div id="selTipoInformeGeneraInformeRexmas1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; display: none;">
