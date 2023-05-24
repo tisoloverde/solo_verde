@@ -5,7 +5,7 @@
 
   require($ruta . 'model/consultas.php');
 
-  require('phpSpreadsheet/vendor/autoload.php');
+  require 'phpSpreadsheet/vendor/autoload.php';
   require 'phpmailer/src/Exception.php';
   require 'phpmailer/src/PHPMailer.php';
   require 'phpmailer/src/SMTP.php';
@@ -108,7 +108,7 @@
             </font>
             <br>";
 
-    $mail->AddEmbeddedImage($ruta . 'view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
+    $mail->AddEmbeddedImage($ruta . '/view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
     $mail->AddAttachment($ruta . "/controller/repositorio/temp/" . $nombreDoc, $nombreDoc);
 
     $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
