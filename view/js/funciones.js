@@ -3457,6 +3457,18 @@ function dotacionGetId(strid) {
   return "0";
 }
 
+$(document).on('keypress', '.onlyNumbersNaturals', function (e) {
+  e.stopImmediatePropagation();
+  var charCode = (e.which) ? e.which : event?.keyCode;
+  console.log(charCode)
+  if (String.fromCharCode(charCode).match(/[^0-9]/g)) {
+    return false;
+  }
+  if (this.value?.toString().includes(".") && charCode == 46) {
+    return false;
+  }
+});
+
 $(document).on('keypress', '.onlyNumbers', function (e) {
   e.stopImmediatePropagation();
   var charCode = (e.which) ? e.which : event?.keyCode;
