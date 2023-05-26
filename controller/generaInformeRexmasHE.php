@@ -39,7 +39,7 @@
     fputcsv($report, $lineData, $delimiter);
 
     for($i = 0; $i < count($row); $i++){
-      $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14]);
+      $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],str_replace(".",",",$row[$i][3]),$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14]);
       fputcsv($report, $lineData, $delimiter);
     }
 
@@ -62,7 +62,7 @@
     fputcsv($report, $lineData, $delimiter);
 
     for($i = 0; $i < count($row); $i++){
-      $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14]);
+      $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],str_replace(".",",",$row[$i][3]),$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14]);
       fputcsv($report, $lineData, $delimiter);
     }
 
@@ -85,7 +85,7 @@
     fputcsv($report, $lineData, $delimiter);
 
     for($i = 0; $i < count($row); $i++){
-      $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],$row[$i][3],$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14]);
+      $lineData = array($row[$i][0],$row[$i][1],$row[$i][2],str_replace(".",",",$row[$i][3]),$row[$i][4],$row[$i][5],$row[$i][6],$row[$i][7],$row[$i][8],$row[$i][9],$row[$i][10],$row[$i][11],$row[$i][12],$row[$i][13],$row[$i][14]);
       fputcsv($report, $lineData, $delimiter);
     }
 
