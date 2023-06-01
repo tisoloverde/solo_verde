@@ -34,17 +34,17 @@
 
     //indico a la clase que use SMTP
     $mail->SMTPSecure = 'tls';
-    $mail->Host = "smtp.gmail.com"; // GMail
+    $mail->Host = "mail.cimaurbano.cl"; // GMail
     $mail->Port = 587;
     $mail->IsSMTP(); // use SMTP
     $mail->SMTPAuth = true;
     //indico un usuario / clave de un usuario
-    $mail->Username = "contacto@cryptodata.cl";
-    $mail->Password = "biymiefrzcxdgock";
+    $mail->Username = "notificaciones@cimaurbano.cl";
+    $mail->Password = "avJ8s8sCoG";
 
     $mail->AddEmbeddedImage('../view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
-    $mail->SetFrom('contacto@cryptodata.cl', "Alertas");
-    $mail->AddReplyTo('contacto@cryptodata.cl', "Alertas");
+    $mail->SetFrom('notificaciones@cimaurbano.cl', "Notificaciones");
+    $mail->AddReplyTo('notificaciones@cimaurbano.cl', "Notificaciones");
 
     $mail->Subject = "Cambio de Jefatura " . getFecha() . "";
     $mail->AltBody = "Cambio de Jefatura " . getFecha() . "";

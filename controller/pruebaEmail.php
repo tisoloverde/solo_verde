@@ -1,7 +1,7 @@
 <?php
 	ini_set('display_errors', 'On');
 	header('Access-Control-Allow-Origin: *');
-	require('../model/consultas.php');
+	// require('../model/consultas.php');
 	// require("phpmailer/PHPMailerAutoload.php");
 	require 'phpmailer/src/Exception.php';
   require 'phpmailer/src/PHPMailer.php';
@@ -19,25 +19,24 @@
 				$mail->CharSet = 'UTF-8';
 
 	      //indico a la clase que use SMTP
-	      // $mail->SMTPSecure = 'tls';
 				$mail->SMTPSecure = 'tls';
-	      $mail->Host = "smtp.gmail.com"; // GMail
+	      $mail->Host = "mail.cimaurbano.cl"; // GMail
 	      $mail->Port = 587;
 	      $mail->IsSMTP(); // use SMTP
 	      $mail->SMTPAuth = true;
 	      //indico un usuario / clave de un usuario
-	      $mail->Username = "contacto@cryptodata.cl";
-	      $mail->Password = "biymiefrzcxdgock";
+	      $mail->Username = "notificaciones@cimaurbano.cl";
+	      $mail->Password = "avJ8s8sCoG";
 
         $mail->AddEmbeddedImage('../view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
 
         $body = '<p><em><span style="color:rgb(165, 165, 165)"><u>Creación de contraseña - Favor no responder este e-mail</u></span></em></p><br>Prueba email';
 
-        $mail->SetFrom('contacto@cryptodata.cl', "Alertas");
+        $mail->SetFrom('notificaciones@cimaurbano.cl', "Notificaciones");
 
 		    //defino la dirección de email de "reply", a la que responder los mensajes
 		    //Obs: es bueno dejar la misma dirección que el From, para no caer en spam
-		    $mail->AddReplyTo('contacto@cryptodata.cl', "Alertas");
+		    $mail->AddReplyTo('notificaciones@cimaurbano.cl', "Notificaciones");
 		    //Defino la dirección de correo a la que se envía el mensaje
 
         //Agregamos destinatarios

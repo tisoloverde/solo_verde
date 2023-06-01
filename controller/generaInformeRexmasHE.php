@@ -111,13 +111,13 @@
 
   //indico a la clase que use SMTP
   $mail->SMTPSecure = 'tls';
-  $mail->Host = "smtp.gmail.com"; // GMail
+  $mail->Host = "mail.cimaurbano.cl"; // GMail
   $mail->Port = 587;
   $mail->IsSMTP(); // use SMTP
   $mail->SMTPAuth = true;
   //indico un usuario / clave de un usuario
-  $mail->Username = "contacto@cryptodata.cl";
-  $mail->Password = "biymiefrzcxdgock";
+  $mail->Username = "notificaciones@cimaurbano.cl";
+  $mail->Password = "avJ8s8sCoG";
 
   $firma = "--
             <br />
@@ -166,11 +166,11 @@
     </div>
     ";
 
-    $mail->SetFrom('contacto@cryptodata.cl', "Alertas");
+    $mail->SetFrom('notificaciones@cimaurbano.cl', "Notificaciones");
 
     //defino la dirección de email de "reply", a la que responder los mensajes
     //Obs: es bueno dejar la misma dirección que el From, para no caer en spam
-    $mail->AddReplyTo('contacto@cryptodata.cl', "Alertas");
+    $mail->AddReplyTo('notificaciones@cimaurbano.cl', "Notificaciones");
     //Defino la dirección de correo a la que se envía el mensaje
 
     $mail->AddAddress($email, $email);
