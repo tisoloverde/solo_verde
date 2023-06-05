@@ -9945,8 +9945,8 @@ $(document).on('change', '.planilla-input', function(e){
   var he50 = _DATA_PLANILLA[planillaIdx]['__HE50'] ? parseFloat(_DATA_PLANILLA[planillaIdx]['__HE50']) : 0;
   var he100 = _DATA_PLANILLA[planillaIdx]['__HE100'] ? parseFloat(_DATA_PLANILLA[planillaIdx]['__HE100']) : 0;
   // var atraso = _DATA_PLANILLA[planillaIdx]['__ATRASO'] ? parseFloat(_DATA_PLANILLA[planillaIdx]['__ATRASO']) : 0;
-  if (he50 + he100 > 10) {
-    alert(`La fila ${planillaIdx+1} tiene más de 10 horas. Por favor, corregir`)
+  if (he50 + he100 > 84) {
+    alert(`La fila ${planillaIdx+1} tiene más de 84 horas. Por favor, corregir`)
     _DATA_PLANILLA[planillaIdx][`__${key}`] = 0;
     $(`#planilla-input-col${col}-${idPersonal}`).val('');
   }
