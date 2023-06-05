@@ -10172,7 +10172,7 @@ $(document).on('click', '#editarPlanillaAsistencia', async (e) => {
     success:  function (response) {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
       setTimeout(function(){
-        _TABLE_PLANILLA.DataTable().ajax.reload();
+        _TABLE_PLANILLA.DataTable().ajax.reload(null, false);
         $("#editarPlanillaAsistencia").attr("disabled", "disabled");
         loading(false);
       },1000);
