@@ -21257,6 +21257,27 @@ WHERE U.RUT = '{$rutUser}'";
 		}
 	}
 
+	function eliminarPlanillaRutReemplazoPrevio($rut_reemplazo, $fecIni, $fecEnd) {
+		$con = conectar();
+		$con->query("START TRANSACTION");
+		if($con != 'No conectado'){
+			$sql = "DELETE FROM PERSONAL_REEMPLAZOS
+			WHERE RUT_REEMPLAZO ='$rut_reemplazo'
+			AND FECHA BETWEEN '$fecIni' AND '$fecEnd'";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return $sql;
+			} else {
+				// return $con->error;
+				$con->query("ROLLBACK");
+				return $sql;
+			}
+		} else{
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
 	function ingresarPlanillaRutReemplazo($rut_personal, $rut_reemplazo, $fecha) {
 		$con = conectar();
 		$con->query("START TRANSACTION");

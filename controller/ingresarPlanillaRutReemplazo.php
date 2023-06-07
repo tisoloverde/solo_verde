@@ -9,6 +9,9 @@
       $rut_personal = $item['rut_personal'];
       $rut_reemplazo = $item['rut_reemplazo'];
       $fecha = $item['fecha'];
+      $fecIni = $item['fecIni'];
+      $fecEnd = $item['fecEnd'];
+      eliminarPlanillaRutReemplazoPrevio($rut_reemplazo, $fecIni, $fecEnd);
       $row[] = ingresarPlanillaRutReemplazo(
         $rut_personal,
         $rut_reemplazo,

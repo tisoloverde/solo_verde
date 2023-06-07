@@ -67,6 +67,14 @@ function findFecIniByYearMonth(yearmonth) {
   return moment(new Date());
 }
 
+function findFecIniByDate(dt) {
+  var splitted = dt.split("-");
+  if (splitted.length > 2) {
+    return moment(`${splitted[0]}-${splitted[1]}-01`);
+  }
+  return moment(new Date());
+}
+
 function esBisiesto(anio) {
   return (anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0;
 }
@@ -82,6 +90,26 @@ function findFecEndByYearMonth(yearmonth) {
         return moment(`${yearmonth}-${esBisiesto(year) ? 29 : 28}`);
       } else {
         return moment(`${yearmonth}-${month.numDays}`);
+      }
+    }
+    return moment(new Date());
+  }
+  return moment(new Date());
+}
+
+function findFecEndByDate(dt) {
+  var splitted = dt.split("-");
+  if (splitted.length > 2) {
+    var year = Number(splitted[0]);
+    var idx = Number(splitted[1]);
+    var month = __CONSTANTS.months[idx - 1];
+    if (month) {
+      if (month.name == "Febrero") {
+        return moment(
+          `${splitted[0]}-${splitted[1]}-${esBisiesto(year) ? 29 : 28}`
+        );
+      } else {
+        return moment(`${splitted[0]}-${splitted[1]}-${month.numDays}`);
       }
     }
     return moment(new Date());

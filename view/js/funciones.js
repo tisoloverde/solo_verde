@@ -10095,14 +10095,19 @@ $('#guardarIngresoTemporalPlanilla').on('click', async function(e) {
     var index = Number(aux2[1]);
 
     var rutReemplazo = $(`#${this.id}`).val();
+    var fecha = _MODAL_PLANILLA_DIAS_A_ASIGNAR[index]['FECHA_INICIO'];
     if (`${rutReemplazo}` != '0') {
       lst.push({
         rut_personal: rutPersonal,
         rut_reemplazo: rutReemplazo,
-        fecha: _MODAL_PLANILLA_DIAS_A_ASIGNAR[index]['FECHA_INICIO'],
+        fecha: fecha,
+        fecIni: findFecIniByDate(fecha).format('YYYY-MM-DD'),
+        fecEnd: findFecEndByDate(fecha).format('YYYY-MM-DD'),
       });
     }
   })
+  console.log(lst)
+
   $("#modalIngresoTemporalPlanilla").modal("hide");
   loading(true);
   await $.ajax({
