@@ -9449,7 +9449,6 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         return data;
       },
     },
-    pagingType: 'full_numbers',
     columns: [
       { data: 'S' , className: 'dt-center' },
       { data: 'RUT' },
@@ -9526,7 +9525,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     scrollCollapse: true,
     info: true,
     lengthMenu: [[_LARGO], [_LARGO]],
-    dom: 'l<"pagination-select"p>',
+    dom: 'Bfrtip',
     language: {
       zeroRecords: "Seleccionar semana y centro de costo",
       info: "Registro _START_ de _END_ de _TOTAL_",
