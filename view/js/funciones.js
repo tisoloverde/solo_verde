@@ -9526,7 +9526,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     scrollCollapse: true,
     info: true,
     lengthMenu: [[_LARGO], [_LARGO]],
-    dom: 'Bfrtip',
+    dom: 'l<"pagination-select"p>',
     language: {
       zeroRecords: "Seleccionar semana y centro de costo",
       info: "Registro _START_ de _END_ de _TOTAL_",
