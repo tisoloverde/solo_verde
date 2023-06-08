@@ -53,7 +53,7 @@
       $sigla = $con['SIGLA'];
       $key = $con['IDPERSONAL_ESTADO_CONCEPTO'];
       $val = 0;
-      if ($sigla == 'PMM' || $sigla == 'PMT' || $sigla == 'FMD' || $sigla == 'PMD') {
+      if ($sigla == 'PMM' || $sigla == 'PMT' || $sigla == 'FMD' || $sigla == 'PMD' || $sigla == 'FMM' || $sigla == 'FMT') {
         $val = 0.5;
       } else if ($sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR' || $sigla == 'PER' || $sigla == 'FLT') {
         $val = 1;
