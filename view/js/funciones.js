@@ -9449,6 +9449,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         return data;
       },
     },
+    pagingType: 'full_numbers',
     columns: [
       { data: 'S' , className: 'dt-center' },
       { data: 'RUT' },
