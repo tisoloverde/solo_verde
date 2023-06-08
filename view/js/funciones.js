@@ -9436,7 +9436,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
   var auxFinMes = findFecEndByYearMonth(auxFin);
   var diaFinMes = auxFinMes.format('YYYY-MM-DD');
 
-  await _TABLE_PLANILLA.DataTable({
+  var table = await _TABLE_PLANILLA.DataTable({
     serverSide: true,
     processing: true,
     search: { return: true },
@@ -9810,6 +9810,43 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         // No se ejecuta acción
       }
     }
+  });
+
+  table.on('draw', function() {
+     var pageInfo = table.page.info();
+     var currentPage = pageInfo.page + 1;
+     var totalPages = pageInfo.pages;
+
+     // Eliminar combo box de selección de página existente
+     $('#tablaListadoPlanillaAsistenciaPage').remove();
+
+     // Crear nuevo combo box para selección de página
+     var select = $('<select id="tablaListadoPlanillaAsistenciaPage" style="width: 120px;"></select>');
+
+     for (var i = 1; i <= totalPages; i++) {
+         var option = $('<option value="' + i + '">Página:&nbsp;&nbsp;&nbsp;' + i + '</option>');
+         if (i === currentPage) {
+             option.attr('selected', 'selected');
+         }
+         select.append(option);
+     }
+
+     // Agregar evento de cambio de página
+     select.on('change', function() {
+         var page = $(this).val() - 1;
+         table.page(page).draw('page');
+     });
+
+     // Agregar combo box al DOM
+     $("#tablaListadoPlanillaAsistencia_paginate").html("");
+     $('#tablaListadoPlanillaAsistencia_paginate').prepend(select);
+     $('#tablaListadoPlanillaAsistencia_paginate').css("text-align","left");
+
+     if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+       $("#tablaListadoPlanillaAsistenciaPage").select2({
+           theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+       });
+     }
   });
 }
 
