@@ -25,7 +25,7 @@
   $email = $_SERVER['argv'][2];
   $ceco = $_SERVER['argv'][3];
   $anoMes = $_SERVER['argv'][4];
-  $nombreDoc = 'General_Rexmas_Mensual' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
+  $nombreDoc = 'General_Rexmas_Mensual_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
   $nombreDoc2 = 'General_Rexmas_Mensual_UTF8_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
   $delimiter = ";";
 
@@ -156,7 +156,7 @@
     //envío el mensaje, comprobando si se envió correctamente
     if($mail->Send()) {
       echo "Ok";
-      $logFile = fopen($ruta . "/repositorio/temp/General_Rexmas_Mensual" . $anoMes . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+      $logFile = fopen($ruta . "/repositorio/temp/General_Rexmas_Mensual_" . $anoMes . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
       fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Email enviado =============") or die("Error escribiendo en el archivo");
       fclose($logFile);
     }
