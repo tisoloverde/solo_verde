@@ -40,6 +40,8 @@
 	  $anoMes = $_POST['anoMes'];
 		$tipo = $_POST['tipo'];
 		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneralMensual.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $anoMes . ' > /dev/null 2>&1 &');
+
+		echo 'php -f ' . $ruta . 'controller/generaInformeRexmasGeneralMensual.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $anoMes . ' > /dev/null 2>&1 &';
 	}
 	echo "Ok";
 ?>
