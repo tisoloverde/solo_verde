@@ -10,6 +10,8 @@
   $rutUser = $_SESSION['rutUser'];
   $row = chequeaUsuarioEmail($rutUser);
 
+	var_dump($_POST);
+
 	if($tipo == "faltas"){
 		$ceco = $_POST['ceco'];
 	  $fechaInicio = $_POST['fechaInicio'];
