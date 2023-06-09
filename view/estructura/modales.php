@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=59';
+  js.src = 'view/js/funciones.js?idload=60';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -11312,12 +11312,17 @@ include "./modales/personal/update.php";
             <label style="font-weight: bold;">Periodo</label>
             <input id="rangoGeneraInformeRexmas1" class="form-control" type="text" value="">
           </div>
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; display: none;">
+            <label style="font-weight: bold;">Mes</label>
+            <input id="mesGeneraInformeRexmas1" class="form-control" type="text" value="">
+          </div>
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
             <label style="font-weight: bold;">Tipo informe</label>
             <select id="tipoInformeGeneraInformeRexmas1" class="form-control">
 							<option value="faltas">Faltas y permisos</option>
 							<option value="heAtrasos">Horas extras y atrasos</option>
 							<option value="general">General</option>
+							<option value="generalMensual">General mensual</option>
 						</select>
           </div>
 					<div id="selTipoInformeGeneraInformeRexmas1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; display: none;">
