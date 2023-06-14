@@ -3,6 +3,8 @@
   require('./utils/functions.php');
   session_start();
 
+  set_time_limit(60); // 1 minuto (en segundos)
+
 	if (count($_POST) >= 0) {
     // POST
     $offset = $_POST['start'];
