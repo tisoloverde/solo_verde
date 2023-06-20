@@ -11270,7 +11270,10 @@ include "./modales/personal/update.php";
   <div class="modal-dialog modal-dialog-box modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 style="color:gray;" id="tituloIngresoTemporalPlanilla"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;NUEVO INGRESO</h5>
+        <h5 style="color:gray;" id="tituloIngresoTemporalPlanilla">
+          <span class="fas fa-plus-circle"></span>&nbsp;&nbsp;
+          Registro de Reemplazo - <span id="titleIngresoTemporalPlanilla"></span>
+        </h5>
       </div>
       <div id="bodyIngresoTemporalPlanilla" class="modal-body alerta-modal-body">
         <div class="row" style="text-align: left; margin-bottom: 20pt;">

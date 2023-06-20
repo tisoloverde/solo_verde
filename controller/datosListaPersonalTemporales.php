@@ -5,13 +5,23 @@
 
 	if(count($_POST) >= 0) {
     $codCECO = $_POST['codCECO'];
+    $reemplazosYaAsignados = $_POST['reemplazosYaAsignados'];
+
     $row = consultaListaUsuariosTemporals($codCECO);
-    if(is_array($row)) {
+
+    $res = [];
+    foreach ($row as $item) {
+      // if (!in_array($item['RUT'], $reemplazosYaAsignados)) {
+        $res[] = $item;
+      // }
+    }
+
+    if(is_array($res)) {
       $results = array(
         "sEcho" => 1,
-        "iTotalRecords" => count($row),
-        "iTotalDisplayRecords" => count($row),
-        "aaData"=>$row
+        "iTotalRecords" => count($res),
+        "iTotalDisplayRecords" => count($res),
+        "aaData"=>$res
       );
       echo json_encode($results);
     } else {

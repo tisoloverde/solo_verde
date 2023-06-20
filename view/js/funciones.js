@@ -9237,13 +9237,17 @@ var _COMUNES_PLANILLA = {};
 
 var _MODAL_PLANILLA_USUARIOS_TEMPORALES = [];
 var _MODAL_PLANILLA_DIAS_A_ASIGNAR = [];
+var _MODAL_PLANILLA_REEMPLAZO_EN_EL_MES = [];
 
-async function listUsuariosTemporales() {
+async function listUsuariosTemporales(reemplazosYaAsignados) {
   var codCECO = $('#selectListaCentrosDeCostos').val();
   await $.ajax({
     url: 'controller/datosListaPersonalTemporales.php',
     type: 'post',
-    data: { codCECO },
+    data: {
+      codCECO,
+      reemplazosYaAsignados,
+    },
     dataType: 'json',
     success: function (response) {
       _MODAL_PLANILLA_USUARIOS_TEMPORALES = response.aaData;
@@ -9255,10 +9259,20 @@ async function listDiasReemplazoTemporal(dias, rutPersonal, idPersonal, fecIni, 
   await $.ajax({
     url:   'controller/datosListaDiasReemplazoTemporal.php',
     type:  'post',
-    data: { dias, rutPersonal, idPersonal, fecIni, fecFin },
+    data: {
+      dias,
+      rutPersonal,
+      idPersonal,
+      fecIni: findFecIniByDate(fecIni).format('YYYY-MM-DD'),
+      fecFin,
+    },
     dataType: 'json',
-    success:  function (response) {
+    success: async function (response) {
       _MODAL_PLANILLA_DIAS_A_ASIGNAR = response.aaData;
+      _MODAL_PLANILLA_REEMPLAZO_EN_EL_MES = response.res;
+
+      var reemplazosYaAsignados = _MODAL_PLANILLA_REEMPLAZO_EN_EL_MES.map((item) => item.DNI_REEMPLAZO);
+      // await listUsuariosTemporales(reemplazosYaAsignados);
     }
   });
 }
@@ -10006,6 +10020,12 @@ $(document).on('click', '.planilla-modal', async function(e){
   var rutPersonal = aux2[0];
   var idPersonal = Number(aux2[1]);
 
+  _DATA_PLANILLA.forEach(({ IDPERSONAL, RUT, NOMBRECITOS }) => {
+    if (Number(IDPERSONAL) == idPersonal) {
+      $("#titleIngresoTemporalPlanilla").text(`${RUT} - ${NOMBRECITOS}`);
+    }
+  })
+
   var fecIni = _DIAS_PLANILLA[0]['fecha'];
   var fecFin = _DIAS_PLANILLA[_DIAS_PLANILLA.length - 1]['fecha'];
 
@@ -10066,6 +10086,8 @@ $(document).on('click', '.planilla-modal', async function(e){
     if (idReemplazo) {
       $('.planilla-modal-personal').attr("disabled", "disabled");
       $(`#${idReemplazo}`).removeAttr("disabled");
+    } else if (_MODAL_PLANILLA_REEMPLAZO_EN_EL_MES.length) {
+      $('.planilla-modal-personal').attr("disabled", "disabled");
     } else {
       $('.planilla-modal-personal').removeAttr("disabled");
     }

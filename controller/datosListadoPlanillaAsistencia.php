@@ -62,6 +62,7 @@
           "IDPERSONAL" => $idPersonal,
           "RUT" => $lstPersonalCC[$i]['RUT'],
           "NOMBRES" => $lstPersonalCC[$i]['NOMBRES'],
+          "NOMBRECITOS" => $lstPersonalCC[$i]['NOMBRECITOS'],
           "CARGO_LIQUIDACION" => $lstPersonalCC[$i]['CARGO_LIQUIDACION'],
           "CARGO_GENERICO_UNIFICADO" => "",
           "CLASIFICACION" => "",
