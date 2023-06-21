@@ -32,13 +32,15 @@
 			$('#tablaListadoUsuarios tbody').on( 'click', 'tr', function () {
 				var table = $('#tablaListadoUsuarios').DataTable();
 				if ( $(this).hasClass('selected') ) {
-				$("#editarUsuario").attr("disabled","disabled");
-				$("#usuarioResetPass").attr("disabled","disabled");
+					$("#editarUsuario").attr("disabled","disabled");
+					$("#usuarioResetPass").attr("disabled","disabled");
+					$("#usuarioResetQR").attr("disabled","disabled");
 				}
 				else {
-						table.$('tr.selected').removeClass('selected');
-				$("#editarUsuario").removeAttr("disabled");
-				$("#usuarioResetPass").removeAttr("disabled");
+					table.$('tr.selected').removeClass('selected');
+					$("#editarUsuario").removeAttr("disabled");
+					$("#usuarioResetPass").removeAttr("disabled");
+					$("#usuarioResetQR").removeAttr("disabled");
 				}
 			});
 

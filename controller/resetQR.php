@@ -14,11 +14,10 @@
 
 	if(count($_POST) > 0){
 		$rut = $_POST['rutUsuario'];
-		$pass = $_POST['passUsuario'];
 		$email = $_POST['mailUsuario'];
 		$nombre = $_POST['nombreUsuario'];
 
-    	$row = actualizaPass($rut, md5($pass));
+    	$row = resetQR($rut);
 
     	if($row == "Ok")
     	{
@@ -28,7 +27,7 @@
       //Codificacion
 				$mail->CharSet = 'UTF-8';
 
-				//indico a la clase que use SMTP
+	      //indico a la clase que use SMTP
 				$mail->SMTPSecure = 'tls';
 	      $mail->Host = "mail.cimaurbano.cl"; // GMail
 	      $mail->Port = 587;
@@ -54,25 +53,19 @@
 	                </font>
 	                <br>";
 
-	        // $mail->AddEmbeddedImage('../view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
+	        // $mail->AddEmbeddedImage('../view/img/equans-logo-slogan_email.png', 'firmaPng', 'firmaPng.png');
 					$mail->AddEmbeddedImage('../view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
 
 					$rowUrl = datosHost($_SERVER['SERVER_NAME']);
 
-	        $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
+					$body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
 									<div style='width: 100%; text-align: justify; margin: 0 auto;'>
 			    <font style='font-size: 14px;'>
 			    Estimado " . $nombre . ",
+					<br />
 			    <br />
-			    <br />
-			    Le informamos que su contraseña ha sido restablecida en el Sistema de Gestión CIMAURBANO.<br /><br />
-	        A continuación le indicamos sus credenciales de acceso:<br /><br />
-	        URL: <a href='" . $rowUrl[0]['domain'] . "'>" . $rowUrl[0]['domain'] . "</a>
-			    <br />
-	        Usuario: " . $rut . "
-	        <br />
-	        Contraseña: " . trim($pass) . "<br />
-	        <br />
+			    Su clave 2FA ha sido restablecida en el Sistema de Gestión CIMAURBANO.<br /><br />
+	        Cuando ingrese nuevamente al sistema deberá escanear el código QR generado con la aplicación móvil.<br /><br />
 			    </font>
 			    <div'>
 			        <font style='font-size: 14px;'>
@@ -84,7 +77,7 @@
 			    </div>
 			    ";
 
-	        $mail->SetFrom('notificaciones@cimaurbano.cl', "Notificaciones");
+					$mail->SetFrom('notificaciones@cimaurbano.cl', "Notificaciones");
 
 			    //defino la dirección de email de "reply", a la que responder los mensajes
 			    //Obs: es bueno dejar la misma dirección que el From, para no caer en spam
@@ -104,10 +97,10 @@
 			    $fecha = strtotime('+0 day');
 	    		$fecha = $dias[date('w', $fecha)]." ".date('d', $fecha)." de ".$meses[date('n', $fecha)-1]. " ".date('Y', $fecha) . " a las " . date('h:i:s A', $fecha);
 
-	        $mail->Subject = "Restablecimiento de contraseña " . $fecha . "";
+	        $mail->Subject = "Restablecimiento de clave 2FA " . $fecha . "";
 
 			    //Puedo definir un cuerpo alternativo del mensaje, que contenga solo texto
-			    $mail->AltBody = "Restablecimiento de contraseña " . $fecha . "";
+			    $mail->AltBody = "Restablecimiento de clave 2FA " . $fecha . "";
 
 			    //inserto el texto del mensaje en formato HTML
 			    $mail->MsgHTML($body);

@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=61';
+  js.src = 'view/js/funciones.js?idload=62';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -11368,3 +11368,29 @@ include "./modales/personal/update.php";
   </div>
 </div>
 <!-- Fin Generacion Informe Rexms -->
+
+<div id="modalResetQRUsuario" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+			<div class="modal-header">
+        <h5 style="color:gray;" id="tituloResetQRUsuario"><span class="fas fa-qrcode"></span>&nbsp;&nbsp;Resetear QR usuario</h5>
+      </div>
+			<div id="bodyResetQRUsuario" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea resetear el código QR del usuario?</br><i style="font-weight: normal; font-size: 11pt;" id="tituloQRUsuario"></i></font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarResetQRUsuario" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarResetQRUsuario" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

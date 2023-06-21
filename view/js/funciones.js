@@ -2861,6 +2861,7 @@ $("#guardarIngresoUsuario").unbind('click').click(function(){
                           alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Usuario creado correctamente");
                           $("#editarUsuario").attr("disabled","disabled");
                           $("#usuarioResetPass").attr("disabled","disabled");
+                          $("#usuarioResetQR").attr("disabled","disabled");
                           setTimeout(function(){
                             $("#modalAlertasSplash").modal("hide");
                           },500);
@@ -2942,6 +2943,7 @@ $("#guardarDesactivarUsuario").unbind('click').click(async function(){
           alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Usuario desactivado correctamente");
           $("#editarUsuario").attr("disabled","disabled");
           $("#usuarioResetPass").attr("disabled","disabled");
+          $("#usuarioResetQR").attr("disabled","disabled");
           setTimeout(function(){
             $('#modalAlertasSplash').modal('hide');
           },500);
@@ -3063,6 +3065,7 @@ $("#guardarEditarUsuario").unbind('click').click(async function(){
           alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Usuario editado correctamente");
           $("#editarUsuario").attr("disabled","disabled");
           $("#usuarioResetPass").attr("disabled","disabled");
+          $("#usuarioResetQR").attr("disabled","disabled");
           setTimeout(function(){
             $('#modalAlertasSplash').modal('hide');
           },500);
@@ -3133,6 +3136,7 @@ $("#guardarResetPassUsuario").unbind('click').click(async function(){
           table.ajax.reload()
           $("#editarUsuario").attr("disabled","disabled");
           $("#usuarioResetPass").attr("disabled","disabled");
+          $("#usuarioResetQR").attr("disabled","disabled");
           setTimeout(function(){
             $('#modalAlertasSplash').modal('hide');
             var random = Math.round(Math.random() * (1000000 - 1) + 1);
@@ -10281,3 +10285,75 @@ function alertInvalid(id, field) {
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
+
+$("#usuarioResetQR").unbind("click").click(async function(){
+  var table = $('#tablaListadoUsuarios').DataTable();
+  var rutUsuario = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT;
+  });
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE;
+  });
+  $("#tituloQRUsuario").html(rutUsuario[0] + ' , ' +nombre[0]);
+  $("#modalResetQRUsuario").modal("show");
+});
+
+$("#guardarResetQRUsuario").unbind('click').click(async function(){
+  $('#modalResetQRUsuario').modal('hide');
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoUsuarios').DataTable();
+  var rutUsuario = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT;
+  });
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE;
+  });
+  var email = $.map(table.rows('.selected').data(), function (item) {
+      return item.EMAIL;
+  });
+
+  parametros = {
+    "rutUsuario": rutUsuario[0],
+    "nombreUsuario": nombre[0],
+    "mailUsuario": email[0]
+  }
+  await $.ajax({
+    url:   'controller/resetQR.php',
+    type:  'post',
+    data:  parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoUsuarios').DataTable();
+          //table.rows('.selected').remove().draw();
+          table.ajax.reload()
+          $("#editarUsuario").attr("disabled","disabled");
+          $("#usuarioResetPass").attr("disabled","disabled");
+          $("#usuarioResetQR").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Código QR reseteado correctamente");
+          },500);
+        }
+        else{
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al resetear el código QR, si el problema persiste favor comuniquese con soporte");
+          },500);
+        }
+      }
+      else{
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al resetear el código QR, si el problema persiste favor comuniquese con soporte");
+        },500);
+      }
+    }
+  });
+});

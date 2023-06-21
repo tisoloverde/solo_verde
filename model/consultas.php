@@ -21460,4 +21460,30 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Error";
 			}
 		}
+
+		function resetQR($rut){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "UPDATE USUARIO
+		SET TOKEN_G_AT = NULL,
+		LOGIN_2FA = NULL,
+		FIRMA_2FA = NULL,
+		TOKEN_WEB = NULL,
+		TOKEN_WEB_TIME = NULL
+		WHERE RUT  = '" . $rut . "'";
+				if ($con->query($sql)) {
+						$con->query("COMMIT");
+						return "Ok";
+				}
+				else{
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
 ?>
