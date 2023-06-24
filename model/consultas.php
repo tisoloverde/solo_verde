@@ -21120,6 +21120,7 @@ WHERE U.RUT = '{$rutUser}'";
 		$con = conectar();
 		if ($con != "No conectado") {
 			$sql = "SELECT
+        P.IDPERSONAL,
 				P.DNI AS DNI_PERSONAL,
 				CONCAT(
 					-- P.DNI,
@@ -21165,6 +21166,36 @@ WHERE U.RUT = '{$rutUser}'";
 			INNER JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
 			WHERE P.TEMPORAL = 1
 			AND EO.DEFINICION = '$codCECO'";
+			if ($row = $con->query($sql)) {
+				$return = array();
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
+  function consultaListaUsuariosTemporals_Comp($codCECO, $fecIni) {
+		$con = conectar();
+		if ($con != "No conectado") {
+			$sql = "SELECT
+				P.IDPERSONAL,
+				P.DNI AS RUT,
+				CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS FULLNAME,
+        PR.RUT_PERSONAL AS RUT_REEMPLAZADO,
+        PR.FECHA AS FECHA_REEMPLAZADO
+			FROM PERSONAL P
+			INNER JOIN ACT A ON A.IDPERSONAL = P.IDPERSONAL
+			INNER JOIN ESTRUCTURA_OPERACION EO ON EO.IDESTRUCTURA_OPERACION = A.IDESTRUCTURA_OPERACION
+      LEFT JOIN PERSONAL_REEMPLAZOS PR ON PR.RUT_REEMPLAZO = P.DNI
+			WHERE P.TEMPORAL = 1
+			AND EO.DEFINICION = '$codCECO'
+      AND (PR.FECHA >= '$fecIni')";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

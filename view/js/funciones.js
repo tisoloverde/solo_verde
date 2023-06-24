@@ -9243,14 +9243,16 @@ var _MODAL_PLANILLA_USUARIOS_TEMPORALES = [];
 var _MODAL_PLANILLA_DIAS_A_ASIGNAR = [];
 var _MODAL_PLANILLA_REEMPLAZO_EN_EL_MES = [];
 
-async function listUsuariosTemporales(reemplazosYaAsignados) {
+async function listUsuariosTemporales(rutPersonal, fecIni, fecFin) {
   var codCECO = $('#selectListaCentrosDeCostos').val();
   await $.ajax({
     url: 'controller/datosListaPersonalTemporales.php',
     type: 'post',
     data: {
+      rutPersonal,
       codCECO,
-      reemplazosYaAsignados,
+      fecIni,
+      fecFin
     },
     dataType: 'json',
     success: function (response) {
@@ -10034,7 +10036,7 @@ $(document).on('click', '.planilla-modal', async function(e){
   var fecFin = _DIAS_PLANILLA[_DIAS_PLANILLA.length - 1]['fecha'];
 
   loading(true);
-  await listUsuariosTemporales();
+  await listUsuariosTemporales(rutPersonal, fecIni, fecFin);
   await listDiasReemplazoTemporal(_DIAS_PLANILLA, rutPersonal, idPersonal, fecIni, fecFin);
   setTimeout(function() {
     // var h = $(window).height() - 200;
