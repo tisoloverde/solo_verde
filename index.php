@@ -111,7 +111,7 @@
         </ul>
       </div>
     </nav>
-  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 60px; padding-left: 10px; padding-right: 5px;">
+  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 70px; padding-left: 10px; padding-right: 5px;">
    	</div>
   	<br />
   </body>
