@@ -9,7 +9,7 @@ $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
   $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height()-10); menuElegant();
+  $("#contenido").css("height",$(window).height()-80); menuElegant();
 
   $(".dropdown-item").on("click",function(){
     setTimeout(function(){
