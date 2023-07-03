@@ -26,7 +26,7 @@ $(window).on("load",function(e){
   });
 
   // Marcar el menú activo al cargar la página
-  marcarMenuActivo();
+  marcarMenuActivo(); menuElegant();
 
   $('body').on('show.bs.modal', function() {
     $('.modal-body').overlayScrollbars({
@@ -222,7 +222,7 @@ $(window).on("load",function(e){
                         });
 
                         $("#DivPrincipalMenuH").parent().parent().show();
-                        marcarMenuActivo();
+                        marcarMenuActivo(); menuElegant();
                       }
                       else{
                         setTimeout(function(){
