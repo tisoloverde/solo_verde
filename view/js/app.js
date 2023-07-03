@@ -108,7 +108,7 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller("homeController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -173,7 +173,7 @@ app.controller("homeController", function(){
 app.controller("loginController", function(){
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-10);
+    $("#contenido").css("height",$(window).height()-180);
     marcarMenuActivo(); menuElegant();
   },1000);
   splashOpen();
@@ -333,7 +333,7 @@ app.controller("loginController", function(){
 app.controller("logoutController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   splashOpen();
@@ -353,7 +353,7 @@ app.controller("logoutController", function(){
 app.controller("changePassController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
     splashOpen();
@@ -406,7 +406,7 @@ app.controller("changePassController", function(){
 app.controller("usuariosController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   splashOpen();
@@ -588,7 +588,7 @@ app.controller("usuariosController", function(){
 app.controller("perfilesController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   splashOpen();
@@ -734,7 +734,7 @@ app.controller("perfilesController", function(){
 app.controller("dotacionController", function(){
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-10);
+    $("#contenido").css("height",$(window).height()-180);
     marcarMenuActivo(); menuElegant();
   },1000);
   var path = initScreen();
@@ -785,7 +785,7 @@ app.controller("dotacionController", function(){
 app.controller("subcontratistasController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -943,7 +943,7 @@ app.controller("subcontratistasController", function(){
 app.controller("gerenciaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1120,7 +1120,7 @@ app.controller("gerenciaController", function(){
 app.controller("estadoProyectoController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1292,7 +1292,7 @@ app.controller("estadoProyectoController", function(){
 app.controller("clienteController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1465,7 +1465,7 @@ app.controller("clienteController", function(){
 app.controller("proyectosController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1672,7 +1672,7 @@ app.controller("proyectosController", function(){
 app.controller("jefaturaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1905,7 +1905,7 @@ app.controller("jefaturaController", function(){
 app.controller("sucursalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -2066,7 +2066,7 @@ app.controller("sucursalController", function(){
 app.controller("mantenedorAreaFuncionalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -2234,7 +2234,7 @@ app.controller("mantenedorAreaFuncionalController", function(){
 app.controller("mantenedorPaisesController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -2392,7 +2392,7 @@ app.controller("mantenedorPaisesController", function(){
 app.controller("personalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
@@ -2925,7 +2925,7 @@ app.controller("personalController", function(){
 app.controller("planillaAsistenciaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10);
+      $("#contenido").css("height",$(window).height()-180);
       marcarMenuActivo(); menuElegant();
     },1000);
   var path = initScreen();
