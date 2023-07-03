@@ -98,7 +98,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown user-dropdown">
               <k class="nav-link dropdown-toggle" href="#/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img style="width: 40px; height: 40px;" alt="User-img" id="imgPerfil">
+              <img style="width: 30px; height: 30px;" alt="User-img" id="imgPerfil">
               Cuenta
             </k>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownUser" id="liCuenta">
@@ -111,7 +111,7 @@
         </ul>
       </div>
     </nav>
-  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 40pt; padding-left: 10px; padding-right: 5px;">
+  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 60px; padding-left: 10px; padding-right: 5px;">
    	</div>
   	<br />
   </body>
