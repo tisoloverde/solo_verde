@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idload=63';
+  js.src = 'view/js/funciones.js?idload=64';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 

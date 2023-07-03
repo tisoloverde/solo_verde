@@ -66,9 +66,9 @@
     <script src="view/js/moment.min.js"></script>
     <script src="view/js/auto-hiding-bootstrap-navbar.js"></script>
 
-    <link rel="stylesheet" href="view/css/style.css?idload=63">
-    <script src="view/js/funciones.js?idload=63"></script>
-    <script src="view/js/app.js?idload=63"></script>
+    <link rel="stylesheet" href="view/css/style.css?idload=64">
+    <script src="view/js/funciones.js?idload=64"></script>
+    <script src="view/js/app.js?idload=64"></script>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb15rFHKSkFxmZbQIo6KVes2-GR3N-LcQ&libraries=places&callback">
     </script>
@@ -78,7 +78,7 @@
   <header>
   </header>
   <body ng-app="WPApp">
-    <div id="modales" ng-include="'view/estructura/modales.php?idload=63'">
+    <div id="modales" ng-include="'view/estructura/modales.php?idload=64'">
   	</div>
     <nav class="navbar navbar-expand-md navbar-dark bg-custom fixed-top" style="display: none;">
       <a class="navbar-brand" href="#">
@@ -111,7 +111,7 @@
         </ul>
       </div>
     </nav>
-  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 10pt; padding-left: 10px; padding-right: 5px;">
+  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 40pt; padding-left: 10px; padding-right: 5px;">
    	</div>
   	<br />
   </body>
