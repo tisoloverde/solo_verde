@@ -9,7 +9,7 @@ $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
   $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height()-180);
+  $("#contenido").css("height",$(window).height()-80);
   menuElegant();
 
   $(".dropdown-item").on("click",function(){
@@ -3217,7 +3217,7 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
 function initScreen() {
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-180);
+    $("#contenido").css("height",$(window).height()-80);
     menuElegant();
   },1000);
   var path = window.location.href.split('#/')[1];
