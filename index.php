@@ -64,6 +64,7 @@
     <script src="view/js/jquery.ui.touch-punch.min.js"></script>
     <script src="view/js/fancy.min.js"></script>
     <script src="view/js/moment.min.js"></script>
+    <script src="view/js/auto-hiding-bootstrap-navbar.js"></script>
 
     <link rel="stylesheet" href="view/css/style.css?idload=62">
     <script src="view/js/funciones.js?idload=62"></script>
@@ -77,12 +78,40 @@
   <header>
   </header>
   <body ng-app="WPApp">
-    <div id="menu-lateral" style="display: none;" ng-include="'view/estructura/menu.php'">
-    </div>
     <div id="modales" ng-include="'view/estructura/modales.php?idload=62'">
   	</div>
-  	<br />
-  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: -10pt; padding-left: 10px; padding-right: 5px;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-custom fixed-top" style="display: none;">
+      <a class="navbar-brand" href="#">
+        <img
+        <?php
+          echo "src='" . $_POST['url'] .  "controller/cargarLogoMenu.php?url=" . $_SERVER['SERVER_NAME'] . "'";
+        ?>
+        style="width: 120px;" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto" id="DivPrincipalMenuH">
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown user-dropdown">
+              <k class="nav-link dropdown-toggle" href="#/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img style="width: 40px; height: 40px;" alt="User-img" id="imgPerfil">
+              Cuenta
+            </k>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownUser" id="liCuenta">
+              <!-- <a id="perfil" class="dropdown-item" href="#/perfil"><i class="fas fa-user"></i> Perfil</a>
+              <a id="configuracion" class="dropdown-item" href="#/configuracion"><i class="fas fa-cog"></i> Configuración</a>
+              <div class="dropdown-divider"></div>
+              <a id="logout" class="dropdown-item" href="#/cerrar-sesion"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a> -->
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 10pt; padding-left: 10px; padding-right: 5px;">
    	</div>
   	<br />
   </body>

@@ -10,6 +10,24 @@ $(window).on("load",function(e){
   e.stopImmediatePropagation();
   $("body").css("height",$(window).height());
   $("#contenido").css("height",$(window).height()-10); menuElegant();
+
+  $(".dropdown-item").on("click",function(){
+    setTimeout(function(){
+      var currentPath = window.location.hash;
+      console.log(currentPath);
+      // Remover la clase activa de todos los elementos de menú
+      $(".nav-link").removeClass('active');
+      $(".dropdown-item").removeClass('active');
+
+      // Obtener el elemento de menú que coincide con la ruta actual
+      $('.nav-item, .dropdown-item[id]').find('[href="' + currentPath + '"]').closest('.nav-item, .dropdown-item').addClass("active");
+      $('.nav-item, .dropdown-item[id]').find('[href="' + currentPath + '"]').closest('.nav-item, .dropdown-item').parent().parent().children().addClass("active");
+    },100);
+  });
+
+  // Marcar el menú activo al cargar la página
+  marcarMenuActivo();
+
   $('body').on('show.bs.modal', function() {
     $('.modal-body').overlayScrollbars({
   	  className: "os-theme-round-dark",
@@ -104,7 +122,7 @@ $(window).on("load",function(e){
                   var p = jQuery.parseJSON(response);
                   if(p.aaData.length !== 0){
                     if(p.aaData['ESTADO'] === 'Activo'){
-                      if($("#DivPrincipalMenu").children().length <= 0){
+                      if($("#DivPrincipalMenuH").children().length <= 0){
                         await $.ajax({
                           url:   'controller/datosAreasComunesPadresSolo.php',
                           type:  'post',
@@ -112,26 +130,19 @@ $(window).on("load",function(e){
                             var p2 = jQuery.parseJSON(response2);
                             if(p2.aaData.length !== 0){
                               for(var i = 0; i < p2.aaData.length; i++){
-                                var padre = "<div id='" + p2.aaData[i].PADRE + "' style='display:none;' class='contenedor-logos'><div class='logo'><span class='imgMenu " + p2.aaData[i].ICONOPADRE + "'></span></div><p class='title-menu'>" + p2.aaData[i].TEXTOPADRE + "</p></div>";
+                                if(p2.aaData[i].TEXTOPADRE != "Cuenta"){
+                                  var padre = `<li class="nav-item dropdown general-dropdown">
+                                    <k class="nav-link dropdown-toggle fuck" href="#/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <i class="` + p2.aaData[i].ICONOPADRE + `"></i> ` + p2.aaData[i].TEXTOPADRE + `
+                                    </k>
+                                    <div class="dropdown-menu" aria-labelledby="` + p2.aaData[i].PADRE + `" id="` + p2.aaData[i].PADRE + `">
 
-                                $("#DivPrincipalMenu").append(padre);
+                                    </div>
+                                  </li>`;
 
-                                // $('div[id $=' + p2.aaData[i].PADRE + ']').show();
-                                // $('li[id $=' + p2.aaData[i].NOMBRE + ']').show();
-                                // $('div[id $=' + p2.aaData[i].PADRE + ']').css("display","block");
-                                // $('li[id $=' + p2.aaData[i].NOMBRE + ']').css("display","block");
-                              }
-                              var atras = "<div id='regresarMenu' style='display: none;' class='contenedor-logos'><div class='logo'><span class='imgMenu fas fa-arrow-circle-left'></span></div></div>";
-
-                              $("#DivPrincipalMenu").append(atras);
-
-                              $("#regresarMenu").hover(
-                                function() {
-                                  $("#regresarMenu").addClass("blink_me");
-                                }, function() {
-                                  $("#regresarMenu").removeClass("blink_me");
+                                  $("#DivPrincipalMenuH").append(padre)
                                 }
-                              );
+                              }
                             }
                           }
                         });
@@ -144,20 +155,20 @@ $(window).on("load",function(e){
                               for(var i = 0; i < p2.aaData.length; i++){
                                 var insert = 0;
                                 if(p2.aaData[i].TEXTO === "Cambiar contraseña"){
-                                    var hijo = "<div class='sub-menu' style='display: none; color: white;'><ul><li id='" + p2.aaData[i].NOMBRE + "' style='display: none;'><div class='div-sub-menu'><i class='imgMenu-sub " + p2.aaData[i].ICONO + "'></i><a href='" + p2.aaData[i].RUTA + "' class='title-menu-sub'>" + p2.aaData[i].TEXTO + "</a></div></li></ul></div>";
+                                    var hijo = `<a id="` + p2.aaData[i].NOMBRE + `" class="dropdown-item" href="` + p2.aaData[i].RUTA + `"><i class="` + p2.aaData[i].ICONO + `"></i> ` + p2.aaData[i].TEXTO + `</a>`;
                                     insert = 1;
                                 }
                                 else if(p2.aaData[i].TEXTO === "Firma Documentos"){
                                   if(p.aaData['FIRMA_2FA'] === "1"){
-                                      var hijo = "<div class='sub-menu' style='display: none; color: white;'><ul><li id='" + p2.aaData[i].NOMBRE + "' style='display: none;'><div class='div-sub-menu'><i class='imgMenu-sub " + p2.aaData[i].ICONO + "'></i><a href='" + p2.aaData[i].RUTA + "' class='title-menu-sub'>" + p2.aaData[i].TEXTO + "</a></div></li></ul></div>";
-                                      insert = 1;
+                                    var hijo = `<a id="` + p2.aaData[i].NOMBRE + `" class="dropdown-item" href="` + p2.aaData[i].RUTA + `"><i class="` + p2.aaData[i].ICONO + `"></i> ` + p2.aaData[i].TEXTO + `</a>`;
+                                    insert = 1;
                                   }
                                   else{
                                     insert = 0;
                                   }
                                 }
                                 else{
-                                  var hijo = "<div class='sub-menu' style='display: none; color: white;'><ul><li id='" + p2.aaData[i].NOMBRE + "' style='display: none;'><div class='div-sub-menu'><i class='imgMenu-sub " + p2.aaData[i].ICONO + "'></i><a href='" + p2.aaData[i].RUTA + "' class='title-menu-sub'>" + p2.aaData[i].TEXTO + "</a></div></li></ul></div>";
+                                  var hijo = `<a id="` + p2.aaData[i].NOMBRE + `" class="dropdown-item" href="` + p2.aaData[i].RUTA + `"><i class="` + p2.aaData[i].ICONO + `"></i> ` + p2.aaData[i].TEXTO + `</a>`;
                                   insert = 1;
                                 }
 
@@ -165,99 +176,53 @@ $(window).on("load",function(e){
                                   $("#" + p2.aaData[i].PADRE).append(hijo);
                                 }
                               }
-                              $(".contenedor-logos").css("display","none");
-                              $(".contenedor-logos").find('li').css("display","none");
+
                               $("#sesionActiva").val("1");
                               $("#sesionActivaUso").val("0");
-                              $("#logoMenu").show();
-                              // window.location.href = "#/login";
+
+                              n = p.aaData['NOMBRE'].split(" ");
+                              if(n.length <= 3){
+                                $("#nombrePerfil").html(p.aaData['NOMBRE']);
+                                $("#usuarioLogin").html(p.aaData['NOMBRE']);
+                              }
+                              else{
+                                $("#nombrePerfil").html(n[0] + ' ' + n[2] + ' ' + n[3]);
+                                $("#usuarioLogin").html(n[0] + ' ' + n[2] + ' ' + n[3]);
+                              }
+
+                              n = p.aaData['NOMBRE'].split(" ");
+                              if(n.length <= 3){
+                                $("#nombrePerfil").html(p.aaData['NOMBRE']);
+                              }
+                              else{
+                                $("#nombrePerfil").html(n[0] + ' ' + n[2] + ' ' + n[3]);
+                              }
+
+                              setTimeout(function(){
+                                menuElegant();
+                                esconderMenu();
+                                setTimeout(function(){
+                                  $('#modalAlertasSplash').modal('hide');
+                                },500);
+                              },2000);
                             }
                           }
                         });
-
-                        n = p.aaData['NOMBRE'].split(" ");
-                        if(n.length <= 3){
-                          $("#nombrePerfil").html(p.aaData['NOMBRE']);
-                        }
-                        else{
-                          $("#nombrePerfil").html(n[0] + ' ' + n[2] + ' ' + n[3]);
-                        }
-
-                        $("#menu-lateral").unbind('click').hover(function(){
-
-                        },
-                        function(){
-                          $("div.sub-menu").parent().css("height", "45px");
-                          $("div.sub-menu").parent().css("background","rgba(30, 0, 0, 0.0)");
-                          $("div.sub-menu").hide();
-                          $("div.sub-menu").parent().find("p").css("color", "white");
-                        });
-
-                        $(".title-menu-sub").unbind('click').hover(function(){
-                          $(this).css("color", "yellow");
-                        },
-                        function(){
-                          $(this).css("color", "white");
-                        });
-
-                        $(".contenedor-logos").unbind('click').hover(function(){
-                          $(this).css({'cursor': 'pointer'});
-                        });
-
-                        $(".contenedor-logos").unbind('click').click(function(){
-                          var a = $(this).find("p").css("color");
-
-                          //Cierra todo
-                          $("div.sub-menu").parent().css("height", "45px");
-                          $("div.sub-menu").parent().css("background","rgba(30, 0, 0, 0.0)");
-                          $("div.sub-menu").hide();
-                          $("div.sub-menu").parent().find("p").css("color", "white");
-
-                          $("#DivPrincipalMenu").children().css("display","none");
-
-                          $(this).css("display","block");
-
-                          $("#regresarMenu").css("display","block");
-
-                          if(a !== "rgb(255, 255, 0)"){
-                            //Abre el clickado
-                            $(this).find("p").css("color", "yellow");
-                            $(this).find("div.sub-menu").show();
-                            var a = $(this).find('li[style*="block"]').length;
-                            if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                              a = a*28 + 30;
+                        await $.ajax({
+                          url:   'controller/cargarImgPerfilSession.php',
+                          type:  'get',
+                          success: function (responseImg) {
+                            if(responseImg == "Sin datos"){
+                              $("#imgPerfil").attr('src',"view/img/no_foto.jpg");
                             }
                             else{
-                              a = a*25 + 30;
+                              $("#imgPerfil").attr('src',"controller/cargarImgPerfilSession.php");
                             }
-                            $(this).css("height", a + "pt");
-                            $(this).css("background-color","#1E3E37");
-                          }
-                          else{
-                            $("#DivPrincipalMenu").children().css("display","block");
                           }
                         });
 
-                        $("#regresarMenu").unbind("click").click(function(){
-                          $("div.sub-menu").parent().css("height", "45px");
-                          $("div.sub-menu").parent().css("background","rgba(30, 0, 0, 0.0)");
-                          $("div.sub-menu").hide();
-                          $("div.sub-menu").parent().find("p").css("color", "white");
-                          $("#DivPrincipalMenu").children().css("display","block");
-                          $("#regresarMenu").css("display","none");
-                        });
-
-                        n = p.aaData['NOMBRE'].split(" ");
-                        if(n.length <= 3){
-                          $("#nombrePerfil").html(p.aaData['NOMBRE']);
-                        }
-                        else{
-                          $("#nombrePerfil").html(n[0] + ' ' + n[2] + ' ' + n[3]);
-                        }
-
-                        $('#menu-lateral').show();
-                        menuElegant();
-                        // $('#modalAlertasSplash').modal('hide');
+                        $("#DivPrincipalMenuH").parent().parent().hide();
+                        marcarMenuActivo();
                       }
                       else{
                         setTimeout(function(){
@@ -10359,3 +10324,16 @@ $("#guardarResetQRUsuario").unbind('click').click(async function(){
     }
   });
 });
+
+function marcarMenuActivo() {
+    // Obtiene la ruta actual
+  var currentPath = window.location.hash;
+
+  // Remover la clase activa de todos los elementos de menú
+  $(".nav-link").removeClass('active');
+  $(".dropdown-item").removeClass('active');
+
+  // Obtener el elemento de menú que coincide con la ruta actual
+  $('.nav-item, .dropdown-item[id]').find('[href="' + currentPath + '"]').closest('.nav-item, .dropdown-item').addClass("active");
+  $('.nav-item, .dropdown-item[id]').find('[href="' + currentPath + '"]').closest('.nav-item, .dropdown-item').parent().parent().children().addClass("active");
+}

@@ -108,7 +108,8 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller("homeController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -130,7 +131,6 @@ app.controller("homeController", function(){
         setTimeout(async function(){
           splashOpen();
             $('#contenido').show();
-            $('#menu-lateral').show();
 
             var url = window.location.origin;
 
@@ -152,14 +152,6 @@ app.controller("homeController", function(){
               }
             });
 
-            await esconderMenu();
-            $("#logoMenu").hide();
-            // $('#menu-lateral').hover(function(){
-            //     $("#menu-lateral").css("width","200px");
-            // },
-            // function() {
-            //     $("#menu-lateral").css("width","45px");
-            // });
             $("#loginSystem").show("slide", {direction: "up"}, 800);
             setTimeout(function(){
               setTimeout(function(){
@@ -167,7 +159,10 @@ app.controller("homeController", function(){
                 $('#footer').parent().show();
                 $('#footer').show();
               },2000);
-              menuElegant();
+
+              $("#DivPrincipalMenuH").empty();
+              $("#DivPrincipalMenuH").parent().parent().hide();
+              marcarMenuActivo();
             },2000);
         },500);
       }
@@ -178,7 +173,8 @@ app.controller("homeController", function(){
 app.controller("loginController", function(){
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-10); menuElegant();
+    $("#contenido").css("height",$(window).height()-10);
+    marcarMenuActivo();
   },1000);
   splashOpen();
   setTimeout(function(){
@@ -186,7 +182,7 @@ app.controller("loginController", function(){
   },5);
   setTimeout(function(){
     var url = window.location.origin;
-    menuElegant();
+    marcarMenuActivo();
 
     var url = window.location.origin;
 
@@ -196,7 +192,6 @@ app.controller("loginController", function(){
 
     $("#msgDatos").css("margin-top",margH);
 
-    $("#menu-lateral").show();
     $('#contenido').show();
     $(".contenedor-logos").css("display","none");
     $(".contenedor-logos").find('li').css("display","none");
@@ -211,7 +206,7 @@ app.controller("loginController", function(){
           var p = jQuery.parseJSON(response);
           if(p.aaData.length !== 0){
             if(p.aaData['ESTADO'] === 'Activo'){
-              if($("#DivPrincipalMenu").children().length <= 0){
+              if($("#DivPrincipalMenuH").children().length <= 0){
                 await $.ajax({
                   url:   'controller/datosAreasComunesPadresSolo.php',
                   type:  'post',
@@ -219,25 +214,19 @@ app.controller("loginController", function(){
                     var p2 = jQuery.parseJSON(response2);
                     if(p2.aaData.length !== 0){
                       for(var i = 0; i < p2.aaData.length; i++){
-                        var padre = "<div id='" + p2.aaData[i].PADRE + "' style='display:none;' class='contenedor-logos'><div class='logo'><span class='imgMenu " + p2.aaData[i].ICONOPADRE + "'></span></div><p class='title-menu'>" + p2.aaData[i].TEXTOPADRE + "</p></div>";
+                        if(p2.aaData[i].TEXTOPADRE != "Cuenta"){
+                          var padre = `<li class="nav-item dropdown general-dropdown">
+                            <k class="nav-link dropdown-toggle fuck" href="#/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="` + p2.aaData[i].ICONOPADRE + `"></i> ` + p2.aaData[i].TEXTOPADRE + `
+                            </k>
+                            <div class="dropdown-menu" aria-labelledby="` + p2.aaData[i].PADRE + `" id="` + p2.aaData[i].PADRE + `">
 
-                        $("#DivPrincipalMenu").append(padre);
-                        // $('div[id $=' + p2.aaData[i].PADRE + ']').show();
-                        // $('li[id $=' + p2.aaData[i].NOMBRE + ']').show();
-                        // $('div[id $=' + p2.aaData[i].PADRE + ']').css("display","block");
-                        // $('li[id $=' + p2.aaData[i].NOMBRE + ']').css("display","block");
-                      }
-                      var atras = "<div id='regresarMenu' style='display: none;' class='contenedor-logos'><div class='logo'><span class='imgMenu fas fa-arrow-circle-left'></span></div></div>";
+                            </div>
+                          </li>`;
 
-                      $("#DivPrincipalMenu").append(atras);
-
-                      $("#regresarMenu").hover(
-                        function() {
-                          $("#regresarMenu").addClass("blink_me");
-                        }, function() {
-                          $("#regresarMenu").removeClass("blink_me");
+                          $("#DivPrincipalMenuH").append(padre)
                         }
-                      );
+                      }
                     }
                   }
                 });
@@ -250,20 +239,20 @@ app.controller("loginController", function(){
                       for(var i = 0; i < p2.aaData.length; i++){
                         var insert = 0;
                         if(p2.aaData[i].TEXTO === "Cambiar contraseña"){
-                            var hijo = "<div class='sub-menu' style='display: none; color: white;'><ul><li id='" + p2.aaData[i].NOMBRE + "' style='display: none;'><div class='div-sub-menu'><i class='imgMenu-sub " + p2.aaData[i].ICONO + "'></i><a href='" + p2.aaData[i].RUTA + "' class='title-menu-sub'>" + p2.aaData[i].TEXTO + "</a></div></li></ul></div>";
+                            var hijo = `<a id="` + p2.aaData[i].NOMBRE + `" class="dropdown-item" href="` + p2.aaData[i].RUTA + `"><i class="` + p2.aaData[i].ICONO + `"></i> ` + p2.aaData[i].TEXTO + `</a>`;
                             insert = 1;
                         }
                         else if(p2.aaData[i].TEXTO === "Firma Documentos"){
                           if(p.aaData['FIRMA_2FA'] === "1"){
-                              var hijo = "<div class='sub-menu' style='display: none; color: white;'><ul><li id='" + p2.aaData[i].NOMBRE + "' style='display: none;'><div class='div-sub-menu'><i class='imgMenu-sub " + p2.aaData[i].ICONO + "'></i><a href='" + p2.aaData[i].RUTA + "' class='title-menu-sub'>" + p2.aaData[i].TEXTO + "</a></div></li></ul></div>";
-                              insert = 1;
+                            var hijo = `<a id="` + p2.aaData[i].NOMBRE + `" class="dropdown-item" href="` + p2.aaData[i].RUTA + `"><i class="` + p2.aaData[i].ICONO + `"></i> ` + p2.aaData[i].TEXTO + `</a>`;
+                            insert = 1;
                           }
                           else{
                             insert = 0;
                           }
                         }
                         else{
-                          var hijo = "<div class='sub-menu' style='display: none; color: white;'><ul><li id='" + p2.aaData[i].NOMBRE + "' style='display: none;'><div class='div-sub-menu'><i class='imgMenu-sub " + p2.aaData[i].ICONO + "'></i><a href='" + p2.aaData[i].RUTA + "' class='title-menu-sub'>" + p2.aaData[i].TEXTO + "</a></div></li></ul></div>";
+                          var hijo = `<a id="` + p2.aaData[i].NOMBRE + `" class="dropdown-item" href="` + p2.aaData[i].RUTA + `"><i class="` + p2.aaData[i].ICONO + `"></i> ` + p2.aaData[i].TEXTO + `</a>`;
                           insert = 1;
                         }
 
@@ -271,11 +260,9 @@ app.controller("loginController", function(){
                           $("#" + p2.aaData[i].PADRE).append(hijo);
                         }
                       }
-                      $(".contenedor-logos").css("display","none");
-                      $(".contenedor-logos").find('li').css("display","none");
+
                       $("#sesionActiva").val("1");
                       $("#sesionActivaUso").val("0");
-                      $("#logoMenu").show();
 
                       n = p.aaData['NOMBRE'].split(" ");
                       if(n.length <= 3){
@@ -287,70 +274,6 @@ app.controller("loginController", function(){
                         $("#usuarioLogin").html(n[0] + ' ' + n[2] + ' ' + n[3]);
                       }
 
-                      $("#menu-lateral").unbind('click').hover(function(){
-
-                      },
-                      function(){
-                        $("div.sub-menu").parent().css("height", "45px");
-                        $("div.sub-menu").parent().css("background","rgba(30, 0, 0, 0.0)");
-                        $("div.sub-menu").hide();
-                        $("div.sub-menu").parent().find("p").css("color", "white");
-                      });
-
-                      $(".title-menu-sub").unbind('click').hover(function(){
-                        $(this).css("color", "yellow");
-                      },
-                      function(){
-                        $(this).css("color", "white");
-                      });
-
-                      $(".contenedor-logos").unbind('click').hover(function(){
-                        $(this).css({'cursor': 'pointer'});
-                      });
-
-                      $(".contenedor-logos").unbind('click').click(function(){
-                        var a = $(this).find("p").css("color");
-
-                        //Cierra todo
-                        $("div.sub-menu").parent().css("height", "45px");
-                        $("div.sub-menu").parent().css("background","rgba(30, 0, 0, 0.0)");
-                        $("div.sub-menu").hide();
-                        $("div.sub-menu").parent().find("p").css("color", "white");
-
-                        $("#DivPrincipalMenu").children().css("display","none");
-
-                        $(this).css("display","block");
-
-                        $("#regresarMenu").css("display","block");
-
-                        if(a !== "rgb(255, 255, 0)"){
-                          //Abre el clickado
-                          $(this).find("p").css("color", "yellow");
-                          $(this).find("div.sub-menu").show();
-                          var a = $(this).find('li[style*="block"]').length;
-                          if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                            a = a*28 + 30;
-                          }
-                          else{
-                            a = a*25 + 30;
-                          }
-                          $(this).css("height", a + "pt");
-                          $(this).css("background-color","#1E3E37");
-                        }
-                        else{
-                          $("#DivPrincipalMenu").children().css("display","block");
-                        }
-                      });
-
-                      $("#regresarMenu").unbind("click").click(function(){
-                        $("div.sub-menu").parent().css("height", "45px");
-                        $("div.sub-menu").parent().css("background","rgba(30, 0, 0, 0.0)");
-                        $("div.sub-menu").hide();
-                        $("div.sub-menu").parent().find("p").css("color", "white");
-                        $("#DivPrincipalMenu").children().css("display","block");
-                        $("#regresarMenu").css("display","none");
-                      });
-
                       n = p.aaData['NOMBRE'].split(" ");
                       if(n.length <= 3){
                         $("#nombrePerfil").html(p.aaData['NOMBRE']);
@@ -360,9 +283,7 @@ app.controller("loginController", function(){
                       }
 
                       setTimeout(function(){
-                        $('#menu-lateral').show();
-                        menuElegant();
-                        esconderMenu();
+                        marcarMenuActivo();
                         setTimeout(function(){
                           $('#modalAlertasSplash').modal('hide');
                         },500);
@@ -370,12 +291,25 @@ app.controller("loginController", function(){
                     }
                   }
                 });
+                await $.ajax({
+                  url:   'controller/cargarImgPerfilSession.php',
+                  type:  'get',
+                  success: function (responseImg) {
+                    if(responseImg == "Sin datos"){
+                      $("#imgPerfil").attr('src',"view/img/no_foto.jpg");
+                    }
+                    else{
+                      $("#imgPerfil").attr('src',"controller/cargarImgPerfilSession.php");
+                    }
+                  }
+                });
+
+                $("#DivPrincipalMenuH").parent().parent().show();
+                marcarMenuActivo();
               }
               else{
                 setTimeout(function(){
-                  $('#menu-lateral').show();
-                  menuElegant();
-                  esconderMenu();
+                  marcarMenuActivo();
                   setTimeout(function(){
                     $('#modalAlertasSplash').modal('hide');
                   },500);
@@ -383,35 +317,13 @@ app.controller("loginController", function(){
               }
             }
             else{
-              $(".contenedor-logos").css("display","none");
-              $(".contenedor-logos").find('li').css("display","none");
               window.location.href = "#/home";
-              $("#logoLinkWeb").hide();
-              $("#logoMenu").hide();
-              $("#lineaMenu").hide();
-              $("#iconoLogoMenu").attr("class","imgMenu fas fas fa-bars");
-              $("#menu-lateral").css("width","37px");
-              $("#menu-lateral").css("background","rgba(30, 0, 0, 0.0)");
-              $("#logoMenu").css("color","black");
-              $("#iconoLogoMenu").css("border","1px solid #b5b5b5");
-              $("#iconoLogoMenu").css("background","rgba(255, 255, 255, 1.0)");
-              $("#DivPrincipalMenu").empty();
+              $("#DivPrincipalMenuH").empty();
             }
           }
           else{
-            $(".contenedor-logos").css("display","none");
-            $(".contenedor-logos").find('li').css("display","none");
             window.location.href = "#/home";
-            $("#logoLinkWeb").hide();
-            $("#logoMenu").hide();
-            $("#lineaMenu").hide();
-            $("#iconoLogoMenu").attr("class","imgMenu fas fas fa-bars");
-            $("#menu-lateral").css("width","37px");
-            $("#menu-lateral").css("background","rgba(30, 0, 0, 0.0)");
-            $("#logoMenu").css("color","black");
-            $("#iconoLogoMenu").css("border","1px solid #b5b5b5");
-            $("#iconoLogoMenu").css("background","rgba(255, 255, 255, 1.0)");
-            $("#DivPrincipalMenu").empty();
+            $("#DivPrincipalMenuH").empty();
           }
         }
     });
@@ -421,7 +333,8 @@ app.controller("loginController", function(){
 app.controller("logoutController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   splashOpen();
   setTimeout(function(){
@@ -431,20 +344,6 @@ app.controller("logoutController", function(){
       url:   'controller/cerraSesion.php',
       type:  'post',
       success: function (response) {
-        $(".contenedor-logos").css("display","none");
-        $(".contenedor-logos").find('li').css("display","none");
-        $("#sesionActiva").val("0");
-        $("#sesionActivaUso").val("0");
-        $("#logoLinkWeb").hide();
-        $("#logoMenu").hide();
-        $("#lineaMenu").hide();
-        $("#iconoLogoMenu").attr("class","imgMenu fas fas fa-bars");
-        $("#menu-lateral").css("width","45px");
-        $("#menu-lateral").css("background","rgba(30, 0, 0, 0.0)");
-        $("#logoMenu").css("color","black");
-        $("#iconoLogoMenu").css("border","1px solid #b5b5b5");
-        $("#iconoLogoMenu").css("background","rgba(255, 255, 255, 1.0)");
-        $("#DivPrincipalMenu").empty();
         localStorage.clear();
         window.location.href = "#/home";
       }
@@ -454,7 +353,8 @@ app.controller("logoutController", function(){
 app.controller("changePassController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
     splashOpen();
     setTimeout(function(){
@@ -486,7 +386,6 @@ app.controller("changePassController", function(){
               $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
               $('#modalAlertasSplash').modal('show');
               $('#contenido').show();
-              $('#menu-lateral').show();
               $('#footer').parent().show();
               $('#footer').show();
 
@@ -494,11 +393,10 @@ app.controller("changePassController", function(){
 
               addCambiaPass();
 
-              await esconderMenu();
               setTimeout(function(){
                 $('#modalAlertasSplash').modal('hide');
               },2000);
-              menuElegant();
+              marcarMenuActivo();
           },200);
         }
       }
@@ -508,7 +406,8 @@ app.controller("changePassController", function(){
 app.controller("usuariosController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   splashOpen();
   setTimeout(function(){
@@ -633,7 +532,6 @@ app.controller("usuariosController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $('#contenido').show();
-                $('#menu-lateral').show();
                 $('#footer').parent().show();
                 $('#footer').show();
 
@@ -678,10 +576,9 @@ app.controller("usuariosController", function(){
                     },500);
                   },2000);
                 },1000);
-                menuElegant();
+                marcarMenuActivo();
               }
           });
-          await esconderMenu();
         },200);
       }
     }
@@ -691,7 +588,8 @@ app.controller("usuariosController", function(){
 app.controller("perfilesController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   splashOpen();
   setTimeout(function(){
@@ -812,7 +710,6 @@ app.controller("perfilesController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $('#contenido').show();
-                $('#menu-lateral').show();
                 $('#footer').parent().show();
                 $('#footer').show();
                 setTimeout(function(){
@@ -824,11 +721,10 @@ app.controller("perfilesController", function(){
                       },500);
                     },2000);
                   },1000);
-                  menuElegant();
+                  marcarMenuActivo();
                 },500);
               }
           });
-          await esconderMenu();
         },200);
       }
     }
@@ -838,7 +734,8 @@ app.controller("perfilesController", function(){
 app.controller("dotacionController", function(){
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-10); menuElegant();
+    $("#contenido").css("height",$(window).height()-10);
+    marcarMenuActivo();
   },1000);
   var path = initScreen();
   var theme = {
@@ -878,8 +775,7 @@ app.controller("dotacionController", function(){
           await listDotacionPeriodos();
           await listComunesDotacion();
           await listDotacion('null', 'null');
-          esconderMenu();
-          menuElegant();
+          marcarMenuActivo();
         }, 500);
       }
     }
@@ -889,7 +785,8 @@ app.controller("dotacionController", function(){
 app.controller("subcontratistasController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -990,7 +887,6 @@ app.controller("subcontratistasController", function(){
             "autoWidth": false,
             "initComplete": function(){
               $('#contenido').show();
-              $('#menu-lateral').show();
               $('#footer').parent().show();
               $('#footer').show();
 
@@ -1029,7 +925,7 @@ app.controller("subcontratistasController", function(){
                   },500);
                 },100);
               },1000);
-              menuElegant();
+              marcarMenuActivo();
               setTimeout(function(){
                 $('#modalAlertasSplash').modal('hide');
                 setTimeout(function(){
@@ -1038,7 +934,6 @@ app.controller("subcontratistasController", function(){
               },2000);
             }
           });
-          await esconderMenu();
         },200);
       }
     }
@@ -1048,7 +943,8 @@ app.controller("subcontratistasController", function(){
 app.controller("gerenciaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -1170,7 +1066,6 @@ app.controller("gerenciaController", function(){
           });
 
           $('#contenido').show();
-          $('#menu-lateral').show();
           $('#footer').parent().show();
           $('#footer').show();
 
@@ -1216,7 +1111,6 @@ app.controller("gerenciaController", function(){
             },2000);
           },1000);
 
-          await esconderMenu();
         },200);
       }
     }
@@ -1226,7 +1120,8 @@ app.controller("gerenciaController", function(){
 app.controller("estadoProyectoController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -1346,7 +1241,6 @@ app.controller("estadoProyectoController", function(){
           });
 
           $('#contenido').show();
-          $('#menu-lateral').show();
           $('#footer').parent().show();
           $('#footer').show();
 
@@ -1389,7 +1283,6 @@ app.controller("estadoProyectoController", function(){
             },2000);
           },1000);
 
-          await esconderMenu();
         },200);
       }
     }
@@ -1399,7 +1292,8 @@ app.controller("estadoProyectoController", function(){
 app.controller("clienteController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -1517,7 +1411,6 @@ app.controller("clienteController", function(){
           });
 
           $('#contenido').show();
-          $('#menu-lateral').show();
           $('#footer').parent().show();
           $('#footer').show();
 
@@ -1563,7 +1456,6 @@ app.controller("clienteController", function(){
             },2000);
           },1000);
 
-          await esconderMenu();
         },200);
       }
     }
@@ -1573,7 +1465,8 @@ app.controller("clienteController", function(){
 app.controller("proyectosController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -1725,7 +1618,6 @@ app.controller("proyectosController", function(){
 
                 }
             });
-            await esconderMenu();
             setTimeout(async function(){
               var path = window.location.href.split('#/')[1];
               var parametros = {
@@ -1760,7 +1652,6 @@ app.controller("proyectosController", function(){
               },500);
 
               $('#contenido').show();
-              $('#menu-lateral').show();
               $('#footer').parent().show();
               $('#footer').show();
 
@@ -1771,7 +1662,7 @@ app.controller("proyectosController", function(){
                 },500);
               },2000);
             },1000);
-            menuElegant();
+            marcarMenuActivo();
         },200);
       }
     }
@@ -1781,7 +1672,8 @@ app.controller("proyectosController", function(){
 app.controller("jefaturaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -1948,7 +1840,6 @@ app.controller("jefaturaController", function(){
             $("#inputRodrigo").val(value);
           });
 
-          await esconderMenu();
           setTimeout(async function(){
             var path = window.location.href.split('#/')[1];
       		  var parametros = {
@@ -1996,7 +1887,6 @@ app.controller("jefaturaController", function(){
             });
 
             $('#contenido').show();
-            $('#menu-lateral').show();
             $('#footer').parent().show();
             $('#footer').show();
 
@@ -2005,7 +1895,7 @@ app.controller("jefaturaController", function(){
               $('#tablaJefatura').DataTable().columns.adjust();
             },500);
           },1000);
-          menuElegant();
+          marcarMenuActivo();
         }, 200);
       }
     }
@@ -2015,7 +1905,8 @@ app.controller("jefaturaController", function(){
 app.controller("sucursalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -2119,7 +2010,6 @@ app.controller("sucursalController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $('#contenido').show();
-                $('#menu-lateral').show();
                 $('#footer').parent().show();
                 $('#footer').show();
 
@@ -2164,10 +2054,9 @@ app.controller("sucursalController", function(){
                     },500);
                   },2000);
                 },1000);
-                menuElegant();
+                marcarMenuActivo();
               }
           });
-          await esconderMenu();
         },200);
       }
     }
@@ -2177,7 +2066,8 @@ app.controller("sucursalController", function(){
 app.controller("mantenedorAreaFuncionalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -2290,7 +2180,6 @@ app.controller("mantenedorAreaFuncionalController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $('#contenido').show();
-                $('#menu-lateral').show();
                 $('#footer').show();
                 setTimeout(async function(){
                   var path = window.location.href.split('#/')[1];
@@ -2335,9 +2224,8 @@ app.controller("mantenedorAreaFuncionalController", function(){
               }
           });
 
-          await esconderMenu();
         },200);
-        menuElegant();
+        marcarMenuActivo();
       }
     }
   });
@@ -2346,7 +2234,8 @@ app.controller("mantenedorAreaFuncionalController", function(){
 app.controller("mantenedorPaisesController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   clearInterval(lineaTiempo);
   clearInterval(personalPropio);
@@ -2449,7 +2338,6 @@ app.controller("mantenedorPaisesController", function(){
               "autoWidth": false,
               "initComplete": function( settings, json){
                 $('#contenido').show();
-                $('#menu-lateral').show();
                 $('#footer').show();
                 setTimeout(async function(){
                   var path = window.location.href.split('#/')[1];
@@ -2494,9 +2382,8 @@ app.controller("mantenedorPaisesController", function(){
               }
           });
 
-          await esconderMenu();
         },200);
-        menuElegant();
+        marcarMenuActivo();
       }
     }
   });
@@ -2505,7 +2392,8 @@ app.controller("mantenedorPaisesController", function(){
 app.controller("personalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
@@ -2880,7 +2768,6 @@ app.controller("personalController", function(){
                   "autoWidth": false,
                   "initComplete": async function( settings, json){
                     $(this.api().column(1).footer()).html(total.count());
-                    await esconderMenu();
                     setTimeout(function(){
                       setTimeout(function(){
                         setTimeout(function(){
@@ -2962,7 +2849,6 @@ app.controller("personalController", function(){
                             }
 
                             $('#contenido').show();
-                            $('#menu-lateral').show();
                             $('#footer').parent().show();
                             $('#footer').show();
 
@@ -2981,7 +2867,7 @@ app.controller("personalController", function(){
                           },100);
                         },100);
                       },100);
-                      menuElegant();
+                      marcarMenuActivo();
                     },100);
                   }
                 });
@@ -3039,7 +2925,8 @@ app.controller("personalController", function(){
 app.controller("planillaAsistenciaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-10); menuElegant();
+      $("#contenido").css("height",$(window).height()-10);
+      marcarMenuActivo();
     },1000);
   var path = initScreen();
   var theme = {
@@ -3354,8 +3241,7 @@ app.controller("planillaAsistenciaController", function(){
           await listCentrosDeCostos();
           await listCalendarioSegunPerfil(path);
           await listPlanillaAsistencia('null', 'null', 'null');
-          esconderMenu();
-          menuElegant();
+          marcarMenuActivo();
         }, 500);
       }
     }
@@ -3392,7 +3278,6 @@ app.controller("indicadorAusentismoController", function(){
       }
       else{
         $('#contenido').show();
-        $('#menu-lateral').show();
         $('#footer').parent().show();
         $('#footer').show();
 
@@ -3409,9 +3294,7 @@ app.controller("indicadorAusentismoController", function(){
           },2000);
         },2000);
         setTimeout(async function(){
-          await esconderMenu();
-          menuElegant();
-          $('#menu-lateral').show();
+          marcarMenuActivo();
         },2000);
       }
     }
