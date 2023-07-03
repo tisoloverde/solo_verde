@@ -221,7 +221,7 @@ $(window).on("load",function(e){
                           }
                         });
 
-                        $("#DivPrincipalMenuH").parent().parent().hide();
+                        $("#DivPrincipalMenuH").parent().parent().show();
                         marcarMenuActivo();
                       }
                       else{
