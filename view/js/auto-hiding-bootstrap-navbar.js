@@ -4,7 +4,7 @@
 			Linkedin (https://www.linkedin.com/in/joseantmazonsb)
             Github (https://github.com/TheYuju12)
 
-    Designed for a fixed or sticky top navbar. 
+    Designed for a fixed or sticky top navbar.
     If your navbar is fixed bottom you can adjust the behaviour by assigning navOffset a negative value.
 
 */

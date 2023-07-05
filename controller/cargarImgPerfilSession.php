@@ -15,7 +15,7 @@ if(count($_GET) >= 0){
     }
     else{
       header("Content-type: image/png");
-      echo $row[0][0];
+      echo $row[0][1];
     }
   }
   else{
