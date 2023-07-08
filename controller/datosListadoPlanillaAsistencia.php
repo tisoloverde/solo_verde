@@ -171,43 +171,35 @@
         $ndias = 7;
 
         if (isset($row['FECHA_TERMINO'])) {
-          if ($row['FECHA_TERMINO'] <= $lstDiasSemana[0]['FECHA']) {
+          if ($row['FECHA_TERMINO'] < $lstDiasSemana[0]['FECHA']) {
+            $colBreak = -100;
+          }
+          if ($row['FECHA_TERMINO'] == $lstDiasSemana[0]['FECHA']) {
             $colBreak = 0;
           }
         }
 
         foreach ($lstDiasSemana as $dia) {
-          /* begin - search */
-          $found = array();
-          foreach ($lstPersonalEstado as $personalEstado) {
-            if ($dia['FECHA'] == $personalEstado['FECHA_INICIO'] &&
-                $idPersonal == $personalEstado['IDPERSONAL']) {
-              $found = $personalEstado;
-            }
-          }
-          /* end - search */
-
           $col = $col + 1;
-          if ($dia['FECHA'] < $row['FECHA_INGRESO']) {
-            $colStart = $col;
-          }
-          if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid_Final)) {
-            $colBreak = $col;
-          }
 
-          if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid)) {
+          if ($colBreak < 0) {
             $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
-            $select = $select . "<option>" . $found['PERSONAL_ESTADO_CONCEPTO'] . "</option>";
+            $select = $select . "<option>DSR</option>";
             $select = $select . "</select>";
 
-            $ndias -= $idsConValidDescuento["_" . $found['IDPERSONAL_ESTADO_CONCEPTO']];
-          } else {
-            if ($col <= $colStart) {
-              $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
-              $select = $select . "</select>";
+            $ndias -= 1;
+          } else if ($colBreak == 0) {
+            if ($col <= 14) {
+              /* begin - search */
+              $found = array();
+              foreach ($lstPersonalEstado as $personalEstado) {
+                if ($dia['FECHA'] == $personalEstado['FECHA_INICIO'] &&
+                    $idPersonal == $personalEstado['IDPERSONAL']) {
+                  $found = $personalEstado;
+                }
+              }
+              /* end - search */
 
-              $ndias -= 1;
-            } else if ($col <= $colBreak) {
               $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
               $select = $select . "<option value='0'></option>";
               foreach ($consClean as $con) {
@@ -229,6 +221,60 @@
               $select = $select . "</select>";
 
               $ndias -= 1;
+            }
+          } else {
+            /* begin - search */
+            $found = array();
+            foreach ($lstPersonalEstado as $personalEstado) {
+              if ($dia['FECHA'] == $personalEstado['FECHA_INICIO'] &&
+                  $idPersonal == $personalEstado['IDPERSONAL']) {
+                $found = $personalEstado;
+              }
+            }
+            /* end - search */
+
+            if ($dia['FECHA'] < $row['FECHA_INGRESO']) {
+              $colStart = $col;
+            }
+            if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid_Final)) {
+              $colBreak = $col;
+            }
+
+            if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid)) {
+              $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
+              $select = $select . "<option>" . $found['PERSONAL_ESTADO_CONCEPTO'] . "</option>";
+              $select = $select . "</select>";
+
+              $ndias -= $idsConValidDescuento["_" . $found['IDPERSONAL_ESTADO_CONCEPTO']];
+            } else {
+              if ($col <= $colStart) {
+                $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
+                $select = $select . "</select>";
+
+                $ndias -= 1;
+              } else if ($col <= $colBreak) {
+                $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
+                $select = $select . "<option value='0'></option>";
+                foreach ($consClean as $con) {
+                  $idPec = $con['IDPERSONAL_ESTADO_CONCEPTO'];
+                  $pec = $con['SIGLA'];
+                  $select = $select . (($found['IDPERSONAL_ESTADO_CONCEPTO']) == $idPec
+                    ? "<option value='$idPec' selected>$pec</option>"
+                    : "<option value='$idPec'>$pec</option>");
+                }
+
+                if (isset($found['IDPERSONAL_ESTADO_CONCEPTO'])) {
+                  $ndias -= $idsConValidDescuento["_" . $found['IDPERSONAL_ESTADO_CONCEPTO']];
+                } else {
+                  $ndias -= 1;
+                }
+              } else {
+                $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day' disabled>";
+                $select = $select . "<option>DSR</option>";
+                $select = $select . "</select>";
+
+                $ndias -= 1;
+              }
             }
           }
 
