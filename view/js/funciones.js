@@ -9345,6 +9345,16 @@ async function listDiasPorSemana(anho, nsemana) {
     dataType: 'json',
     success:  function (response) {
       _DIAS_PLANILLA = response.aaData;
+  
+      var lst = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'];
+      if (_DIAS_PLANILLA.length >= lst.length) {
+        _DIAS_PLANILLA.forEach((item, index) => {
+          var splitted = item.fecha.split('-')
+          if (splitted.length > 2) {
+            $(`#plAs_${index}`).html(`${lst[index]}<br>${splitted[2]}`);
+          }
+        })
+      }
     }
   });
 }
