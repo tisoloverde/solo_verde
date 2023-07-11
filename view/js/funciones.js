@@ -9345,7 +9345,7 @@ async function listDiasPorSemana(anho, nsemana) {
     dataType: 'json',
     success:  function (response) {
       _DIAS_PLANILLA = response.aaData;
-  
+
       var lst = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'];
       if (_DIAS_PLANILLA.length >= lst.length) {
         _DIAS_PLANILLA.forEach((item, index) => {
@@ -10280,7 +10280,7 @@ $("#usuarioResetQR").unbind("click").click(async function(){
 $("#guardarResetQRUsuario").unbind('click').click(async function(){
   $('#modalResetQRUsuario').modal('hide');
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
-  $("#textoModalSplash").html("<img src='view/img/loading.gif' class='splash_charge_logo'><font style='font-size: 12pt;'>Cargando</font>");
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
   var table = $('#tablaListadoUsuarios').DataTable();
   var rutUsuario = $.map(table.rows('.selected').data(), function (item) {
@@ -10349,3 +10349,857 @@ function marcarMenuActivo() {
   $('.nav-item, .dropdown-item[id]').find('[href="' + currentPath + '"]').closest('.nav-item, .dropdown-item').addClass("active");
   $('.nav-item, .dropdown-item[id]').find('[href="' + currentPath + '"]').closest('.nav-item, .dropdown-item').parent().parent().children().addClass("active");
 }
+
+// Inicio Flota
+$("#agregarTipoVehiculo").unbind("click").click(async function(){
+  $("#nombreIngresoTipoVehiculo").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#nombreIngresoTipoVehiculo").val("");
+// Funcion para desplegar selector de TipoLicencia desde BD
+  await $.ajax({
+    url:   'controller/datosTipoLicencia.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].TIPO_LICENCIA + '">' + p2.aaData[i].TIPO_LICENCIA + '</option>';
+        }
+        $("#licenciaIngresoTipoVehiculo").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosCheckTipoVehiculo.php',
+    type:  'post',
+    success: function (resp) {
+      var m = jQuery.parseJSON(resp);
+      if(m.aaData.length !== 0){
+        var cuerpoCT = '';
+        for(var i = 0; i < m.aaData.length; i++){
+          cuerpoCT += '<option value="' + m.aaData[i].NOMBRE + '">' + m.aaData[i].NOMBRE + '</option>';
+        }
+        $("#checktipoIngresoTipoVehiculo").html(cuerpoCT);
+      }
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  $("#licenciaIngresoTipoVehiculo").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+  });
+  $("#checktipoIngresoTipoVehiculo").select2({
+    theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+  });
+}
+  setTimeout(function(){
+    $("#modalIngresoTipoVehiculo").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoTipoVehiculo').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarIngresoTipoVehiculo").unbind('click').click(function(){
+  if($("#nombreIngresoTipoVehiculo").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#nombreIngresoTipoVehiculo").val().length == 0){
+      $("#nombreIngresoTipoVehiculo").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalIngresoTipoVehiculo").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "nombre": $("#nombreIngresoTipoVehiculo").val(),
+      "checktipo": $("#checktipoIngresoTipoVehiculo").val(),
+      "licencia":  $("#licenciaIngresoTipoVehiculo").val(),
+    }
+    $.ajax({
+    url:   'controller/datosChequeaTipoVehiculo.php',
+    type:  'post',
+    data:  parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El Tipo de Vehiculo ya existe");
+          $("#nombreIngresoTipoVehiculo").addClass("is-invalid");
+          setTimeout(function(){
+            $('#modalIngresoTipoVehiculo').modal('show');
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      // Ingrasamos TipoVehiculo despues de verificar
+      else {
+        $.ajax({
+          url: "controller/ingresaTipoVehiculo.php",
+          type: 'POST',
+          data: parametros,
+          success:  function (response) {
+            var p = response.split(",");
+            if(response.localeCompare("Sin datos")!= 0 && response != ""){
+              if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                var table = $('#tablaListadoTipoVehiculo').DataTable();
+                table.ajax.reload();
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Tipo de Vehículo Creado correctamente");
+                $("#editarTipoVehiculo").attr("disabled","disabled");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Tipo de Vehículo, si el problema persiste favor comuniquese con soporte");
+                etTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+            }
+            else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Tipo de Vehículo, si el problema persiste favor comuniquese con soporte");
+              etTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            }
+          }
+        });
+      }
+    }
+  });
+  }
+});
+
+$("#nombreIngresoTipoVehiculo").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarTipoVehiculo").unbind('click').click( async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoTipoVehiculo').DataTable();
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE;
+  });
+  var licencia = $.map(table.rows('.selected').data(), function (item) {
+    return item.LICENCIA;
+  });
+  var checktipo = $.map(table.rows('.selected').data(), function (item) {
+    return item.CHECKTIPO;
+  });
+  await $.ajax({
+    url:   'controller/datosTipoLicencia.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].TIPO_LICENCIA == licencia[0]){
+            cuerpoEC += '<option selected value="' + p2.aaData[i].TIPO_LICENCIA + '">' + p2.aaData[i].TIPO_LICENCIA + '</option>';
+            $("#licenciaEditarTipoVehiculo").html(cuerpoEC);
+          }
+          else{
+            cuerpoEC += '<option value="' + p2.aaData[i].TIPO_LICENCIA + '">' + p2.aaData[i].TIPO_LICENCIA + '</option>';
+          }
+        }
+        $("#licenciaEditarTipoVehiculo").html(cuerpoEC);
+        setTimeout(function(){
+          $('#modalEditarTipoVehiculo').modal('show');
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+  await $.ajax({
+    url:   'controller/datosCheckTipoVehiculo.php',
+    type:  'post',
+    success: function (response) {
+      var p21 = jQuery.parseJSON(response);
+      if(p21.aaData.length !== 0){
+        var cuerpoCH = '';
+        for(var i = 0; i < p21.aaData.length; i++){
+          if(p21.aaData[i].NOMBRE == checktipo[0]){
+            cuerpoCH += '<option selected value="' + p21.aaData[i].NOMBRE + '">' + p21.aaData[i].NOMBRE + '</option>';
+            $("#checkTipoEditarTipoVehiculo").html(cuerpoCH);
+          }
+          else{
+            cuerpoCH += '<option value="' + p21.aaData[i].NOMBRE + '">' + p21.aaData[i].NOMBRE + '</option>';
+          }
+        }
+        $("#checkTipoEditarTipoVehiculo").html(cuerpoCH);
+      }
+    }
+  });
+  $("#nombreEditarTipoVehiculo").val(nombre);
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#licenciaEditarTipoVehiculo").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#checkTipoEditarTipoVehiculo").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $("#modalEditarTipoVehiculo").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+  },500);
+});
+
+$("#guardarEditarTipoVehiculo").unbind('click').click(function(){
+  var table = $('#tablaListadoTipoVehiculo').DataTable();
+  var idTipoVehiculo = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_TIPOVEHICULO;
+  });
+  parametros = {
+    "idTipoVehiculo": idTipoVehiculo[0],
+    "nombre":  $("#nombreEditarTipoVehiculo").val(),
+    "licencia": $("#licenciaEditarTipoVehiculo").val(),
+    "checktipo": $("#checkTipoEditarTipoVehiculo").val(),
+  }
+  $("#modalEditarTipoVehiculo").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $.ajax({
+    url: "controller/editarTipoVehiculo.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoTipoVehiculo').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Tipo de Vehiculo Editado correctamente");
+          $("#editarTipoVehiculo").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Tipo de Vehiculo, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Tipo de Vehiculo, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#configurarChecks").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  $("#agregarCheck").attr("disabled","disabled");
+  $("#editarCheck").attr("disabled","disabled");
+  $("#eliminarCheck").attr("disabled","disabled");
+
+
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/40);
+
+  await $.ajax({
+    url:   'controller/datosCheckTipoVehiculo.php',
+    type:  'post',
+    success: function (resp) {
+      var m = jQuery.parseJSON(resp);
+      if(m.aaData.length !== 0){
+        var cuerpoCT = '';
+        cuerpoCT += '<option selected value="0">Seleccionar elemento</option>';
+        for(var i = 0; i < m.aaData.length; i++){
+          cuerpoCT += '<option value="' + m.aaData[i].IDCHECKTIPO + '">' + m.aaData[i].NOMBRE + '</option>';
+        }
+        $("#selectorTipoConfigChecksTipoVeh").html(cuerpoCT);
+      }
+    }
+  });
+
+  var parametros = {
+    "checkTipo": $("#selectorTipoConfigChecksTipoVeh").val()
+  }
+
+  await $('#tablaConfigChecksTipoVeh').DataTable( {
+      ajax: {
+          url: "controller/datosListaChecksTipoVehiculo.php",
+          type: 'POST',
+          data: parametros
+      },
+      columns: [
+          { data: 'S'},
+          { data: 'FOLIO'},
+          { data: 'ITEM'},
+          { data: 'TIPO'},
+          { data: 'INDISPENSABLE'},
+          { data: 'DESCONTABLE'}
+      ],
+      "columnDefs": [
+        {
+          "width": "5px",
+          "targets": 0
+        },
+        {
+          "orderable": false,
+          "className": 'select-checkbox',
+          "targets": [ 0 ]
+        },
+      ],
+      "select": {
+          style: 'single',
+          //selector: 'td:not(:nth-child(5))'
+      },
+      "scrollX": true,
+      "paging": true,
+      "ordering": true,
+      "scrollCollapse": true,
+      "info":     true,
+      "lengthMenu": [[largo], [largo]],
+      "dom": 'rtip',
+      "language": {
+        "zeroRecords": "No hay datos disponibles",
+        "info": "Registro _START_ de _END_ de _TOTAL_",
+        "infoEmpty": "No hay datos disponibles",
+        "paginate": {
+            "previous": "Anterior",
+            "next": "Siguiente"
+          },
+          "search": "Buscar: ",
+          "select": {
+              "rows": "- %d registros seleccionados"
+          },
+          "infoFiltered": "(Filtrado de _MAX_ registros)"
+      },
+      "destroy": true,
+      "autoWidth": false,
+      "initComplete": function( settings, json){
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+          $("#modalConfigChecksTipoVeh").modal("show");
+          setTimeout(function(){
+            $('#tablaConfigChecksTipoVeh').DataTable().columns.adjust();
+          },500);
+        },500);
+      }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#selectorTipoConfigChecksTipoVeh").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+});
+
+$("#agregarCheckTipoConfigChecksTipoVeh").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalConfigChecksTipoVeh").modal("hide");
+  $("#nombreIngresoCheckTipo").val("");
+  $("#nombreIngresoCheckTipo").removeClass("is-invalid");
+
+  setTimeout(function(){
+    $("#modalIngresoCheckTipo").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoCheckTipo').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarIngresoCheckTipo").unbind('click').click(function(){
+  if($("#nombreIngresoCheckTipo").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#nombreIngresoCheckTipo").val().length == 0){
+      $("#nombreIngresoCheckTipo").addClass("is-invalid");
+    }
+  }
+  else {
+    parametros = {
+      "nombre": $("#nombreIngresoCheckTipo").val(),
+    }
+    $("#modalIngresoCheckTipo").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/ingresaNombreChechTipoVehiculo.php",
+      type: 'POST',
+      data: parametros,
+      success: function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>CheckTipo creado correctamente");
+            $.ajax({
+              url:   'controller/datosCheckTipoVehiculo.php',
+              type:  'post',
+              success: function (resp) {
+                var m = jQuery.parseJSON(resp);
+                if(m.aaData.length !== 0){
+                  var cuerpoCT = '';
+                  cuerpoCT += '<option selected value="0">Seleccionar elemento</option>';
+                  for(var i = 0; i < m.aaData.length; i++){
+                    cuerpoCT += '<option value="' + m.aaData[i].IDCHECKTIPO + '">' + m.aaData[i].NOMBRE + '</option>';
+                  }
+                  $("#selectorTipoConfigChecksTipoVeh").html(cuerpoCT);
+                }
+              }
+            });
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $('#modalConfigChecksTipoVeh').modal('show');
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Ya existe un nombre igual");
+            $("#nombreIngresoCheckTipo").addClass("is-invalid");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $('#modalConfigChecksTipoVeh').modal('show');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Ya existe un nombre igual");
+          $("#nombreIngresoCheckTipo").addClass("is-invalid");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalConfigChecksTipoVeh').modal('show');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#nombreIngresoCheckTipo").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#selectorTipoConfigChecksTipoVeh").unbind("click").change(async function(e){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalConfigChecksTipoVeh").modal("hide");
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  if(parseInt($("#selectorTipoConfigChecksTipoVeh").val()) === 0){
+    $("#agregarCheck").attr("disabled","disabled");
+  }else{
+    $("#agregarCheck").removeAttr("disabled");
+  }
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/40);
+
+  var parametros = {
+    "checkTipo": $("#selectorTipoConfigChecksTipoVeh").find('option:selected').text()
+  }
+  await $('#tablaConfigChecksTipoVeh').DataTable( {
+    ajax: {
+        url: "controller/datosListaChecksTipoVehiculo.php",
+        type: 'POST',
+        data: parametros
+    },
+    columns: [
+        { data: 'S'},
+        { data: 'FOLIO'},
+        { data: 'ITEM'},
+        { data: 'TIPO'},
+        { data: 'INDISPENSABLE'},
+        { data: 'DESCONTABLE'}
+    ],
+    "columnDefs": [
+      {
+        "width": "5px",
+        "targets": 0
+      },
+      {
+        "orderable": false,
+        "className": 'select-checkbox',
+        "targets": [ 0 ]
+      },
+    ],
+    "select": {
+        style: 'single',
+        //selector: 'td:not(:nth-child(5))'
+    },
+    "scrollX": true,
+    "paging": true,
+    "ordering": true,
+    "scrollCollapse": true,
+    "info":     true,
+    "lengthMenu": [[largo], [largo]],
+    "dom": 'rtip',
+    "language": {
+      "zeroRecords": "No hay datos disponibles",
+      "info": "Registro _START_ de _END_ de _TOTAL_",
+      "infoEmpty": "No hay datos disponibles",
+      "paginate": {
+          "previous": "Anterior",
+          "next": "Siguiente"
+        },
+        "search": "Buscar: ",
+        "select": {
+            "rows": "- %d registros seleccionados"
+        },
+        "infoFiltered": "(Filtrado de _MAX_ registros)"
+    },
+    "destroy": true,
+    "autoWidth": false,
+    "initComplete": function( settings, json){
+      setTimeout(function(){
+        $('#modalAlertasSplash').modal('hide');
+        $("#modalConfigChecksTipoVeh").modal("show");
+        setTimeout(function(){
+          $('#tablaConfigChecksTipoVeh').DataTable().columns.adjust();
+        },500);
+      },500);
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#selectorTipoConfigChecksTipoVeh").select2('destroy').select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+});
+
+$("#agregarCheck").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalConfigChecksTipoVeh").modal("hide");
+  $("#itemIngresoCheck").val("");
+  $("#itemIngresoCheck").removeClass("is-invalid");
+
+  tipo = $("#selectorTipoConfigChecksTipoVeh").find('option:selected').text();
+  $("#tipoIngresoCheck").val(tipo);
+  $("#tipoIngresoCheck").attr("disabled","disabled");
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#indispensableIngresoCheck").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#descontableIngresoCheck").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  setTimeout(function(){
+    $("#modalIngresoCheck").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoCheck').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarIngresoCheck").unbind('click').click(function(){
+  if($("#itemIngresoCheck").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#itemIngresoCheck").val().length == 0){
+      $("#itemIngresoCheck").addClass("is-invalid");
+    }
+  }
+  else {
+    parametros = {
+      "item": $("#itemIngresoCheck").val(),
+      "tipo": $("#tipoIngresoCheck").val(),
+      "indispensable": $("#indispensableIngresoCheck").val(),
+      "descontable": $("#descontableIngresoCheck").val(),
+    }
+    $("#modalIngresoCheck").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/ingresaCheckTipoVehiculo.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaConfigChecksTipoVeh').DataTable();
+            table.ajax.reload();
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Check creado correctamente");
+            $("#editarCheck").attr("disabled","disabled");
+            $("#eliminarCheck").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalConfigChecksTipoVeh").modal("show");
+              setTimeout(function(){
+                $('#tablaConfigChecksTipoVeh').DataTable().columns.adjust();
+              },500);
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear check, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalConfigChecksTipoVeh").modal("show");
+              setTimeout(function(){
+                $('#tablaConfigChecksTipoVeh').DataTable().columns.adjust();
+              },500);
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear check, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $("#modalConfigChecksTipoVeh").modal("show");
+            setTimeout(function(){
+              $('#tablaConfigChecksTipoVeh').DataTable().columns.adjust();
+            },500);
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#itemIngresoCheck").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$('#tablaConfigChecksTipoVeh tbody').on( 'click', 'tr', function () {
+  setTimeout(async function(){
+    var table = $('#tablaConfigChecksTipoVeh').DataTable();
+    var data = table.rows('.selected').data();
+    if(data.length <= 0){
+      $("#editarCheck").attr("disabled","disabled");
+      $("#eliminarCheck").attr("disabled","disabled");
+    }
+    else{
+      $("#editarCheck").removeAttr("disabled");
+      $("#eliminarCheck").removeAttr("disabled");
+    }
+  },200);
+});
+
+$("#editarCheck").unbind('click').click( async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalConfigChecksTipoVeh").modal("hide");
+  $("#tipoEditarCheck").attr("disabled","disabled");
+
+  var table = $('#tablaConfigChecksTipoVeh').DataTable();
+  var item = $.map(table.rows('.selected').data(), function (item) {
+    return item.ITEM;
+  });
+  var tipo = $.map(table.rows('.selected').data(), function (item) {
+    return item.TIPO;
+  });
+  var indispensable = $.map(table.rows('.selected').data(), function (item) {
+    return item.INDISPENSABLE;
+  });
+  var descontable = $.map(table.rows('.selected').data(), function (item) {
+    return item.DESCONTABLE;
+  });
+
+  if (indispensable[0] === 'Si'){
+    $("#indispensableEditarCheck").html('<option value="Si">Si</option>,<option value="No">No</option>');
+  }
+  else if(indispensable[0] === 'No'){
+    $("#indispensableEditarCheck").html('<option value="No">No</option>,<option value="Si">Si</option>');
+  }else{
+    $("#indispensableEditarCheck").html('<option value=""></option>,<option value="Si">Si</option>,<option value="No">No</option>');
+  }
+
+
+  if (descontable[0] === 'Si'){
+    $("#descontableEditarCheck").html('<option value="Si">Si</option>,<option value="No">No</option>');
+  }
+  else if(descontable[0] === 'No'){
+    $("#descontableEditarCheck").html('<option value="No">No</option>,<option value="Si">Si</option>');
+  }else{
+    $("#descontableEditarCheck").html('<option value=""></option>,<option value="Si">Si</option>,<option value="No">No</option>');
+  }
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#indispensableEditarCheck").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#descontableEditarCheck").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  $("#itemEditarCheck").val(item);
+  $("#tipoEditarCheck").val(tipo);
+  $("#indispensableEditarCheck").val(indispensable);
+  $("#descontableEditarCheck").val(descontable);
+
+  setTimeout(function(){
+    $("#modalEditarCheck").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyEditarCheck').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarEditarCheck").unbind('click').click(function(){
+  $("#modalEditarCheck").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaConfigChecksTipoVeh').DataTable();
+  var folio = $.map(table.rows('.selected').data(), function (item) {
+    return item.FOLIO;
+  });
+  parametros = {
+    "folio": folio[0],
+    "item": $("#itemEditarCheck").val(),
+    "tipo": $("#tipoEditarCheck").val(),
+    "indispensable": $("#indispensableEditarCheck").val(),
+    "descontable": $("#descontableEditarCheck").val(),
+  }
+  $.ajax({
+    url: "controller/editarCheckTipoVehiculo.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaConfigChecksTipoVeh').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Check editada correctamente");
+          $("#editarCheck").attr("disabled","disabled");
+          $("#eliminarCheck").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalConfigChecksTipoVeh').modal('show');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar check, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalConfigChecksTipoVeh').modal('show');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar check, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+          $('#modalConfigChecksTipoVeh').modal('show');
+        },500);
+      }
+    }
+  });
+});
+
+$("#eliminarCheck").unbind('click').click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalConfigChecksTipoVeh").modal("hide");
+  var table = $('#tablaConfigChecksTipoVeh').DataTable();
+  var folio = $.map(table.rows('.selected').data(), function (item) {
+    return item.FOLIO;
+  });
+  var item = $.map(table.rows('.selected').data(), function (item) {
+    return item.ITEM;
+  });
+  var tipo = $.map(table.rows('.selected').data(), function (item) {
+    return item.TIPO;
+  });
+
+  $("#itemEliminarCheck").html(item + ' - ' + tipo);
+  setTimeout(function(){
+    $("#modalEliminarCheck").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyEliminarCheck').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarEliminarCheck").unbind('click').click(async function(){
+  $("#modalEliminarCheck").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaConfigChecksTipoVeh').DataTable();
+  var folio = $.map(table.rows('.selected').data(), function (item) {
+    return item.FOLIO;
+  });
+  parametros = {
+    "folio": folio[0],
+  }
+  await $.ajax({
+    url:   'controller/eliminarCheckTipoVehiculo.php',
+    type:  'post',
+    data:  parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaConfigChecksTipoVeh').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Check eliminada correctamente");
+          $("#editarCheck").attr("disabled","disabled");
+          $("#eliminarCheck").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalConfigChecksTipoVeh').modal('show');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>El elemento seleccionado no se puede eliminar ya que posee datos asociados al sistema");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalConfigChecksTipoVeh').modal('show');
+          },500);
+        }
+      }else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>El elemento seleccionado no se puede elimina ya que posee datos asociados al sistema");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+          $('#modalConfigChecksTipoVeh').modal('show');
+        },500);
+      }
+    }
+  });
+});
+// Fin Flota

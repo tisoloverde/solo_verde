@@ -100,6 +100,13 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: "vm",
       templateUrl : "view/reporteria/ausentismo.html?idLoad=67"
     })
+    // Inicio Flota
+    .when("/tipoVehiculo", {
+      controller: "tipoVehiculoController",
+      controllerAs: "vm",
+      templateUrl : "view/flota/tipoVehiculo.html?idLoad=67"
+    })
+    // Fin Flota
     .otherwise({redirectTo: '/home'});
 
     $locationProvider.hashPrefix('');
@@ -3300,3 +3307,154 @@ app.controller("indicadorAusentismoController", function(){
     }
   });
 });
+
+// Inicio Flota
+app.controller("tipoVehiculoController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+          $('#modalAlertasSplash').modal('show');
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+          await $('#tablaListadoTipoVehiculo').DataTable( {
+              ajax: {
+                  url: "controller/datosTipoVehiculo.php",
+                  type: 'POST'
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'NOMBRE' },
+                  { data: 'LICENCIA'},
+                  { data: 'CHECKTIPO' }
+              ],
+              buttons: [
+                  {
+                    extend: 'excel',
+                    exportOptions: {
+                      columns: [ 1,2 ]
+                    },
+                    title: null,
+                    text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                  }
+              ],
+              "columnDefs": [
+                {
+                  "width": "5px",
+                  "targets": 0
+                },
+                {
+                  "orderable": false,
+                  "className": 'select-checkbox',
+                  "targets": [ 0 ]
+                },
+              ],
+              "select": {
+                  style: 'single'
+              },
+              "scrollX": true,
+              "paging": true,
+              "ordering": true,
+              "scrollCollapse": true,
+              "info":     true,
+              "lengthMenu": [[largo], [largo]],
+              "dom": 'Bfrtip',
+              "language": {
+                "zeroRecords": "No hay datos disponibles",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No hay datos disponibles",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                  },
+                  "search": "Buscar: ",
+                  "select": {
+                      "rows": "- %d registros seleccionados"
+                  },
+                  "infoFiltered": "(Filtrado de _MAX_ registros)"
+              },
+              "destroy": true,
+              "autoWidth": false,
+              "initComplete": function( settings, json){
+                $('#contenido').show();
+                $('#menu-lateral').show();
+                $('#footer').parent().show();
+                $('#footer').show();
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  setTimeout(async function(){
+                    $('#tablaListadoTipoVehiculo').DataTable().columns.adjust();
+                  },1500);
+                },2000);
+              }
+          });
+          await esconderMenu();
+          setTimeout(async function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+            await $.ajax({
+              url:   'controller/datosAccionesVisibles.php',
+              type:  'post',
+              data: parametros,
+              success: function (response) {
+                var p = jQuery.parseJSON(response);
+                if(p.aaData.length !== 0){
+                  for(var i = 0; i < p.aaData.length; i++) {
+                    if(p.aaData[i].VISIBLE == 1){
+                      if(p.aaData[i].ENABLE == 1){
+                        $("#accionesTipoVehiculo").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                      else{
+                        $("#accionesTipoVehiculo").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                    }
+                  }
+                }
+              }
+            });
+
+            setTimeout(function(){
+              var js = document.createElement('script');
+              js.src = 'view/js/funciones.js?idLoad=294';
+              document.getElementsByTagName('head')[0].appendChild(js);
+            },500);
+          },1000);
+          menuElegant();
+        },200);
+      }
+    }
+  });
+});
+// Fin Flota

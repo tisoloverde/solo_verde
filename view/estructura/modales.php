@@ -1512,45 +1512,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-<!-- MODAL INGRESO TIPOVEHICULO -->
-<div id="modalIngresoTipoVehiculo" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloIngresoTipoVehiculo"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Tipo Vehiculo</h5>
-      </div>
-      <div id="bodyIngresoTipoVehiculo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombre</label>
-            <input id="nombreIngresoTipoVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">CheckTipo</label>
-            <select id="checktipoIngresoTipoVehiculo" class="form-control">
-            </select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Licencia</label>
-            <select id="licenciaIngresoTipoVehiculo" class="form-control">
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoTipoVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoTipoVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <!-- MODAL EDITAR TIPOVEHICULO -->
 <div id="modalEditarTipoVehiculo" class="modal modal-fullscreen fade" role="dialog">
@@ -8180,153 +8141,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-<!-- MODAL INGRESO CHECK -->
-<div id="modalIngresoCheck" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h5 style="color:gray;" id="tituloIngresoCheck"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Check</h5>
-      </div>
-      <div id="bodyIngresoCheck" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Item</label>
-            <input id="itemIngresoCheck" class="form-control" type='text'>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tipo</label>
-            <input id="tipoIngresoCheck" class="form-control" type='text'>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Indispensable</label>
-            <select id="indispensableIngresoCheck" class="form-control">
-              <option value="Si">Si</option>
-							<option value="No">No</option>
-            </select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Descontable</label>
-            <select id="descontableIngresoCheck" class="form-control">
-              <option value="Si">Si</option>
-							<option value="No">No</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL INGRESO CHECK -->
-
-<!-- MODAL EDITAR CHECK -->
-<div id="modalEditarCheck" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h5 style="color:gray;" id="tituloEditarCheck"><span class="fas fa-edit"></span>&nbsp;&nbsp;Editar Check</h5>
-      </div>
-      <div id="bodyEditarCheck" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Item</label>
-            <input id="itemEditarCheck" class="form-control" type='text'>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tipo</label>
-            <input id="tipoEditarCheck" class="form-control" type='text'>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Indispensable</label>
-            <select id="indispensableEditarCheck" class="form-control"></select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Descontable</label>
-            <select id="descontableEditarCheck" class="form-control"></select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarEditarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEditarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL EDITAR CHECK -->
-
-<!-- MODAL ELIMINAR CHECK -->
-<div id="modalEliminarCheck" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-			<div class="modal-header">
-        <h5 style="color:gray;" id="tituloEliminarCheck"><span class="fas fa-trash-alt"></span>&nbsp;&nbsp;Eliminar Check</h5>
-      </div>
-			<div id="bodyEliminarCheck" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea eliminar el Check?</font>
-            <font style="font-weight: nomal; font-size: 14pt;"></br><i style="font-weight: normal; font-size: 14pt;" id="itemEliminarCheck"></i></font>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarEliminarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEliminarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL ELIMINAR CHECK -->
-
-<!-- MODAL INGRESO CHECKTIPO -->
-<div id="modalIngresoCheckTipo" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xs" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h5 style="color:gray;" id="tituloIngresoCheckTipo"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso CheckTipo</h5>
-      </div>
-      <div id="bodyIngresoCheckTipo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombre</label>
-            <input id="nombreIngresoCheckTipo" class="form-control" type='text'>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoCheckTipo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoCheckTipo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL INGRESO CHECKTIPO -->
-
 <!-- MODAL INGRESAR DOCUMENTOS A OBRA -->
 <div id="modalIngresarDocumentosObra" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-xl" role="document">
@@ -11394,3 +11208,220 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
+
+<!-- Inicio Flota -->
+<div id="modalIngresoTipoVehiculo" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloIngresoTipoVehiculo"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Tipo Vehiculo</h5>
+      </div>
+      <div id="bodyIngresoTipoVehiculo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreIngresoTipoVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">CheckTipo</label>
+            <select id="checktipoIngresoTipoVehiculo" class="form-control">
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Licencia</label>
+            <select id="licenciaIngresoTipoVehiculo" class="form-control">
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoTipoVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoTipoVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarTipoVehiculo" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloEditarTipoVehiculo"><span class="fas fa-car-alt"></span>&nbsp;&nbsp;Editar Tipo Vehiculo</h5>
+      </div>
+      <div id="bodyEditarTipoVehiculo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreEditarTipoVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Licencia</label>
+            <select id="licenciaEditarTipoVehiculo" class="form-control">
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12 input-group-sm" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">CheckTipo</label>
+            <select id="checkTipoEditarTipoVehiculo" class="form-control">
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarEditarTipoVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarTipoVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalIngresoCheckTipo" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xs" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 style="color:gray;" id="tituloIngresoCheckTipo"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso CheckTipo</h5>
+      </div>
+      <div id="bodyIngresoCheckTipo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreIngresoCheckTipo" class="form-control" type='text'>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoCheckTipo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoCheckTipo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalIngresoCheck" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 style="color:gray;" id="tituloIngresoCheck"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Check</h5>
+      </div>
+      <div id="bodyIngresoCheck" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Item</label>
+            <input id="itemIngresoCheck" class="form-control" type='text'>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo</label>
+            <input id="tipoIngresoCheck" class="form-control" type='text'>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Indispensable</label>
+            <select id="indispensableIngresoCheck" class="form-control">
+              <option value="Si">Si</option>
+							<option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Descontable</label>
+            <select id="descontableIngresoCheck" class="form-control">
+              <option value="Si">Si</option>
+							<option value="No">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarCheck" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 style="color:gray;" id="tituloEditarCheck"><span class="fas fa-edit"></span>&nbsp;&nbsp;Editar Check</h5>
+      </div>
+      <div id="bodyEditarCheck" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Item</label>
+            <input id="itemEditarCheck" class="form-control" type='text'>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo</label>
+            <input id="tipoEditarCheck" class="form-control" type='text'>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Indispensable</label>
+            <select id="indispensableEditarCheck" class="form-control"></select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Descontable</label>
+            <select id="descontableEditarCheck" class="form-control"></select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarEditarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEliminarCheck" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+			<div class="modal-header">
+        <h5 style="color:gray;" id="tituloEliminarCheck"><span class="fas fa-trash-alt"></span>&nbsp;&nbsp;Eliminar Check</h5>
+      </div>
+			<div id="bodyEliminarCheck" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea eliminar el Check?</font>
+            <font style="font-weight: nomal; font-size: 14pt;"></br><i style="font-weight: normal; font-size: 14pt;" id="itemEliminarCheck"></i></font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarEliminarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEliminarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fin Flota -->

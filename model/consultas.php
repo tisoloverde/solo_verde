@@ -3731,27 +3731,6 @@ function ingresarAseguradora($nombre, $moneda){
 	}
 }
 
-// Consultas Tipo de Vehiculo Mantenedor
-function consultaTipoVehiculo(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, IDPATENTE_TIPOVEHICULO, NOMBRE,  CHECKTIPO, LICENCIA
-FROM PATENTE_TIPOVEHICULO";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consultas Taller Mantenedores
 function consultaTaller(){
 	$con = conectar();
@@ -4113,31 +4092,6 @@ function ingresaTipoVehiculo($nombre,$checktipo,$licencia){
 	if($con != 'No conectado'){
 		$sql = "INSERT INTO PATENTE_TIPOVEHICULO (NOMBRE, CHECKTIPO, LICENCIA)
 				VALUES('{$nombre}', '{$checktipo}', '{$licencia}')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para Editar TipoVehiculo
-function editarTipoVehiculo( $id_TipoVehiculo, $nombre, $licencia,$checktipo){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_TIPOVEHICULO
-	SET NOMBRE = '{$nombre}',
-	LICENCIA = '{$licencia}',
-	CHECKTIPO = '{$checktipo}'
-	WHERE IDPATENTE_TIPOVEHICULO = '{$id_TipoVehiculo}'";
 		if ($con->query($sql)) {
 			$con->query("COMMIT");
 			return "Ok";
@@ -13916,51 +13870,6 @@ function eliminarResponsableProyecto($id){
 		}
 }
 
-//Select datos Check Tipo Vehiculo
-function datosCheckTipoVehiculo(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT IDPATENTE_TIPOVEHICULO_CHECK 'IDCHECKTIPO', NOMBRE
-				FROM PATENTE_TIPOVEHICULO_CHECK";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Lista de checks de acuerdo al tipo de vehiculo
-function datosListaChecksTipoVehiculo($checkTipo){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, IDPATENTE_ASIGNACION_CHECKS 'FOLIO', ITEM, TIPO, INDISPENSABLE, DESCONTABLE
-		FROM PATENTE_ASIGNACION_CHECKS
-		WHERE TIPO = '{$checkTipo}'";
-		if ($row = $con->query($sql)) {
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 function listadoComprasPeticiones(){
 	$con = conectar();
 	if($con != 'No conectado'){
@@ -14014,97 +13923,6 @@ function listadoComprasPeticiones(){
 			return "Error";
 		}
 	} else{
-		return "Error";
-	}
-}
-
-// Consulta para ingresar Check Tipo Vehiculo
-function ingresaCheckTipoVehiculo($item,$tipo,$indispensable,$descontable){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_ASIGNACION_CHECKS (ITEM, TIPO, INDISPENSABLE, DESCONTABLE)
-				VALUES('{$item}', '{$tipo}', '{$indispensable}', '{$descontable}')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para Editar Check Tipo Vehiculo
-function editarCheckTipoVehiculo($folio,$item,$tipo,$indispensable,$descontable){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_ASIGNACION_CHECKS
-				SET ITEM='{$item}', TIPO='{$tipo}', INDISPENSABLE='{$indispensable}', DESCONTABLE='{$descontable}'
-				WHERE IDPATENTE_ASIGNACION_CHECKS = '{$folio}'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para eliminar Check Tipo Vehiculo
-function eliminarCheckTipoVehiculo($folio){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "DELETE FROM PATENTE_ASIGNACION_CHECKS
-				WHERE IDPATENTE_ASIGNACION_CHECKS = '{$folio}'";
-		if($con->query($sql)){
-				$con->query("COMMIT");
-				return "Ok";
-		}
-		else{
-				$con->query("ROLLBACK");
-				// return $con->error;
-				return "Error";
-		}
-	}
-	else{
-			$con->query("ROLLBACK");
-			return "Error";
-	}
-}
-
-// Consulta para ingresar Nombre Check Tipo Vehiculo
-function ingresaNombreCheckTipoVehiculo($nombre){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_TIPOVEHICULO_CHECK (NOMBRE)
-				VALUES('{$nombre}')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
 		return "Error";
 	}
 }
@@ -21517,4 +21335,180 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Error";
 			}
 		}
+
+		// Inicio Flota
+		function consultaTipoVehiculo(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, IDPATENTE_TIPOVEHICULO, NOMBRE,  CHECKTIPO, LICENCIA
+		FROM PATENTE_TIPOVEHICULO";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function editarTipoVehiculo( $id_TipoVehiculo, $nombre, $licencia,$checktipo){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_TIPOVEHICULO
+			SET NOMBRE = '{$nombre}',
+			LICENCIA = '{$licencia}',
+			CHECKTIPO = '{$checktipo}'
+			WHERE IDPATENTE_TIPOVEHICULO = '{$id_TipoVehiculo}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function datosCheckTipoVehiculo(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDPATENTE_TIPOVEHICULO_CHECK 'IDCHECKTIPO', NOMBRE
+						FROM PATENTE_TIPOVEHICULO_CHECK";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function datosListaChecksTipoVehiculo($checkTipo){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, IDPATENTE_ASIGNACION_CHECKS 'FOLIO', ITEM, TIPO, INDISPENSABLE, DESCONTABLE
+				FROM PATENTE_ASIGNACION_CHECKS
+				WHERE TIPO = '{$checkTipo}'";
+				if ($row = $con->query($sql)) {
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaNombreCheckTipoVehiculo($nombre){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_TIPOVEHICULO_CHECK (NOMBRE)
+						VALUES('{$nombre}')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function ingresaCheckTipoVehiculo($item,$tipo,$indispensable,$descontable){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_ASIGNACION_CHECKS (ITEM, TIPO, INDISPENSABLE, DESCONTABLE)
+						VALUES('{$item}', '{$tipo}', '{$indispensable}', '{$descontable}')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function editarCheckTipoVehiculo($folio,$item,$tipo,$indispensable,$descontable){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_ASIGNACION_CHECKS
+						SET ITEM='{$item}', TIPO='{$tipo}', INDISPENSABLE='{$indispensable}', DESCONTABLE='{$descontable}'
+						WHERE IDPATENTE_ASIGNACION_CHECKS = '{$folio}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function eliminarCheckTipoVehiculo($folio){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "DELETE FROM PATENTE_ASIGNACION_CHECKS
+						WHERE IDPATENTE_ASIGNACION_CHECKS = '{$folio}'";
+				if($con->query($sql)){
+						$con->query("COMMIT");
+						return "Ok";
+				}
+				else{
+						$con->query("ROLLBACK");
+						// return $con->error;
+						return "Error";
+				}
+			}
+			else{
+					$con->query("ROLLBACK");
+					return "Error";
+			}
+		}
+		// Fin Flota
 ?>
