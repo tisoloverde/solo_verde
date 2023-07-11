@@ -106,6 +106,11 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: "vm",
       templateUrl : "view/flota/tipoVehiculo.html?idLoad=68"
     })
+    .when("/marcaModelo", {
+      controller: "marcaModeloController",
+      controllerAs: "vm",
+      templateUrl : "view/flota/marcaModelo.html?idLoad=68"
+    })
     // Fin Flota
     .otherwise({redirectTo: '/home'});
 
@@ -3447,9 +3452,160 @@ app.controller("tipoVehiculoController", function(){
 
             setTimeout(function(){
               var js = document.createElement('script');
-              js.src = 'view/js/funciones.js?idLoad=294';
+              js.src = 'view/js/funciones.js?idLoad=68';
               document.getElementsByTagName('head')[0].appendChild(js);
             },500);
+          },1000);
+          menuElegant();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("marcaModeloController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+          $('#modalAlertasSplash').modal('show');
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+          await $('#tablaListadoMarcaModelo').DataTable( {
+              ajax: {
+                  url: "controller/datosMarcaModelo.php",
+                  type: 'POST'
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'MARCA' },
+                  { data: 'MODELO'},
+                  { data: 'LITROS_ESTANQUE'}
+              ],
+              buttons: [
+                  {
+                    extend: 'excel',
+                    exportOptions: {
+                      columns: [ 1,2,3 ]
+                    },
+                    title: null,
+                    text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                  }
+              ],
+              "columnDefs": [
+                {
+                  "width": "5px",
+                  "targets": 0
+                },
+                {
+                  "orderable": false,
+                  "className": 'select-checkbox',
+                  "targets": [ 0 ]
+                },
+              ],
+              "select": {
+                  style: 'single'
+              },
+              "scrollX": true,
+              "paging": true,
+              "ordering": true,
+              "scrollCollapse": true,
+              "info":     true,
+              "lengthMenu": [[largo], [largo]],
+              "dom": 'Bfrtip',
+              "language": {
+                "zeroRecords": "No hay datos disponibles",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No hay datos disponibles",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                  },
+                  "search": "Buscar: ",
+                  "select": {
+                      "rows": "- %d registros seleccionados"
+                  },
+                  "infoFiltered": "(Filtrado de _MAX_ registros)"
+              },
+              "destroy": true,
+              "autoWidth": false,
+              "initComplete": function( settings, json){
+                $('#contenido').show();
+                $('#menu-lateral').show();
+                $('#footer').parent().show();
+                $('#footer').show();
+                setTimeout(async function(){
+                  $('#tablaListadoMarcaModelo').DataTable().columns.adjust();
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },2000)
+                },500);
+              }
+          });
+          await esconderMenu();
+          setTimeout(function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+      			setTimeout(async function(){
+      			  await $.ajax({
+      			    url:   'controller/datosAccionesVisibles.php',
+      			    type:  'post',
+      			    data: parametros,
+      			    success: function (response) {
+      			      var p = jQuery.parseJSON(response);
+      			      if(p.aaData.length !== 0){
+      			        for(var i = 0; i < p.aaData.length; i++) {
+      			          if(p.aaData[i].VISIBLE == 1){
+      			            if(p.aaData[i].ENABLE == 1){
+      			              $("#accionesMarcaModelo").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+      			            }
+      			            else{
+      			              $("#accionesMarcaModelo").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+      			            }
+      			          }
+      			        }
+      			      }
+      			    }
+      			  });
+
+      			  setTimeout(function(){
+      			    var js = document.createElement('script');
+      			    js.src = 'view/js/funciones.js?idLoad=68';
+      			    document.getElementsByTagName('head')[0].appendChild(js);
+      			  },500);
+      			},100);
           },1000);
           menuElegant();
         },200);

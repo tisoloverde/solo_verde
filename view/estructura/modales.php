@@ -1552,83 +1552,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-
-<!-- MODAL INGRESO MARCAMODELO -->
-<div id="modalIngresoMarcaModelo" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloIngresoMarcaModelo"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Marca Modelo</h5>
-      </div>
-      <div id="bodyIngresoMarcaModelo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Marca</label>
-            <input id="marcaIngresoMarcaModelo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Modelo</label>
-            <input id="modeloIngresoMarcaModelo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Litros</label>
-            <input id="litrosIngresoMarcaModelo" class="form-control" type="text" value=" ">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- MODAL EDITAR MARCAMODELO -->
-<div id="modalEditarMarcaModelo" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloEditarMarcaModelo"><span class="fas fa-tachometer-alt"></span>&nbsp;&nbsp;Editar Marca Modelo </h5>
-      </div>
-      <div id="bodyEditarMarcaModelo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Marca</label>
-            <input id="marcaEditarMarcaModelo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Modelo</label>
-            <input id="modeloEditarMarcaModelo" class="form-control"type="text" value=" ">
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Litros</label>
-            <input id="litrosEditarMarcaModelo" class="form-control"type="text" value=" ">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-				<button id="guardarEditarMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEditarMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <!-- MODAL INGRESO TALLERES -->
 <div id="modalIngresoTaller" class="modal modal-fullscreen fade" role="dialog">
 
@@ -11420,6 +11343,78 @@ include "./modales/personal/update.php";
 			<div class="modal-footer" style="text-align: left;">
         <button id="guardarEliminarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
         <button id="cancelarEliminarCheck" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalIngresoMarcaModelo" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloIngresoMarcaModelo"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Marca Modelo</h5>
+      </div>
+      <div id="bodyIngresoMarcaModelo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Marca</label>
+            <input id="marcaIngresoMarcaModelo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Modelo</label>
+            <input id="modeloIngresoMarcaModelo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Litros</label>
+            <input id="litrosIngresoMarcaModelo" class="form-control" type="text" value=" ">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarMarcaModelo" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloEditarMarcaModelo"><span class="fas fa-tachometer-alt"></span>&nbsp;&nbsp;Editar Marca Modelo </h5>
+      </div>
+      <div id="bodyEditarMarcaModelo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Marca</label>
+            <input id="marcaEditarMarcaModelo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Modelo</label>
+            <input id="modeloEditarMarcaModelo" class="form-control"type="text" value=" ">
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Litros</label>
+            <input id="litrosEditarMarcaModelo" class="form-control"type="text" value=" ">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+				<button id="guardarEditarMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarMarcaModelo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

@@ -3754,27 +3754,6 @@ ON P.IDAREAFUNCIONAL  = A.IDAREAFUNCIONAL";
 	}
 }
 
-// Consultas MarcaModelo Mantenedores
-function consultaMarcaModelo(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, IDPATENTE_MARCAMODELO, MARCA, MODELO, LITROS_ESTANQUE
-FROM PATENTE_MARCAMODELO";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consultas Sucursales Mantenedores
 function consultaSucursal(){
 	$con = conectar();
@@ -4126,78 +4105,6 @@ WHERE NOMBRE = '$nombre'";
 		}
 	}
 	else{
-		return "Error";
-	}
-}
-
-// Consulta para ingresar MarcaModelo
-function ingresaMarcaModelo( $marca, $modelo, $litros){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_MARCAMODELO(MARCA,MODELO,LITROS_ESTANQUE)
-VALUES ( '" .$marca."',
-'" . $modelo . "',
-'" . $litros . "')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para chequear si existe una MarcaModelo iguales
-function chequeaMarcaModelo($marca, $modelo){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT IDPATENTE_MARCAMODELO
-FROM PATENTE_MARCAMODELO
-WHERE MARCA = '$marca' AND MODELO = '$modelo'";
-		if ($row = $con->query($sql)) {
-
-			$array = $row->fetch_array(MYSQLI_BOTH);
-
-			return $array;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para Editar MarcaModelo
-function editarMarcaModelo( $id_MarcaModelo, $marca, $modelo, $litros){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_MARCAMODELO
-	SET MARCA = '" . $marca . "',
-	MODELO = '" .$modelo . "',
-	LITROS_ESTANQUE = '" .$litros . "'
-	WHERE IDPATENTE_MARCAMODELO = '" . $id_MarcaModelo . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
 		return "Error";
 	}
 }
@@ -21508,6 +21415,95 @@ WHERE U.RUT = '{$rutUser}'";
 			else{
 					$con->query("ROLLBACK");
 					return "Error";
+			}
+		}
+
+		function consultaMarcaModelo(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, IDPATENTE_MARCAMODELO, MARCA, MODELO, LITROS_ESTANQUE
+		FROM PATENTE_MARCAMODELO";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function chequeaMarcaModelo($marca, $modelo){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDPATENTE_MARCAMODELO
+		FROM PATENTE_MARCAMODELO
+		WHERE MARCA = '$marca' AND MODELO = '$modelo'";
+				if ($row = $con->query($sql)) {
+
+					$array = $row->fetch_array(MYSQLI_BOTH);
+
+					return $array;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaMarcaModelo( $marca, $modelo, $litros){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_MARCAMODELO(MARCA,MODELO,LITROS_ESTANQUE)
+		VALUES ( '" .$marca."',
+		'" . $modelo . "',
+		'" . $litros . "')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function editarMarcaModelo( $id_MarcaModelo, $marca, $modelo, $litros){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_MARCAMODELO
+			SET MARCA = '" . $marca . "',
+			MODELO = '" .$modelo . "',
+			LITROS_ESTANQUE = '" .$litros . "'
+			WHERE IDPATENTE_MARCAMODELO = '" . $id_MarcaModelo . "'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
 			}
 		}
 		// Fin Flota

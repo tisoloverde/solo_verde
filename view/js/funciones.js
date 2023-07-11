@@ -11202,4 +11202,186 @@ $("#guardarEliminarCheck").unbind('click').click(async function(){
     }
   });
 });
+
+$("#agregarMarcaModelo").unbind("click").click(async function(){
+  $("#modalIngresoMarcaModelo").find("input,textarea,select").val("");
+  $("#marcaIngresoMarcaModelo").removeClass("is-invalid");
+  $("#modeloIngresoMarcaModelo").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalIngresoMarcaModelo").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoMarcaModelo').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarIngresoMarcaModelo").unbind('click').click(function(){
+  if($("#marcaIngresoMarcaModelo").val().length == 0 || $("#modeloIngresoMarcaModelo").val().length == 0 ){
+    alertasToast("Debe completar todos los campos marcados");
+    if ($("#marcaIngresoMarcaModelo").val().length == 0){
+      $("#marcaIngresoMarcaModelo").addClass("is-invalid");
+    }
+    if ($("#modeloIngresoMarcaModelo").val().length == 0){
+      $("#modeloIngresoMarcaModelo").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalIngresoMarcaModelo").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "marca": $("#marcaIngresoMarcaModelo").val(),
+      "modelo":  $("#modeloIngresoMarcaModelo").val(),
+      "litros":  $("#litrosIngresoMarcaModelo").val(),
+    }
+    $.ajax({
+      url:   'controller/datosChequeaMarcaModelo.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            alertasToast("La Marca y Modelo ya existen");
+            $("#marcaIngresoMarcaModelo").addClass("is-invalid");
+            $("#modeloIngresoMarcaModelo").addClass("is-invalid");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalIngresoMarcaModelo").modal("show");
+            },500);
+          }
+        }
+        // Ingresamos Marca Modelo despues de verificar
+        else {
+          $.ajax({
+            url: "controller/ingresaMarcaModelo.php",
+            type: 'POST',
+            data: parametros,
+            success:  function (response) {
+              var p = response.split(",");
+              if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaListadoMarcaModelo').DataTable();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Marca Modelo Creado correctamente");
+                  $("#editarMarcaModelo").attr("disabled","disabled");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Marca Modelo, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Marca Modelo, si el problema persiste favor comuniquese con soporte");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#marcaIngresoMarcaModelo").on('input', function(){   // Removemos el is-invalid que se activo por dejar campo en blanco
+  $(this).removeClass("is-invalid");
+});
+
+$("#modeloIngresoMarcaModelo").on('input', function(){   // Removemos el is-invalid que se activo por dejar campo en blanco
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarMarcaModelo").unbind('click').click( async function(){
+  var table = $('#tablaListadoMarcaModelo').DataTable();
+  var marca = $.map(table.rows('.selected').data(), function (item) {
+      return item.MARCA;
+  });
+  var modelo = $.map(table.rows('.selected').data(), function (item) {
+    return item.MODELO;
+  });
+  var litros = $.map(table.rows('.selected').data(), function (item) {
+    return item.LITROS_ESTANQUE;
+  });
+  $("#marcaEditarMarcaModelo").val(marca);
+  $("#modeloEditarMarcaModelo").val(modelo);
+  $("#litrosEditarMarcaModelo").val(litros);
+  $('#modalEditarMarcaModelo').modal('show');
+});
+
+$("#guardarEditarMarcaModelo").unbind('click').click(function(){
+  $("#modalEditarMarcaModelo").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoMarcaModelo').DataTable();
+  var idMarcaModelo = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_MARCAMODELO;
+  });
+  parametros = {
+    "idTipoVehiculo": idMarcaModelo[0],
+    "marca":  $("#marcaEditarMarcaModelo").val(),
+    "modelo": $("#modeloEditarMarcaModelo").val(),
+    "litros": $("#litrosEditarMarcaModelo").val(),
+  }
+  $("#modalEditarMarcaModelo").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $.ajax({
+    url: "controller/editarMarcaModelo.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoMarcaModelo').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Marca Modelo Editado correctamente");
+          $("#editarMarcaModelo").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Marca Modelo, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Marca Modelo, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#marcaEditarMarcaModelo").on('input', function(){   // Removemos el is-invalid que se activo por dejar campo en blanco
+  $(this).removeClass("is-invalid");
+});
+$("#modeloEditarMarcaModelo").on('input', function(){   // Removemos el is-invalid que se activo por dejar campo en blanco
+  $(this).removeClass("is-invalid");
+});
 // Fin Flota
