@@ -3422,7 +3422,6 @@ app.controller("tipoVehiculoController", function(){
                 },2000);
               }
           });
-          await esconderMenu();
           setTimeout(async function(){
             var path = window.location.href.split('#/')[1];
       		  var parametros = {
@@ -3456,7 +3455,7 @@ app.controller("tipoVehiculoController", function(){
               document.getElementsByTagName('head')[0].appendChild(js);
             },500);
           },1000);
-          menuElegant();
+          marcarMenuActivo(); menuElegant();
         },200);
       }
     }
@@ -3571,7 +3570,6 @@ app.controller("marcaModeloController", function(){
                 },500);
               }
           });
-          await esconderMenu();
           setTimeout(function(){
             var path = window.location.href.split('#/')[1];
       		  var parametros = {
@@ -3607,7 +3605,7 @@ app.controller("marcaModeloController", function(){
       			  },500);
       			},100);
           },1000);
-          menuElegant();
+          marcarMenuActivo(); menuElegant();
         },200);
       }
     }
