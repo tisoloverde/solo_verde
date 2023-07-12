@@ -9311,10 +9311,10 @@ async function listCalendario(filtro) {
 
       // total=10 , curr=8, semana=3 --> [5 - 8]
       // total=10 , curr=6, semana=3 --> [3 - 6]
-      if (filtro > 0) {
+      if (filtro >= 0) {
         var currentWeek = aux.findIndex(({ ES_ACTUAL}) => `${ES_ACTUAL}` == '1');
         aux = aux.splice(
-          currentWeek - filtro > 0 ? currentWeek - filtro : 0,
+          currentWeek - filtro >= 0 ? currentWeek - filtro : 0,
           currentWeek,
         );
       }
