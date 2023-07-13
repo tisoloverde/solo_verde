@@ -3301,7 +3301,7 @@ app.controller("indicadorAusentismoController", function(){
         var ano = d.getFullYear();
         var mes = d.getMonth()+1;
 
-        $("#ausentismoBI").attr("src",'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df6":"include%EE%80%801%EE%80%80IN%EE%80%80"}' + mes.toString());
+        $("#ausentismoBI").attr("src",'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df6":"include%EE%80%801%EE%80%80IN%EE%80%80"' + mes.toString() + '}');
         setTimeout(function(){
           $("#ausentismoBI").attr("width","98%");
           $("#ausentismoBI").attr("height",$(window).height()-30);
