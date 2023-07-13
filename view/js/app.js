@@ -3297,7 +3297,7 @@ app.controller("indicadorAusentismoController", function(){
         //   "ds46.usuario": response
         // };
 
-        $("#ausentismoBI").attr("src",'https://datastudio.google.com/embed/reporting/031d202f-a3ed-445e-86e0-0f2818c09c0a/page/CpqAD');
+        $("#ausentismoBI").attr("src",'https://lookerstudio.google.com/embed/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD');
         setTimeout(function(){
           $("#ausentismoBI").attr("width","98%");
           $("#ausentismoBI").attr("height",$(window).height()-30);

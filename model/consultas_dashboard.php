@@ -2,11 +2,11 @@
 	 // ini_set('display_errors', 'On');
 	require('conexion.php');
 
-  function datosDashboard1($mes, $ano){
+  function datosDashboard1(){
       $con = conectar();
       if($con != "No conectado"){
 
-          $sql = "CALL DASHBOARD_1_SOLO_VERDE('{$mes}','{$ano}')";
+          $sql = "CALL DASHBOARD_1_SOLO_VERDE()";
 
           if ($row = $con->query($sql)) {
           $return = array();
