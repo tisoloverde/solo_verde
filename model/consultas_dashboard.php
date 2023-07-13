@@ -10,7 +10,7 @@
 
           if ($row = $con->query($sql)) {
           $return = array();
-          while ($array = $row->fetch_array(MYSQLI_BOTH)) {
+          while ($array = $row->fetch_array(MYSQLI_ASSOC)) {
               $return[] = $array;
           }
               return $return;
