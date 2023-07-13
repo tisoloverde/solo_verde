@@ -3308,7 +3308,7 @@ app.controller("indicadorAusentismoController", function(){
           setTimeout(function(){
             loading(false);
             setTimeout(function(){
-              $(".embedding-footer").remove();
+              $(".embedding-footer.layout-align-end-end.layout-row.show-navigation.ng-star-inserted").remove();
             },1000);
           },2000);
         },2000);
