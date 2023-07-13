@@ -7,109 +7,109 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idLoad=70"
+        templateUrl : "view/home/login.html?idLoad=71"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idLoad=70"
+        templateUrl : "view/home/home.html?idLoad=71"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idLoad=70"
+        templateUrl : "view/home/home.html?idLoad=71"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idLoad=70"
+        templateUrl : "view/home/changePass.html?idLoad=71"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idLoad=70"
+        templateUrl : "view/usuario/usuarios.html?idLoad=71"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idLoad=70"
+        templateUrl : "view/usuario/perfiles.html?idLoad=71"
     })
     .when("/dotacion", {
         controller: "dotacionController",
         controllerAs: "vm",
-        templateUrl : "view/personal/dotacion.html?idLoad=70"
+        templateUrl : "view/personal/dotacion.html?idLoad=71"
     })
     .when("/subcontratistas", {
         controller: "subcontratistasController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/subcontratistas.html?idLoad=70"
+        templateUrl : "view/controlling/subcontratistas.html?idLoad=71"
     })
     .when("/gerencia", {
         controller: "gerenciaController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/gerencia.html?idLoad=70"
+        templateUrl : "view/controlling/gerencia.html?idLoad=71"
     })
     .when("/estadoProyecto", {
         controller: "estadoProyectoController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/estadoProyecto.html?idLoad=70"
+        templateUrl : "view/controlling/estadoProyecto.html?idLoad=71"
     })
     .when("/clienteProyecto", {
         controller: "clienteController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/cliente.html?idLoad=70"
+        templateUrl : "view/controlling/cliente.html?idLoad=71"
     })
     .when("/centro_costos",{
         controller: "proyectosController",
         controllerAs: "wm",
-        templateUrl: "view/controlling/proyecto.html?idLoad=70"
+        templateUrl: "view/controlling/proyecto.html?idLoad=71"
     })
     .when("/gestionJefatura", {
       controller: "jefaturaController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/gestionJefatura.html?idLoad=70"
+      templateUrl : "view/adminPersonal/gestionJefatura.html?idLoad=71"
     })
     .when("/areaFuncional", {
         controller: "mantenedorAreaFuncionalController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/areaFuncional.html?idLoad=70"
+        templateUrl : "view/adminPersonal/areaFuncional.html?idLoad=71"
     })
     // Sucursales
     .when("/sucursales", {
       controller: "sucursalController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/sucursal.html?idLoad=70"
+      templateUrl : "view/adminPersonal/sucursal.html?idLoad=71"
     })
     .when("/paises", {
         controller: "mantenedorPaisesController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/paises.html?idLoad=70"
+        templateUrl : "view/adminPersonal/paises.html?idLoad=71"
     })
     .when("/equipo", {
         controller: "personalController",
         controllerAs: "vm",
-        templateUrl : "view/personal/personal.html?idLoad=70"
+        templateUrl : "view/personal/personal.html?idLoad=71"
     })
     .when("/planillaAsistencia", {
       controller: "planillaAsistenciaController",
       controllerAs: "vm",
-      templateUrl : "view/personal/planillaAsistencia.html?idLoad=70"
+      templateUrl : "view/personal/planillaAsistencia.html?idLoad=71"
     })
     .when("/indicadorAusentismo", {
       controller: "indicadorAusentismoController",
       controllerAs: "vm",
-      templateUrl : "view/reporteria/ausentismo.html?idLoad=70"
+      templateUrl : "view/reporteria/ausentismo.html?idLoad=71"
     })
     // Inicio Flota
     .when("/tipoVehiculo", {
       controller: "tipoVehiculoController",
       controllerAs: "vm",
-      templateUrl : "view/flota/tipoVehiculo.html?idLoad=70"
+      templateUrl : "view/flota/tipoVehiculo.html?idLoad=71"
     })
     .when("/marcaModelo", {
       controller: "marcaModeloController",
       controllerAs: "vm",
-      templateUrl : "view/flota/marcaModelo.html?idLoad=70"
+      templateUrl : "view/flota/marcaModelo.html?idLoad=71"
     })
     // Fin Flota
     .otherwise({redirectTo: '/home'});
@@ -120,7 +120,7 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller("homeController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -185,7 +185,7 @@ app.controller("homeController", function(){
 app.controller("loginController", function(){
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-80);
+    $("#contenido").css("height",$(window).height()-120);
     marcarMenuActivo(); menuElegant();
   },1000);
   splashOpen();
@@ -345,7 +345,7 @@ app.controller("loginController", function(){
 app.controller("logoutController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   splashOpen();
@@ -365,7 +365,7 @@ app.controller("logoutController", function(){
 app.controller("changePassController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
     splashOpen();
@@ -418,7 +418,7 @@ app.controller("changePassController", function(){
 app.controller("usuariosController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   splashOpen();
@@ -577,7 +577,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idLoad=70';
+                      js.src = 'view/js/funciones.js?idLoad=71';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -600,7 +600,7 @@ app.controller("usuariosController", function(){
 app.controller("perfilesController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   splashOpen();
@@ -746,7 +746,7 @@ app.controller("perfilesController", function(){
 app.controller("dotacionController", function(){
   setTimeout(function(){
     $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-80);
+    $("#contenido").css("height",$(window).height()-120);
     marcarMenuActivo(); menuElegant();
   },1000);
   var path = initScreen();
@@ -797,7 +797,7 @@ app.controller("dotacionController", function(){
 app.controller("subcontratistasController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -932,7 +932,7 @@ app.controller("subcontratistasController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=70';
+                    js.src = 'view/js/funciones.js?idLoad=71';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
                 },100);
@@ -955,7 +955,7 @@ app.controller("subcontratistasController", function(){
 app.controller("gerenciaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1111,7 +1111,7 @@ app.controller("gerenciaController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=70';
+                js.src = 'view/js/funciones.js?idLoad=71';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1132,7 +1132,7 @@ app.controller("gerenciaController", function(){
 app.controller("estadoProyectoController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1286,7 +1286,7 @@ app.controller("estadoProyectoController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=70';
+                js.src = 'view/js/funciones.js?idLoad=71';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1304,7 +1304,7 @@ app.controller("estadoProyectoController", function(){
 app.controller("clienteController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1456,7 +1456,7 @@ app.controller("clienteController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=70';
+                js.src = 'view/js/funciones.js?idLoad=71';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1477,7 +1477,7 @@ app.controller("clienteController", function(){
 app.controller("proyectosController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1659,7 +1659,7 @@ app.controller("proyectosController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=70';
+                js.src = 'view/js/funciones.js?idLoad=71';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
 
@@ -1684,7 +1684,7 @@ app.controller("proyectosController", function(){
 app.controller("jefaturaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -1917,7 +1917,7 @@ app.controller("jefaturaController", function(){
 app.controller("sucursalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -2055,7 +2055,7 @@ app.controller("sucursalController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idLoad=70';
+                      js.src = 'view/js/funciones.js?idLoad=71';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -2078,7 +2078,7 @@ app.controller("sucursalController", function(){
 app.controller("mantenedorAreaFuncionalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -2222,7 +2222,7 @@ app.controller("mantenedorAreaFuncionalController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=70';
+                    js.src = 'view/js/funciones.js?idLoad=71';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -2246,7 +2246,7 @@ app.controller("mantenedorAreaFuncionalController", function(){
 app.controller("mantenedorPaisesController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   clearInterval(lineaTiempo);
@@ -2380,7 +2380,7 @@ app.controller("mantenedorPaisesController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=70';
+                    js.src = 'view/js/funciones.js?idLoad=71';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -2404,7 +2404,7 @@ app.controller("mantenedorPaisesController", function(){
 app.controller("personalController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
@@ -2937,7 +2937,7 @@ app.controller("personalController", function(){
 app.controller("planillaAsistenciaController", function(){
     setTimeout(function(){
       $("body").css("height",$(window).height());
-      $("#contenido").css("height",$(window).height()-80);
+      $("#contenido").css("height",$(window).height()-120);
       marcarMenuActivo(); menuElegant();
     },1000);
   var path = initScreen();
@@ -3307,14 +3307,10 @@ app.controller("indicadorAusentismoController", function(){
           $("#ausentismoBI").attr("height",$(window).height()-30);
           setTimeout(function(){
             loading(false);
-            setTimeout(function(){
-              $(".embedding-footer.layout-align-end-end.layout-row.show-navigation.ng-star-inserted").remove();
-              console.log("borrado");
-            },20000);
           },2000);
         },2000);
         setTimeout(async function(){
-          marcarMenuActivo(); menuElegant();
+          marcarMenuActivo();
         },2000);
       }
     }
@@ -3459,7 +3455,7 @@ app.controller("tipoVehiculoController", function(){
 
             setTimeout(function(){
               var js = document.createElement('script');
-              js.src = 'view/js/funciones.js?idLoad=70';
+              js.src = 'view/js/funciones.js?idLoad=71';
               document.getElementsByTagName('head')[0].appendChild(js);
             },500);
           },1000);
@@ -3608,7 +3604,7 @@ app.controller("marcaModeloController", function(){
 
       			  setTimeout(function(){
       			    var js = document.createElement('script');
-      			    js.src = 'view/js/funciones.js?idLoad=70';
+      			    js.src = 'view/js/funciones.js?idLoad=71';
       			    document.getElementsByTagName('head')[0].appendChild(js);
       			  },500);
       			},100);
