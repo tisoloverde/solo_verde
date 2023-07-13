@@ -759,3 +759,13 @@ div[class$="dataTables_processing"]{
   padding-bottom: 10px !important;
 }
 /* == Fin Menu == */
+
+.hidden-link-url{
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 2%;
+  z-index: 2000;
+}
