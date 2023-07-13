@@ -3309,7 +3309,7 @@ app.controller("indicadorAusentismoController", function(){
             loading(false);
             setTimeout(function(){
               $(".embedding-footer.layout-align-end-end.layout-row.show-navigation.ng-star-inserted").remove();
-            },1000);
+            },10000);
           },2000);
         },2000);
         setTimeout(async function(){
