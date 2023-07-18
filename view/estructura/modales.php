@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=71';
+  js.src = 'view/js/funciones.js?idLoad=72';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -11061,7 +11061,7 @@ include "./modales/personal/update.php";
             <select id="tipoInformeGeneraInformeRexmas1" class="form-control">
 							<option value="faltas">Faltas y permisos</option>
 							<option value="heAtrasos">Horas extras y atrasos</option>
-							<option value="general">General</option>
+							<!-- <option value="general">General</option> -->
 							<option value="generalMensual">General mensual</option>
 						</select>
           </div>
