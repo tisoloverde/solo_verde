@@ -36,10 +36,10 @@
   $row = cosultaInformeRexmasGeneralMensual($ceco,$anoMes);
 
   $detalle = array();
-  $detalle[] = array('CECO',	'Nombre CECO',	'RUN',	'Nombre',	'Contrato',	'Fecha Ingreso',	'Fecha Termino',	'Dias a pagar',	'HE50',	'HE100',	'Atraso');
+  $detalle[] = array('CECO',	'Nombre CECO',	'RUN',	'Nombre',	'Contrato',	'Fecha Ingreso',	'Fecha Termino',	'Dias a pagar',	'HE50',	'HE100',	'Atraso', 'Cargo', 'Empresa');
 
   for($i = 0; $i < count($row); $i++){
-      $detalle[] = array($row[$i][0],	$row[$i][1],	$row[$i][2],	$row[$i][3],	$row[$i][4],	$row[$i][5],	$row[$i][6], $row[$i][7],	$row[$i][8], $row[$i][9], $row[$i][10]);
+      $detalle[] = array($row[$i][0],	$row[$i][1],	$row[$i][2],	$row[$i][3],	$row[$i][4],	$row[$i][5],	$row[$i][6], $row[$i][7],	$row[$i][8], $row[$i][9], $row[$i][10], $row[$i][11], $row[$i][12]);
   }
 
   //Generamos archivo excel
