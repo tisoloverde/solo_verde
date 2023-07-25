@@ -11738,4 +11738,274 @@ $("#guardarEliminarAseguradora").unbind('click').click(async function(){
   });
   $('#modalEliminarAseguradora').modal('hide');
 });
+
+$("#agregarProveedores").unbind("click").click(async function(){
+  $("#modalIngresoProveedores").find("input,textarea,select").val("");
+  $("#nombreIngresoProveedores").removeClass("is-invalid");
+  $("#rutIngresoProveedores").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  await $.ajax({
+    url:   'controller/datosPropiedad.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].PROPIEDAD === "Arriendo" || p2.aaData[i].PROPIEDAD === "Leasing Operativo" || p2.aaData[i].PROPIEDAD === "Leasing Financiero" || p2.aaData[i].PROPIEDAD === "Propio Empresa"){
+            cuerpoEC += '<option value="' + p2.aaData[i].IDPATENTE_PROPIEDAD + '">' + p2.aaData[i].PROPIEDAD + '</option>';
+          }
+        }
+        $("#propiedadProveedores").html(cuerpoEC);
+      }
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#propiedadProveedores").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $("#modalIngresoProveedores").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoProveedores').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("input#rutIngresoProveedores").rut({
+  formatOn: 'blur',
+  minimumLength: 8,
+  validateOn: 'change'
+}).on('rutInvalido', function(e) {
+  if($("#rutIngresoProveedores").val() !== ''){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El RUT ingresado no es válido");
+    $("#rutIngresoProveedores").val("");
+    $("#rutIngresoProveedores").addClass("is-invalid");
+  }
+});
+
+$("#guardarIngresoProveedores").unbind('click').click(function(){
+  if($("#rutIngresoProveedores").val().length == 0 || $("#nombreIngresoProveedores").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#rutIngresoProveedores").val().length == 0){
+      $("#rutIngresoProveedores").addClass("is-invalid");
+    }
+    if ($("#nombreIngresoProveedores").val().length == 0){
+      $("#nombreIngresoProveedores").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalIngresoProveedores").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "rutProveedores": $.trim($("#rutIngresoProveedores").val().replace('.','').replace('.','')),
+      "nombre": $("#nombreIngresoProveedores").val(),
+      "propiedad": $("#propiedadProveedores").val(),
+      "contrato": $("#contratoProveedores").val()
+    }
+    $.ajax({
+      url:   'controller/datosChequeaProveedores.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El proveedor ya existe");
+            $("#rutIngresoProveedores").addClass("is-invalid");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalIngresoProveedores").modal("show");
+            },500);
+          }
+        }
+        // Ingresamos Proveedores despues de verificar
+        else {
+          $.ajax({
+            url: "controller/ingresaProveedores.php",
+            type: 'POST',
+            data: parametros,
+            success:  function (response) {
+              var p = response.split(",");
+              if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaListadoProveedores').DataTable();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Proveedor Creado correctamente");
+                  $("#editarProveedores").attr("disabled","disabled");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Proveedor, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Proveedor, si el problema persiste favor comuniquese con soporte");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#nombreIngresoProveedores").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#rutIngresoProveedores").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarProveedores").unbind('click').click( async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoProveedores').DataTable();
+  var rutProveedor = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT;
+  });
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+    return item.PROVEEDOR;
+  });
+  var propiedad = $.map(table.rows('.selected').data(), function (item) {
+    return item.PROPIEDAD;
+  });
+  var nro_contrato = $.map(table.rows('.selected').data(), function (item) {
+    return item.NRO_CONTRATO;
+  });
+  $("#rutEditarProveedores").val(rutProveedor);
+  $("#rutEditarProveedores").attr("disabled","disabled");
+  $("#nombreEditarProveedores").val(nombre);
+  $("#contratoEditarProveedores").val(nro_contrato);
+
+  await $.ajax({
+    url:   'controller/datosPropiedad.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoPR = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].PROPIEDAD === "Arriendo" || p2.aaData[i].PROPIEDAD === "Leasing Operativo" || p2.aaData[i].PROPIEDAD === "Leasing Financiero" || p2.aaData[i].PROPIEDAD === "Propio Empresa"){
+            if(propiedad == p2.aaData[i].PROPIEDAD){
+              cuerpoPR += '<option selected value="' + p2.aaData[i].IDPATENTE_PROPIEDAD + '">' + p2.aaData[i].PROPIEDAD + '</option>';
+            }
+            else{
+              cuerpoPR += '<option value="' + p2.aaData[i].IDPATENTE_PROPIEDAD + '">' + p2.aaData[i].PROPIEDAD + '</option>';
+            }
+          }
+        }
+        $("#propiedadEditarProveedores").html(cuerpoPR);
+      }
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#propiedadEditarProveedores").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalEditarProveedores").modal("show");
+  },500);
+});
+
+$("#guardarEditarProveedores").unbind('click').click(function(){
+  if($("#rutEditarProveedores").val().length == 0 || $("#nombreEditarProveedores").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#rutEditarProveedores").val().length == 0){
+      $("#rutEditarProveedores").addClass("is-invalid");
+    }
+    if ($("#nombreEditarProveedores").val().length == 0){
+      $("#nombreEditarProveedores").addClass("is-invalid");
+    }
+  }
+  else {
+    var table = $('#tablaListadoProveedores').DataTable();
+    var idProveedores = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDPATENTE_PROVEEDOR;
+    });
+    parametros = {
+      "idProveedores": idProveedores[0],
+      "rutProveedores":  $.trim($("#rutEditarProveedores").val().replace('.','').replace('.','')),
+      "nombre":  $("#nombreEditarProveedores").val(),
+      "propiedad":  $("#propiedadEditarProveedores").val(),
+      "contrato":  $("#contratoEditarProveedores").val()
+    }
+    $("#modalEditarProveedores").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/editarProveedores.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoProveedores').DataTable();
+            table.ajax.reload();
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Proveedor Editado correctamente");
+            $("#editarProveedores").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Proveedor, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Proveedor, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#rutEditarProveedores").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#nombreEditarProveedores").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
 // Fin Flota

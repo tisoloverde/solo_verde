@@ -4586,52 +4586,6 @@ WHERE DNI IN ({$strlstPersonalLibre})";
   }
 }
 
-// Consulta Proveedores Mantenedores
-function consultaProveedores(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, P.IDPATENTE_PROVEEDOR, P.RUT, P.PROVEEDOR, E.PROPIEDAD, P.NRO_CONTRATO
-						FROM PATENTE_PROVEEDOR P
-						LEFT JOIN PATENTE_PROPIEDAD E
-						ON P.IDPATENTE_PROPIEDAD = E.idPATENTE_PROPIEDAD";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para chequear Proveedores
-function chequeaProveedores($rut){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT IDPATENTE_PROVEEDOR
-FROM PATENTE_PROVEEDOR
-WHERE RUT = '" . $rut . "'";
-		if ($row = $con->query($sql)) {
-
-			$array = $row->fetch_array(MYSQLI_BOTH);
-
-			return $array;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 function activarDesvinculado($rut, $observacion, $rutUsuario){
 		$con = conectar();
 		$con->query("START TRANSACTION");
@@ -4681,55 +4635,6 @@ FROM SUBCONTRATISTAS";
 			return "Error";
 		}
 	}
-
-// Consulta para ingresar Proveedores
-function ingresaProveedores($rut, $proveedor, $propiedad, $contrato){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_PROVEEDOR(RUT, PROVEEDOR, IDPATENTE_PROPIEDAD, NRO_CONTRATO)
-						VALUES ( '" . $rut . "', '" . $proveedor . "', '" . $propiedad . "', '" . $contrato . "')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para Editar Proveedores
-function editarProveedores($id_Proveedores, $rut, $nombre, $propiedad, $contrato){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_PROVEEDOR
-			SET RUT = '" . $rut . "',
-	    PROVEEDOR = '" . $nombre . "',
-			IDPATENTE_PROPIEDAD = '" . $propiedad . "',
-			NRO_CONTRATO = '" . $contrato . "'
-			WHERE IDPATENTE_PROVEEDOR = '" . $id_Proveedores . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
 
 function chequeaSubcontratista($rut){
 		$con = conectar();
@@ -5075,27 +4980,6 @@ function consultaInformeDisponibilidadEvolucion($rut,$path,$inicio,$fin){
 	if($con != 'No conectado'){
 		$sql = "CALL INFORME_DISPONIBILIDAD_EVOLUCION('{$rut}','{$path}','{$inicio}','{$fin}')";
 		if ($row = $con->query($sql)){
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consultas Propiedad-Patente
-function consultaPropiedad(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT IDPATENTE_PROPIEDAD, PROPIEDAD
-FROM PATENTE_PROPIEDAD";
-		if ($row = $con->query($sql)) {
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
 					$return[] = $array;
 				}
@@ -21498,6 +21382,117 @@ WHERE U.RUT = '{$rutUser}'";
 			else{
 					$con->query("ROLLBACK");
 					return "Error";
+			}
+		}
+
+		function consultaProveedores(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, P.IDPATENTE_PROVEEDOR, P.RUT, P.PROVEEDOR, E.PROPIEDAD, P.NRO_CONTRATO
+								FROM PATENTE_PROVEEDOR P
+								LEFT JOIN PATENTE_PROPIEDAD E
+								ON P.IDPATENTE_PROPIEDAD = E.idPATENTE_PROPIEDAD";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaPropiedad(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDPATENTE_PROPIEDAD, PROPIEDAD
+		FROM PATENTE_PROPIEDAD";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function chequeaProveedores($rut){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDPATENTE_PROVEEDOR
+		FROM PATENTE_PROVEEDOR
+		WHERE RUT = '" . $rut . "'";
+				if ($row = $con->query($sql)) {
+
+					$array = $row->fetch_array(MYSQLI_BOTH);
+
+					return $array;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaProveedores($rut, $proveedor, $propiedad, $contrato){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_PROVEEDOR(RUT, PROVEEDOR, IDPATENTE_PROPIEDAD, NRO_CONTRATO)
+								VALUES ( '" . $rut . "', '" . $proveedor . "', '" . $propiedad . "', '" . $contrato . "')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function editarProveedores($id_Proveedores, $rut, $nombre, $propiedad, $contrato){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_PROVEEDOR
+					SET RUT = '" . $rut . "',
+			    PROVEEDOR = '" . $nombre . "',
+					IDPATENTE_PROPIEDAD = '" . $propiedad . "',
+					NRO_CONTRATO = '" . $contrato . "'
+					WHERE IDPATENTE_PROVEEDOR = '" . $id_Proveedores . "'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
 			}
 		}
 		// Fin Flota

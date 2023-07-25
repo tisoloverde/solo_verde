@@ -7,114 +7,119 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/login", {
         controller: "loginController",
         controllerAs: "vm",
-        templateUrl : "view/home/login.html?idLoad=72"
+        templateUrl : "view/home/login.html?idLoad=73"
     })
     .when("/home", {
         controller: "homeController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idLoad=72"
+        templateUrl : "view/home/home.html?idLoad=73"
     })
     .when("/logout", {
         controller: "logoutController",
         controllerAs: "vm",
-        templateUrl : "view/home/home.html?idLoad=72"
+        templateUrl : "view/home/home.html?idLoad=73"
     })
     .when("/changePass", {
         controller: "changePassController",
         controllerAs: "vm",
-        templateUrl : "view/home/changePass.html?idLoad=72"
+        templateUrl : "view/home/changePass.html?idLoad=73"
     })
     .when("/usuarios", {
         controller: "usuariosController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/usuarios.html?idLoad=72"
+        templateUrl : "view/usuario/usuarios.html?idLoad=73"
     })
     .when("/perfiles", {
         controller: "perfilesController",
         controllerAs: "vm",
-        templateUrl : "view/usuario/perfiles.html?idLoad=72"
+        templateUrl : "view/usuario/perfiles.html?idLoad=73"
     })
     .when("/dotacion", {
         controller: "dotacionController",
         controllerAs: "vm",
-        templateUrl : "view/personal/dotacion.html?idLoad=72"
+        templateUrl : "view/personal/dotacion.html?idLoad=73"
     })
     .when("/subcontratistas", {
         controller: "subcontratistasController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/subcontratistas.html?idLoad=72"
+        templateUrl : "view/controlling/subcontratistas.html?idLoad=73"
     })
     .when("/gerencia", {
         controller: "gerenciaController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/gerencia.html?idLoad=72"
+        templateUrl : "view/controlling/gerencia.html?idLoad=73"
     })
     .when("/estadoProyecto", {
         controller: "estadoProyectoController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/estadoProyecto.html?idLoad=72"
+        templateUrl : "view/controlling/estadoProyecto.html?idLoad=73"
     })
     .when("/clienteProyecto", {
         controller: "clienteController",
         controllerAs: "vm",
-        templateUrl : "view/controlling/cliente.html?idLoad=72"
+        templateUrl : "view/controlling/cliente.html?idLoad=73"
     })
     .when("/centro_costos",{
         controller: "proyectosController",
         controllerAs: "wm",
-        templateUrl: "view/controlling/proyecto.html?idLoad=72"
+        templateUrl: "view/controlling/proyecto.html?idLoad=73"
     })
     .when("/gestionJefatura", {
       controller: "jefaturaController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/gestionJefatura.html?idLoad=72"
+      templateUrl : "view/adminPersonal/gestionJefatura.html?idLoad=73"
     })
     .when("/areaFuncional", {
         controller: "mantenedorAreaFuncionalController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/areaFuncional.html?idLoad=72"
+        templateUrl : "view/adminPersonal/areaFuncional.html?idLoad=73"
     })
     // Sucursales
     .when("/sucursales", {
       controller: "sucursalController",
       controllerAs: "vm",
-      templateUrl : "view/adminPersonal/sucursal.html?idLoad=72"
+      templateUrl : "view/adminPersonal/sucursal.html?idLoad=73"
     })
     .when("/paises", {
         controller: "mantenedorPaisesController",
         controllerAs: "vm",
-        templateUrl : "view/adminPersonal/paises.html?idLoad=72"
+        templateUrl : "view/adminPersonal/paises.html?idLoad=73"
     })
     .when("/equipo", {
         controller: "personalController",
         controllerAs: "vm",
-        templateUrl : "view/personal/personal.html?idLoad=72"
+        templateUrl : "view/personal/personal.html?idLoad=73"
     })
     .when("/planillaAsistencia", {
       controller: "planillaAsistenciaController",
       controllerAs: "vm",
-      templateUrl : "view/personal/planillaAsistencia.html?idLoad=72"
+      templateUrl : "view/personal/planillaAsistencia.html?idLoad=73"
     })
     .when("/indicadorAusentismo", {
       controller: "indicadorAusentismoController",
       controllerAs: "vm",
-      templateUrl : "view/reporteria/ausentismo.html?idLoad=72"
+      templateUrl : "view/reporteria/ausentismo.html?idLoad=73"
     })
     // Inicio Flota
     .when("/tipoVehiculo", {
       controller: "tipoVehiculoController",
       controllerAs: "vm",
-      templateUrl : "view/flota/tipoVehiculo.html?idLoad=72"
+      templateUrl : "view/flota/tipoVehiculo.html?idLoad=73"
     })
     .when("/marcaModelo", {
       controller: "marcaModeloController",
       controllerAs: "vm",
-      templateUrl : "view/flota/marcaModelo.html?idLoad=72"
+      templateUrl : "view/flota/marcaModelo.html?idLoad=73"
     })
     .when("/aseguradoras", {
       controller: "aseguradoraController",
       controllerAs: "vm",
       templateUrl : "view/flota/aseguradora.html?idLoad=303"
+    })
+    .when("/flotaProveedores", {
+      controller: "proveedoresController",
+      controllerAs: "vm",
+      templateUrl : "view/flota/proveedores.html?idLoad=303"
     })
     // Fin Flota
     .otherwise({redirectTo: '/home'});
@@ -582,7 +587,7 @@ app.controller("usuariosController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idLoad=72';
+                      js.src = 'view/js/funciones.js?idLoad=73';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -937,7 +942,7 @@ app.controller("subcontratistasController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=72';
+                    js.src = 'view/js/funciones.js?idLoad=73';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
                 },100);
@@ -1116,7 +1121,7 @@ app.controller("gerenciaController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=72';
+                js.src = 'view/js/funciones.js?idLoad=73';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1291,7 +1296,7 @@ app.controller("estadoProyectoController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=72';
+                js.src = 'view/js/funciones.js?idLoad=73';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1461,7 +1466,7 @@ app.controller("clienteController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=72';
+                js.src = 'view/js/funciones.js?idLoad=73';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
             },100);
@@ -1664,7 +1669,7 @@ app.controller("proyectosController", function(){
 
               setTimeout(function(){
                 var js = document.createElement('script');
-                js.src = 'view/js/funciones.js?idLoad=72';
+                js.src = 'view/js/funciones.js?idLoad=73';
                 document.getElementsByTagName('head')[0].appendChild(js);
               },500);
 
@@ -2060,7 +2065,7 @@ app.controller("sucursalController", function(){
 
                     setTimeout(function(){
                       var js = document.createElement('script');
-                      js.src = 'view/js/funciones.js?idLoad=72';
+                      js.src = 'view/js/funciones.js?idLoad=73';
                       document.getElementsByTagName('head')[0].appendChild(js);
                     },500);
                   },100);
@@ -2227,7 +2232,7 @@ app.controller("mantenedorAreaFuncionalController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=72';
+                    js.src = 'view/js/funciones.js?idLoad=73';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -2385,7 +2390,7 @@ app.controller("mantenedorPaisesController", function(){
 
                   setTimeout(function(){
                     var js = document.createElement('script');
-                    js.src = 'view/js/funciones.js?idLoad=72';
+                    js.src = 'view/js/funciones.js?idLoad=73';
                     document.getElementsByTagName('head')[0].appendChild(js);
                   },500);
 
@@ -3460,7 +3465,7 @@ app.controller("tipoVehiculoController", function(){
 
             setTimeout(function(){
               var js = document.createElement('script');
-              js.src = 'view/js/funciones.js?idLoad=72';
+              js.src = 'view/js/funciones.js?idLoad=73';
               document.getElementsByTagName('head')[0].appendChild(js);
             },500);
           },1000);
@@ -3609,7 +3614,7 @@ app.controller("marcaModeloController", function(){
 
       			  setTimeout(function(){
       			    var js = document.createElement('script');
-      			    js.src = 'view/js/funciones.js?idLoad=72';
+      			    js.src = 'view/js/funciones.js?idLoad=73';
       			    document.getElementsByTagName('head')[0].appendChild(js);
       			  },500);
       			},100);
@@ -3753,6 +3758,158 @@ app.controller("aseguradoraController", function(){
       			            }
       			            else{
       			              $("#accionesAseguradora").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+      			            }
+      			          }
+      			        }
+      			      }
+      			    }
+      			  });
+
+      			  setTimeout(function(){
+      			    var js = document.createElement('script');
+      			    js.src = 'view/js/funciones.js?idLoad=303';
+      			    document.getElementsByTagName('head')[0].appendChild(js);
+      			  },500);
+      			},100);
+          },1000);
+          marcarMenuActivo(); menuElegant();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("proveedoresController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+          $('#modalAlertasSplash').modal('show');
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+          await $('#tablaListadoProveedores').DataTable( {
+              ajax: {
+                  url: "controller/datosProveedores.php",
+                  type: 'POST'
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'RUT'},
+                  { data: 'PROVEEDOR' },
+                  { data: 'PROPIEDAD' },
+                  { data: 'NRO_CONTRATO' }
+
+              ],
+              buttons: [
+                  {
+                    extend: 'excel',
+                    exportOptions: {
+                      columns: [ 1,2,3,4 ]
+                    },
+                    title: null,
+                    text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                  }
+              ],
+              "columnDefs": [
+                {
+                  "width": "5px",
+                  "targets": 0
+                },
+                {
+                  "orderable": false,
+                  "className": 'select-checkbox',
+                  "targets": [ 0 ]
+                },
+              ],
+              "select": {
+                  style: 'single'
+              },
+              "scrollX": true,
+              "paging": true,
+              "ordering": true,
+              "scrollCollapse": true,
+              "info":     true,
+              "lengthMenu": [[largo], [largo]],
+              "dom": 'Bfrtip',
+              "language": {
+                "zeroRecords": "No hay datos disponibles",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No hay datos disponibles",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                  },
+                  "search": "Buscar: ",
+                  "select": {
+                      "rows": "- %d registros seleccionados"
+                  },
+                  "infoFiltered": "(Filtrado de _MAX_ registros)"
+              },
+              "destroy": true,
+              "autoWidth": false,
+              "initComplete": function( settings, json){
+                $('#contenido').show();
+                $('#footer').parent().show();
+                $('#footer').show();
+                setTimeout(async function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  setTimeout(function(){
+                    $('#tablaListadoProveedores').DataTable().columns.adjust();
+                  },500);
+                },2000);
+              }
+          });
+          await esconderMenu();
+          setTimeout(function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+      			setTimeout(async function(){
+      			  await $.ajax({
+      			    url:   'controller/datosAccionesVisibles.php',
+      			    type:  'post',
+      			    data: parametros,
+      			    success: function (response) {
+      			      var p = jQuery.parseJSON(response);
+      			      if(p.aaData.length !== 0){
+      			        for(var i = 0; i < p.aaData.length; i++) {
+      			          if(p.aaData[i].VISIBLE == 1){
+      			            if(p.aaData[i].ENABLE == 1){
+      			              $("#accionesProveedores").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+      			            }
+      			            else{
+      			              $("#accionesProveedores").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
       			            }
       			          }
       			        }
