@@ -3,7 +3,7 @@
   require('./utils/functions.php');
   session_start();
 
-  set_time_limit(60); // 1 minuto (en segundos)
+  set_time_limit(180); // 1 minuto (en segundos)
 
 	if (count($_POST) >= 0) {
     // POST
