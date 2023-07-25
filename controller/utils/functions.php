@@ -55,7 +55,7 @@
       $val = 0;
       if ($sigla == 'PMM' || $sigla == 'PMT' || $sigla == 'FMD' || $sigla == 'PMD' || $sigla == 'FMM' || $sigla == 'FMT') {
         $val = 0.5;
-      } else if ($sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR' || $sigla == 'PER' || $sigla == 'FLT') {
+      } else if ($sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR' || $sigla == 'PER' || $sigla == 'FLT' || $sigla == 'ELI') {
         $val = 1;
       } else {
         $val = 0;
@@ -68,7 +68,7 @@
   function buscarDiasNoValidoPersonalEstadoConcepto($cons) {
     $idsConValid = [];
     foreach($cons as $con) {
-      if ($con['SIGLA'] == 'LIC' || $con['SIGLA'] == 'LAC' || $con['SIGLA'] == 'DSR' || $con['SIGLA'] == 'V') {
+      if ($con['SIGLA'] == 'LIC' || $con['SIGLA'] == 'LAC' || $con['SIGLA'] == 'DSR' || $con['SIGLA'] == 'V'  || $con['SIGLA'] == 'ELI' || $con['SIGLA'] == 'PAD') {
         $idsConValid[] = $con['IDPERSONAL_ESTADO_CONCEPTO'];
       }
     }
