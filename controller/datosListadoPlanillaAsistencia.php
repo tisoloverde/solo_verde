@@ -1,4 +1,5 @@
 <?php
+  ini_set('display_errors', 'On');
   require('../model/consultas.php');
   require('./utils/functions.php');
   session_start();
