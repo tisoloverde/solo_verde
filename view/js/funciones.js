@@ -11384,4 +11384,358 @@ $("#marcaEditarMarcaModelo").on('input', function(){   // Removemos el is-invali
 $("#modeloEditarMarcaModelo").on('input', function(){   // Removemos el is-invalid que se activo por dejar campo en blanco
   $(this).removeClass("is-invalid");
 });
+
+$("#agregarAseguradora").unbind("click").click(async function(){
+  $("#modalIngresoAseguradora").find("input,textarea,select").val("");
+  $("#rutIngresoAseguradora").removeClass("is-invalid");
+  $("#nombreIngresoAseguradora").removeClass("is-invalid");
+  $("#monedaIngresoAseguradora").removeClass("is-invalid");
+  $("#direccionIngresoAseguradora").removeClass("is-invalid");
+  $("#comunaIngresoAseguradora").removeClass("is-invalid");
+  $("#telefonoIngresoAseguradora").removeClass("is-invalid");
+  $("#monedaIngresoAseguradora").html('<option value="UF">UF</option>,<option value="Peso">Peso</option>');
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  // Funcion para desplegar selector de Comuna desde BD
+  await $.ajax({
+    url:   'controller/datosAreaFuncional.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + '</option>';
+        }
+        $("#comunaIngresoAseguradora").html(cuerpoEC);
+      }
+    }
+  });
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#comunaIngresoAseguradora").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#monedaIngresoAseguradora").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  setTimeout(function(){
+    if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      var h = $(window).height() - 200;
+      $("#modalIngresoAseguradora").css("height",h);
+    }
+    $("#modalIngresoAseguradora").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoTaller').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("input#rutIngresoAseguradora").rut({
+  formatOn: 'blur',
+  minimumLength: 8,
+  validateOn: 'change'
+}).on('rutInvalido', function(e) {
+  if($("#rutIngresoAseguradora").val() !== ''){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El RUT ingresado no es válido");
+    $("#rutIngresoAseguradora").val("");
+    $("#rutIngresoAseguradora").addClass("is-invalid");
+  }
+});
+
+$("#guardarIngresoAseguradora").unbind('click').click(function(){
+  if($("#rutIngresoAseguradora").val().length == 0 || $("#nombreIngresoAseguradora").val().length == 0 || $("#monedaIngresoAseguradora").val().length == 0 || $("#direccionIngresoAseguradora").val().length == 0 || $("#comunaIngresoAseguradora").val().length == 0 || $("#telefonoIngresoAseguradora").val().length == 0 ){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#rutIngresoAseguradora").val().length == 0){
+      $("#rutIngresoAseguradora").addClass("is-invalid");
+    }
+    if ($("#nombreIngresoAseguradora").val().length == 0){
+      $("#nombreIngresoAseguradora").addClass("is-invalid");
+    }
+    if ($("#direccionIngresoAseguradora").val().length == 0){
+      $("#direccionIngresoAseguradora").addClass("is-invalid");
+    }
+    if ($("#telefonoIngresoAseguradora").val().length == 0){
+      $("#telefonoIngresoAseguradora").addClass("is-invalid");
+    }
+    if ($("#monedaIngresoAseguradora").val().length == 0){
+      $("#monedaIngresoAseguradora").addClass("is-invalid");
+    }
+    if ($("#comunaIngresoAseguradora").val().length == 0){
+      $("#comunaIngresoAseguradora").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalIngresoAseguradora").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "rutIngreso": $.trim($("#rutIngresoAseguradora").val().replace('.','').replace('.','')),
+      "nombreIngreso":  $("#nombreIngresoAseguradora").val(),
+      "monedaIngreso": $("#monedaIngresoAseguradora").val(),
+      "direccionIngreso": $("#direccionIngresoAseguradora").val(),
+      "comunaIngreso": $("#comunaIngresoAseguradora").val(),
+      "telefonoIngreso": $("#telefonoIngresoAseguradora").val()
+    }
+    $.ajax({
+      url:   'controller/datosChequeaAseguradora.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El rut de la aseguradora ya existe");
+            $("#rutIngresoAseguradora").addClass("is-invalid");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalIngresoAseguradora").modal("show");
+            },500);
+          }
+        }
+        else{
+          $.ajax({
+            url: "controller/ingresaAseguradora.php",
+            type: 'POST',
+            data: parametros,
+            success:  function (response) {
+              var p = response.split(",");
+              if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaListadoAseguradora').DataTable();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Aseguradora Creado correctamente");
+                  $("#editarAseguradora").attr("disabled","disabled");
+                  $("#eliminarAseguradora").attr("disabled","disabled");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Aseguradora, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Aseguradora, si el problema persiste favor comuniquese con soporte");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#rutIngresoAseguradora").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+$("#nombreIngresoAseguradora").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+$("#direccionIngresoAseguradora").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+$("#telefonoIngresoAseguradora").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarAseguradora").unbind('click').click( async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoAseguradora').DataTable();
+  var rut = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT;
+  });
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+    return item.NOMBRE;
+  });
+  var direccion = $.map(table.rows('.selected').data(), function (item) {
+    return item.DIRECCION;
+  });
+  var telefono = $.map(table.rows('.selected').data(), function (item) {
+    return item.TELEFONO;
+  });
+  var moneda = $.map(table.rows('.selected').data(), function (item) {
+    return item.MONEDA;
+  });
+  var comuna = $.map(table.rows('.selected').data(), function (item) {
+    return item.COMUNA;
+  });
+  await $.ajax({
+    url:   'controller/datosAreaFuncional.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].COMUNA == comuna){
+            cuerpoEC += '<option selected value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + '</option>';
+            $("#comunaEditarAseguradora").html(cuerpoEC);
+          }
+          else{
+            cuerpoEC += '<option value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + '</option>';
+          }
+        }
+        $("#comunaEditarAseguradora").html(cuerpoEC);
+      }
+    }
+  });
+  $("#rutEditarAseguradora").val(rut);
+  $("#rutEditarAseguradora").attr("disabled","disabled");
+  $("#nombreEditarAseguradora").val(nombre);
+  $("#direccionEditarAseguradora").val(direccion);
+  $("#telefonoEditarAseguradora").val(telefono);
+  if (moneda[0] == "UF"){
+    $("#monedaEditarAseguradora").html('<option value="UF">UF</option>,<option value="Peso">Peso</option>');
+  }
+  else {
+    $("#monedaEditarAseguradora").html('<option value="Peso">Peso</option>,<option value="UF">UF</option>');
+  }
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#monedaEditarAseguradora").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#comunaEditarAseguradora").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    var h = $(window).height() - 200;
+    $("#bodyEditarAseguradora").css("height",h);
+  }
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalEditarAseguradora").modal("show");
+  },500);
+});
+
+$("#guardarEditarAseguradora").unbind('click').click(function(){
+  var table = $('#tablaListadoAseguradora').DataTable();
+  var idAseguradora = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_ASEGURADORA;
+  });
+  parametros = {
+    "idAseguradora": idAseguradora[0],
+    "rutAseguradora":  $.trim($("#rutEditarAseguradora").val().replace('.','').replace('.','')),
+    "nombreAseguradora": $("#nombreEditarAseguradora").val(),
+    "monedaAseguradora": $("#monedaEditarAseguradora").val(),
+    "direccionAseguradora": $("#direccionEditarAseguradora").val(),
+    "comunaAseguradora": $("#comunaEditarAseguradora").val(),
+    "telefonoAseguradora": $("#telefonoEditarAseguradora").val()
+  }
+  $("#modalEditarAseguradora").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $.ajax({
+    url: "controller/editarAseguradora.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoAseguradora').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Aseguradora Editado correctamente");
+          $("#editarAseguradora").attr("disabled","disabled");
+          $("#eliminarAseguradora").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Aseguradora, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Aseguradora, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#eliminarAseguradora").unbind('click').click(function(){
+  var table = $('#tablaListadoAseguradora').DataTable();
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+      return item.NOMBRE;
+  });
+  $("#textoEliminarAseguradora").html(nombre);
+  $('#modalEliminarAseguradora').modal('show');
+});
+
+$("#guardarEliminarAseguradora").unbind('click').click(async function(){
+  var table = $('#tablaListadoAseguradora').DataTable();
+  var idAseguradora = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDPATENTE_ASEGURADORA;
+  });
+  parametros = {
+    "idAseguradora": idAseguradora[0],
+  }
+  $("#modalEliminarAseguradora").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  await $.ajax({
+    url:   'controller/eliminarAseguradora.php',
+    type:  'post',
+    data:  parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoAseguradora').DataTable();
+            table.ajax.reload()
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Aseguradora Eliminada correctamente");
+            $("#editarAseguradora").attr("disabled","disabled");
+            $("#eliminarAseguradora").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+        else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>No se puede eliminar la Aseguradora porque se encuentra asignada a una Patente");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+      }else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>No se puede eliminar la Aseguradora porque se encuentra asignada a una Patente");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+      }
+    }
+  });
+  $('#modalEliminarAseguradora').modal('hide');
+});
 // Fin Flota

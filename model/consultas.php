@@ -605,29 +605,6 @@ ORDER BY NACIONALIDAD";
 		}
 	}
 
-	//Select Area Funcional
-	function consultaAreaFuncional(){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT IDAREAFUNCIONAL, COMUNA, PROVINCIA, REGION
-							FROM AREAFUNCIONAL ORDER BY COMUNA ASC";
-			if ($row = $con->query($sql)) {
-				$return = array();
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-
-				return $return;
-			}
-			else{
-				return "Error";
-			}
-		}
-		else{
-			return "Error";
-		}
-	}
-
 	//Select Nivel Estudios
 	function consultaNivelEstudios(){
 		$con = conectar();
@@ -3691,29 +3668,6 @@ AND E.TIPOAUDITORIAid = '{$TIPOAUDITORIAid}'";
 	}
 }
 
-// Consultas Aseguradora Mantenedor
-function consultaAseguradora(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, IDPATENTE_ASEGURADORA, RUT, NOMBRE, MONEDA, DIRECCION, A.COMUNA, TELEFONO
-FROM PATENTE_ASEGURADORA P
-LEFT JOIN AREAFUNCIONAL A
-ON P.IDAREAFUNCIONAL = A.IDAREAFUNCIONAL";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 function ingresarAseguradora($nombre, $moneda){
 	$con = conectar();
 	if ($con != 'No conectado') {
@@ -4464,103 +4418,6 @@ function datosImgTama($url){
 	}
 	else{
 		return "Error";
-	}
-}
-
-// Consulta para chequear rut de Aseguradora
-function chequeaRutAseguradora($rutAseguradora){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT IDPATENTE_ASEGURADORA
-FROM PATENTE_ASEGURADORA
-WHERE RUT = '" . $rutAseguradora . "'";
-		if ($row = $con->query($sql)) {
-
-			$array = $row->fetch_array(MYSQLI_BOTH);
-
-			return $array;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para ingresar Aseguradora
-function ingresaAseguradora($rutIngreso, $mombreIngreso, $monedaIngreso, $direccionIngreso, $comunaIngreso, $telefonoIngreso){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_ASEGURADORA(RUT, NOMBRE, MONEDA, DIRECCION, IDAREAFUNCIONAL, TELEFONO)
-VALUES ( '" .$rutIngreso."', '" . $mombreIngreso . "', '" . $monedaIngreso . "', '" . $direccionIngreso . "',
-'" . $comunaIngreso . "', '" . $telefonoIngreso . "')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para Editar Aseguradora
-function editarAseguradora(  $idAseguradora, $rut, $nombre, $moneda, $direccion,
-$comuna, $telefono){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_ASEGURADORA
-	SET RUT = '" . $rut . "',
-	NOMBRE = '" .$nombre . "',
-	MONEDA = '" .$moneda . "',
-	DIRECCION = '" .$direccion . "',
-	IDAREAFUNCIONAL = '" .$comuna . "',
-	TELEFONO = '" .$telefono . "'
-	WHERE IDPATENTE_ASEGURADORA = '" . $idAseguradora . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para eliminar Aseguradora
-function eliminarAseguradora($idAseguradora){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "DELETE FROM PATENTE_ASEGURADORA
-		 WHERE IDPATENTE_ASEGURADORA = '" . $idAseguradora . "'";
-		if($con->query($sql)){
-				$con->query("COMMIT");
-				return "Ok";
-		}
-		else{
-				$con->query("ROLLBACK");
-				// return $con->error;
-				return "Error";
-		}
-	}
-	else{
-			$con->query("ROLLBACK");
-			return "Error";
 	}
 }
 
@@ -21504,6 +21361,143 @@ WHERE U.RUT = '{$rutUser}'";
 			else{
 				$con->query("ROLLBACK");
 				return "Error";
+			}
+		}
+
+		function consultaAseguradora(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, IDPATENTE_ASEGURADORA, RUT, NOMBRE, MONEDA, DIRECCION, A.COMUNA, TELEFONO
+		FROM PATENTE_ASEGURADORA P
+		LEFT JOIN AREAFUNCIONAL A
+		ON P.IDAREAFUNCIONAL = A.IDAREAFUNCIONAL";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaAreaFuncional(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDAREAFUNCIONAL, COMUNA, PROVINCIA, REGION
+								FROM AREAFUNCIONAL";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function chequeaRutAseguradora($rutAseguradora){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDPATENTE_ASEGURADORA
+		FROM PATENTE_ASEGURADORA
+		WHERE RUT = '" . $rutAseguradora . "'";
+				if ($row = $con->query($sql)) {
+
+					$array = $row->fetch_array(MYSQLI_BOTH);
+
+					return $array;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaAseguradora($rutIngreso, $mombreIngreso, $monedaIngreso, $direccionIngreso, $comunaIngreso, $telefonoIngreso){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_ASEGURADORA(RUT, NOMBRE, MONEDA, DIRECCION, IDAREAFUNCIONAL, TELEFONO)
+		VALUES ( '" .$rutIngreso."', '" . $mombreIngreso . "', '" . $monedaIngreso . "', '" . $direccionIngreso . "',
+		'" . $comunaIngreso . "', '" . $telefonoIngreso . "')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function editarAseguradora(  $idAseguradora, $rut, $nombre, $moneda, $direccion,
+		$comuna, $telefono){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_ASEGURADORA
+			SET RUT = '" . $rut . "',
+			NOMBRE = '" .$nombre . "',
+			MONEDA = '" .$moneda . "',
+			DIRECCION = '" .$direccion . "',
+			IDAREAFUNCIONAL = '" .$comuna . "',
+			TELEFONO = '" .$telefono . "'
+			WHERE IDPATENTE_ASEGURADORA = '" . $idAseguradora . "'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function eliminarAseguradora($idAseguradora){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "DELETE FROM PATENTE_ASEGURADORA
+				 WHERE IDPATENTE_ASEGURADORA = '" . $idAseguradora . "'";
+				if($con->query($sql)){
+						$con->query("COMMIT");
+						return "Ok";
+				}
+				else{
+						$con->query("ROLLBACK");
+						// return $con->error;
+						return "Error";
+				}
+			}
+			else{
+					$con->query("ROLLBACK");
+					return "Error";
 			}
 		}
 		// Fin Flota
