@@ -27,7 +27,7 @@ $(window).on("load",function(e){
   });
 
   // Marcar el menú activo al cargar la página
-  marcarMenuActivo(); menuElegant();
+  marcarMenuActivo();
 
   $('body').on('show.bs.modal', function() {
     $('.modal-body').overlayScrollbars({
@@ -227,7 +227,7 @@ $(window).on("load",function(e){
                       }
                       else{
                         setTimeout(function(){
-                          $('#menu-lateral').show();
+
                           menuElegant();
                           // esconderMenu();
                           // $('#modalAlertasSplash').modal('hide');
@@ -273,7 +273,7 @@ $(window).on("load",function(e){
       complete: function(){
         // $('#contenido').show();
         // $('#footer').show();
-        // $('#menu-lateral').show();
+        //
       }
   });
   setInterval(function(){
@@ -386,7 +386,7 @@ function splashOpen(){
 function menuElegant(){
   setTimeout(function(){
     $('#contenido').overlayScrollbars({
-      className: "os-theme-thin-dark",
+      className: "os-theme-round-dark",
       autoUpdate: true,
       nativeScrollbarsOverlaid : {
         showNativeScrollbars   : false,
@@ -798,7 +798,7 @@ async function valida2faEnter(){
         var p = jQuery.parseJSON(response);
         if(p.aaData.length !== 0){
           $('#contenido').show();
-          $('#menu-lateral').show();
+
           $('#footer').parent().show();
           $('#footer').show();
 
@@ -1306,7 +1306,7 @@ $("#asignarAreasPerfil").unbind('click').click(function(){
         "autoWidth": false,
         "initComplete": function( settings, json){
           $('#contenido').show();
-          $('#menu-lateral').show();
+
           $('#footer').parent().show();
           $('#footer').show();
           setTimeout(function(){
@@ -3380,7 +3380,7 @@ async function listDotacion(periodo, codigoCC) {
     autoWidth: false,
     initComplete: function (settings, json) {
       $('#contenido').show();
-      $('#menu-lateral').show();
+
       $('#footer').parent().show();
       $('#footer').show();
       setTimeout(function() {
@@ -9598,7 +9598,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
         })
       });*/
       $('#contenido').show();
-      $('#menu-lateral').show();
+
       $('#footer').parent().show();
       $('#footer').show();
       setTimeout(function() {
@@ -12007,5 +12007,2330 @@ $("#rutEditarProveedores").on('input', function(){
 
 $("#nombreEditarProveedores").on('input', function(){
   $(this).removeClass("is-invalid");
+});
+
+$("#agregarVehiculo").unbind("click").click(async function(){
+  $("#modalIngresoVehiculos").find("input,textarea,select").val("");
+  $("#patenteIngresoVehiculos").removeClass("is-invalid");
+  $("#kilometrajeIngresoVehiculos").removeClass("is-invalid");
+  $("#anoIngresoVehiculos").removeClass("is-invalid");
+  $("#montoIngresoVehiculos").removeClass("is-invalid");
+  $("#montoAseguradoraIngresoVehiculos").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+
+  $("#kilometrajeRecorrerIngresoVehiculos").val(0);
+
+  await $.ajax({
+    url:   'controller/datosPatenteReemplazo.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoPA = '<option selected value="0">' + 'No Aplica' + '</option>';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoPA += '<option value="' + p2.aaData[i].IDPATENTE + '">' + p2.aaData[i].CODIGO + '  ' + p2.aaData[i].ESTADO +'</option>';
+        }
+        $("#patenteOriginalVehiculos").html(cuerpoPA);
+      }
+      else{
+        var patenteVacia = '<option selected value="0">' + 'No Aplica' + '</option>';
+        $("#patenteOriginalVehiculos").html(patenteVacia);
+      }
+    }
+  });
+
+  $("#patenteOriginalVehiculos").attr("disabled","disabled");
+
+  await $.ajax({
+    url:   'controller/datosTipoVehiculo.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].IDPATENTE_TIPOVEHICULO + '">' + p2.aaData[i].NOMBRE + '</option>';
+        }
+        $("#tipoIngresoVehiculos").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPatenteColor.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].IDPATENTE_COLOR + '">' + p2.aaData[i].NOMBRE + '</option>';
+        }
+        $("#colorIngresoVehiculos").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPropiedad.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].IDPATENTE_PROPIEDAD + '">' + p2.aaData[i].PROPIEDAD + '</option>';
+        }
+        $("#propiedadIngresoVehiculos").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosAseguradora.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoAseg = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoAseg += '<option value="' + p2.aaData[i].IDPATENTE_ASEGURADORA + '">' + p2.aaData[i].NOMBRE + '</option>';
+        }
+        $("#aseguradoraIngresoVehiculos").html(cuerpoAseg);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosMonedaAseg.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        for(var i = 0; i < p2.aaData.length; i++){
+          idMonedaAseg = $("#aseguradoraIngresoVehiculos").val();
+          if ( idMonedaAseg == p2.aaData[i].IDPATENTE_ASEGURADORA){
+            $("#tipoMontoAseg").html("<font> / Peso</font>");
+          }
+          else{
+            $("#tipoMontoAseg").html("<font> / UF</font>");
+          }
+        }
+      }
+      else{
+        $("#tipoMontoAseg").html("<font> / UF</font>");
+      }
+    }
+  });
+
+  $("#aseguradoraIngresoVehiculos").unbind("click").change(async function(){
+    await $.ajax({
+      url:   'controller/datosMonedaAseg.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          for(var i = 0; i < p2.aaData.length; i++){
+            idMonedaAseg = $("#aseguradoraIngresoVehiculos").val();
+            if ( idMonedaAseg == p2.aaData[i].IDPATENTE_ASEGURADORA){
+              $("#tipoMontoAseg").html("<font> / Peso</font>");
+            }
+            else{
+              $("#tipoMontoAseg").html("<font> / UF</font>");
+            }
+          }
+        }
+        else{
+          $("#tipoMontoAseg").html("<font> / UF</font>");
+        }
+      }
+    });
+  });
+
+  await $.ajax({
+    url:   'controller/datosBodegaSucursal.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoBodega = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoBodega += '<option value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].SUCURSAL + '</option>';
+        }
+        $("#bodegaIngresoVehiculos").html(cuerpoBodega);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosAreaFuncionalChile.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '<option selected value="0">Sin asignar</option>';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].REGION + '</option>';
+        }
+        $("#comunaIngresoVehiculos").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPatenteEstado.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEst = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].IDPATENTE_ESTADO == 2){
+            cuerpoEst += '<option selected value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+          }
+          else if(p2.aaData[i].IDPATENTE_ESTADO == 22){
+            cuerpoEst += '<option value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+          }
+        }
+        $("#estadoIngresoVehiculos").html(cuerpoEst);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosMarcaPatente.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoMarca = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoMarca += '<option>' + p2.aaData[i].MARCA + '</option>';
+        }
+        $("#marcaIngresoVehiculos").html(cuerpoMarca);
+      }
+    }
+  });
+
+  var parametrosMarca = {
+    "marca" : $('select[id="marcaIngresoVehiculos"] option:selected').text()
+  }
+
+  await $.ajax({
+    url:   'controller/datosModeloPatente.php',
+    type:  'post',
+    data: parametrosMarca,
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoModelo = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoModelo += '<option name="' + p2.aaData[i].LITROS_ESTANQUE + '">' + p2.aaData[i].MODELO + '</option>';
+        }
+        $("#modeloIngresoVehiculos").html(cuerpoModelo);
+      }
+    }
+  });
+
+  var litrosSel = $("#modeloIngresoVehiculos").find('option:selected').attr("name");
+  if(litrosSel == -1){
+    litrosSel = 0;
+  }
+  $("#litrosIngresoVehiculos").val(litrosSel);
+
+  $("#marcaIngresoVehiculos").unbind("click").change(async function(){
+    var parametrosMarca = {
+      "marca" : $('select[id="marcaIngresoVehiculos"] option:selected').text()
+    }
+    await $.ajax({
+      url:   'controller/datosModeloPatente.php',
+      type:  'post',
+      data: parametrosMarca,
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoModelo = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            cuerpoModelo += '<option name="' + p2.aaData[i].LITROS_ESTANQUE + '">' + p2.aaData[i].MODELO + '</option>';
+          }
+          $("#modeloIngresoVehiculos").html(cuerpoModelo);
+        }
+      }
+    });
+
+    var litrosSel = $("#modeloIngresoVehiculos").find('option:selected').attr("name");
+    if(litrosSel == -1){
+      litrosSel = 0;
+    }
+    $("#litrosIngresoVehiculos").val(litrosSel);
+  });
+
+  $("#modeloIngresoVehiculos").unbind("click").change(async function(){
+    var litrosSel = $("#modeloIngresoVehiculos").find('option:selected').attr("name");
+    if(litrosSel == -1){
+      litrosSel = 0;
+    }
+    $("#litrosIngresoVehiculos").val(litrosSel);
+  });
+
+
+  if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Propio Personal"){
+    cuerpoEmpresa = '<option value="">' + 'No Aplica' + '</option>';
+    $("#empresaIngresoVehiculos").html(cuerpoEmpresa);
+    $("#empresaIngresoVehiculos").attr("disabled","disabled");
+    $("#inicioIngresoVehiculos").attr("disabled","disabled");
+    $("#terminoIngresoVehiculos").attr("disabled","disabled");
+    $("#montoIngresoVehiculos").attr("disabled","disabled");
+    $("#tipoMontoIngresoVehiculos").attr("disabled","disabled");
+  }
+  else if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Propio Empresa"){
+    $("#empresaIngresoVehiculos").removeAttr("disabled");
+    $("#inicioIngresoVehiculos").removeAttr("disabled");
+    $("#terminoIngresoVehiculos").removeAttr("disabled");
+    $("#montoIngresoVehiculos").attr("disabled","disabled");
+    $("#tipoMontoIngresoVehiculos").attr("disabled","disabled");
+    await $.ajax({
+      url:   'controller/datosSubcontratistasVehiculoInterno.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoSub = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+          }
+          $("#empresaIngresoVehiculos").html(cuerpoSub);
+        }
+      }
+    });
+  }
+  else if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Propio Subcontrata"){
+    $("#empresaIngresoVehiculos").removeAttr("disabled");
+    $("#inicioIngresoVehiculos").removeAttr("disabled");
+    $("#terminoIngresoVehiculos").removeAttr("disabled");
+    $("#montoIngresoVehiculos").attr("disabled","disabled");
+    $("#tipoMontoIngresoVehiculos").attr("disabled","disabled");
+    await $.ajax({
+      url:   'controller/datosSubcontratistasVehiculo.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoSub = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+          }
+          $("#empresaIngresoVehiculos").html(cuerpoSub);
+        }
+      }
+    });
+  }
+  else if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Arriendo" || $('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Leasing Operativo" || $('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Leasing Financiero" ){
+    $("#empresaIngresoVehiculos").removeAttr("disabled");
+    $("#inicioIngresoVehiculos").removeAttr("disabled");
+    $("#terminoIngresoVehiculos").removeAttr("disabled");
+    $("#montoIngresoVehiculos").removeAttr("disabled");
+    $("#montoIngresoVehiculos").val(0);
+    $("#tipoMontoIngresoVehiculos").removeAttr("disabled");
+    $("#tipoMontoIngresoVehiculos").html('<option value="Peso">Peso</option>,<option value="UF">UF</option>');
+    await $.ajax({
+      url:   'controller/datosProveedores.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoSub = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            cuerpoSub += '<option value="' + p2.aaData[i].IDPATENTE_PROVEEDOR + '">' + p2.aaData[i].PROVEEDOR + '</option>';
+          }
+          $("#empresaIngresoVehiculos").html(cuerpoSub);
+        }
+      }
+    });
+  }
+
+  $("#propiedadIngresoVehiculos").unbind("click").change(async function(){
+    if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Propio Personal"){
+      cuerpoEmpresa = '<option value="">' + 'No Aplica' + '</option>';
+      limpiarCampo = '<option value="">' + '' + '</option>';
+      $("#empresaIngresoVehiculos").html(cuerpoEmpresa);
+      $("#inicioIngresoVehiculos").val("");
+      $("#terminoIngresoVehiculos").val("");
+      $("#tipoMontoIngresoVehiculos").html(limpiarCampo);
+      $("#montoIngresoVehiculos").val("");
+      $("#empresaIngresoVehiculos").attr("disabled","disabled");
+      $("#inicioIngresoVehiculos").attr("disabled","disabled");
+      $("#terminoIngresoVehiculos").attr("disabled","disabled");
+      $("#montoIngresoVehiculos").attr("disabled","disabled");
+      $("#tipoMontoIngresoVehiculos").attr("disabled","disabled");
+    }
+    else if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Propio Empresa"){
+      limpiarCampo = '<option value="">' + '' + '</option>';
+      $("#inicioIngresoVehiculos").val("");
+      $("#terminoIngresoVehiculos").val("");
+      $("#montoIngresoVehiculos").val("");
+      $("#tipoMontoIngresoVehiculos").html(limpiarCampo);
+      $("#empresaIngresoVehiculos").removeAttr("disabled");
+      $("#montoIngresoVehiculos").attr("disabled","disabled");
+      $("#tipoMontoIngresoVehiculos").attr("disabled","disabled");
+      $("#inicioIngresoVehiculos").removeAttr("disabled");
+      $("#terminoIngresoVehiculos").removeAttr("disabled");
+      await $.ajax({
+        url:   'controller/datosSubcontratistasVehiculoInterno.php',
+        type:  'post',
+        success: function (response2) {
+          var p2 = jQuery.parseJSON(response2);
+          if(p2.aaData.length !== 0){
+            var cuerpoSub = '';
+            for(var i = 0; i < p2.aaData.length; i++){
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+            $("#empresaIngresoVehiculos").html(cuerpoSub);
+          }
+          else{
+            cuerpoSub += '<option value="">' + 'No Aplica' + '</option>';
+            $("#empresaIngresoVehiculos").html(cuerpoSub);
+          }
+        }
+      });
+    }
+    else if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Propio Subcontrata"){
+      limpiarCampo = '<option value="">' + '' + '</option>';
+      $("#inicioIngresoVehiculos").val("");
+      $("#terminoIngresoVehiculos").val("");
+      $("#montoIngresoVehiculos").val("");
+      $("#tipoMontoIngresoVehiculos").html(limpiarCampo);
+      $("#empresaIngresoVehiculos").removeAttr("disabled");
+      $("#montoIngresoVehiculos").attr("disabled","disabled");
+      $("#tipoMontoIngresoVehiculos").attr("disabled","disabled");
+      $("#inicioIngresoVehiculos").removeAttr("disabled");
+      $("#terminoIngresoVehiculos").removeAttr("disabled");
+      await $.ajax({
+        url:   'controller/datosSubcontratistasVehiculo.php',
+        type:  'post',
+        success: function (response2) {
+          var p2 = jQuery.parseJSON(response2);
+          if(p2.aaData.length !== 0){
+            var cuerpoSub = '';
+            for(var i = 0; i < p2.aaData.length; i++){
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+            $("#empresaIngresoVehiculos").html(cuerpoSub);
+          }
+          else{
+            cuerpoSub += '<option value="">' + 'No Aplica' + '</option>';
+            $("#empresaIngresoVehiculos").html(cuerpoSub);
+          }
+        }
+      });
+    }
+    else if($('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Arriendo" || $('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Leasing Operativo" || $('select[id="propiedadIngresoVehiculos"] option:selected').text() === "Leasing Financiero"){
+      $("#empresaIngresoVehiculos").removeAttr("disabled");
+      $("#inicioIngresoVehiculos").removeAttr("disabled");
+      $("#terminoIngresoVehiculos").removeAttr("disabled");
+      $("#montoIngresoVehiculos").removeAttr("disabled");
+      $("#montoIngresoVehiculos").val(0);
+      $("#tipoMontoIngresoVehiculos").removeAttr("disabled");
+      $("#tipoMontoIngresoVehiculos").html('<option value="Peso">Peso</option>,<option value="UF">UF</option>');
+      await $.ajax({
+        url:   'controller/datosProveedores.php',
+        type:  'post',
+        success: function (response2) {
+          var p2 = jQuery.parseJSON(response2);
+          if(p2.aaData.length !== 0){
+            var cuerpoSub = '';
+            for(var i = 0; i < p2.aaData.length; i++){
+              cuerpoSub += '<option value="' + p2.aaData[i].IDPATENTE_PROVEEDOR + '">' + p2.aaData[i].PROVEEDOR + '</option>';
+            }
+            $("#empresaIngresoVehiculos").html(cuerpoSub);
+          }
+          else{
+            cuerpoSub += '<option value="">' + 'No Aplica' + '</option>';
+            $("#empresaIngresoVehiculos").html(cuerpoSub);
+          }
+        }
+      });
+    }
+  });
+
+  $("#inicioIngresoVehiculos").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#terminoIngresoVehiculos").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#mantoIngresoVehiculos").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#tipoIngresoVehiculos").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#propiedadIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#empresaIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#marcaIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#modeloIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#aseguradoraIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#estadoIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#bodegaIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#comunaIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#colorIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#tipoMontoIngresoVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#patenteOriginalVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  $("#kilometrajeIngresoVehiculos").val(0);
+  $("#anoIngresoVehiculos").val(1980);
+  $("#montoAseguradoraIngresoVehiculos").val(0);
+
+  $("#kilometrajeIngresoVehiculos" ).focusout(function(){
+    kilometro = $("#kilometrajeIngresoVehiculos").val();
+    if(kilometro < 0){
+      $("#kilometrajeIngresoVehiculos").val(0);
+      $("#kilometrajeIngresoVehiculos").addClass("is-invalid");
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 0");
+    }
+    else{
+      $("#kilometrajeIngresoVehiculos").val(kilometro);
+    }
+  });
+
+  $("#anoIngresoVehiculos" ).focusout(function(){
+    ano = $("#anoIngresoVehiculos").val();
+    if(ano < 1980){
+      $("#anoIngresoVehiculos").val(1980);
+      $("#anoIngresoVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 1980");
+    }
+    else{
+      $("#anoIngresoVehiculos").val(ano);
+    }
+  });
+
+  $("#montoAseguradoraIngresoVehiculos" ).focusout(function(){
+    montoAseg = $("#montoAseguradoraIngresoVehiculos").val();
+    if(montoAseg < 0){
+      $("#montoAseguradoraIngresoVehiculos").val(0);
+      $("#montoAseguradoraIngresoVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 0");
+    }
+    else{
+      $("#montoAseguradoraIngresoVehiculos").val(montoAseg);
+    }
+  });
+
+  $("#montoIngresoVehiculos" ).focusout(function(){
+    monto = $("#montoIngresoVehiculos").val();
+    if(monto < 0){
+      $("#montoIngresoVehiculos").val(0);
+      $("#montoIngresoVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 0");
+    }
+    else{
+      $("#montoIngresoVehiculos").val(monto);
+    }
+  });
+
+  setTimeout(function(){
+    var h = $(window).height() - 200;
+    $("#bodyIngresoVehiculos").css("height",h);
+    $("#modalIngresoVehiculos").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoVehiculos').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },1500);
+});
+
+$("#estadoIngresoVehiculos").unbind("click").change(function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  if($("#estadoIngresoVehiculos").val() ==  2){
+    $("#patenteOriginalVehiculos").attr("disabled","disabled");
+    $("#patenteOriginalVehiculos").val(0);
+    if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#patenteOriginalVehiculos").select2({
+          theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+      });
+      $("#estadoIngresoVehiculos").select2({
+          theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+      });
+    }
+  }
+  else{
+    $("#patenteOriginalVehiculos").removeAttr("disabled");
+    if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#patenteOriginalVehiculos").select2({
+          theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+      });
+      $("#estadoIngresoVehiculos").select2({
+          theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+      });
+    }
+  }
+});
+
+$("#guardarIngresoVehiculos").unbind('click').click(function(){
+  if($("#patenteIngresoVehiculos").val().length == 0 || $("#kilometrajeIngresoVehiculos").val().length == 0 || $("#anoIngresoVehiculos").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#patenteIngresoVehiculos").val().length == 0){
+      $("#patenteIngresoVehiculos").addClass("is-invalid");
+    }
+    if ($("#kilometrajeIngresoVehiculos").val().length == 0){
+      $("#kilometrajeIngresoVehiculos").addClass("is-invalid");
+    }
+    if ($("#anoIngresoVehiculos").val().length == 0){
+      $("#anoIngresoVehiculos").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalIngresoVehiculos").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "patente": $("#patenteIngresoVehiculos").val(),
+      "kilometraje": $("#kilometrajeIngresoVehiculos").val(),
+      "marca": $("#marcaIngresoVehiculos").val(),
+      "modelo": $("#modeloIngresoVehiculos").val(),
+      "ano": $("#anoIngresoVehiculos").val(),
+      "tipoVehiculo": $("#tipoIngresoVehiculos").val(),
+      "vin": $("#vinIngresoVehiculos").val(),
+      "color": $("#colorIngresoVehiculos").val(),
+      "propiedad": $("#propiedadIngresoVehiculos").val(),
+      "empresa": $("#empresaIngresoVehiculos").val(),
+      "inicio": $("#inicioIngresoVehiculos").val(),
+      "termino": $("#terminoIngresoVehiculos").val(),
+      "monto": $("#montoIngresoVehiculos").val(),
+      "bodega": $("#bodegaIngresoVehiculos").val(),
+      "aseguradora": $("#aseguradoraIngresoVehiculos").val(),
+      "montoAseguradora": $("#montoAseguradoraIngresoVehiculos").val(),
+      "manto": $("#mantoIngresoVehiculos").val(),
+      "estado": $("#estadoIngresoVehiculos").val(),
+      "tipoMonto": $("#tipoMontoIngresoVehiculos").val(),
+      "nMotor": $("#nMotorIngresoVehiculos").val(),
+      "litros": $("#litrosIngresoVehiculos").val(),
+      "comuna": $("#comunaIngresoVehiculos").val(),
+      "kilometrajeRecorrer": $("#kilometrajeRecorrerIngresoVehiculos").val(),
+      "numContrato": $("#numContratoIngresoVehiculos").val()
+    }
+    $.ajax({
+      url:   'controller/datosChequeaPatente.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/info.png' class='splash_load'><br/>La patente ya existe");
+            $("#patenteIngresoVehiculos").addClass("is-invalid");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $("#modalIngresoVehiculos").modal("show");
+            },500);
+          }
+        }
+        // Ingresamos Patente despues de verificar
+        else {
+          if($("#estadoIngresoVehiculos").val() == 2){
+            parametros["patenteOriginal"] = "";
+            $.ajax({
+              url: "controller/ingresaPatente.php",
+              type: 'POST',
+              data: parametros,
+              success:  function (response) {
+                var p = response.split(",");
+                if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                  if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaListadoVehiculo').DataTable();
+                    table.ajax.reload();
+                    var table2 = $('#informeListadoVehiculo').DataTable();
+                    table2.ajax.reload(varGraficoPorFlota);
+
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Patente Creado correctamente");
+                    $("#editarVehiculo").attr("disabled","disabled");
+                    $("#subirPdfVehiculo").attr("disabled","disabled");
+                    $("#historialVehiculo").attr("disabled","disabled");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+                  else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Patente, si el problema persiste favor comuniquese con soporte");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Patente, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+            });
+          }
+          else{
+            parametros["patenteOriginal"] = $("#patenteOriginalVehiculos").val();
+            $.ajax({
+              url: "controller/ingresaPatente.php",
+              type: 'POST',
+              data: parametros,
+              success:  function (response) {
+                var p = response.split(",");
+                if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                  if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaListadoVehiculo').DataTable();
+                    table.ajax.reload();
+                    var table2 = $('#informeListadoVehiculo').DataTable();
+                    table2.ajax.reload(varGraficoPorFlota);
+
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Patente Creado correctamente");
+                    $("#editarVehiculo").attr("disabled","disabled");
+                    $("#subirPdfVehiculo").attr("disabled","disabled");
+                    $("#historialVehiculo").attr("disabled","disabled");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+                  else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Patente, si el problema persiste favor comuniquese con soporte");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Patente, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+            });
+          }
+        }
+      }
+    });
+  }
+});
+
+$("#patenteIngresoVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#kilometrajeIngresoVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#anoIngresoVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#montoIngresoVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#montoAseguradoraIngresoVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarVehiculo").unbind('click').click( async function(){
+  $("#patenteEditarVehiculos").removeClass("is-invalid");
+  $("#kilometrajeEditarVehiculos").removeClass("is-invalid");
+  $("#anoEditarVehiculos").removeClass("is-invalid");
+  $("#montoEditarVehiculos").removeClass("is-invalid");
+  $("#montoAseguradoraEditarVehiculos").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  var table = $('#tablaListadoVehiculo').DataTable();
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+      return item.PATENTE;
+  });
+  var marca = $.map(table.rows('.selected').data(), function (item) {
+      return item.MARCA;
+  });
+  var propiedad = $.map(table.rows('.selected').data(), function (item) {
+    return item.PROPIEDAD;
+  });
+  var modelo = $.map(table.rows('.selected').data(), function (item) {
+    return item.MODELO;
+  });
+  var tipo = $.map(table.rows('.selected').data(), function (item) {
+    return item.TIPO;
+  });
+  var estado = $.map(table.rows('.selected').data(), function (item) {
+    return item.ESTADO_SOLO;
+  });
+
+  $("#patenteEditarVehiculos").val(patente);
+  $("#patenteEditarVehiculos").attr("disabled","disabled");
+
+  var parametrosPatente = {
+    "patente" : patente[0]
+  }
+  await $.ajax({
+    url:   'controller/datosEditarVehiculo.php',
+    type:  'post',
+    data: parametrosPatente,
+    success: function (response3) {
+      var p3 = jQuery.parseJSON(response3);
+      $("#kilometrajeEditarVehiculos").val(p3.aaData[0].KILOMETRAJE);
+      $("#anoEditarVehiculos").val(p3.aaData[0].AÑO);
+      $("#vinEditarVehiculos").val(p3.aaData[0].VIN);
+      $("#inicioEditarVehiculos").val(p3.aaData[0].FINICIO);
+      $("#terminoEditarVehiculos").val(p3.aaData[0].FTERMINO);
+      $("#nMotorEditarVehiculos").val(p3.aaData[0].NRO_MOTOR);
+      $("#operacionEditarVehiculos").val(p3.aaData[0].OPERACION);
+      $("#litrosEditarVehiculos").val(p3.aaData[0].LITROS_ESTANQUE);
+      $("#numContratoEditarVehiculos").val(p3.aaData[0].NUMCONTRATO);
+      if(p3.aaData[0].MONTO == null){
+        $("#montoEditarVehiculos").val(0);
+      }
+      else{
+        $("#montoEditarVehiculos").val(p3.aaData[0].MONTO);
+      }
+
+      if(p3.aaData[0].MONTO_ASEGURADORA == null){
+        $("#montoAseguradoraEditarVehiculos").val(0);
+      }
+      else{
+        $("#montoAseguradoraEditarVehiculos").val(p3.aaData[0].MONTO_ASEGURADORA);
+      }
+
+      if(p3.aaData[0].KILOMETRAJERECORRER == null){
+        $("#kilometrajeRecorrerEditarVehiculos").val(0);
+      }
+      else{
+        $("#kilometrajeRecorrerEditarVehiculos").val(p3.aaData[0].KILOMETRAJERECORRER);
+      }
+
+      $("#mantoEditarVehiculos").val(p3.aaData[0].FMANTENIMIENTO);
+      idSucur = p3.aaData[0].IDSUCURSAL;
+      idAseg = p3.aaData[0].IDPATENTE_ASEGURADORA;
+      idEstado = p3.aaData[0].IDPATENTE_ESTADO;
+      idColor = p3.aaData[0].IDPATENTE_COLOR;
+      idProveedor = p3.aaData[0].IDPATENTE_PROVEEDOR;
+      idSubcontratistas = p3.aaData[0].IDSUBCONTRATISTAS;
+      idTipoMonto = p3.aaData[0].TIPOMONTO;
+      idComuna = p3.aaData[0].IDAREAFUNCIONAL;
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPatenteOriginal.php',
+    type:  'post',
+    data:  parametrosPatente,
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0 && p2.aaData[0].IDPATENTE != null){
+        var cuerpoPA = '<option value="0">' + 'No Aplica' + '</option>';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].ASIGNADA == 1){
+            cuerpoPA += '<option selected value="' + p2.aaData[i].IDPATENTE + '">' + p2.aaData[i].CODIGO + '</option>';
+          }
+          else{
+            cuerpoPA += '<option value="' + p2.aaData[i].IDPATENTE + '">' + p2.aaData[i].CODIGO + '</option>';
+          }
+        }
+        $("#patenteOriginalEditarVehiculos").html(cuerpoPA);
+      }
+      else{
+        var patenteVacia = '<option selected value="0">' + 'No Aplica' + '</option>';
+        $("#patenteOriginalEditarVehiculos").html(patenteVacia);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosTipoVehiculo.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoTV = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(tipo == p2.aaData[i].NOMBRE){
+            cuerpoTV += '<option selected value="' + p2.aaData[i].IDPATENTE_TIPOVEHICULO + '">' + p2.aaData[i].NOMBRE + '</option>';
+          }
+          else{
+            cuerpoTV += '<option value="' + p2.aaData[i].IDPATENTE_TIPOVEHICULO + '">' + p2.aaData[i].NOMBRE + '</option>';
+          }
+        }
+        $("#tipoEditarVehiculos").html(cuerpoTV);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPatenteColor.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(idColor == p2.aaData[i].IDPATENTE_COLOR){
+            cuerpoEC += '<option selected value="' + p2.aaData[i].IDPATENTE_COLOR + '">' + p2.aaData[i].NOMBRE + '</option>';
+          }
+          else{
+            cuerpoEC += '<option value="' + p2.aaData[i].IDPATENTE_COLOR + '">' + p2.aaData[i].NOMBRE + '</option>';
+          }
+        }
+        $("#colorEditarVehiculos").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPropiedad.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoPR = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(propiedad == p2.aaData[i].PROPIEDAD){
+            cuerpoPR += '<option selected value="' + p2.aaData[i].IDPATENTE_PROPIEDAD + '">' + p2.aaData[i].PROPIEDAD + '</option>';
+          }
+          else{
+            cuerpoPR += '<option value="' + p2.aaData[i].IDPATENTE_PROPIEDAD + '">' + p2.aaData[i].PROPIEDAD + '</option>';
+          }
+        }
+        $("#propiedadEditarVehiculos").html(cuerpoPR);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosAseguradora.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoAseg = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if (idAseg == p2.aaData[i].IDPATENTE_ASEGURADORA){
+            cuerpoAseg += '<option selected value="' + p2.aaData[i].IDPATENTE_ASEGURADORA + '">' + p2.aaData[i].NOMBRE + '</option>';
+          }
+          else{
+            cuerpoAseg += '<option value="' + p2.aaData[i].IDPATENTE_ASEGURADORA + '">' + p2.aaData[i].NOMBRE + '</option>';
+          }
+        }
+        $("#aseguradoraEditarVehiculos").html(cuerpoAseg);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosMonedaAseg.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        for(var i = 0; i < p2.aaData.length; i++){
+          idMonedaAseg = $("#aseguradoraEditarVehiculos").val();
+          if ( idMonedaAseg == p2.aaData[i].IDPATENTE_ASEGURADORA){
+            $("#tipoMontoEditarAseg").html("<font> / Peso</font>");
+          }
+          else{
+            $("#tipoMontoEditarAseg").html("<font> / UF</font>");
+          }
+        }
+      }
+    }
+  });
+
+  $("#aseguradoraEditarVehiculos").unbind("click").change(async function(){
+    await $.ajax({
+      url:   'controller/datosMonedaAseg.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          for(var i = 0; i < p2.aaData.length; i++){
+            idMonedaAseg = $("#aseguradoraEditarVehiculos").val();
+            if ( idMonedaAseg == p2.aaData[i].IDPATENTE_ASEGURADORA){
+              $("#tipoMontoEditarAseg").html("<font> / Peso</font>");
+            }
+            else{
+              $("#tipoMontoEditarAseg").html("<font> / UF</font>");
+            }
+          }
+        }
+      }
+    });
+  });
+
+  await $.ajax({
+    url:   'controller/datosBodegaSucursal.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoBodega = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if (idSucur == p2.aaData[i].IDSUCURSAL){
+            cuerpoBodega += '<option selected value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].SUCURSAL + '</option>';
+          }
+          else{
+            cuerpoBodega += '<option value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].SUCURSAL + '</option>';
+          }
+        }
+        $("#bodegaEditarVehiculos").html(cuerpoBodega);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosAreaFuncionalChile.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '<option selected value="0">Sin asignar</option>';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if (idComuna == p2.aaData[i].IDAREAFUNCIONAL){
+            cuerpoEC += '<option selected value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].REGION + '</option>';
+          }
+          else{
+            cuerpoEC += '<option value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].REGION + '</option>';
+          }
+        }
+        $("#comunaEditarVehiculos").html(cuerpoEC);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosPatenteEstadoEditar.php',
+    type:  'post',
+    data:  {
+      "estado": estado[0]
+    },
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEst = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(idEstado == 22){
+            if(idEstado == p2.aaData[i].IDPATENTE_ESTADO){
+              cuerpoEst += '<option selected value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+            }
+            else if(2 == p2.aaData[i].IDPATENTE_ESTADO){
+              cuerpoEst += '<option value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+            }
+          }
+          else{
+            if(idEstado == p2.aaData[i].IDPATENTE_ESTADO){
+              cuerpoEst += '<option selected value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+            }
+            else{
+              cuerpoEst += '<option value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+            }
+          }
+        }
+        $("#estadoEditarVehiculos").html(cuerpoEst);
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosMarcaPatente.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoMarca = '<option>' + marca + '</option>';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if (marca != p2.aaData[i].MARCA){
+            cuerpoMarca += '<option>' + p2.aaData[i].MARCA + '</option>';
+          }
+        }
+        $("#marcaEditarVehiculos").html(cuerpoMarca);
+      }
+    }
+  });
+
+  var parametrosMarca = {
+    "marca" : marca[0]
+  }
+  await $.ajax({
+    url:   'controller/datosModeloPatente.php',
+    type:  'post',
+    data: parametrosMarca,
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoModelo = '<option>' + modelo + '</option>';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if (modelo != p2.aaData[i].MODELO){
+            cuerpoModelo += '<option name="' + p2.aaData[i].LITROS_ESTANQUE + '">' + p2.aaData[i].MODELO + '</option>';
+          }
+        }
+        $("#modeloEditarVehiculos").html(cuerpoModelo);
+      }
+    }
+  });
+
+  $("#marcaEditarVehiculos").unbind("click").change(async function(){
+    var parametrosMarca = {
+      "marca" : $('select[id="marcaEditarVehiculos"] option:selected').text()
+    }
+    await $.ajax({
+      url:   'controller/datosModeloPatente.php',
+      type:  'post',
+      data: parametrosMarca,
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoModelo = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            cuerpoModelo += '<option name="' + p2.aaData[i].LITROS_ESTANQUE + '">' + p2.aaData[i].MODELO + '</option>';
+          }
+          $("#modeloEditarVehiculos").html(cuerpoModelo);
+        }
+      }
+    });
+
+    var litrosSel = $("#modeloEditarVehiculos").find('option:selected').attr("name");
+    if(litrosSel == -1){
+      litrosSel = 0;
+    }
+    $("#litrosEditarVehiculos").val(litrosSel);
+  });
+
+  $("#modeloEditarVehiculos").unbind("click").change(async function(){
+    var litrosSel = $("#modeloEditarVehiculos").find('option:selected').attr("name");
+    if(litrosSel == -1){
+      litrosSel = 0;
+    }
+    $("#litrosEditarVehiculos").val(litrosSel);
+  });
+
+  if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Propio Personal"){
+    cuerpoEmpresa = '<option value="">' + 'No Aplica' + '</option>';
+    cuerpoTipoMonto = '<option value="">' + '' + '</option>';
+    $("#tipoMontoEditarVehiculos").html(cuerpoTipoMonto);
+    $("#empresaEditarVehiculos").html(cuerpoEmpresa);
+    $("#empresaEditarVehiculos").attr("disabled","disabled");
+    $("#inicioEditarVehiculos").attr("disabled","disabled");
+    $("#terminoEditarVehiculos").attr("disabled","disabled");
+    $("#montoEditarVehiculos").val("");
+    $("#montoEditarVehiculos").attr("disabled","disabled");
+    $("#tipoMontoEditarVehiculos").attr("disabled","disabled");
+  }
+  else if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Propio Empresa"){
+    cuerpoTipoMonto = '<option value="">' + '' + '</option>';
+    $("#tipoMontoEditarVehiculos").html(cuerpoTipoMonto);
+    $("#empresaEditarVehiculos").removeAttr("disabled");
+    $("#inicioEditarVehiculos").removeAttr("disabled");
+    $("#terminoEditarVehiculos").removeAttr("disabled");
+    $("#montoEditarVehiculos").val("");
+    $("#montoEditarVehiculos").attr("disabled","disabled");
+    $("#tipoMontoEditarVehiculos").attr("disabled","disabled");
+    await $.ajax({
+      url:   'controller/datosSubcontratistasVehiculoInterno.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoSub = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            if(idSubcontratistas == p2.aaData[i].IDSUBCONTRATO){
+              cuerpoSub += '<option selected value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+            else{
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+          }
+          $("#empresaEditarVehiculos").html(cuerpoSub);
+        }
+      }
+    });
+  }
+  if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Propio Subcontrata"){
+    cuerpoTipoMonto = '<option value="">' + '' + '</option>';
+    $("#tipoMontoEditarVehiculos").html(cuerpoTipoMonto);
+    $("#empresaEditarVehiculos").removeAttr("disabled");
+    $("#inicioEditarVehiculos").removeAttr("disabled");
+    $("#terminoEditarVehiculos").removeAttr("disabled");
+    $("#montoEditarVehiculos").val("");
+    $("#montoEditarVehiculos").attr("disabled","disabled");
+    $("#tipoMontoEditarVehiculos").attr("disabled","disabled");
+    await $.ajax({
+      url:   'controller/datosSubcontratistasVehiculo.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoSub = '';
+          for(var i = 0; i < p2.aaData.length; i++){
+            if(idSubcontratistas == p2.aaData[i].IDSUBCONTRATO){
+              cuerpoSub += '<option selected value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+            else{
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+          }
+          $("#empresaEditarVehiculos").html(cuerpoSub);
+        }
+      }
+    });
+  }
+  else if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Arriendo" || $('select[id="propiedadEditarVehiculos"] option:selected').text() === "Leasing Operativo" || $('select[id="propiedadEditarVehiculos"] option:selected').text() === "Leasing Financiero" ){
+    $("#empresaEditarVehiculos").removeAttr("disabled");
+    $("#inicioEditarVehiculos").removeAttr("disabled");
+    $("#terminoEditarVehiculos").removeAttr("disabled");
+    $("#montoEditarVehiculos").removeAttr("disabled");
+    $("#tipoMontoEditarVehiculos").removeAttr("disabled");
+    if (idTipoMonto == "Peso"){
+      $("#tipoMontoEditarVehiculos").html('<option value="Peso">Peso</option>,<option value="UF">UF</option>');
+    }
+    else{
+      $("#tipoMontoEditarVehiculos").html('<option value="UF">UF</option>,<option value="Peso">Peso</option>');
+    }
+
+    await $.ajax({
+      url:   'controller/datosProveedores.php',
+      type:  'post',
+      success: function (response2) {
+        var p2 = jQuery.parseJSON(response2);
+        if(p2.aaData.length !== 0){
+          var cuerpoSub = '<option selected disabled="disabled" value="-1">-- Seleccionar --</option>';
+          for(var i = 0; i < p2.aaData.length; i++){
+            if(idProveedor == p2.aaData[i].IDPATENTE_PROVEEDOR){
+              cuerpoSub += '<option selected value="' + p2.aaData[i].IDPATENTE_PROVEEDOR + '">' + p2.aaData[i].PROVEEDOR + '</option>';
+            }
+            else{
+              cuerpoSub += '<option value="' + p2.aaData[i].IDPATENTE_PROVEEDOR + '">' + p2.aaData[i].PROVEEDOR + '</option>';
+            }
+          }
+          $("#empresaEditarVehiculos").html(cuerpoSub);
+        }
+      }
+    });
+  }
+
+  $("#propiedadEditarVehiculos").unbind("click").change(async function(){
+    if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Propio Personal"){
+      cuerpoEmpresa = '<option value="">' + 'No Aplica' + '</option>';
+      cuerpoTipoMonto = '<option value="">' + '' + '</option>';
+      $("#empresaEditarVehiculos").html(cuerpoEmpresa);
+      $("#inicioEditarVehiculos").val("");
+      $("#terminoEditarVehiculos").val("");
+      $("#montoEditarVehiculos").val("");
+      $("#tipoMontoEditarVehiculos").html(cuerpoTipoMonto);
+      $("#empresaEditarVehiculos").attr("disabled","disabled");
+      $("#inicioEditarVehiculos").attr("disabled","disabled");
+      $("#terminoEditarVehiculos").attr("disabled","disabled");
+      $("#montoEditarVehiculos").attr("disabled","disabled");
+      $("#tipoMontoEditarVehiculos").attr("disabled","disabled");
+    }
+    else if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Propio Empresa"){
+      cuerpoTipoMonto = '<option value="">' + '' + '</option>';
+      // $("#inicioEditarVehiculos").val("");
+      // $("#terminoEditarVehiculos").val("");
+      $("#montoEditarVehiculos").val("");
+      $("#tipoMontoEditarVehiculos").html(cuerpoTipoMonto);
+      $("#empresaEditarVehiculos").removeAttr("disabled");
+      $("#inicioEditarVehiculos").removeAttr("disabled");
+      $("#terminoEditarVehiculos").removeAttr("disabled");
+      $("#montoEditarVehiculos").attr("disabled","disabled");
+      $("#tipoMontoEditarVehiculos").attr("disabled","disabled");
+      await $.ajax({
+        url:   'controller/datosSubcontratistasVehiculoInterno.php',
+        type:  'post',
+        success: function (response2) {
+          var p2 = jQuery.parseJSON(response2);
+          if(p2.aaData.length !== 0){
+            var cuerpoSub = '';
+            for(var i = 0; i < p2.aaData.length; i++){
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+            $("#empresaEditarVehiculos").html(cuerpoSub);
+          }
+        }
+      });
+    }
+    else if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Propio Subcontrata"){
+      cuerpoTipoMonto = '<option value="">' + '' + '</option>';
+      // $("#inicioEditarVehiculos").val("");
+      // $("#terminoEditarVehiculos").val("");
+      $("#montoEditarVehiculos").val("");
+      $("#tipoMontoEditarVehiculos").html(cuerpoTipoMonto);
+      $("#empresaEditarVehiculos").removeAttr("disabled");
+      $("#inicioEditarVehiculos").removeAttr("disabled");
+      $("#terminoEditarVehiculos").removeAttr("disabled");
+      $("#montoEditarVehiculos").attr("disabled","disabled");
+      $("#tipoMontoEditarVehiculos").attr("disabled","disabled");
+      await $.ajax({
+        url:   'controller/datosSubcontratistasVehiculo.php',
+        type:  'post',
+        success: function (response2) {
+          var p2 = jQuery.parseJSON(response2);
+          if(p2.aaData.length !== 0){
+            var cuerpoSub = '';
+            for(var i = 0; i < p2.aaData.length; i++){
+              cuerpoSub += '<option value="' + p2.aaData[i].IDSUBCONTRATO + '">' + p2.aaData[i].NOMBRE_SUBCONTRATO + '</option>';
+            }
+            $("#empresaEditarVehiculos").html(cuerpoSub);
+          }
+        }
+      });
+    }
+    else if($('select[id="propiedadEditarVehiculos"] option:selected').text() === "Arriendo" || $('select[id="propiedadEditarVehiculos"] option:selected').text() === "Leasing Operativo"  || $('select[id="propiedadEditarVehiculos"] option:selected').text() === "Leasing Financiero"){
+      $("#empresaEditarVehiculos").removeAttr("disabled");
+      $("#inicioEditarVehiculos").removeAttr("disabled");
+      $("#terminoEditarVehiculos").removeAttr("disabled");
+      $("#montoEditarVehiculos").removeAttr("disabled");
+      $("#montoEditarVehiculos").val(0);
+      $("#tipoMontoEditarVehiculos").removeAttr("disabled");
+      $("#tipoMontoEditarVehiculos").html('<option value="Peso">Peso</option>,<option value="UF">UF</option>');
+
+      await $.ajax({
+        url:   'controller/datosProveedores.php',
+        type:  'post',
+        success: function (response2) {
+          var p2 = jQuery.parseJSON(response2);
+          if(p2.aaData.length !== 0){
+            var cuerpoSub = '';
+            for(var i = 0; i < p2.aaData.length; i++){
+              cuerpoSub += '<option value="' + p2.aaData[i].IDPATENTE_PROVEEDOR + '">' + p2.aaData[i].PROVEEDOR + '</option>';
+            }
+            $("#empresaEditarVehiculos").html(cuerpoSub);
+          }
+        }
+      });
+    }
+  });
+
+  $("#inicioEditarVehiculos").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#terminoEditarVehiculos").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#mantoEditarVehiculos").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#tipoEditarVehiculos").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#propiedadEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#marcaEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#estadoEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#bodegaEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#comunaEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#aseguradoraEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#modeloEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#empresaEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#colorEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#tipoMontoEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#operacionEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#patenteOriginalEditarVehiculos").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  $("#kilometrajeEditarVehiculos" ).focusout(function(){
+    kilometro = $("#kilometrajeEditarVehiculos").val();
+    if(kilometro < 0){
+      $("#kilometrajeEditarVehiculos").val(0);
+      $("#kilometrajeEditarVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 0");
+    }
+    else{
+      $("#kilometrajeEditarVehiculos").val(kilometro);
+    }
+  });
+
+  $("#anoEditarVehiculos" ).focusout(function(){
+    ano = $("#anoEditarVehiculos").val();
+    if(ano < 1980){
+      $("#anoEditarVehiculos").val(1980);
+      $("#anoEditarVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 1980");
+    }
+    else{
+      $("#anoEditarVehiculos").val(ano);
+    }
+  });
+
+  $("#montoAseguradoraEditarVehiculos" ).focusout(function(){
+    montoAseg = $("#montoAseguradoraEditarVehiculos").val();
+    if(montoAseg < 0){
+      $("#montoAseguradoraEditarVehiculos").val(0);
+      $("#montoAseguradoraEditarVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 0");
+    }
+    else{
+      $("#montoAseguradoraEditarVehiculos").val(montoAseg);
+    }
+  });
+
+  $("#montoEditarVehiculos" ).focusout(function(){
+    monto = $("#montoEditarVehiculos").val();
+    if(monto < 0){
+      $("#montoEditarVehiculos").val(0);
+      $("#montoEditarVehiculos").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor por debajo de 0");
+    }
+    else{
+      $("#montoEditarVehiculos").val(monto);
+    }
+  });
+
+  setTimeout(function(){
+    var h = $(window).height() - 200;
+    $("#bodyEditarVehiculos").css("height",h);
+    $("#modalEditarVehiculos").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyEditarVehiculos').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },1000);
+});
+
+$("#guardarEditarVehiculos").unbind('click').click(function(){
+  if($("#patenteEditarVehiculos").val().length == 0 || $("#kilometrajeEditarVehiculos").val().length == 0 || $("#anoEditarVehiculos").val().length == 0 ){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#patenteEditarVehiculos").val().length == 0){
+      $("#patenteEditarVehiculos").addClass("is-invalid");
+    }
+    if ($("#kilometrajeEditarVehiculos").val().length == 0){
+      $("#kilometrajeEditarVehiculos").addClass("is-invalid");
+    }
+    if ($("#anoEditarVehiculos").val().length == 0){
+      $("#anoEditarVehiculos").addClass("is-invalid");
+    }
+  }
+  else{
+    var table = $('#tablaListadoVehiculo').DataTable();
+    var idVehiculo = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDPATENTE;
+    });
+    parametros = {
+      "idVehiculo": idVehiculo[0],
+      "patente": $("#patenteEditarVehiculos").val(),
+      "kilometraje": $("#kilometrajeEditarVehiculos").val(),
+      "marca": $("#marcaEditarVehiculos").val(),
+      "modelo": $("#modeloEditarVehiculos").val(),
+      "ano": $("#anoEditarVehiculos").val(),
+      "tipoVehiculo": $("#tipoEditarVehiculos").val(),
+      "vin": $("#vinEditarVehiculos").val(),
+      "color": $("#colorEditarVehiculos").val(),
+      "propiedad": $("#propiedadEditarVehiculos").val(),
+      "empresa": $("#empresaEditarVehiculos").val(),
+      "inicio": $("#inicioEditarVehiculos").val(),
+      "termino": $("#terminoEditarVehiculos").val(),
+      "monto": $("#montoEditarVehiculos").val(),
+      "bodega": $("#bodegaEditarVehiculos").val(),
+      "aseguradora": $("#aseguradoraEditarVehiculos").val(),
+      "montoAseguradora": $("#montoAseguradoraEditarVehiculos").val(),
+      "manto": $("#mantoEditarVehiculos").val(),
+      "estado": $("#estadoEditarVehiculos").val(),
+      "tipoMonto": $("#tipoMontoEditarVehiculos").val(),
+      "nMotor": $("#nMotorEditarVehiculos").val(),
+      "operacion": $("#operacionEditarVehiculos").val(),
+      "litros": $("#litrosEditarVehiculos").val(),
+      "comuna": $("#comunaEditarVehiculos").val(),
+      "patenteOriginal": $("#patenteOriginalEditarVehiculos").val(),
+      "kilometrajeRecorrer": $("#kilometrajeRecorrerEditarVehiculos").val(),
+      "numContrato": $("#numContratoEditarVehiculos").val()
+    }
+    $("#modalEditarVehiculos").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/editarVehiculo.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoVehiculo').DataTable();
+            table.ajax.reload();
+            var table2 = $('#informeListadoVehiculo').DataTable();
+            table2.ajax.reload(varGraficoPorFlota);
+
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Vehículo Editado correctamente");
+            $("#editarVehiculo").attr("disabled","disabled");
+            $("#subirPdfVehiculo").attr("disabled","disabled");
+            $("#historialVehiculo").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+              $('#tablaListadoVehiculo').DataTable().columns.adjust();
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Vehiculo, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Vehiculo, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#patenteEditarVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#kilometrajeEditarVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#anoEditarVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#montoEditarVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#montoAseguradoraEditarVehiculos").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+var varGraficoPorFlota = function graficoPorFlota(){
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChartFlota);
+
+  function drawChartFlota() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Estado');
+    data.addColumn('number', 'Q');
+    data.addColumn({type:'string', role:'style'});
+    data.addColumn({type:'string', role:'annotation'});
+
+    var tableFlota = $('#informeListadoVehiculo').DataTable();
+    var datosFlota = tableFlota.rows().data();
+
+    for(var k = 0; k < datosFlota.length; k++){
+      data.addRow([datosFlota[k].ESTADO_TEXTO, parseInt(datosFlota[k].Q), datosFlota[k].COLOR_PLANO, datosFlota[k].Q]);
+    }
+
+    var w = $(window).width()/3;
+
+    var options = {
+      height: '100%',
+      width: '100%',
+      chartArea: {
+        left: 150,
+        top: 0,
+        bottom: 0,
+        width: '70%',
+        height: '100%'
+      },
+      legend: {
+        position: "none"
+      },
+      vAxis : {
+        textStyle : {
+          fontSize: 11 // or the number you want
+        }
+      }
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('graficaListadoVehiculo'));
+
+    setTimeout(function(){
+      chart.draw(data, options);
+    },500);
+  }
+}
+
+$("#subirPdfVehiculo").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoVehiculo').DataTable();
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+      return item.PATENTE;
+  });
+  $("#tituloSubirPdfVehiculo").html('Patente: ' + patente);
+
+  $("#rTecFechaRealizadaVehiculo").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#rTecFechaCaducidadVehiculo").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#pCirFechaRealizadVehiculo").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#pCirFechaCaducidadVehiculo").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#emisionGasesFechaRealizadVehiculo").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  $("#emisionGasesFechaCaducidadVehiculo").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1920:2040',
+    firstDay: 1,
+    changeMonth: true,
+    changeYear: true,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá']
+  });
+
+  var parametrosPatente = {
+    "patente" : patente[0]
+  }
+  await $.ajax({
+    url:   'controller/datosEditarVehiculo.php',
+    type:  'post',
+    data: parametrosPatente,
+    success: function (response3) {
+      var p3 = jQuery.parseJSON(response3);
+      revTec = p3.aaData[0].PDFREVTEC;
+      permCirc = p3.aaData[0].PDFPERMCIRC;
+      aseg = p3.aaData[0].PDFASEG;
+      otros = p3.aaData[0].PDFOTROS;
+      realizRevTec = p3.aaData[0].FREALIZADAREVTEC;
+      caducRevTec = p3.aaData[0].FCADUCIDADREVTEC;
+      realizPermCirc = p3.aaData[0].FREALIZADAPERMCIRC;
+      caducPermCirc = p3.aaData[0].FCADUCIDADPERMCIRC;
+      emisionGases = p3.aaData[0].PDFEMISIONGASES;
+      realizEmisionGases = p3.aaData[0].FREALIZADAEMISIONGASES;
+      caducEmisionGases = p3.aaData[0].FCADUCIDADEMISIONGASES;
+    }
+  });
+
+  if(revTec == null){
+    $("#inputPdfRevisionTecnica").val(revTec);
+    $("#spanRevTec").html("<font> </font>");
+  }
+  else{
+    $("#spanRevTec").html("<font>  ¡Si desea reemplazarlo, cargue uno nuevo! </font>");
+    $("#inputPdfRevisionTecnica").val(revTec);
+  }
+
+  if(permCirc == null){
+    $("#inputPdfPermisoCirculacion").val(permCirc);
+    $("#spanPermCirc").html("<font> </font>");
+  }
+  else{
+    $("#spanPermCirc").html("<font>  ¡Si desea reemplazarlo, cargue uno nuevo! </font>");
+    $("#inputPdfPermisoCirculacion").val(permCirc);
+  }
+
+  if(aseg == null){
+    $("#inputPdfAseguradora").val(aseg);
+    $("#spanAseg").html("<font> </font>");
+  }
+  else{
+    $("#spanAseg").html("<font>  ¡Si desea reemplazarlo, cargue uno nuevo! </font>");
+    $("#inputPdfAseguradora").val(aseg);
+  }
+
+  if(otros == null){
+    $("#inputPdfOtros").val(otros);
+    $("#spanOtros").html("<font> </font>");
+  }
+  else{
+    $("#spanOtros").html("<font>  ¡Si desea reemplazarlo, cargue uno nuevo! </font>");
+    $("#inputPdfOtros").val(otros);
+  }
+
+  if(emisionGases == null){
+    $("#inputPdfEmisionGases").val(emisionGases);
+    $("#spanEmisGases").html("<font> </font>");
+  }
+  else{
+    $("#spanEmisGases").html("<font>  ¡Si desea reemplazarlo, cargue uno nuevo! </font>");
+    $("#inputPdfEmisionGases").val(emisionGases);
+  }
+
+  $("#pdfCargaRevisionTecnica").val('');
+  $("#inputPdfRevisionTecnica").removeClass("is-invalid");
+
+  $("#pdfCargaPermisoCirculacion").val('');
+  $("#inputPdfPermisoCirculacion").removeClass("is-invalid");
+
+  $("#pdfCargaEmisionGases").val('');
+  $("#inputPdfEmisionGases").removeClass("is-invalid");
+
+  $("#pdfCargaAseguradora").val('');
+  $("#inputPdfAseguradora").removeClass("is-invalid");
+
+  $("#pdfCargaOtros").val('');
+  $("#inputPdfOtros").removeClass("is-invalid");
+
+  $("#rTecFechaRealizadaVehiculo").val(realizRevTec);
+  $("#rTecFechaCaducidadVehiculo").val(caducRevTec);
+  $("#pCirFechaRealizadVehiculo").val(realizPermCirc);
+  $("#pCirFechaCaducidadVehiculo").val(caducPermCirc);
+  $("#emisionGasesFechaRealizadVehiculo").val(realizEmisionGases);
+  $("#emisionGasesFechaCaducidadVehiculo").val(caducEmisionGases);
+
+  $("#rTecFechaRealizadaVehiculo").removeClass("is-invalid");
+  $("#rTecFechaCaducidadVehiculo").removeClass("is-invalid");
+  $("#pCirFechaRealizadVehiculo").removeClass("is-invalid");
+  $("#pCirFechaCaducidadVehiculo").removeClass("is-invalid");
+  $("#emisionGasesFechaRealizadVehiculo").removeClass("is-invalid");
+  $("#emisionGasesFechaCaducidadVehiculo").removeClass("is-invalid");
+
+  var h = $(window).height() - 200;
+  $("#bodySubirPdfVehiculo").css("height",h);
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalSubirPdfVehiculo").modal("show");
+  },500);
+});
+
+$("#pdfCargaRevisionTecnica" ).on('change', function(e){
+  var file = e.target.files[0].name; // agarramos solo el nombre([0].name) del array que tiene tamaño, fecha y mas
+  $("#inputPdfRevisionTecnica").val(file);
+  $("#inputPdfRevisionTecnica").removeClass("is-invalid");
+});
+
+$("#pdfCargaPermisoCirculacion" ).on('change', function(e){
+  var file = e.target.files[0].name;
+  $("#inputPdfPermisoCirculacion").val(file);
+  $("#inputPdfPermisoCirculacion").removeClass("is-invalid");
+});
+
+$("#pdfCargaAseguradora" ).on('change', function(e){
+  var file = e.target.files[0].name;
+  $("#inputPdfAseguradora").val(file);
+  $("#inputPdfAseguradora").removeClass("is-invalid");
+});
+
+$("#pdfCargaOtros" ).on('change', function(e){
+  var file = e.target.files[0].name;
+  $("#inputPdfOtros").val(file);
+  $("#inputPdfOtros").removeClass("is-invalid");
+});
+
+$("#pdfCargaEmisionGases" ).on('change', function(e){
+  var file = e.target.files[0].name; // agarramos solo el nombre([0].name) del array que tiene tamaño, fecha y mas
+  $("#inputPdfEmisionGases").val(file);
+  $("#inputPdfEmisionGases").removeClass("is-invalid");
+});
+
+$("#guardarSubirPdfVehiculo").unbind("click").click(function(){
+  if($("#inputPdfRevisionTecnica").val() != '' || $("#inputPdfPermisoCirculacion").val() != '' || $("#inputPdfAseguradora").val() != '' || $("#inputPdfOtros").val() != '' || $("#inputPdfEmisionGases").val() != ''){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $("#modalSubirPdfVehiculo").modal("hide");
+    var table = $('#tablaListadoVehiculo').DataTable();
+    var patente = $.map(table.rows('.selected').data(), function (item) {
+        return item.PATENTE;
+    });
+
+    var formdata = new FormData();
+    formdata.append('patente',patente);
+    formdata.append('pdfRevTec',$("#pdfCargaRevisionTecnica")[0].files[0]);
+    formdata.append('fRealizadaRevTec',$("#rTecFechaRealizadaVehiculo").val());
+    formdata.append('fCaducidadRevTec',$("#rTecFechaCaducidadVehiculo").val());
+    formdata.append('pdfPermCirc',$("#pdfCargaPermisoCirculacion")[0].files[0]);
+    formdata.append('fRealizaPermCirc',$("#pCirFechaRealizadVehiculo").val());
+    formdata.append('fCaducidadPermCirc',$("#pCirFechaCaducidadVehiculo").val());
+    formdata.append('pdfEmisionGases',$("#pdfCargaEmisionGases")[0].files[0]);
+    formdata.append('fRealizadaEmisionGases',$("#emisionGasesFechaRealizadVehiculo").val());
+    formdata.append('fCaducidadEmisionGases',$("#emisionGasesFechaCaducidadVehiculo").val());
+    formdata.append('pdfAseg',$("#pdfCargaAseguradora")[0].files[0]);
+    formdata.append('pdfOtros',$("#pdfCargaOtros")[0].files[0]);
+
+    $.ajax({
+      url: "controller/ingresaPdfVehiculo.php",
+      type: 'POST',
+      data: formdata,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+
+            var table = $('#tablaListadoVehiculo').DataTable();
+            table.ajax.reload();
+            var table2 = $('#informeListadoVehiculo').DataTable();
+            table2.ajax.reload(varGraficoPorFlota);
+
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>PDF cargada correctamente");
+            $("#editarVehiculo").attr("disabled","disabled");
+            $("#subirPdfVehiculo").attr("disabled","disabled");
+            $("#historialVehiculo").attr("disabled","disabled");
+
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+          else{
+            $('#modalAlertasSplash').modal('hide');
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al cargar el PDF, si el problema persiste favor comuniquese con soporte");
+          }
+        }
+        else{
+          $('#modalAlertasSplash').modal('hide');
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al cargar el PDF, si el problema persiste favor comuniquese con soporte");
+        }
+      }
+    });
+  }
+  else{
+    $("#inputPdfRevisionTecnica").addClass("is-invalid");
+    $("#inputPdfPermisoCirculacion").addClass("is-invalid");
+    $("#inputPdfAseguradora").addClass("is-invalid");
+    $("#inputPdfOtros").addClass("is-invalid");
+
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No se ha cargado ningun PDF");
+  }
+});
+
+$("#rTecFechaRealizadaVehiculo").on('change', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#rTecFechaCaducidadVehiculo").on('change', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#pCirFechaRealizadVehiculo").on('change', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#pCirFechaCaducidadVehiculo").on('change', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#emisionGasesFechaRealizadVehiculo").on('change', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#emisionGasesFechaCaducidadVehiculo").on('change', function(){
+  $(this).removeClass("is-invalid");
+});
+
+async function pdf_Vehiculo(pdf){
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    window.open(window.location.toString().split("#/")[0].split('?')[0] + 'controller/repositorio/flota/' + pdf, '_blank');
+  }
+}
+
+$("#historialVehiculo").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoVehiculo').DataTable();
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+      return item.PATENTE;
+  });
+
+  $("#tituloHistorialVehiculos").html('Patente: ' + patente);
+
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+  var parametros = {
+    'patente': patente[0]
+  }
+
+  await $('#tablaHistorialVehiculos').DataTable({
+      ajax: {
+          url: "controller/datosHistorialVehiculo.php",
+          type: 'POST',
+          data: parametros
+      },
+      columns: [
+          { data: 'S'},
+          { data: 'ID'},
+          { data: 'OBSERVACION'},
+          { data: 'FECHA_HISTORIAL' },
+          { data: 'HORA_HISTORIAL' },
+          { data: 'USUARIO' },
+          { data: 'ESTADO_VEHICULO' },
+          { data: 'ESTADO_CONTROL' },
+          { data: 'ESTADO_RRHH' },
+          { data: 'TIPO_VEHICULO' },
+          { data: 'PROPIEDAD' },
+          { data: 'MARCA' },
+          { data: 'MODELO' },
+          { data: 'PROVEEDOR' },
+          { data: 'PERSONAL_ASIGNADO' },
+          { data: 'RUT_ASIGNADO' },
+          { data: 'BODEGA' },
+          { data: 'SERVICIO' },
+          { data: 'CLIENTE' },
+          { data: 'ACTIVIDAD' },
+          { data: 'ASEGURADORA' },
+          { data: 'SUBCONTRATISTA' },
+          { data: 'KILOMETRAJE' },
+          { data: 'AÑO' },
+          { data: 'VIN' },
+          { data: 'NRO_MOTOR' },
+          { data: 'LITROS_ESTANQUE' },
+          { data: 'COLOR' },
+          { data: 'FINICIO' },
+          { data: 'FTERMINO' },
+          { data: 'TIPOMONTO' },
+          { data: 'MONTO' },
+          { data: 'MONTO_ASEGURADORA' },
+          { data: 'FMANTENIMIENTO' },
+          { data: 'PDFREVTEC' },
+          { data: 'PDFPERMCIRC' },
+          { data: 'PDFASEG' },
+          { data: 'PDFOTROS' },
+
+
+      ],
+      buttons: [
+          {
+            extend: 'excel',
+            exportOptions: {
+              columns: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34 ]
+            },
+            title: null,
+            text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+          }
+      ],
+      "columnDefs": [
+        {
+          "width": "5px",
+          "targets": 0
+        },
+        {
+          "orderable": false,
+          "className": 'select-checkbox',
+          "targets": [ 0 ]
+        },
+      ],
+      "select": {
+          style: 'single'
+      },
+      fixedColumns: {
+        leftColumns: 2
+      },
+      "order": [ 1, "desc" ],
+      "scrollX": true,
+      "paging": true,
+      "ordering": true,
+      "scrollCollapse": true,
+      "info":     true,
+      "lengthMenu": [[largo], [largo]],
+      "dom": 'Bfrtip',
+      "language": {
+        "zeroRecords": "No hay datos disponibles",
+        "info": "Registro _START_ de _END_ de _TOTAL_",
+        "infoEmpty": "No hay datos disponibles",
+        "paginate": {
+            "previous": "Anterior",
+            "next": "Siguiente"
+          },
+          "search": "Buscar: ",
+          "select": {
+              "rows": "- %d registros seleccionados"
+          },
+          "infoFiltered": "(Filtrado de _MAX_ registros)"
+      },
+      "destroy": true,
+      "autoWidth": true,
+      "initComplete": function( settings, json){
+        $('#contenido').show();
+
+        $('#footer').parent().show();
+        $('#footer').show();
+        setTimeout(function(){
+          var h = $(window).height() - 200;
+          $("#bodyHistorialVehiculos").css("height",h);
+          $("#modalHistorialVehiculos").modal("show");
+          $('#modalAlertasSplash').modal('hide');
+          setTimeout(function(){
+            $('#tablaHistorialVehiculos').DataTable().columns.adjust();
+          },500);
+        },2000);
+      }
+  });
+});
+
+$("#equipamientoVehiculo").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#modalAlertasSplash").modal("show");
+
+  var table = $('#tablaListadoVehiculo').DataTable();
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+      return item.PATENTE;
+  });
+
+  $("#tituloEquipamientoVehiculos").html("<br>Patente: " + patente);
+  $("#idEquipamientoVehiculos").val(patente);
+
+  var parametros = {
+    "patente": patente
+  }
+
+  await $.ajax({
+    url:   'controller/datosCecoConAsignacion.php',
+    type:  'post',
+    data:  parametros,
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      var cuerpoEquip = '';
+      for(var i = 0; i < p.aaData.length; i++){
+        cuerpoEquip += '<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 input-group-sm" style="margin-top: 10pt;">';
+        if(p.aaData[i].ASIGNADO == 1){
+          cuerpoEquip += '<label class="switch"><input id="selectEquipamiento_' + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + '" value="' + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + '" type="checkbox" title="Asignar" checked="checked"><span class="slider round"></span></label>&nbsp;&nbsp;<label id="nombreEquipamiento_' + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + '">' + p.aaData[i].NOMBRE + '</label>';
+          cuerpoEquip += `<input id="ocultoEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `" type="hidden" value="` + p.aaData[i].IDASIGNADO + `">`;
+        }
+        else{
+          cuerpoEquip += '<label class="switch"><input id="selectEquipamiento_' + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + '" value="' + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + '" type="checkbox" title="Asignar"><span class="slider round"></span></label>&nbsp;&nbsp;<label id="nombreEquipamiento_' + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + '">' + p.aaData[i].NOMBRE + '</label>';
+          cuerpoEquip += `<input id="ocultoEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `" type="hidden" value="-1">`;
+        }
+        cuerpoEquip += '</div>';
+        if(p.aaData[i].CERTIFICADO == 'SI'){
+          cuerpoEquip += `<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <div class="input-group">
+              <label class="input-group-btn">
+                  <span id="spanEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+                      <span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `' style="display: none;" accept="application/pdf">
+                  </span>
+              </label>
+              <input disabled id='inputEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `' type="text" class="form-control" readonly value="` + p.aaData[i].RUTA + `">
+            </div>
+          </div>`;
+        }
+        else{
+          cuerpoEquip += `<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <div class="input-group" style="display: none;">
+              <label class="input-group-btn">
+                  <span id="spanEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+                      <span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `' style="display: none;" accept="application/pdf">
+                  </span>
+              </label>
+              <input disabled id='inputEquipamiento_` + p.aaData[i].IDPATENTE_EQUIPAMIENTOS + `' type="text" class="form-control" readonly>
+            </div>
+          </div>`;
+        }
+        cuerpoEquip += `<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <hr class="hr-separador">
+        </div>`;
+      }
+      $("#bodyEquipamientoVehiculosRow").html(cuerpoEquip);
+
+      $("[id^=pdfEquipamiento]").on('change', function(e){
+        var id = $(this).attr("id").split("_")[1];
+        var file = e.target.files[0].name;
+
+        var ext = file.split('.');
+        var extFin = ext[ext.length-1];
+
+        if(extFin != "pdf" && extFin != "PDF"){
+          $(this).val("");
+          $("#inputEquipamiento_" + id).val("");
+          alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El archivo ingresado no es válido, debe ser .pdf o .PDF");
+        }
+        else{
+          $("#inputEquipamiento_" + id).val(file);
+        }
+      });
+    }
+  });
+
+  setTimeout(function(){
+    var h = $(window).height() - 200;
+    $("#bodyEquipamientoVehiculos").css("height",h);
+    $("#modalAlertasSplash").modal("hide");
+    $("#modalEquipamientoVehiculos").modal("show");
+  },2000);
+});
+
+$("#guardarEquipamientoVehiculos").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#modalAlertasSplash").modal("show");
+  $("#modalEquipamientoVehiculos").modal("hide");
+
+  var elementos = new Array();
+  var patente = $("#idEquipamientoVehiculos").val();
+  var selects = (Object.values($("input[id^='selectEquipamiento_']" )));
+
+  var formdata = new FormData();
+  var tam = 0;
+  formdata.append('patente', patente);
+
+  await selects.forEach((inp) => {
+    var check = 0;
+    if(inp.checked == true){
+      check = 1;
+    }
+
+    var arc = '';
+    if(typeof $("#pdfEquipamiento_" + inp.value)[0] !== 'undefined'){
+      arc = $("#pdfEquipamiento_" + inp.value)[0].files[0];
+    }
+
+    formdata.append("id_" + inp.value, inp.value);
+    formdata.append("oculto_" + inp.value, $("#ocultoEquipamiento_" + inp.value).val());
+    formdata.append("checked_" + inp.value, check);
+    formdata.append("archivo_" + inp.value, arc);
+    formdata.append("nombre_" + inp.value, $("#nombreEquipamiento_" + inp.value).html());
+  });
+
+  await $.ajax({
+    url: "controller/ingresaEquipamientoFlota.php",
+    type: 'POST',
+    data: formdata,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Equipamiento cargado correctamente");
+          setTimeout(function(){
+            $("#modalAlertasSplash").modal("hide");
+          },2000);
+        }
+        else{
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al cargar el equipamiento, si el problema persiste comununiquese con soporte");
+        }
+      }
+      else{
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al cargar el equipamiento, si el problema persiste comununiquese con soporte");
+      }
+    }
+  });
 });
 // Fin Flota

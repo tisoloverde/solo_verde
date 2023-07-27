@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=73';
+  js.src = 'view/js/funciones.js?idLoad=74';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -2156,125 +2156,6 @@ include "./modales/personal/update.php";
 	</div>
 </div>
 
-
-<!-- MODAL INGRESO VEHICULOS -->
-<div id="modalIngresoVehiculos" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h5 style="color:gray;" id="tituloIngresoVehiculos"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Vehiculos</h5>
-      </div>
-      <div id="bodyIngresoVehiculos" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente</label>
-            <input id="patenteIngresoVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Kilometraje</label>
-            <input id="kilometrajeIngresoVehiculos" class="form-control" type="number" min="0" value="0">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Marca</label>
-            <select id="marcaIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Modelo</label>
-            <select id="modeloIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Año</label>
-            <input id="anoIngresoVehiculos" class="form-control" type="number" min="1980" max="2022" value="1980">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tipo Vehiculo</label>
-            <select id="tipoIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Capacidad estanque (Lts)</label>
-            <input disabled id="litrosIngresoVehiculos" class="form-control" type="text">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">VIN</label>
-            <input id="vinIngresoVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nro. Motor</label>
-            <input id="nMotorIngresoVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Color</label>
-            <select id="colorIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Propiedad</label>
-            <select id="propiedadIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Empresa</label>
-            <select id="empresaIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Inicio</label>
-            <input id="inicioIngresoVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Termino</label>
-            <input id="terminoIngresoVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Peso / UF</label>
-            <select id="tipoMontoIngresoVehiculos">
-            </select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Monto</label>
-            <input id="montoIngresoVehiculos" class="form-control" type="number" min="0" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Bodega</label>
-            <select id="bodegaIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Comuna</label>
-            <select id="comunaIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Aseguradora</label>
-            <select id="aseguradoraIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Monto Aseg.<b><span id="tipoMontoAseg"></span></b></label>
-            <input id="montoAseguradoraIngresoVehiculos" class="form-control" type="number" min="0" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Ult. Mant.</label>
-            <input id="mantoIngresoVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado</label>
-            <select id="estadoIngresoVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente original</label>
-						<select id="patenteOriginalVehiculos" class="form-control"></select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <div id="modalAgregarMeta" class="modal modal-fullscreen fade" role="dialog">
     <div class="modal-dialog  modal-lg" role="document">
 
@@ -2483,127 +2364,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-
-<!-- MODAL EDITAR VEHICULOS -->
-<div id="modalEditarVehiculos" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h5 style="color:gray;" id="tituloEditarVehiculos"><span class="fas fa-car-alt"></span>&nbsp;&nbsp;Editar Vehiculo</h5>
-      </div>
-      <div id="bodyEditarVehiculos" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente</label>
-            <input id="patenteEditarVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Kilometraje</label>
-            <input id="kilometrajeEditarVehiculos" class="form-control" type="number" min="0" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Marca</label>
-            <select id="marcaEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Modelo</label>
-            <select id="modeloEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Año</label>
-            <input id="anoEditarVehiculos" class="form-control" type="number" min="1980" max="2022" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tipo Vehiculo</label>
-            <select id="tipoEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Capacidad estanque (Lts)</label>
-            <input disabled id="litrosEditarVehiculos" class="form-control" type="text">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">VIN</label>
-            <input id="vinEditarVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nro. Motor</label>
-            <input id="nMotorEditarVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Color</label>
-            <select id="colorEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Propiedad</label>
-            <select id="propiedadEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Empresa</label>
-            <select id="empresaEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Inicio</label>
-            <input id="inicioEditarVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Termino</label>
-            <input id="terminoEditarVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Peso / UF</label>
-            <select id="tipoMontoEditarVehiculos">
-            </select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Monto</label>
-            <input id="montoEditarVehiculos" class="form-control" type="number" min="0" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Bodega</label>
-            <select id="bodegaEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Comuna</label>
-            <select id="comunaEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Aseguradora</label>
-            <select id="aseguradoraEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Monto Aseg.<b><span id="tipoMontoEditarAseg"></span></b></label>
-            <input id="montoAseguradoraEditarVehiculos" class="form-control" type="number" min="0" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Ult. Mant.</label>
-            <input id="mantoEditarVehiculos" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado</label>
-            <select id="estadoEditarVehiculos" class="form-control"></select>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Operación</label>
-            <select id="operacionEditarVehiculos" class="form-control">
-							<option value="0">Pendiente</option>
-							<option value="1">Confirmado</option>
-						</select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarEditarVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEditarVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div id="modalCargaImgPersonal" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-md" role="document">
 
@@ -2639,111 +2399,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-<!-- MODAL SUBIR PDF VEHICULO -->
-<div id="modalSubirPdfVehiculo" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-xl" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-pdf"></span>&nbsp;&nbsp;
-          <span>Cargar PDF</span>
-          <br>
-          <span id="tituloSubirPdfVehiculo" style="font-size: 12pt;"></span>
-        </h5>
-      </div>
-      <div id="bodySubirPdfVehiculo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Revisión Técnica <b><span id="spanRevTec" style="color:gray;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaRevisionTecnica' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfRevisionTecnica' type="text" class="form-control" readonly>
-						</div>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Realizada </label>
-            <input id="rTecFechaRealizadaVehiculo" class="form-control" type="text">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Caducidad </label>
-            <input id="rTecFechaCaducidadVehiculo" class="form-control" type="text">
-          </div>
-          <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Permiso Circulación <b><span id="spanPermCirc" style="color:gray;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaPermisoCirculacion' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfPermisoCirculacion' type="text" class="form-control" readonly>
-						</div>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Realizada </label>
-            <input id="pCirFechaRealizadVehiculo" class="form-control" type="text">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Caducidad </label>
-            <input id="pCirFechaCaducidadVehiculo" class="form-control" type="text">
-          </div>
-          <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Emisión de Gases <b><span id="spanEmisGases" style="color:gray;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaEmisionGases' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfEmisionGases' type="text" class="form-control" readonly>
-						</div>
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Realizada </label>
-            <input id="emisionGasesFechaRealizadVehiculo" class="form-control" type="text">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">F. Caducidad </label>
-            <input id="emisionGasesFechaCaducidadVehiculo" class="form-control" type="text">
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;"> PDF Aseguradora <b><span id="spanAseg" style="color:gray;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaAseguradora' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfAseguradora' type="text" class="form-control" readonly>
-						</div>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Otros <b><span id="spanOtros" style="color:gray;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaOtros' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfOtros' type="text" class="form-control" readonly>
-						</div>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-				<button id="guardarSubirPdfVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-				<button id="cancelarSubirPdfVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-			</div>
-    </div>
-  </div>
-</div>
-
 <div id="modalFallasPracticasPersonas" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-xl" role="document">
 
@@ -2764,79 +2419,6 @@ include "./modales/personal/update.php";
       </div>
       <div class="modal-footer" style="text-align: left;">
         <button id="cerrarFallasPracticasPersonas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL HISTORIAL VEHICULO -->
-<div id="modalHistorialVehiculos" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog" role="document" style="min-width: 90%; width: 90%;">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-			<div class="modal-header">
-					<h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-alt"></span>&nbsp;&nbsp;
-						<span>Historial</span>
-						<br>
-						<span id="tituloHistorialVehiculos" style="font-size: 12pt;"></span>
-					</h5>
-			</div>
-      <div id="bodyHistorialVehiculos" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<table id="tablaHistorialVehiculos" class="cell-border compact" style="width: 100%;">
-					    <thead>
-					      <tr>
-									<th class="celdaColor" style="border: 1pt solid white;" >S</th>
-									<th class="celdaColor" style="border: 1pt solid white;" >ID</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" >Observacion</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" >Fecha</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" >Hora</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" >Usuario Sistema</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Estado Veh.</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Estado Control</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Estado RRHH</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Tipo Vehiculo</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Propiedad</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Marca</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Modelo</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Proveedor</th>
-				          <th class="celdaColor" style="border: 1pt solid white;" >Personal Asignado</th>
-				          <th class="celdaColor" style="border: 1pt solid white;" >DNI Asignado</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" >Bodega</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Gerencia</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Subgerencia</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Cliente</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Aseguradora</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Subcontratista</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Kilometraje</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Año</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >VIN</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Nro. Motor</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Litros</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Color</th>
-				          <th class="celdaColor" style="border: 1pt solid white;" >F. Inicio</th>
-				          <th class="celdaColor" style="border: 1pt solid white;" >F. Termino</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" >Tipo Monto</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Monto</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Monto Aseg</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >F. Mant</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >RevTec</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >PermCirc</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Aseg</th>
-					        <th class="celdaColor" style="border: 1pt solid white;" >Otros</th>
-					      </tr>
-					    </thead>
-					    <tbody id="cuerpoHistorialVehiculos" style="text-align: left;">
-
-					    </tbody>
-					  </table>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="cerrarHistorialVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
@@ -10675,33 +10257,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-<div id="modalEquipamientoVehiculos" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document">
-    <div class="modal-content">
-
-      <div class="modal-header">
-				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-tools"></span>&nbsp;&nbsp;
-					<span>Equipamiento</span>
-					<span id="tituloEquipamientoVehiculos" style="font-size: 12pt;"></span>
-					<input id="idEquipamientoVehiculos" type="hidden" value="">
-				</h5>
-      </div>
-
-      <div id="bodyEquipamientoVehiculos" class="modal-body alerta-modal-body">
-        <div id="bodyEquipamientoVehiculosRow" class="row" style="text-align: left; margin-bottom: 20pt;">
-
-        </div>
-      </div>
-
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarEquipamientoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEquipamientoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <div id="modalCambiarEstadoSiniestro" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-md" role="document">
     <div class="modal-content">
@@ -11419,4 +10974,464 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
+
+<div id="modalIngresoVehiculos" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 style="color:gray;" id="tituloIngresoVehiculos"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Vehiculos</h5>
+      </div>
+      <div id="bodyIngresoVehiculos" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente</label>
+            <input id="patenteIngresoVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Kilometraje</label>
+            <input id="kilometrajeIngresoVehiculos" class="form-control" type="number" min="0" value="0">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Kilometraje a recorrer</label>
+            <input id="kilometrajeRecorrerIngresoVehiculos" class="form-control" type="number" min="0" value="0">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Marca</label>
+            <select id="marcaIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Modelo</label>
+            <select id="modeloIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Año</label>
+            <input id="anoIngresoVehiculos" class="form-control" type="number" min="1980" max="2022" value="1980">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo Vehiculo</label>
+            <select id="tipoIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Capacidad estanque (Lts)</label>
+            <input disabled id="litrosIngresoVehiculos" class="form-control" type="text">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">VIN</label>
+            <input id="vinIngresoVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nro. Motor</label>
+            <input id="nMotorIngresoVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Color</label>
+            <select id="colorIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Propiedad</label>
+            <select id="propiedadIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Empresa</label>
+            <select id="empresaIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Inicio</label>
+            <input id="inicioIngresoVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Termino</label>
+            <input id="terminoIngresoVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Peso / UF</label>
+            <select id="tipoMontoIngresoVehiculos">
+            </select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Monto</label>
+            <input id="montoIngresoVehiculos" class="form-control" type="number" min="0" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Bodega</label>
+            <select id="bodegaIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Comuna</label>
+            <select id="comunaIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Aseguradora</label>
+            <select id="aseguradoraIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Monto Aseg.<b><span id="tipoMontoAseg"></span></b></label>
+            <input id="montoAseguradoraIngresoVehiculos" class="form-control" type="number" min="0" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Ult. Mant.</label>
+            <input id="mantoIngresoVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+            <select id="estadoIngresoVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente original</label>
+						<select id="patenteOriginalVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">N° Contrato</label>
+            <input id="numContratoIngresoVehiculos" class="form-control" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarVehiculos" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 style="color:gray;" id="tituloEditarVehiculos"><span class="fas fa-car-alt"></span>&nbsp;&nbsp;Editar Vehiculo</h5>
+      </div>
+      <div id="bodyEditarVehiculos" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente</label>
+            <input id="patenteEditarVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Kilometraje</label>
+            <input id="kilometrajeEditarVehiculos" class="form-control" type="number" min="0" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Kilometraje a recorrer</label>
+            <input id="kilometrajeRecorrerEditarVehiculos" class="form-control" type="text" min="0" value="0">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Marca</label>
+            <select id="marcaEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Modelo</label>
+            <select id="modeloEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Año</label>
+            <input id="anoEditarVehiculos" class="form-control" type="number" min="1980" max="2022" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo Vehiculo</label>
+            <select id="tipoEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Capacidad estanque (Lts)</label>
+            <input disabled id="litrosEditarVehiculos" class="form-control" type="text">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">VIN</label>
+            <input id="vinEditarVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nro. Motor</label>
+            <input id="nMotorEditarVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Color</label>
+            <select id="colorEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Propiedad</label>
+            <select id="propiedadEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Empresa</label>
+            <select id="empresaEditarVehiculos" class="js-example-disabled-results"></select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Inicio</label>
+            <input id="inicioEditarVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Termino</label>
+            <input id="terminoEditarVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Peso / UF</label>
+            <select id="tipoMontoEditarVehiculos">
+            </select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Monto</label>
+            <input id="montoEditarVehiculos" class="form-control" type="number" min="0" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Bodega</label>
+            <select id="bodegaEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Comuna</label>
+            <select id="comunaEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Aseguradora</label>
+            <select id="aseguradoraEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Monto Aseg.<b><span id="tipoMontoEditarAseg"></span></b></label>
+            <input id="montoAseguradoraEditarVehiculos" class="form-control" type="number" min="0" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Ult. Mant.</label>
+            <input id="mantoEditarVehiculos" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+            <select id="estadoEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Operación</label>
+            <select id="operacionEditarVehiculos" class="form-control">
+							<option value="0">Pendiente</option>
+							<option value="1">Confirmado</option>
+							<option value="2">Rechazado</option>
+						</select>
+          </div>
+					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente original</label>
+						<select id="patenteOriginalEditarVehiculos" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">N° Contrato</label>
+            <input id="numContratoEditarVehiculos" class="form-control" type="text" min="0" value="0">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarEditarVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalSubirPdfVehiculo" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-xl" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-pdf"></span>&nbsp;&nbsp;
+          <span>Cargar PDF</span>
+          <br>
+          <span id="tituloSubirPdfVehiculo" style="font-size: 12pt;"></span>
+        </h5>
+      </div>
+      <div id="bodySubirPdfVehiculo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Revisión Técnica <b><span id="spanRevTec" style="color:gray;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaRevisionTecnica' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfRevisionTecnica' type="text" class="form-control" readonly>
+						</div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Realizada </label>
+            <input id="rTecFechaRealizadaVehiculo" class="form-control" type="text">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Caducidad </label>
+            <input id="rTecFechaCaducidadVehiculo" class="form-control" type="text">
+          </div>
+          <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Permiso Circulación <b><span id="spanPermCirc" style="color:gray;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaPermisoCirculacion' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfPermisoCirculacion' type="text" class="form-control" readonly>
+						</div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Realizada </label>
+            <input id="pCirFechaRealizadVehiculo" class="form-control" type="text">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Caducidad </label>
+            <input id="pCirFechaCaducidadVehiculo" class="form-control" type="text">
+          </div>
+          <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Emisión de Gases <b><span id="spanEmisGases" style="color:gray;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaEmisionGases' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfEmisionGases' type="text" class="form-control" readonly>
+						</div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Realizada </label>
+            <input id="emisionGasesFechaRealizadVehiculo" class="form-control" type="text">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">F. Caducidad </label>
+            <input id="emisionGasesFechaCaducidadVehiculo" class="form-control" type="text">
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;"> PDF Aseguradora <b><span id="spanAseg" style="color:gray;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaAseguradora' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfAseguradora' type="text" class="form-control" readonly>
+						</div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Otros <b><span id="spanOtros" style="color:gray;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaOtros' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfOtros' type="text" class="form-control" readonly>
+						</div>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+				<button id="guardarSubirPdfVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+				<button id="cancelarSubirPdfVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+			</div>
+    </div>
+  </div>
+</div>
+
+<div id="modalHistorialVehiculos" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog" role="document" style="min-width: 90%; width: 90%;">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+			<div class="modal-header">
+					<h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-alt"></span>&nbsp;&nbsp;
+						<span>Historial</span>
+						<br>
+						<span id="tituloHistorialVehiculos" style="font-size: 12pt;"></span>
+					</h5>
+			</div>
+      <div id="bodyHistorialVehiculos" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table id="tablaHistorialVehiculos" class="cell-border compact" style="width: 100%;">
+					    <thead>
+					      <tr>
+									<th class="celdaColor" style="border: 1pt solid white;" >S</th>
+									<th class="celdaColor" style="border: 1pt solid white;" >ID</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" >Observacion</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" >Fecha</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" >Hora</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" >Usuario Sistema</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Estado Veh.</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Estado Control</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Estado RRHH</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Tipo Vehiculo</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Propiedad</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Marca</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Modelo</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Proveedor</th>
+				          <th class="celdaColor" style="border: 1pt solid white;" >Personal Asignado</th>
+				          <th class="celdaColor" style="border: 1pt solid white;" >DNI Asignado</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" >Bodega</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Gerencia</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Subgerencia</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Cliente</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Aseguradora</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Subcontratista</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Kilometraje</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Año</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >VIN</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Nro. Motor</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Litros</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Color</th>
+				          <th class="celdaColor" style="border: 1pt solid white;" >F. Inicio</th>
+				          <th class="celdaColor" style="border: 1pt solid white;" >F. Termino</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" >Tipo Monto</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Monto</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Monto Aseg</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >F. Mant</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >RevTec</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >PermCirc</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Aseg</th>
+					        <th class="celdaColor" style="border: 1pt solid white;" >Otros</th>
+					      </tr>
+					    </thead>
+					    <tbody id="cuerpoHistorialVehiculos" style="text-align: left;">
+
+					    </tbody>
+					  </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="cerrarHistorialVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEquipamientoVehiculos" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-tools"></span>&nbsp;&nbsp;
+					<span>Equipamiento</span>
+					<span id="tituloEquipamientoVehiculos" style="font-size: 12pt;"></span>
+					<input id="idEquipamientoVehiculos" type="hidden" value="">
+				</h5>
+      </div>
+
+      <div id="bodyEquipamientoVehiculos" class="modal-body alerta-modal-body">
+        <div id="bodyEquipamientoVehiculosRow" class="row" style="text-align: left; margin-bottom: 20pt;">
+
+        </div>
+      </div>
+
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarEquipamientoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEquipamientoVehiculos" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- Fin Flota -->

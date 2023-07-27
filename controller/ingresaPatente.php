@@ -1,5 +1,5 @@
 <?php
-    // ini_set('display_errors', 'On');
+    ini_set('display_errors', 'On');
     require('../model/consultas.php');
     session_start();
 
@@ -30,10 +30,12 @@
         $patenteOriginal = $_POST['patenteOriginal'];
         $litros = $_POST['litros'];
         $comuna = $_POST['comuna'];
+        $kilometrajeRecorrer = $_POST['kilometrajeRecorrer'];
+        $numContrato = $_POST['numContrato'];
 
         $row = ingresaPatente($patente, $kilometraje,
         $ano, $tipoVehiculo, $vin, $color, $propiedad, $empresa, $inicio, $termino,
-        $monto, $bodega, $aseguradora, $montoAseguradora, $manto, $estado, $marca, $modelo, $tipoMonto, $nMotor, $patenteOriginal, $litros, $comuna);
+        $monto, $bodega, $aseguradora, $montoAseguradora, $manto, $estado, $marca, $modelo, $tipoMonto, $nMotor, $patenteOriginal, $litros, $comuna, $kilometrajeRecorrer, $numContrato);
 
         $v = consultaPatenteEspecifica($patente);
     		$estadoVeh = $v[0]['IDPATENTE_ESTADO'];

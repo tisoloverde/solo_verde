@@ -29,10 +29,13 @@
         $operacion = $_POST['operacion'];
         $litros = $_POST['litros'];
         $comuna = $_POST['comuna'];
+        $patenteOriginal = $_POST['patenteOriginal'];
+        $kilometrajeRecorrer = $_POST['kilometrajeRecorrer'];
+        $numContrato = $_POST['numContrato'];
 
         $row = editarPatente($idVehiculo, $patente, $kilometraje,
         $ano, $tipoVehiculo, $vin, $color, $propiedad, $empresa, $inicio, $termino,
-        $monto, $bodega, $aseguradora, $montoAseguradora, $manto, $estado, $marca, $modelo, $tipoMonto, $operacion, $nMotor, $litros, $comuna);
+        $monto, $bodega, $aseguradora, $montoAseguradora, $manto, $estado, $marca, $modelo, $tipoMonto, $operacion, $nMotor, $litros, $comuna, $patenteOriginal, $kilometrajeRecorrer, $numContrato);
 
         $v = consultaPatenteEspecifica($patente);
     		$estadoVeh = $v[0]['IDPATENTE_ESTADO'];
