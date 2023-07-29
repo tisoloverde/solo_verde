@@ -14334,3 +14334,47 @@ $("#guardarEquipamientoVehiculos").unbind("click").click(async function(){
   });
 });
 // Fin Flota
+
+$("#cerrarPlanillaAsistencia").on("click", async function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  var week = $("#selectListaSemanas").val();
+  var semanaInicio = '2021-01-01';
+  var semanaFin = '2025-01-01';
+  if (week && week != '0' && week != 'Seleccione') {
+    var [anho, idx] = week.split('_');
+    semanaInicio = _CALENDARIO_PLANILLA[anho][idx].SEMANA_INICIO;
+    semanaFin = _CALENDARIO_PLANILLA[anho][idx].SEMANA_FIN;
+  } else {
+    if (anho != 'Seleccione' && anho > 0) {
+      semanaInicio = _CALENDARIO_PLANILLA[anho][0].SEMANA_INICIO;
+      semanaFin = _CALENDARIO_PLANILLA[anho][_CALENDARIO_PLANILLA[anho].length - 1].SEMANA_FIN;
+    }
+  }
+
+  var data = {
+    tipo: 'cierre',
+    codigoEstructuraOperacion: $("#selectListaCentrosDeCostos").val(),
+    fechaInicio: semanaInicio,
+    fechaFin: semanaFin,
+    estadoAprobacion: 0,
+  }
+
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#modalAlertasSplash").modal("show");
+
+  await $.ajax({
+    url: "controller/actualizarPlanillaAsistenciaAprobacion.php",
+    type: 'POST',
+    data: data,
+    dataType: 'json',
+    success: function (response) {
+      alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla cerrada correctamente");
+      setTimeout(function(){
+        $("#modalAlertasSplash").modal("hide");
+      }, 2000);
+    }
+  });
+});

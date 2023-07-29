@@ -21519,4 +21519,79 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 		}
 		// Fin Flota
+
+		function datosEstructuraOperacion($codigo){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT * FROM ESTRUCTURA_OPERACION WHERE DEFINICION = '$codigo';";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				} else {
+					return "Error";
+				}
+			} else {
+				return "Error";
+			}
+		}
+
+		function cierrePersonalEstadoAprobacion(
+			$idEstructuraOperacion,
+			$fechaInicio,
+			$fechaFin,
+			$rutCierre
+		) {
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL CIERRE_PERSONAL_ESTADO_APROBACION(
+					$idEstructuraOperacion,
+					'$fechaInicio',
+					'$fechaFin',
+					'$rutCierre'
+				)";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				} else {
+					return "Error";
+				}
+			} else {
+				return "Error";
+			}
+		}
+
+		function apruebaPersonalEstadoAprobacion(
+			$idEstructuraOperacion,
+			$fechaInicio,
+			$fechaFin,
+			$rutAprobacion,
+			$estadoAprobacion
+		) {
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL APRUEBA_PERSONAL_ESTADO_APROBACION(
+					$idEstructuraOperacion,
+					'$fechaInicio',
+					'$fechaFin',
+					'$rutAprobacion',
+					$estadoAprobacion
+				)";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				} else {
+					return "Error";
+				}
+			} else {
+				return "Error";
+			}
+		}
 ?>
