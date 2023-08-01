@@ -1729,26 +1729,6 @@ AND PASS = '" . $passNuevo . "'";
 		}
 	}
 
-	//Tarjetas de Combustible
-	function consultaTarjetasCombustible($rut,$pat){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "CALL TARJETAS_COMBUSTIBLE('{$rut}','{$pat}')";
-			if ($row = $con->query($sql)){
-					while($array = $row->fetch_array(MYSQLI_BOTH)){
-						$return[] = $array;
-					}
-					return $return;
-	    }
-			else{
-				return "Error";
-			}
-		}
-		else{
-			return "Error";
-		}
-	}
-
 	function chequeaEmail($email){
 			$con = conectar();
 			if($con != 'No conectado'){
@@ -11163,110 +11143,6 @@ function listadoComprasServicios($rut) {
 		return "Error";
 	}
 }
-
-function consultaPatentesSinTarjeta(){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT DISTINCT P.CODIGO
-FROM PATENTE P
-LEFT JOIN TARJETACOMBUSTIBLE T
-ON P.IDPATENTE = T.IDPATENTE
-WHERE P.IDPATENTE_ESTADO IN (1,2)
-AND
-(
-CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 4 THEN 1 ELSE 0 END < 1
-OR
-CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 2 THEN 1 ELSE 0 END < 1
-)
-GROUP BY P.CODIGO
-ORDER BY P.CODIGO ASC";
-			if ($row = $con->query($sql)) {
-				$return = array();
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-
-				return $return;
-			}
-			else{
-				return "Error";
-			}
-		}
-		else{
-			return "Error";
-		}
-}
-
-function consultaPatenteCantAsig($codigo){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT P.CODIGO,
-SUM(CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 4 THEN 1 ELSE 0 END) 'BACKUP',
-SUM(CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 2 THEN 1 ELSE 0 END) 'ASIGNADA'
-FROM PATENTE P
-LEFT JOIN TARJETACOMBUSTIBLE T
-ON P.IDPATENTE = T.IDPATENTE
-WHERE P.CODIGO = '" . $codigo . "'
-GROUP BY P.CODIGO";
-		if ($row = $con->query($sql)) {
-      $return = array();
-      while ($array = $row->fetch_assoc()) {
-        $return[] = $array;
-      }
-      return $return;
-    } else {
-      return "Error";
-    }
-  } else {
-    return "Error";
-  }
-}
-
-function consultaTarjetasEstado(){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT IDTARJETACOMBUSTIBLE_ESTADO 'ID', NOMBRE 'ESTADO'
-FROM TARJETACOMBUSTIBLE_ESTADO";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-function asignarTarjeta($numero, $patente, $estado){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "UPDATE TARJETACOMBUSTIBLE
-	SET IDPATENTE = (SELECT IDPATENTE FROM PATENTE WHERE CODIGO = '" . $patente . "'),
-	FECHA = CURDATE(),
-	IDTARJETACOMBUSTIBLE_ESTADO = (SELECT IDTARJETACOMBUSTIBLE_ESTADO FROM TARJETACOMBUSTIBLE_ESTADO WHERE NOMBRE ='" . $estado ."')
-	WHERE NUMERO = '" . $numero . "'";
-			if ($con->query($sql)) {
-				$con->query("COMMIT");
-				return "Ok";
-			}
-			else{
-				// return $con->error;
-				$con->query("ROLLBACK");
-				return "Error";
-			}
-		}
-		else{
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
 
 	function consultaDatosDetalleOrdenAtc($idorden){
 			$con = conectar();
@@ -21503,6 +21379,129 @@ WHERE U.RUT = '{$rutUser}'";
 								(SELECT IDPATENTE FROM PATENTE WHERE CODIGO = '{$patente}'),
 								'{$id}', '{$archivo_final}', '{$rutUser}', NOW()
 								)";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function consultaTarjetasCombustible($rut,$pat){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL TARJETAS_COMBUSTIBLE('{$rut}','{$pat}')";
+				if ($row = $con->query($sql)){
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+		    }
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaPatentesSinTarjeta(){
+				$con = conectar();
+				if($con != 'No conectado'){
+					$sql = "SELECT DISTINCT P.CODIGO
+									FROM PATENTE P
+									LEFT JOIN TARJETACOMBUSTIBLE T
+									ON P.IDPATENTE = T.IDPATENTE
+									WHERE P.IDPATENTE_ESTADO IN (1,2)
+									AND
+									(
+									CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 4 THEN 1 ELSE 0 END < 1
+									OR
+									CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 2 THEN 1 ELSE 0 END < 1
+									)
+									GROUP BY P.CODIGO
+									ORDER BY P.CODIGO ASC";
+					if ($row = $con->query($sql)) {
+						$return = array();
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+
+						return $return;
+					}
+					else{
+						return "Error";
+					}
+				}
+				else{
+					return "Error";
+				}
+		}
+
+		function consultaPatenteCantAsig($codigo){
+				$con = conectar();
+				if($con != 'No conectado'){
+					$sql = "SELECT P.CODIGO,
+									SUM(CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 4 THEN 1 ELSE 0 END) 'BACKUP',
+									SUM(CASE WHEN T.IDTARJETACOMBUSTIBLE_ESTADO = 2 THEN 1 ELSE 0 END) 'ASIGNADA'
+									FROM PATENTE P
+									LEFT JOIN TARJETACOMBUSTIBLE T
+									ON P.IDPATENTE = T.IDPATENTE
+									WHERE P.CODIGO = '" . $codigo . "'
+									GROUP BY P.CODIGO";
+				if ($row = $con->query($sql)) {
+		      $return = array();
+		      while ($array = $row->fetch_assoc()) {
+		        $return[] = $array;
+		      }
+		      return $return;
+		    } else {
+		      return "Error";
+		    }
+		  } else {
+		    return "Error";
+		  }
+		}
+
+		function consultaTarjetasEstado(){
+				$con = conectar();
+				if($con != 'No conectado'){
+					$sql = "SELECT IDTARJETACOMBUSTIBLE_ESTADO 'ID', NOMBRE 'ESTADO'
+		FROM TARJETACOMBUSTIBLE_ESTADO";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function asignarTarjeta($numero, $patente, $estado){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE TARJETACOMBUSTIBLE
+								SET IDPATENTE = (SELECT IDPATENTE FROM PATENTE WHERE CODIGO = '" . $patente . "'),
+								FECHA = CURDATE(),
+								IDTARJETACOMBUSTIBLE_ESTADO = (SELECT IDTARJETACOMBUSTIBLE_ESTADO FROM TARJETACOMBUSTIBLE_ESTADO WHERE NOMBRE ='" . $estado ."')
+								WHERE NUMERO = '" . $numero . "'";
 				if ($con->query($sql)) {
 					$con->query("COMMIT");
 					return "Ok";

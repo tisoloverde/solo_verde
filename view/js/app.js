@@ -126,6 +126,11 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: "vm",
       templateUrl : "view/flota/vehiculo.html?idLoad=74"
     })
+    .when("/tarCombustible", {
+        controller: "tarjetasCombustibleController",
+        controllerAs: "vm",
+        templateUrl : "view/flota/tarjetasCom.html?idLoad=298"
+    })
     // Fin Flota
     .otherwise({redirectTo: '/home'});
 
@@ -4288,6 +4293,544 @@ app.controller("vehiculoController", function(){
       			    document.getElementsByTagName('head')[0].appendChild(js);
       			  },500);
       			},100);
+          },1000);
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("tarjetasCombustibleController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+          $('#modalAlertasSplash').modal('show');
+          var path = window.location.href.split('#/')[1];
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/40);
+          var parametros = {
+            "path": path
+          }
+          var tableTarjetas = await $('#tablaTarjetaCombustible').DataTable( {
+            ajax: {
+                url: "controller/datosTarjetasCom.php",
+                type: 'POST',
+                data: parametros
+            },
+            columns: [
+                { data: 'S'},
+                { data: 'NUMERO' },
+                { data: 'ESTADO_COLOR' },
+                { data: 'PRODUCTO', className: "centerDataTable" },
+                { data: 'TIPO' },
+                { data: 'PATENTE' },
+                { data: 'SALDO_INICIAL' , render: $.fn.dataTable.render.number( '.', ',', 0, '$ ' ), "defaultContent": '0' },
+                { data: 'DEVOLUCION' , render: $.fn.dataTable.render.number( '.', ',', 0, '$ ' ), "defaultContent": '0' },
+                { data: 'ABONO' , render: $.fn.dataTable.render.number( '.', ',', 0, '$ ' ), "defaultContent": '0' },
+                { data: 'CONSUMO' , render: $.fn.dataTable.render.number( '.', ',', 0, '$ ' ), "defaultContent": '0' },
+                { data: 'SALDO' , render: $.fn.dataTable.render.number( '.', ',', 0, '$ ' ), "defaultContent": '0' },
+                { data: 'DNI' },
+                { data: 'USUARIO_ASIGNADO' },
+                { data: 'ESTADO_CONTROL', className: "centerDataTable" },
+                { data: 'ESTADO_GEO', className: "centerDataTable"  },
+                { data: 'ESTADO_GESTPER', className: "centerDataTable"  },
+                { data: 'SERVICIO' },
+                { data: 'CLIENTE' },
+                { data: 'ACTIVIDAD' },
+                { data: 'BODEGA' },
+                { data: 'ESTADO' },
+                { data: 'ESTADO_CONTROL2' },
+                { data: 'ESTADO_GEO2' },
+                { data: 'ESTADO_GESTPER2' }
+            ],
+            /*rowReorder: {
+              selector: 'td:nth-child(2)'
+            },*/
+            fixedColumns:   {
+              leftColumns: 5
+            },
+            buttons: [
+              {
+                  extend: 'excel',
+                  exportOptions: {
+                    columns: [ 1,19,3,4,5,6,7,8,9,10,11,19,20,21,15,16,17,18,19],
+                    format: {
+                        body: function(data, row, column, node) {
+                           return column == 15 ? data.replace( '$ ', '' ) : data.replace('$ ','');
+                        }
+                    }
+                  },
+                  title: null,
+                  text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+              },
+              {
+                text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                action: function ( e, dt, node, config ) {
+                  var table = $('#tablaTarjetaCombustible').DataTable();
+                  $("#asignarTarjetaCombustible").attr("disabled","disabled");
+        					$("#desasignarTarjetaCombustible").attr("disabled","disabled");
+        					$("#editarTarjetaCombustible").attr("disabled","disabled");
+        					$("#solicitarTarjetaCombustible").attr("disabled","disabled");
+        					$("#devolucionTarjetaCombustible").attr("disabled","disabled");
+                  table.rows().deselect();
+                }
+              },
+              {
+                text: '<span class="fas fa-arrow-alt-circle-down" id="spanButtonFiltrosTarjetaCombustible"></span>&nbsp;&nbsp;Filtros',
+                action: function(){
+                  if($("#filtrosTarjetaCombustible").height() > 100){
+                    $("#filtrosTarjetaCombustible").css("height","0");
+                    $("#filtrosTarjetaCombustible").fadeOut();
+                    $("#spanButtonFiltrosTarjetaCombustible").removeClass("fas fa-arrow-alt-circle-up");
+                    $("#spanButtonFiltrosTarjetaCombustible").addClass("fas fa-arrow-alt-circle-down");
+                  }
+                  else{
+                    if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                      $("#filtrosTarjetaCombustible").css("height","210pt");
+                    }
+                    else{
+                      $("#filtrosTarjetaCombustible").css("height","400pt");
+                    }
+                    $("#filtrosTarjetaCombustible").fadeIn();
+                    $("#spanButtonFiltrosTarjetaCombustible").removeClass("fas fa-arrow-alt-circle-down");
+                    $("#spanButtonFiltrosTarjetaCombustible").addClass("fas fa-arrow-alt-circle-up");
+                  }
+                }
+              }
+            ],
+            "columnDefs": [
+              {
+                "width": "5px",
+                "targets": 0
+              },
+              // {
+              //   "orderable": false,
+              //   "className": 'select-checkbox',
+              //   "targets": [ 0 ]
+              // },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 20 ]
+              },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 21 ]
+              },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 22 ]
+              },
+              {
+                "visible": false,
+                "searchable": false,
+                "targets": [ 23 ]
+              }
+            ],
+            "select": {
+                style: 'single'
+            },
+            "scrollX": false,
+            "responsive": {
+                details: {
+                    renderer: function ( api, rowIdx, columns ) {
+                        var data = $.map( columns, function ( col, i ) {
+                            return col.hidden ?
+                                '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                                    '<td style="font-weight: bold; min-width: 150px;">'+col.title+':'+'</td> '+
+                                    '<td style="min-width: 150px; text-align: center;">'+col.data+'</td>'+
+                                '</tr>' :
+                                '';
+                        } ).join('');
+
+                        return data ?
+                            $('<table/>').append( data ) :
+                            false;
+                    }
+                }
+            },
+            "paging": true,
+            "ordering": true,
+            "scrollCollapse": true,
+            // "order": [[ 3, "asc" ]],
+            "info":     true,
+            "lengthMenu": [[largo], [largo]],
+            "dom": 'Bfrtip',
+            "language": {
+              "zeroRecords": "No hay datos disponibles",
+              "info": "Registro _START_ de _END_ de _TOTAL_",
+              "infoEmpty": "No hay datos disponibles",
+              "paginate": {
+                  "previous": "Anterior",
+                  "next": "Siguiente"
+              },
+              "search": "Buscar: ",
+              "select": {
+                  "rows": "- %d registros seleccionados"
+                },
+                "infoFiltered": "(Filtrado de _MAX_ registros)"
+              },
+              "destroy": true,
+              "autoWidth": false,
+              "initComplete": function( settings, json){
+                $('#contenido').show();
+                $('#footer').parent().show();
+                $('#footer').show();
+
+                setTimeout(function(){
+                  setTimeout(function(){
+                    $("#filtrosTarjetaCombustible").css("height","0");
+                    $("#filtrosTarjetaCombustible").fadeOut();
+                    $('#modalAlertasSplash').modal('hide');
+                    setTimeout(function(){
+                      marcarMenuActivo();
+                      menuElegant();
+                    },500);
+                    setTimeout(function(){
+                      $("#spanButtonFiltrosTarjetaCombustible").click();
+                    },100);
+                    setTimeout(function(){
+                      $('#tablaTarjetaCombustible').DataTable().columns.adjust();
+                    },500);
+                  },2000);
+                },300);
+              }
+          });
+
+          tableTarjetas.on( 'search.dt', function () {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChartTarjetaMov);
+
+            async function drawChartTarjetaMov() {
+              //Gráfica 1
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Tipo');
+              data.addColumn('number', 'Monto');
+              data.addColumn({type:'string', role:'annotation'});
+
+              var tableTar = $('#tablaTarjetaCombustible').DataTable();
+              var datosTar = tableTar.rows({search:'applied'}).data();
+
+              var devolucion = 0;
+              var asignacion = 0;
+              var consumo = 0;
+              var saldo = 0;
+
+              for(var k = 0; k < datosTar.length; k++){
+                if(datosTar[k].DEVOLUCION === null){
+                  devolucion += 0;
+                }
+                else{
+                  devolucion += parseInt(datosTar[k].DEVOLUCION.replace("$ ","").replace(",","").replace(".","").replace(".","").replace(".",""));
+                }
+                if(datosTar[k].SALDO === null){
+                  saldo += 0;
+                }
+                else{
+                  saldo += parseInt(datosTar[k].SALDO.replace("$ ","").replace(",","").replace(".","").replace(".","").replace(".",""));
+                }
+                if(datosTar[k].CONSUMO === null){
+                  consumo += 0;
+                }
+                else{
+                  consumo += parseInt(datosTar[k].CONSUMO.replace("$ ","").replace(",","").replace(".","").replace(".","").replace(".",""));
+                }
+                if(datosTar[k].ABONO === null){
+                  asignacion += 0;
+                }
+                else{
+                  asignacion += parseInt(datosTar[k].ABONO.replace("$ ","").replace(",","").replace(".","").replace(".","").replace(".",""));
+                }
+              }
+
+              var max = 0;
+              if(max < -1*devolucion){
+                max = devolucion*-1;
+              }
+              if(max < asignacion){
+                max = asignacion;
+              }
+              if(max < consumo){
+                max = consumo;
+              }
+              if(max < saldo){
+                max = saldo;
+              }
+
+              max = max + max*0.25;
+              var min = devolucion + devolucion*0.25;
+
+              data.addRow(['Devolución', devolucion, accounting.formatMoney(devolucion, "$ ", 0)]);
+              data.addRow(['Asignación', asignacion, accounting.formatMoney(asignacion, "$ ", 0)]);
+              data.addRow(['Consumo', consumo, accounting.formatMoney(consumo, "$ ", 0)]);
+              data.addRow(['Saldo', saldo, accounting.formatMoney(saldo, "$ ", 0)]);
+
+              var w = $(window).width()/3;
+
+              var options = {
+                height: '100%',
+                width: '100%',
+                chartArea: {
+                  // left: 150,
+                  top: 0,
+                  bottom: 20,
+                  // width: '70%',
+                  // height: '100%'
+                },
+                annotations: {
+                  textStyle: {
+                    fontSize: 10,
+                    bold: true
+                  }
+                },
+                legend: {
+                  position: "none"
+                },
+                hAxis : {
+                  textStyle : {
+                    fontSize: 11 // or the number you want
+                  },
+                  viewWindow: {
+                      min: min,
+                      max: max
+                  }
+                }
+              };
+
+              var chart = new google.visualization.BarChart(document.getElementById('graficaMovimientosMontos'));
+
+              //Gráfica 2
+              var data2 = new google.visualization.DataTable();
+              data2.addColumn('string', 'Tipo');
+              data2.addColumn('number', 'Cantidad');
+              data2.addColumn({type:'string', role:'annotation'});
+
+              var asignada = 0;
+              var disponible = 0;
+              var backup = 0;
+              var eliminada = 0;
+              var bloqueada = 0;
+
+              for(var k = 0; k < datosTar.length; k++){
+                if(datosTar[k].ESTADO === 'Asignada'){
+                  asignada++;
+                }
+                else if(datosTar[k].ESTADO === 'Disponible'){
+                  disponible++;
+                }
+                else if(datosTar[k].ESTADO === 'Backup'){
+                  backup++;
+                }
+                else if(datosTar[k].ESTADO === 'eliminada'){
+                  eliminada++;
+                }
+                else if(datosTar[k].ESTADO === 'Bloqueada'){
+                  bloqueada++;
+                }
+              }
+
+              var max2 = 0;
+              if(max2 < asignada){
+                max2 = asignada;
+              }
+              if(max2 < disponible){
+                max2 = disponible;
+              }
+              if(max2 < backup){
+                max2 = backup;
+              }
+              if(max2 < eliminada){
+                max2 = eliminada;
+              }
+              if(max2 < bloqueada){
+                max2 = bloqueada;
+              }
+
+              data2.addRow(['Asignada', asignada, asignada.toString()]);
+              data2.addRow(['Disponible', disponible, disponible.toString()]);
+              data2.addRow(['Backup', backup, backup.toString()]);
+              data2.addRow(['Eliminada', eliminada, eliminada.toString()]);
+              data2.addRow(['Bloqueada', bloqueada, bloqueada.toString()]);
+
+              max2 = max2 + max2*0.25;
+              var min2 = 0;
+
+              var options2 = {
+                height: '100%',
+                width: '100%',
+                chartArea: {
+                  // left: 150,
+                  top: 0,
+                  bottom: 20,
+                  // width: '70%',
+                  // height: '100%'
+                },
+                annotations: {
+                  textStyle: {
+                    fontSize: 10,
+                    bold: true
+                  }
+                },
+                legend: {
+                  position: "none"
+                },
+                hAxis : {
+                  textStyle : {
+                    fontSize: 11 // or the number you want
+                  },
+                  viewWindow: {
+                      min: min2,
+                      max: max2
+                  }
+                }
+              };
+
+              var chart2 = new google.visualization.BarChart(document.getElementById('graficaTarjetaResumen'));
+
+              //Gráfica 3
+              var data3 = new google.visualization.DataTable();
+              data3.addColumn('string', 'Tipo');
+              data3.addColumn('number', 'Cantidad');
+              data3.addColumn({type:'string', role:'annotation'});
+
+              var libre = 0;
+              var conConductor = 0;
+              var sinConductor = 0;
+
+              for(var k = 0; k < datosTar.length; k++){
+                if(datosTar[k].DNI === null && datosTar[k].ESTADO === 'Asignada'){
+                  sinConductor++;
+                }
+                else if(datosTar[k].DNI !== ''){
+                  conConductor++;
+                }
+                else{
+                  libre++;
+                }
+              }
+
+              var max3 = 0;
+              if(max3 < libre){
+                max3 = libre;
+              }
+              if(max3 < sinConductor){
+                max3 = sinConductor;
+              }
+              if(max3 < conConductor){
+                max3 = conConductor;
+              }
+
+              data3.addRow(['Libre', libre, libre.toString()]);
+              data3.addRow(['Sin conductor', sinConductor, sinConductor.toString()]);
+              data3.addRow(['Con conductor', conConductor, conConductor.toString()]);
+
+              max3 = max3 + max3*0.25;
+              var min3 = 0;
+
+              var options3 = {
+                height: '100%',
+                width: '100%',
+                chartArea: {
+                  left: 100,
+                  top: 0,
+                  bottom: 20,
+                  // width: '70%',
+                  // height: '100%'
+                },
+                annotations: {
+                  textStyle: {
+                    fontSize: 10,
+                    bold: true
+                  }
+                },
+                legend: {
+                  position: "none"
+                },
+                hAxis : {
+                  textStyle : {
+                    fontSize: 11 // or the number you want
+                  },
+                  viewWindow: {
+                      min: min3,
+                      max: max3
+                  }
+                }
+              };
+
+              var chart3 = new google.visualization.BarChart(document.getElementById('graficaTarjetaResumenConductor'));
+
+              setTimeout(function(){
+                chart.draw(data, options);
+                chart2.draw(data2, options2);
+                chart3.draw(data3, options3);
+              },500);
+            }
+          });
+
+          setTimeout(async function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+            await $.ajax({
+              url:   'controller/datosAccionesVisibles.php',
+              type:  'post',
+              data: parametros,
+              success: function (response) {
+                var p = jQuery.parseJSON(response);
+                if(p.aaData.length !== 0){
+                  for(var i = 0; i < p.aaData.length; i++) {
+                    if(p.aaData[i].VISIBLE == 1){
+                      if(p.aaData[i].ENABLE == 1){
+                        $("#accionesTarjetasCombustible").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                      else{
+                        $("#accionesTarjetasCombustible").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                    }
+                  }
+                }
+              }
+            });
+
+            setTimeout(function(){
+              var js = document.createElement('script');
+              js.src = 'view/js/funciones.js?idLoad=298';
+              document.getElementsByTagName('head')[0].appendChild(js);
+            },500);
           },1000);
         },200);
       }

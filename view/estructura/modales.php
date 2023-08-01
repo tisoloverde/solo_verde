@@ -5432,59 +5432,6 @@ include "./modales/personal/update.php";
 </div>
 <!-- FIN MODAL CARATULA OBRAS -->
 
-<!-- MODAL ASIGNAR TARJETA -->
-<div id="modalTarjetaAsignar" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="Asignación de tarjeta"><span class="fas fa-plus"></span>&nbsp;&nbsp;Asignación de Tarjeta</h5>
-      </div>
-      <div id="bodyTarjetaAsignar" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <label style="font-weight: bold;">Patente: <b><span id="flotaVehiculoTarSel"></span></b></label>
-          </div>
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
-						<label style="font-weight: bold;">Tarj. Asignadas: <span id="flotaVehiculoTarAsig"></span></label>
-          </div>
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
-						<label style="font-weight: bold;">Tarj. Backup: <b><span id="flotaVehiculoTarBack"></span></b></label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Número</label>
-            <input disabled id="numeroTarjetaAsignar" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente</label>
-						<select id="patenteTarjetaAsignar" class="form-control">
-            </select>
-          </div>
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado</label>
-            <select id="estadoTarjetaAsignar" class="form-control">
-            </select>
-          </div>
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt; display:none;">
-						<input type="text" id="TarjetaCantAsignadas" value="0">
-            <input type="text" id="TarjetaCantBackup" value="0">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarTarjetaAsignar" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarTarjetaAsignar" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL ASIGNAR TARJETA -->
-
 <!-- MODAL DETALLE HISTORIAL ORDEN ATC -->
 <div id="modalDetalleOrdenAtc" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-xl" role="document" style="width: 80%; min-width: 80%; max-width: 80%;">
@@ -11434,4 +11381,54 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
+<div id="modalTarjetaAsignar" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="Asignación de tarjeta"><span class="fas fa-plus"></span>&nbsp;&nbsp;Asignación de Tarjeta</h5>
+      </div>
+      <div id="bodyTarjetaAsignar" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <label style="font-weight: bold;">Patente: <b><span id="flotaVehiculoTarSel"></span></b></label>
+          </div>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
+						<label style="font-weight: bold;">Tarj. Asignadas: <span id="flotaVehiculoTarAsig"></span></label>
+          </div>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
+						<label style="font-weight: bold;">Tarj. Backup: <b><span id="flotaVehiculoTarBack"></span></b></label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Número</label>
+            <input disabled id="numeroTarjetaAsignar" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente</label>
+						<select id="patenteTarjetaAsignar" class="form-control">
+            </select>
+          </div>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+            <select id="estadoTarjetaAsignar" class="form-control">
+            </select>
+          </div>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt; display:none;">
+						<input type="text" id="TarjetaCantAsignadas" value="0">
+            <input type="text" id="TarjetaCantBackup" value="0">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarTarjetaAsignar" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarTarjetaAsignar" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Fin Flota -->

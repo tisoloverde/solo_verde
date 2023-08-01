@@ -14333,6 +14333,162 @@ $("#guardarEquipamientoVehiculos").unbind("click").click(async function(){
     }
   });
 });
+
+$("#asignarTarjetaCombustible").unbind("click").click( function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaTarjetaCombustible').DataTable();
+  var n = $.map(table.rows('.selected').data(), function (item) {
+      return item.NUMERO;
+  });
+  var e = $.map(table.rows('.selected').data(), function (item) {
+      return item.ESTADO;
+  });
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#patenteTarjetaAsignar").select2({
+          theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+      });
+      $("#estadoTarjetaAsignar").select2({
+          theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+      });
+    }
+  $.ajax({
+      url:   'controller/datosPatentesSinTarjeta.php',
+      type:  'post',
+      success:  function (response) {
+          if(response.localeCompare("Sin datos") != 0 && response != ""){
+              var p = jQuery.parseJSON(response);
+              if(p.aaData.length !== 0){
+                  var cuerpoPatenteSinTarjeta = "";
+                  for(var i = 0; i < p.aaData.length; i++){
+                     cuerpoPatenteSinTarjeta = cuerpoPatenteSinTarjeta + "<option value=" + p.aaData[i].CODIGO + ">"  + p.aaData[i].CODIGO + "</option>";
+                  }
+                  $("#patenteTarjetaAsignar").html(cuerpoPatenteSinTarjeta);
+                  var parametros = {
+                    'codigo': $("#patenteTarjetaAsignar").val()
+                  };
+                  $("#flotaVehiculoTarSel").html(parametros['codigo']);
+                  var datosVehiculo;
+                  $.ajax({
+                    url:   'controller/datosFlotaVehiculoPatenteCantAsig.php',
+                    type:  'post',
+                    data:  parametros,
+                    success:  function (response) {
+                      var datosVehiculo;
+                    if(response.localeCompare("Sin datos") != 0 && response != ""){
+                        datosVehiculo = jQuery.parseJSON(response);
+                        $("#flotaVehiculoTarAsig").html(datosVehiculo.aaData[0].ASIGNADA);
+                        $("#flotaVehiculoTarBack").html(datosVehiculo.aaData[0].BACKUP);
+                        $("#TarjetaCantAsignadas").val(datosVehiculo.aaData[0].ASIGNADA);
+                        $("#TarjetaCantBackup").val(datosVehiculo.aaData[0].BACKUP);
+                      }
+                    }
+                  });
+                  $.ajax({
+                    url:   'controller/datosTarjetaEstado.php',
+                    type:  'post',
+                    success:  function (response) {
+                        if(response.localeCompare("Sin datos") != 0 && response != ""){
+                            var p = jQuery.parseJSON(response);
+                            if(p.aaData.length !== 0){
+                                var cuerpoTarjetaEstado = "";
+                                for(var i = 0; i < p.aaData.length; i++){
+                                    if(e[0] === "Backup"){
+                                      if(p.aaData[i].ESTADO === 'Asignada'){
+                                        cuerpoTarjetaEstado = cuerpoTarjetaEstado + "<option value=" + p.aaData[i].ESTADO + ">"  + p.aaData[i].ESTADO + "</option>";
+                                      }
+                                    }
+                                    else{
+                                      if(p.aaData[i].ESTADO === 'Asignada' || p.aaData[i].ESTADO === 'Backup'){
+                                        cuerpoTarjetaEstado = cuerpoTarjetaEstado + "<option value=" + p.aaData[i].ESTADO + ">"  + p.aaData[i].ESTADO + "</option>";
+                                      }
+                                    }
+                                }
+                                $("#estadoTarjetaAsignar").html(cuerpoTarjetaEstado);
+                            }
+                        }
+                    }
+                });
+              }
+          }
+      }
+  });
+  $("#numeroTarjetaAsignar").val(n[0]);
+  if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    var h = $(window).height() - 200;
+    $("#bodyTarjetaAsignar").css("height",h);
+  }
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalTarjetaAsignar").modal("show");
+  },500);
+});
+
+$("#guardarTarjetaAsignar").unbind('click').click(function(){
+  var table = $('#tablaTarjetaCombustible').DataTable();
+  var n = $.map(table.rows('.selected').data(), function (item) {
+      return item.NUMERO;
+  });
+  var p = $.map(table.rows('.selected').data(), function (item) {
+      return item.PRODUCTO;
+  });
+  var parametros = {
+    "numero": n[0],
+    "producto": p[0],
+    "estado": $("#estadoTarjetaAsignar").val(),
+    "patente": $("#patenteTarjetaAsignar").val()
+  };
+  if($("#TarjetaCantAsignadas").val() === '1' && $("#estadoTarjetaAsignar").val() === "Asignada"){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Esta patente ya posee una tarjeta asignada");
+  }
+  else if($("#TarjetaCantBackup").val() === '1' && $("#estadoTarjetaAsignar").val() === "Backup"){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Esta patente ya posee una tarjeta backup");
+  }
+  else{
+    $("#modalTarjetaAsignar").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    // console.log(parametros);
+    // console.log($("#flotaVehiculoTarAsig").val());
+    $.ajax({
+      data:  parametros,
+      url:   'controller/asignarTarjeta.php',
+      type:  'post',
+      success:  function (response) {
+          var p = response.split(",");
+          if(response.localeCompare("Sin datos")!= 0 && response != ""){
+            if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                var table = $('#tablaTarjetaCombustible').DataTable();
+                table.ajax.reload();
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Tarjeta asignada correctamente");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al asignar tarjeta, si el problema persiste favor comuniquese con soporte");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al asignar tarjeta, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+      });
+  }
+});
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {

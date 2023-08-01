@@ -56,6 +56,7 @@
     <script src="view/js/moment.min.js"></script>
     <script src="view/js/datetime-moment.js"></script>
     <script src="view/js/datetime.js"></script>
+    <script src="view/js/accounting.js"></script>
     <script src="view/js/jquery.rut.min.js"></script>
     <script src="view/js/select2.min.js"></script>
     <script src="view/js/jquery.multi-select.js"></script>
