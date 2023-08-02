@@ -14469,6 +14469,12 @@ $("#guardarTarjetaAsignar").unbind('click').click(function(){
                 setTimeout(function(){
                   $('#modalAlertasSplash').modal('hide');
                 },500);
+                $("#asignarTarjetaCombustible").attr("disabled","disabled");
+      					$("#desasignarTarjetaCombustible").attr("disabled","disabled");
+      					$("#editarTarjetaCombustible").attr("disabled","disabled");
+      					$("#solicitarTarjetaCombustible").attr("disabled","disabled");
+      					$("#devolucionTarjetaCombustible").attr("disabled","disabled");
+      					$("#copecHistorialTarjetaCombustible").attr("disabled","disabled");
               }
               else{
                 var random = Math.round(Math.random() * (1000000 - 1) + 1);
@@ -14489,6 +14495,456 @@ $("#guardarTarjetaAsignar").unbind('click').click(function(){
       });
   }
 });
+
+$("#desasignarTarjetaCombustible").unbind('click').click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $("#tablaTarjetaCombustible").DataTable();
+  var datos = table.rows('.selected').data();
+
+  $("#TarjetaNumeroDesasignar").html(datos[0].NUMERO);
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalDesasignarTarjetaCombustible").modal("show");
+  },500);
+});
+
+$("#guardarDesasignarTarjetaCombustible").unbind('click').click(function(){
+  $("#modalDesasignarTarjetaCombustible").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $("#tablaTarjetaCombustible").DataTable();
+  var datos = table.rows('.selected').data();
+
+  var parametros = {
+    "numero":   datos[0].NUMERO,
+    "patente":   datos[0].PATENTE
+  }
+
+  $.ajax({
+    url: "controller/desasignarTarjetaCombustible.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaTarjetaCombustible').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Tarjeta desasignada correctamente");
+          $("#desasignarTarjetaCombustible").attr("disabled","disabled");
+          $("#solicitarTarjetaCombustible").attr("disabled","disabled");
+          $("#devolucionTarjetaCombustible").attr("disabled","disabled");
+          $("#copecHistorialTarjetaCombustible").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al desasignar tarjeta, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al desasignar tarjeta, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#agregarTarjetaCombustible").unbind('click').click(function(){
+  $("#numeroAgregarTarjeta").val("");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#tipoAgregarTarjeta").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#productoAgregarTarjeta").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  setTimeout(async function(){
+    $("#modalAgregarTarjeta").modal('show');
+    $('#modalAlertasSplash').modal('hide');
+  },1000);
+});
+
+$("#guardarAgregarTarjeta").unbind('click').click(function(){
+  if($("#numeroAgregarTarjeta").val().length == 0){
+    alertasToast("Debe completar todos los campos");
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    $("#numeroAgregarTarjeta").addClass("is-invalid");
+  }
+  else {
+    $("#modalAgregarTarjeta").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "numero":   $("#numeroAgregarTarjeta").val(),
+      "estado":   $("#estadoAgregarTarjeta").val(),
+      "tipo":   $("#tipoAgregarTarjeta").val(),
+      "producto":   $("#productoAgregarTarjeta").val()
+    }
+    $.ajax({
+        url:   'controller/datosChequeaTarjetaCombustible.php',
+        type:  'post',
+        data:  parametros,
+        success:  function (response) {
+          var p = response.split(",");
+          if(response.localeCompare("Sin datos")!= 0 && response != ""){
+            if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Ya existe una tarjeta ingresada con ese número");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+                $("#modalAgregarTarjeta").modal("show");
+              },500);
+            }
+          }
+          else{
+            $.ajax({
+              url: "controller/ingresaTarjetaCombustible.php",
+              type: 'POST',
+              data: parametros,
+              success:  function (response) {
+                var p = response.split(",");
+                if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                  if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                    var table = $('#tablaTarjetaCombustible').DataTable();
+                    //table.rows('.selected').remove().draw();
+                    table.ajax.reload();
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Tarjeta agregada correctamente");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+                  else{
+                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                    alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al agregar tarjeta, si el problema persiste favor comuniquese con soporte");
+                    setTimeout(function(){
+                      $('#modalAlertasSplash').modal('hide');
+                    },500);
+                  }
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al agregar tarjeta, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+            });
+          }
+        }
+      });
+    }
+});
+
+$("#numeroAgregarTarjeta").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarTarjetaCombustible").unbind('click').click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $("#tablaTarjetaCombustible").DataTable();
+  var datos = table.rows('.selected').data();
+
+  $("#numeroEditarTarjeta").val(datos[0].NUMERO);
+  $("#tipoEditarTarjeta").val(datos[0].TIPO);
+  $("#productoEditarTarjeta").val(datos[0].PRODUCTO);
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#estadoEditarTarjeta").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#tipoEditarTarjeta").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#productoEditarTarjeta").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  $.ajax({
+    url:   'controller/datosEstadoTarCombustible.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoN = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(datos[0].ESTADO === p2.aaData[i].NOMBRE){
+            cuerpoN = cuerpoN + "<option selected value=" + p2.aaData[i].IDTARJETACOMBUSTIBLE_ESTADO + ">"  + p2.aaData[i].NOMBRE + "</option>";
+          }
+          else{
+            cuerpoN = cuerpoN + "<option value=" + p2.aaData[i].IDTARJETACOMBUSTIBLE_ESTADO + ">"  + p2.aaData[i].NOMBRE + "</option>";
+          }
+        }
+        $("#estadoEditarTarjeta").html(cuerpoN)
+      }
+    }
+  });
+  setTimeout(async function(){
+    if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      var h = $(window).height() - 200;
+      $("#bodyEditarTarjeta").css("height",h);
+    }
+    $("#modalEditarTarjeta").modal('show');
+    $('#modalAlertasSplash').modal('hide');
+  },500);
+});
+
+$("#guardarEditarTarjeta").unbind('click').click(function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalEditarTarjeta").modal("hide");
+
+  var parametros = {
+    "numero":   $("#numeroEditarTarjeta").val(),
+    "estado":   $("#estadoEditarTarjeta").val(),
+    "tipo":   $("#tipoEditarTarjeta").val(),
+    "producto":   $("#productoEditarTarjeta").val()
+  }
+
+  $.ajax({
+    url: "controller/editarTarjetaCombustible.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaTarjetaCombustible').DataTable();
+          table.ajax.reload();
+
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Tarjeta editada correctamente");
+          $("#desasignarTarjetaCombustible").attr("disabled","disabled");
+          $("#solicitarTarjetaCombustible").attr("disabled","disabled");
+          $("#devolucionTarjetaCombustible").attr("disabled","disabled");
+          $("#copecHistorialTarjetaCombustible").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar tarjeta, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar tarjeta, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#copecHistorialTarjetaCombustible").unbind("click").click(async function(){
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $("#modalSubirPdfGuiaSolicitudMaterial").modal("hide");
+  $('#modalAlertasSplash').modal('show');
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+  var table = $("#tablaTarjetaCombustible").DataTable()
+  var datos = table.rows('.selected').data();
+
+  const fecha = new Date();
+
+  var parametros = {
+    "mes": fecha.getMonth() + 1,
+    "ano": fecha.getFullYear(),
+    "tarjeta": datos[0].NUMERO.substring(0,8)
+  }
+  await $('#tablaHistorialTarjetaCombustible').DataTable({
+    ajax: {
+        url: "controller/datosConsumoTarjeta.php",
+        type: 'POST',
+        data: parametros,
+    },
+    columns: [
+        { data: 'S'},
+        { data: 'FECHA' },
+        { data: 'HORA' },
+        { data: 'PATENTE' },
+        { data: 'COMUNA' },
+        { data: 'DIRECCION' },
+        { data: 'COMPROBANTE' },
+        { data: 'RUT' },
+        { data: 'PRECIO' },
+        { data: 'VOLUMEN' },
+        { data: 'TOTAL' }
+    ],
+    //responsive: true,
+    buttons: [
+      {
+        extend: 'excel',
+        title: null,
+        text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+      }
+    ],
+    "columnDefs": [
+      {
+        "orderable": false,
+        "className": 'select-checkbox',
+        "targets": [ 0 ]
+      },
+      {
+        "width": "5px",
+        "targets": 0
+      }
+    ],
+    "select": {
+        style: 'single'
+    },
+    "scrollX": true,
+    "paging": true,
+    "ordering": true,
+    "scrollCollapse": true,
+    // "order": [[ 3, "asc" ]],
+    "info":     true,
+    "lengthMenu": [[largo], [largo]],
+    "dom": 'Bfrtip',
+    "language": {
+      "zeroRecords": "No hay datos disponibles",
+      "info": "Registro _START_ de _END_ de _TOTAL_",
+      "infoEmpty": "No hay datos disponibles",
+      "paginate": {
+          "previous": "Anterior",
+          "next": "Siguiente"
+        },
+        "search": "Buscar: ",
+        "select": {
+            "rows": "- %d registros seleccionados"
+        },
+        "infoFiltered": "(Filtrado de _MAX_ registros)"
+    },
+    "destroy": true,
+    "autoWidth": false,
+    "initComplete": async function( settings, json){
+      await $('#tablaHistorialTarjetaCombustibleAbono').DataTable({
+        ajax: {
+            url: "controller/datosAbonosTarjeta.php",
+            type: 'POST',
+            data: parametros,
+        },
+        columns: [
+            { data: 'S'},
+            { data: 'FECHA' },
+            { data: 'HORA' },
+            { data: 'PATENTE' },
+            { data: 'COMPROBANTE' },
+            { data: 'TIPO' },
+            { data: 'MONTO' },
+            { data: 'USUARIO_CARGA' }
+        ],
+        //responsive: true,
+        buttons: [
+          {
+            extend: 'excel',
+            title: null,
+            text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+          }
+        ],
+        "columnDefs": [
+          {
+            "orderable": false,
+            "className": 'select-checkbox',
+            "targets": [ 0 ]
+          },
+          {
+            "width": "5px",
+            "targets": 0
+          }
+        ],
+        "select": {
+            style: 'single'
+        },
+        "scrollX": true,
+        "paging": true,
+        "ordering": true,
+        "scrollCollapse": true,
+        // "order": [[ 3, "asc" ]],
+        "info":     true,
+        "lengthMenu": [[largo], [largo]],
+        "dom": 'Bfrtip',
+        "language": {
+          "zeroRecords": "No hay datos disponibles",
+          "info": "Registro _START_ de _END_ de _TOTAL_",
+          "infoEmpty": "No hay datos disponibles",
+          "paginate": {
+              "previous": "Anterior",
+              "next": "Siguiente"
+            },
+            "search": "Buscar: ",
+            "select": {
+                "rows": "- %d registros seleccionados"
+            },
+            "infoFiltered": "(Filtrado de _MAX_ registros)"
+        },
+        "destroy": true,
+        "autoWidth": false,
+        "initComplete": async function( settings, json){
+          await $.ajax({
+              url:   'controller/datosPeriodosConsumoTarjeta.php',
+              type:  'post',
+              success: function (response2) {
+                var p2 = jQuery.parseJSON(response2);
+                if(p2.aaData.length !== 0){
+                  var cuerpoPeriodo = '';
+                  for(var i = 0; i < p2.aaData.length; i++){
+                    cuerpoPeriodo += '<option value="' + p2.aaData[i].PERIODO + '">' + p2.aaData[i].PERIODO + '</option>';
+                  }
+                  $("#periodoHistorialTarjetaCombustible").html(cuerpoPeriodo);
+                }
+                else{
+                  var cuerpoPeriodo= '<option selected value="0">Sin datos</option>';
+                  $("#periodoHistorialTarjetaCombustible").html(cuerpoPeriodo);
+                }
+                if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                  $("#periodoHistorialTarjetaCombustible").select2({
+                      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+                  });
+                }
+                $("#modalHistorialTarjetaCombustible").modal("show");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  setTimeout(function(){
+                    $('#tablaHistorialTarjetaCombustible').DataTable().columns.adjust();
+                    $('#tablaHistorialTarjetaCombustibleAbono').DataTable().columns.adjust();
+                  },100);
+                },500);
+              }
+            });
+        }
+      });
+    }
+  });
+});
+
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {

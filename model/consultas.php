@@ -9362,127 +9362,6 @@ function consultaCalendar($start, $end){
 	}
 }
 
-function chequeaTarjetaCombustible($numeroTarjeta){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT IDTARJETACOMBUSTIBLE
-							FROM TARJETACOMBUSTIBLE
-							WHERE NUMERO = '{$numeroTarjeta}'";
-			if ($row = $con->query($sql)) {
-
-				$array = $row->fetch_array(MYSQLI_BOTH);
-
-				return $array;
-			}
-			else{
-				return "Error";
-			}
-		}
-		else{
-			return "Error";
-		}
-	}
-
-	function ingresaTarjetaCombustible($numero, $estado, $tipo, $producto){
-			$con = conectar();
-			$con->query("START TRANSACTION");
-			if($con != 'No conectado'){
-				$sql = "INSERT INTO TARJETACOMBUSTIBLE(IDTARJETACOMBUSTIBLE_ESTADO, NUMERO, TIPO ,PRODUCTO, FECHA, HORA)
-		VALUES ( (SELECT IDTARJETACOMBUSTIBLE_ESTADO FROM TARJETACOMBUSTIBLE_ESTADO WHERE NOMBRE = '" . $estado . "'),
-		'" . $numero . "', '" . $tipo . "',
-		'" . $producto . "', CURDATE(), CURTIME())";
-				if ($con->query($sql)) {
-					$con->query("COMMIT");
-					return "Ok";
-				}
-				else{
-					// return $con->error;
-					$con->query("ROLLBACK");
-					return "Error";
-				}
-			}
-			else{
-				$con->query("ROLLBACK");
-				return "Error";
-			}
-	}
-
-	//Select Estados tarjeta combustible
-	function consultaEstadoTarCombustible(){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT *
-						FROM TARJETACOMBUSTIBLE_ESTADO
-						WHERE NOMBRE <> 'Asignada'
-						ORDER BY NOMBRE";
-			if ($row = $con->query($sql)) {
-				$return = array();
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-
-				return $return;
-			}
-			else{
-				return "Error";
-			}
-		}
-		else{
-			return "Error";
-		}
-	}
-
-	//Actualiza tarjeta combustible
-	function editarTarjetaCombustible($numero, $estado, $tipo, $producto){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "UPDATE TARJETACOMBUSTIBLE
-							SET TIPO = '{$tipo}',
-							PRODUCTO = '{$producto}',
-							IDTARJETACOMBUSTIBLE_ESTADO = '{$estado}'
-							WHERE NUMERO = '{$numero}'";
-			if ($con->query($sql)) {
-				$con->query("COMMIT");
-				return "Ok";
-			}
-			else{
-				// return $con->error;
-				$con->query("ROLLBACK");
-				return "Error";
-			}
-		}
-		else{
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-
-	//Desasignar tarjeta combustible
-	function desasignarTarjetaCombustible($numero){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "UPDATE TARJETACOMBUSTIBLE
-							SET IDPATENTE = NULL,
-							IDTARJETACOMBUSTIBLE_ESTADO = 1,
-							FECHA = CURDATE(),
-							HORA = CURTIME()
-							WHERE NUMERO = '{$numero}'";
-			if ($con->query($sql)) {
-				$con->query("COMMIT");
-				return "Ok";
-			}
-			else{
-				// return $con->error;
-				$con->query("ROLLBACK");
-				return "Error";
-			}
-		}
-		else{
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-
 // Consulta datos PDF para Desasignacion Vehiculos
 function consultaDatosPdfDesasignacionVehiculo($idDesasig){
 	$con = conectar();
@@ -15979,77 +15858,6 @@ function consultaSociedadSelect(){
 		}
 	}
 
-	function consultaConsumosMesAno($mes, $ano, $tarjeta){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT '' S, FECHA, HORA, PATENTE, COMUNA_E_S 'COMUNA', DIRECCION_ES 'DIRECCION', COMPROBANTE_TRANSACCION 'COMPROBANTE', RUT_CONDUCTOR 'RUT',
-							PRECIO_UNIT 'PRECIO', VOL_LTRS 'VOLUMEN', MONTO_TRANS 'TOTAL'
-							FROM PATENTE_CONSUMO C
-							WHERE C.MES = '{$mes}'
-							AND C.ANO = '{$ano}'
-							AND LEFT(C.TARJETA,8) = '{$tarjeta}'";
-			if ($row = $con->query($sql)){
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-				}
-				else{
-					return "Error";
-				}
-			}
-			else{
-				return "Error";
-			}
-		}
-
-		function consultaPeriodosConsumoTarjeta(){
-			$con = conectar();
-			if($con != 'No conectado'){
-				$sql = "SELECT CONCAT_WS('-',ANO,
-								CASE WHEN MES < 10 THEN CONCAT('0',MES) ELSE MES END
-								) 'PERIODO'
-								FROM PATENTE_CONSUMO
-								GROUP BY ANO, MES
-								ORDER BY ANO DESC, MES DESC";
-				if ($row = $con->query($sql)){
-					while($array = $row->fetch_array(MYSQLI_BOTH)){
-						$return[] = $array;
-					}
-					return $return;
-					}
-					else{
-						return "Error";
-					}
-				}
-				else{
-					return "Error";
-				}
-			}
-
-		function consultaAbonosTarjeta($mes, $ano, $tarjeta){
-			$con = conectar();
-			if($con != 'No conectado'){
-				$sql = "SELECT '' S, FECHA, HORA, PATENTE, TRANSAC 'COMPROBANTE', TIPO, CARGOS 'MONTO', USR_CREA 'USUARIO_CARGA'
-								FROM PATENTE_ABONO
-								WHERE MES = '{$mes}'
-								AND ANO = '{$ano}'
-								AND TARJETA = '{$tarjeta}'";
-				if ($row = $con->query($sql)){
-					while($array = $row->fetch_array(MYSQLI_BOTH)){
-						$return[] = $array;
-					}
-					return $return;
-					}
-					else{
-						return "Error";
-					}
-				}
-				else{
-					return "Error";
-				}
-			}
-
 			function consultaComunasConRegion(){
 				$con = conectar();
 				if($con != 'No conectado'){
@@ -21517,6 +21325,195 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Error";
 			}
 		}
+
+		function desasignarTarjetaCombustible($numero){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE TARJETACOMBUSTIBLE
+								SET IDPATENTE = NULL,
+								IDTARJETACOMBUSTIBLE_ESTADO = 1,
+								FECHA = CURDATE(),
+								HORA = CURTIME()
+								WHERE NUMERO = '{$numero}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function chequeaTarjetaCombustible($numeroTarjeta){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDTARJETACOMBUSTIBLE
+								FROM TARJETACOMBUSTIBLE
+								WHERE NUMERO = '{$numeroTarjeta}'";
+				if ($row = $con->query($sql)) {
+
+					$array = $row->fetch_array(MYSQLI_BOTH);
+
+					return $array;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaTarjetaCombustible($numero, $estado, $tipo, $producto){
+				$con = conectar();
+				$con->query("START TRANSACTION");
+				if($con != 'No conectado'){
+					$sql = "INSERT INTO TARJETACOMBUSTIBLE(IDTARJETACOMBUSTIBLE_ESTADO, NUMERO, TIPO ,PRODUCTO, FECHA, HORA)
+			VALUES ( (SELECT IDTARJETACOMBUSTIBLE_ESTADO FROM TARJETACOMBUSTIBLE_ESTADO WHERE NOMBRE = '" . $estado . "'),
+			'" . $numero . "', '" . $tipo . "',
+			'" . $producto . "', CURDATE(), CURTIME())";
+					if ($con->query($sql)) {
+						$con->query("COMMIT");
+						return "Ok";
+					}
+					else{
+						// return $con->error;
+						$con->query("ROLLBACK");
+						return "Error";
+					}
+				}
+				else{
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+		}
+
+		function consultaEstadoTarCombustible(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT *
+							FROM TARJETACOMBUSTIBLE_ESTADO
+							WHERE NOMBRE <> 'Asignada'
+							ORDER BY NOMBRE";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function editarTarjetaCombustible($numero, $estado, $tipo, $producto){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE TARJETACOMBUSTIBLE
+								SET TIPO = '{$tipo}',
+								PRODUCTO = '{$producto}',
+								IDTARJETACOMBUSTIBLE_ESTADO = '{$estado}'
+								WHERE NUMERO = '{$numero}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function consultaAbonosTarjeta($mes, $ano, $tarjeta){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, FECHA, HORA, PATENTE, TRANSAC 'COMPROBANTE', TIPO, CARGOS 'MONTO', USR_CREA 'USUARIO_CARGA'
+								FROM PATENTE_ABONO
+								WHERE MES = '{$mes}'
+								AND ANO = '{$ano}'
+								AND TARJETA = '{$tarjeta}'";
+				if ($row = $con->query($sql)){
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+					}
+					else{
+						return "Error";
+					}
+				}
+				else{
+					return "Error";
+				}
+			}
+
+			function consultaConsumosMesAno($mes, $ano, $tarjeta){
+				$con = conectar();
+				if($con != 'No conectado'){
+					$sql = "SELECT '' S, FECHA, HORA, PATENTE, COMUNA_E_S 'COMUNA', DIRECCION_ES 'DIRECCION', COMPROBANTE_TRANSACCION 'COMPROBANTE', RUT_CONDUCTOR 'RUT',
+									PRECIO_UNIT 'PRECIO', VOL_LTRS 'VOLUMEN', MONTO_TRANS 'TOTAL'
+									FROM PATENTE_CONSUMO C
+									WHERE C.MES = '{$mes}'
+									AND C.ANO = '{$ano}'
+									AND LEFT(C.TARJETA,8) = '{$tarjeta}'";
+					if ($row = $con->query($sql)){
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+						}
+						else{
+							return "Error";
+						}
+					}
+					else{
+						return "Error";
+					}
+				}
+
+				function consultaPeriodosConsumoTarjeta(){
+					$con = conectar();
+					if($con != 'No conectado'){
+						$sql = "SELECT CONCAT_WS('-',ANO,
+										CASE WHEN MES < 10 THEN CONCAT('0',MES) ELSE MES END
+										) 'PERIODO'
+										FROM PATENTE_CONSUMO
+										GROUP BY ANO, MES
+										ORDER BY ANO DESC, MES DESC";
+						if ($row = $con->query($sql)){
+							while($array = $row->fetch_array(MYSQLI_BOTH)){
+								$return[] = $array;
+							}
+							return $return;
+							}
+							else{
+								return "Error";
+							}
+						}
+						else{
+							return "Error";
+						}
+					}
 		// Fin Flota
 
 		function datosEstructuraOperacion($codigo){

@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=74';
+  js.src = 'view/js/funciones.js?idLoad=75';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -4404,134 +4404,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 <!-- FIN MODAL VER EVENTO MANTENCION -->
-
-<!-- MODAL AGREGAR TARJETA -->
-<div id="modalAgregarTarjeta" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloAgregarTarjeta"><span class="fas fa-plus"></span>&nbsp;&nbsp;Ingreso Tarjeta Combustible</h5>
-      </div>
-      <div id="bodyAgregarTarjeta" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Número</label>
-            <input id="numeroAgregarTarjeta" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado</label>
-						<input disabled id="estadoAgregarTarjeta" class="form-control" type="text" value="Disponible">
-            </select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tipo</label>
-						<select id="tipoAgregarTarjeta" class="form-control">
-							<option value="Cupon">Cupon</option>
-							<option value="TCT">TCT</option>
-            </select>
-          </div>
-					<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Producto</label>
-            <select id="productoAgregarTarjeta" class="form-control">
-							<option value="PD">PD</option>
-							<option value="Gas95">Gas95</option>
-							<option value="Gas97">Gas97</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarAgregarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarAgregarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL AGREGAR TARJETA -->
-
-<!-- MODAL EDITAR TARJETA -->
-<div id="modalEditarTarjeta" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloEditarTarjeta"><span class="fas fa-edit"></span>&nbsp;&nbsp;Editar Tarjeta Combustible</h5>
-      </div>
-      <div id="bodyEditarTarjeta" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Número</label>
-            <input disabled id="numeroEditarTarjeta" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado</label>
-						<select id="estadoEditarTarjeta" class="form-control">
-            </select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tipo</label>
-						<select id="tipoEditarTarjeta" class="form-control">
-							<option value="Cupon">Cupon</option>
-							<option value="TCT">TCT</option>
-            </select>
-          </div>
-					<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Producto</label>
-            <select id="productoEditarTarjeta" class="form-control">
-							<option value="PD">PD</option>
-							<option value="Gas95">Gas95</option>
-							<option value="Gas97">Gas97</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarEditarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEditarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL EDITAR TARJETA -->
-
-<!-- MODAL DESASIGNAR TARJETA -->
-<div id="modalDesasignarTarjetaCombustible" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-md" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-			<div class="modal-header">
-        <h5 style="color:gray;" id="tituloDesasignarTarjetaCombustible"><span class="fas fa-minus"></span>&nbsp;&nbsp;Desasignar Tarjeta</h5>
-      </div>
-			<div id="bodyDesasignarTarjetaCombustible" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <font style="font-weight: bold; font-size: 11pt;">¿Desea desasignar la tarjeta: <span id="TarjetaNumeroDesasignar"></span>?</br><i style="font-weight: normal; font-size: 11pt;" id="tituloDesvincularCargaFamiliar"></i></font>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarDesasignarTarjetaCombustible" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarDesasignarTarjetaCombustible" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL DESASIGNAR TARJETA -->
 
 <!-- Modal Agregar Categoria de orden -->
 <div id="modalAgregarCategoriaOrden" class="modal modal-fullscreen fade" role="dialog">
@@ -11427,6 +11299,128 @@ include "./modales/personal/update.php";
       <div class="modal-footer" style="text-align: left;">
         <button id="guardarTarjetaAsignar" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
         <button id="cancelarTarjetaAsignar" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalDesasignarTarjetaCombustible" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-md" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+			<div class="modal-header">
+        <h5 style="color:gray;" id="tituloDesasignarTarjetaCombustible"><span class="fas fa-minus"></span>&nbsp;&nbsp;Desasignar Tarjeta</h5>
+      </div>
+			<div id="bodyDesasignarTarjetaCombustible" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <font style="font-weight: bold; font-size: 11pt;">¿Desea desasignar la tarjeta: <span id="TarjetaNumeroDesasignar"></span>?</br><i style="font-weight: normal; font-size: 11pt;" id="tituloDesvincularCargaFamiliar"></i></font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarDesasignarTarjetaCombustible" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarDesasignarTarjetaCombustible" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalAgregarTarjeta" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloAgregarTarjeta"><span class="fas fa-plus"></span>&nbsp;&nbsp;Ingreso Tarjeta Combustible</h5>
+      </div>
+      <div id="bodyAgregarTarjeta" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Número</label>
+            <input id="numeroAgregarTarjeta" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+						<input disabled id="estadoAgregarTarjeta" class="form-control" type="text" value="Disponible">
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo</label>
+						<select id="tipoAgregarTarjeta" class="form-control">
+							<option value="Cupon">Cupon</option>
+							<option value="TCT">TCT</option>
+            </select>
+          </div>
+					<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Producto</label>
+            <select id="productoAgregarTarjeta" class="form-control">
+							<option value="PD">PD</option>
+							<option value="Gas95">Gas95</option>
+							<option value="Gas97">Gas97</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarAgregarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarAgregarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarTarjeta" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloEditarTarjeta"><span class="fas fa-edit"></span>&nbsp;&nbsp;Editar Tarjeta Combustible</h5>
+      </div>
+      <div id="bodyEditarTarjeta" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Número</label>
+            <input disabled id="numeroEditarTarjeta" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+						<select id="estadoEditarTarjeta" class="form-control">
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tipo</label>
+						<select id="tipoEditarTarjeta" class="form-control">
+							<option value="Cupon">Cupon</option>
+							<option value="TCT">TCT</option>
+            </select>
+          </div>
+					<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Producto</label>
+            <select id="productoEditarTarjeta" class="form-control">
+							<option value="PD">PD</option>
+							<option value="Gas95">Gas95</option>
+							<option value="Gas97">Gas97</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarEditarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
