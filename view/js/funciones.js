@@ -7,9 +7,7 @@ $(window).resize(function()
 $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
-  // $("body").css("height",$(window).height()-200);
-  // $("#contenido").css("height",$(window).height()-200);
-
+  
   $(".dropdown-item").on("click",function(){
     setTimeout(function(){
       var currentPath = window.location.hash;
@@ -44,6 +42,9 @@ $(window).on("load",function(e){
         $(".os-viewport.os-viewport-native-scrollbars-invisible").scrollTop(0,0);
       },200);
     }
+  });
+  $('body').on('show.bs.modal', function() {
+
   });
   $(document).bind("click keydown keyup mousemove", function() {
     tiempo2 = moment(new Date());
@@ -3189,11 +3190,6 @@ $("#solicitarRecuperarContraseña").unbind("click").click(async function(){
 });
 
 function initScreen() {
-  setTimeout(function(){
-    $("body").css("height",$(window).height());
-    $("#contenido").css("height",$(window).height()-80);
-
-  },1000);
   var path = window.location.href.split('#/')[1];
   return path;
 }

@@ -16,10 +16,11 @@ html {
 }
 
 body {
-  margin: 0;
-  margin-bottom: 0pt;
+  /* margin: 0; */
+  /* margin-bottom: 0pt; */
   overflow-x: hidden;
   overflow-y: scroll;
+  min-height: 100%;
 }
 
 img {
@@ -52,15 +53,16 @@ div#body{
 
 #contenido{
   /* margin-left:1px; */
-  margin-left: 0pt;
+  /* margin-left: 0pt; */
   transition-property: margin-left, margin-right;
   transition-duration: 0.8s;
   transition-delay: 0s;
-  padding-left: 0;
-  padding-right: 0;
-  margin-bottom: 0;
+  /* padding-left: 0; */
+  /* padding-right: 0; */
+  /* margin-bottom: 0; */
   overflow-y: hidden;
   overflow-x: hidden;
+  min-height: 100%;
 }
 
 #cargando{
