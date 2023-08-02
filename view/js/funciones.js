@@ -8,7 +8,6 @@ $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
   $("body").css("height",$(window).height());
-  $("#contenido").css("height",$(window).height()-80);
 
   $(".dropdown-item").on("click",function(){
     setTimeout(function(){
@@ -44,25 +43,6 @@ $(window).on("load",function(e){
         $(".os-viewport.os-viewport-native-scrollbars-invisible").scrollTop(0,0);
       },200);
     }
-  });
-  $('body').on('hidden.bs.modal',function(){
-    $('#contenido').overlayScrollbars({
-      className: "os-theme-round-dark",
-      autoUpdate: true,
-      nativeScrollbarsOverlaid : {
-        showNativeScrollbars   : false,
-        initialize             : true
-      },
-      overflowBehavior: {
-        x: 'hidden',
-        y : "scroll"
-      },
-      resize: "none",
-      scrollbars: {
-        autoHide: "never",
-        touchSupport: true,
-      }
-    });
   });
   $(document).bind("click keydown keyup mousemove", function() {
     tiempo2 = moment(new Date());
@@ -378,23 +358,23 @@ function splashOpen(){
 //Funcion de menu
 function menuElegant(){
   setTimeout(function(){
-    $('#contenido').overlayScrollbars({
-      className: "os-theme-round-dark",
-      autoUpdate: true,
-      nativeScrollbarsOverlaid : {
-        showNativeScrollbars   : false,
-        initialize             : true
-      },
-      overflowBehavior: {
-        x: 'hidden',
-        y : "scroll"
-      },
-      resize: "none",
-      scrollbars: {
-        autoHide: "never",
-        touchSupport: true,
-      }
-    });
+    // $('#contenido').overlayScrollbars({
+    //   className: "os-theme-round-dark",
+    //   autoUpdate: true,
+    //   nativeScrollbarsOverlaid : {
+    //     showNativeScrollbars   : false,
+    //     initialize             : true
+    //   },
+    //   overflowBehavior: {
+    //     x: 'hidden',
+    //     y : "scroll"
+    //   },
+    //   resize: "none",
+    //   scrollbars: {
+    //     autoHide: "never",
+    //     touchSupport: true,
+    //   }
+    // });
   },500);
 }
 
@@ -7106,12 +7086,6 @@ $("#guardarDisponibilidad").unbind("click").click(async function(e){
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
-  //initialize the plugin and get its instance
-  var instance = OverlayScrollbars(document.getElementById('contenido'), { });
-
-  //destroy the instance
-  instance.destroy();
-
   var table = $('#infoInformePersonal').DataTable().clear().draw();
 
   var induccion = 0;
@@ -7469,12 +7443,6 @@ $("#guardarAusencia").unbind("click").click(async function(){
     $('#modalAlertasSplash').modal('show');
     $("#modalAusencia").modal("hide");
 
-    //initialize the plugin and get its instance
-    var instance = OverlayScrollbars(document.getElementById('contenido'), { });
-
-    //destroy the instance
-    instance.destroy();
-
     var table = $('#infoInformePersonal').DataTable().clear().draw();
 
     var table = $('#tablaPersonal').DataTable();
@@ -7824,12 +7792,6 @@ $("#guardarTransferirJefatura").unbind('click').click(async function() {
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
-
-  //initialize the plugin and get its instance
-  var instance = OverlayScrollbars(document.getElementById('contenido'), { });
-
-  //destroy the instance
-  instance.destroy();
 
   var table = $('#infoInformePersonal').DataTable().clear().draw();
 
@@ -8302,12 +8264,6 @@ $("#guardarSolicitarJefatura").unbind('click').click(async function() {
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
-  //initialize the plugin and get its instance
-  var instance = OverlayScrollbars(document.getElementById('contenido'), { });
-
-  //destroy the instance
-  instance.destroy();
-
   var table = $('#infoInformePersonal').DataTable().clear().draw();
 
   var table = $("#tablaPersonalSolicitar").DataTable();
@@ -8710,12 +8666,6 @@ $("#aceptarSolicitarJefaturaRespuesta").unbind("click").click(async function(){
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
 
-  //initialize the plugin and get its instance
-  var instance = OverlayScrollbars(document.getElementById('contenido'), { });
-
-  //destroy the instance
-  instance.destroy();
-
   var table = $('#infoInformePersonal').DataTable().clear().draw();
 
   var table = $("#tablaPersonal").DataTable();
@@ -8997,12 +8947,6 @@ $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() 
   $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
   $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
   $('#modalAlertasSplash').modal('show');
-
-  //initialize the plugin and get its instance
-  var instance = OverlayScrollbars(document.getElementById('contenido'), { });
-
-  //destroy the instance
-  instance.destroy();
 
   var table = $('#infoInformePersonal').DataTable().clear().draw();
 
@@ -14925,6 +14869,8 @@ $("#copecHistorialTarjetaCombustible").unbind("click").click(async function(){
                 $("#modalHistorialTarjetaCombustible").modal("show");
                 setTimeout(function(){
                   $('#modalAlertasSplash').modal('hide');
+                  var h = $(window).height() - 200;
+                  $("#bodyHistorialTarjetaCombustible").css("height",h);
                   setTimeout(function(){
                     $('#tablaHistorialTarjetaCombustible').DataTable().columns.adjust();
                     $('#tablaHistorialTarjetaCombustibleAbono').DataTable().columns.adjust();

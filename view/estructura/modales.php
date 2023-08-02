@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=77';
+  js.src = 'view/js/funciones.js?idLoad=78';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -9345,82 +9345,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-<!-- Historial de consumos y abonos tarjetas combustible -->
-<div id="modalHistorialTarjetaCombustible" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document" style="min-width: 90%; width: 90%;">
-    <!-- Modal content-->
-    <div class="modal-content">
-			<div class="modal-header">
-				<h5><span class="fas fa-history"></span>&nbsp;&nbsp;
-          <span style="color:gray; font-weight: bold;">Historial Transacciones Combustible</span>
-          <br>
-					<div style="padding-top: 5pt; padding-bottom: 0pt; margin-bottom: 0pt;">
-						<span id="tituloTarjetaCombustible" style="font-weight: bold; color: gray; font-size: 14pt;"></span>
-					</div>
-        </h5>
-      </div>
-			<div id="bodyHistorialTarjetaCombustible" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-					<!-- Tabla de consumos -->
-					<div id="divTablaHistorialTarjetaCombustible" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15pt; text-align: left;">
-						<label style="font-weight: bold; color: gray; font-size: 14pt; margin-bottom: 10pt;">Consumos</label>
-					  <table id="tablaHistorialTarjetaCombustible" class="cell-border compact" style="width: 100%;">
-					    <thead>
-					      <tr>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Fecha">Fecha</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Hora">Hora</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Patente">Patente</th>
-                  <th class="celdaColor" style="border: 1pt solid white;" title="Comuna">Comuna</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Dirección">Dirección</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Comprobante">Comprobante</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Rut">Rut</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Precio">Precio</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Volumen">Volumen</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Total">Total</th>
-					      </tr>
-					    </thead>
-					    <tbody id="cuerpoTablaHistorialTarjetaCombustible" style="text-align: left;">
-					    </tbody>
-					  </table>
-					</div>
-					<!-- Tabla de abonos -->
-					<div id="divTablaHistorialTarjetaCombustibleAbono" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15pt; text-align: left;">
-						<label style="font-weight: bold; color: gray; font-size: 14pt; margin-bottom: 10pt;">Abonos</label>
-					  <table id="tablaHistorialTarjetaCombustibleAbono" class="cell-border compact" style="width: 100%;">
-					    <thead>
-					      <tr>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Fecha">Fecha</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Hora">Hora</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Patente">Patente</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Comprobante">Comprobante</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Tipo">Tipo</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Monto">Monto</th>
-									<th class="celdaColor" style="border: 1pt solid white;" title="Usuario Carga">Usuario Carga</th>
-					      </tr>
-					    </thead>
-					    <tbody id="cuerpoTablaHistorialTarjetaCombustibleAbono" style="text-align: left;">
-					    </tbody>
-					  </table>
-					</div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-						<select disabled id="periodoHistorialTarjetaCombustible" class="form-control">
-							<option value="2021-01">2021-01</option>
-							<option value="2021-02">2021-02</option>
-						</select>
-					</div>
-					<div class="col-xl-1 col-lg-1 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-						<button id="cancelarTarjetaCombustible" style="display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Modal asignar comprador a proveedores -->
 <div id="modalAsignarCompradorProveedor" class="modal modal-fullscreen fade" role="dialog">
     <div class="modal-dialog modal-dialog-box modal-lg" role="document">
@@ -11421,6 +11345,81 @@ include "./modales/personal/update.php";
       <div class="modal-footer" style="text-align: left;">
         <button id="guardarEditarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
         <button id="cancelarEditarTarjeta" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalHistorialTarjetaCombustible" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document" style="min-width: 90%; width: 90%;">
+    <!-- Modal content-->
+    <div class="modal-content">
+			<div class="modal-header">
+				<h5><span class="fas fa-history"></span>&nbsp;&nbsp;
+          <span style="color:gray; font-weight: bold;">Historial Transacciones Combustible</span>
+          <br>
+					<div style="padding-top: 5pt; padding-bottom: 0pt; margin-bottom: 0pt;">
+						<span id="tituloTarjetaCombustible" style="font-weight: bold; color: gray; font-size: 14pt;"></span>
+					</div>
+        </h5>
+      </div>
+			<div id="bodyHistorialTarjetaCombustible" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+					<!-- Tabla de consumos -->
+					<div id="divTablaHistorialTarjetaCombustible" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15pt; text-align: left;">
+						<label style="font-weight: bold; color: gray; font-size: 14pt; margin-bottom: 10pt;">Consumos</label>
+					  <table id="tablaHistorialTarjetaCombustible" class="cell-border compact" style="width: 100%;">
+					    <thead>
+					      <tr>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Fecha">Fecha</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Hora">Hora</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Patente">Patente</th>
+                  <th class="celdaColor" style="border: 1pt solid white;" title="Comuna">Comuna</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Dirección">Dirección</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Comprobante">Comprobante</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Rut">Rut</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Precio">Precio</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Volumen">Volumen</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Total">Total</th>
+					      </tr>
+					    </thead>
+					    <tbody id="cuerpoTablaHistorialTarjetaCombustible" style="text-align: left;">
+					    </tbody>
+					  </table>
+					</div>
+					<!-- Tabla de abonos -->
+					<div id="divTablaHistorialTarjetaCombustibleAbono" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15pt; text-align: left;">
+						<label style="font-weight: bold; color: gray; font-size: 14pt; margin-bottom: 10pt;">Abonos</label>
+					  <table id="tablaHistorialTarjetaCombustibleAbono" class="cell-border compact" style="width: 100%;">
+					    <thead>
+					      <tr>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Selección">S</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Fecha">Fecha</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Hora">Hora</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Patente">Patente</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Comprobante">Comprobante</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Tipo">Tipo</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Monto">Monto</th>
+									<th class="celdaColor" style="border: 1pt solid white;" title="Usuario Carga">Usuario Carga</th>
+					      </tr>
+					    </thead>
+					    <tbody id="cuerpoTablaHistorialTarjetaCombustibleAbono" style="text-align: left;">
+					    </tbody>
+					  </table>
+					</div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+					<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+						<select disabled id="periodoHistorialTarjetaCombustible" class="form-control">
+							<option value="2021-01">2021-01</option>
+							<option value="2021-02">2021-02</option>
+						</select>
+					</div>
+					<div class="col-xl-1 col-lg-1 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+						<button id="cancelarTarjetaCombustible" style="display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					</div>
       </div>
     </div>
   </div>

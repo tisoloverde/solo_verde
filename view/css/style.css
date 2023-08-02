@@ -19,7 +19,7 @@ body {
   margin: 0;
   margin-bottom: 0pt;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 img {
@@ -60,7 +60,7 @@ div#body{
   padding-left: 0;
   padding-right: 0;
   margin-bottom: 0;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
