@@ -2,7 +2,6 @@ $(window).resize(function()
 {
    var viewportWidth = $(window).width();
    var viewportHeight = $(window).height();
-   menuElegant();
 });
 
 $(window).on("load",function(e){
@@ -10,7 +9,6 @@ $(window).on("load",function(e){
   e.stopImmediatePropagation();
   $("body").css("height",$(window).height());
   $("#contenido").css("height",$(window).height()-80);
-  menuElegant();
 
   $(".dropdown-item").on("click",function(){
     setTimeout(function(){
@@ -200,8 +198,6 @@ $(window).on("load",function(e){
                               }
 
                               setTimeout(function(){
-                                menuElegant();
-                                esconderMenu();
                                 setTimeout(function(){
                                   $('#modalAlertasSplash').modal('hide');
                                 },500);
@@ -223,14 +219,11 @@ $(window).on("load",function(e){
                         });
 
                         $("#DivPrincipalMenuH").parent().parent().show();
-                        marcarMenuActivo(); menuElegant();
+                        marcarMenuActivo();
                       }
                       else{
                         setTimeout(function(){
-
-                          menuElegant();
-                          // esconderMenu();
-                          // $('#modalAlertasSplash').modal('hide');
+                          $('#modalAlertasSplash').modal('hide');
                         },5000);
                       }
                     }
@@ -3218,7 +3211,7 @@ function initScreen() {
   setTimeout(function(){
     $("body").css("height",$(window).height());
     $("#contenido").css("height",$(window).height()-80);
-    menuElegant();
+
   },1000);
   var path = window.location.href.split('#/')[1];
   return path;
@@ -7345,7 +7338,7 @@ $("#guardarDisponibilidad").unbind("click").click(async function(e){
   $("#qDirectos").html(directos.count());
   $("#qOtros").html(total.count() - directos.count());
 
-  menuElegant();
+
 });
 
 $("#ausentePersonal").unbind("click").click(async function(){
@@ -7702,7 +7695,7 @@ $("#guardarAusencia").unbind("click").click(async function(){
     $("#qDirectos").html(directos.count());
     $("#qOtros").html(total.count() - directos.count());
 
-    menuElegant();
+
   }
 });
 
@@ -8037,7 +8030,7 @@ $("#guardarTransferirJefatura").unbind('click').click(async function() {
         $("#qDirectos").html(directos.count());
         $("#qOtros").html(total.count() - directos.count());
 
-        menuElegant();
+
 
         setTimeout(function(){
           alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Jefaturas transferidas correctamente");
@@ -8500,7 +8493,7 @@ $("#guardarSolicitarJefatura").unbind('click').click(async function() {
             $("#qDirectos").html(directos.count());
             $("#qOtros").html(total.count() - directos.count());
 
-            menuElegant();
+
 
             $('#modalAlertasSplash').modal('hide');
           },500);
@@ -8683,7 +8676,7 @@ $("#guardarSolicitarJefatura").unbind('click').click(async function() {
             $("#qDirectos").html(directos.count());
             $("#qOtros").html(total.count() - directos.count());
 
-            menuElegant();
+
 
             $('#modalAlertasSplash').modal('hide');
           },1000);
@@ -8900,7 +8893,7 @@ $("#aceptarSolicitarJefaturaRespuesta").unbind("click").click(async function(){
         $("#qDirectos").html(directos.count());
         $("#qOtros").html(total.count() - directos.count());
 
-        menuElegant();
+
         $('#modalAlertasSplash').modal('hide');
       },1000);
     }
@@ -9182,7 +9175,7 @@ $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() 
   $("#qDirectos").html(directos.count());
   $("#qOtros").html(total.count() - directos.count());
 
-  menuElegant();
+
 
   setTimeout(function(){
     $('#modalAlertasSplash').modal('hide');
