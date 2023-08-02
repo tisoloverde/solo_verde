@@ -21496,4 +21496,66 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 		}
 		// Fin Flota
+
+	function planillaAsistenciaCierre(
+		$idEstructuraOperacion,
+		$fechaIni,
+		$fechaFin,
+		$rutCierre
+	) {
+		$con = conectar();
+		$con->query("START TRANSACTION");
+		if ($con != 'No conectado') {
+			$sql = "INSERT INTO PERSONAL_ESTADO_APROBACION (
+				IDESTRUCTURA_OPERACION,
+				FECHA_INICIO,
+				FECHA_FIN,
+				ESTADO_CIERRE,
+				RUT_CIERRE,
+				FECHA_CIERRE
+			) VALUES (
+				$idEstructuraOperacion,
+				'$fechaIni',
+				'$fechaFin',
+				1,
+				'$rutCierre',
+				NOW()
+			)";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return "Ok";
+			} else {
+				// return $con->error;
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
+
+	function planillaAsistenciaRechaza(
+		$idPersonalEstadoAprobacion,
+		$rutRechaza
+	) {
+		$con = conectar();
+		$con->query("START TRANSACTION");
+		if ($con != 'No conectado') {
+			$sql = "UPDATE PERSONAL_ESTADO_APROBACION SET
+
+			WHERE IDPERSONAL_ESTADO_APROBACION = $idPersonalEstadoAprobacion;";
+			if ($con->query($sql)) {
+				$con->query("COMMIT");
+				return "Ok";
+			} else{
+				// return $con->error;
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		} else {
+			$con->query("ROLLBACK");
+			return "Error";
+		}
+	}
 ?>
