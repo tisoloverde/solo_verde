@@ -67,9 +67,9 @@
     <script src="view/js/moment.min.js"></script>
     <script src="view/js/auto-hiding-bootstrap-navbar.js"></script>
 
-    <link rel="stylesheet" href="view/css/style.css?idLoad=78">
-    <script src="view/js/funciones.js?idLoad=78"></script>
-    <script src="view/js/app.js?idLoad=78"></script>
+    <link rel="stylesheet" href="view/css/style.css?idLoad=79">
+    <script src="view/js/funciones.js?idLoad=79"></script>
+    <script src="view/js/app.js?idLoad=79"></script>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb15rFHKSkFxmZbQIo6KVes2-GR3N-LcQ&libraries=places&callback">
     </script>
@@ -81,7 +81,7 @@
   <header>
   </header>
   <body ng-app="WPApp">
-    <div id="modales" ng-include="'view/estructura/modales.php?idLoad=78'">
+    <div id="modales" ng-include="'view/estructura/modales.php?idLoad=79'">
   	</div>
     <nav class="navbar navbar-expand-md navbar-dark bg-custom fixed-top" style="display: none;">
       <a class="navbar-brand" href="#">
@@ -114,7 +114,7 @@
         </ul>
       </div>
     </nav>
-  	<div id="contenido" ng-view class="view-animate page-wrap" style="margin-top: 70px;">
+  	<div id="contenido" ng-view class="view-animate page-wrap" style="padding-top: 70px;">
    	</div>
   	<br />
   </body>

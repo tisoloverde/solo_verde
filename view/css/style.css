@@ -52,7 +52,6 @@ div#body{
 
 #contenido{
   /* margin-left:1px; */
-  margin-top: 0pt;
   margin-left: 0pt;
   transition-property: margin-left, margin-right;
   transition-duration: 0.8s;

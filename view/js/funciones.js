@@ -7,7 +7,8 @@ $(window).resize(function()
 $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
-  $("body").css("height",$(window).height());
+  // $("body").css("height",$(window).height()-200);
+  // $("#contenido").css("height",$(window).height()-200);
 
   $(".dropdown-item").on("click",function(){
     setTimeout(function(){
