@@ -115,9 +115,14 @@
   js4.src = 'view/js/helpers/functions.js?idLoad=80';
   document.getElementsByTagName('head')[0].appendChild(js4);
 
-  var js = document.createElement('script');
+  setTimeout(function(){
+    var js = document.createElement('script');
+    js.src = 'view/js/funciones.js?idLoad=80';
+    document.getElementsByTagName('head')[0].appendChild(js);
+  },500);
+  /*var js = document.createElement('script');
   js.src = 'view/js/funciones.js?idLoad=80';
-  document.getElementsByTagName('head')[0].appendChild(js);
+  document.getElementsByTagName('head')[0].appendChild(js);*/
 
   $('#tablaListadoPlanillaAsistencia tbody').on( 'click', 'tr', function () {
       setTimeout(async function(){

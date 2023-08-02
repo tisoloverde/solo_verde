@@ -14885,7 +14885,7 @@ $("#copecHistorialTarjetaCombustible").unbind("click").click(async function(){
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
 
   var week = $("#selectListaSemanas").val();
   var semanaInicio = '2021-01-01';
@@ -14928,9 +14928,9 @@ $("#cerrarPlanillaAsistencia").on("click", async function (e) {
 });
 
 
-$("#aprobarPlanillaAsistencia").on("click", async function () {
+$("#aprobarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
 
   var week = $("#selectListaSemanas").val();
   var semanaInicio = '2021-01-01';
