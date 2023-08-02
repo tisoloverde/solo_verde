@@ -7,7 +7,7 @@ $(window).resize(function()
 $(window).on("load",function(e){
   e.preventDefault();
   e.stopImmediatePropagation();
-  
+
   $(".dropdown-item").on("click",function(){
     setTimeout(function(){
       var currentPath = window.location.hash;
@@ -42,9 +42,6 @@ $(window).on("load",function(e){
         $(".os-viewport.os-viewport-native-scrollbars-invisible").scrollTop(0,0);
       },200);
     }
-  });
-  $('body').on('show.bs.modal', function() {
-
   });
   $(document).bind("click keydown keyup mousemove", function() {
     tiempo2 = moment(new Date());
