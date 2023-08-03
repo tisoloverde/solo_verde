@@ -9838,6 +9838,8 @@ async function filtrosPlanilla() {
         } else {
           $("#cerrarPlanillaAsistencia").removeAttr("disabled");
         }
+      } else {
+        $("#cerrarPlanillaAsistencia").removeAttr("disabled", "disabled");
       }
       $("#aprobarPlanillaAsistencia").removeAttr("disabled");
       $("#rechazarPlanillaAsistencia").removeAttr("disabled");
