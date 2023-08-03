@@ -21590,4 +21590,35 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Error";
 			}
 		}
+
+	function consultaPersonalEstadoAprobacion($idEstructuraOperacion, $fechaInicio, $fechaFin){
+		$con = conectar();
+		if($con != 'No conectado'){
+			$sql = "SELECT
+				IDPERSONAL_ESTADO_APROBACION,
+				IDESTRUCTURA_OPERACION,
+				FECHA_INICIO,
+				FECHA_FIN,
+				ESTADO_CIERRE,
+				RUT_CIERRE,
+				FECHA_CIERRE,
+				ESTADO_APROBACION,
+				RUT_APROBACION,
+				FECHA_APROBACION
+			FROM PERSONAL_ESTADO_APROBACION
+			WHERE IDESTRUCTURA_OPERACION = $idEstructuraOperacion
+			AND FECHA_INICIO >= '$fechaInicio'
+			AND FECHA_FIN <= '$fechaFin'";
+			if ($row = $con->query($sql)) {
+				while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+			} else {
+				return "Error";
+			}
+		} else {
+			return "Error";
+		}
+	}
 ?>

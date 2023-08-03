@@ -9799,7 +9799,7 @@ function sanitizeDatePlanilla(fecha) {
   return "2020-01";
 }
 
-function filtrosPlanilla() {
+async function filtrosPlanilla() {
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
   var week = $("#selectListaSemanas").val();
 
@@ -9819,11 +9819,36 @@ function filtrosPlanilla() {
   }
 
   loading(true);
-  listPlanillaAsistencia(
-    idEstructuraOperacion,
-    semanaInicio,
-    semanaFin
-  );
+  await $.ajax({
+    url:   'controller/datosPersonalEstadoAprobacion.php',
+    type:  'post',
+    data: {
+      codigoEstructuraOperacion: idEstructuraOperacion,
+      fechaInicio: semanaInicio,
+      fechaFin: semanaFin,
+    },
+    dataType: 'json',
+    success:  function (response) {
+      if (response.aaData.length) {
+        var dt = response.aaData[0];
+        var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
+        var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
+        if (idEstadoCierre == 1) {
+          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+        } else {
+          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
+        }
+      }
+      $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+      $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+      
+      listPlanillaAsistencia(
+        idEstructuraOperacion,
+        semanaInicio,
+        semanaFin
+      );
+    }
+  });
 }
 
 function personalGetColAndId(strid) {
