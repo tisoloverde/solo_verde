@@ -11425,3 +11425,54 @@ include "./modales/personal/update.php";
   </div>
 </div>
 <!-- Fin Flota -->
+
+<div id="modalConfirmaCierre" class="modal modal-fullscreen fade" role="dialog" style="z-index: 1800;">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+			<div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-check-circle"></span>&nbsp;&nbsp;Cierre de Semana</h5>
+      </div>
+      <div class="modal-body alerta-modal-body" style="text-align: left;">
+        <h6>¿Está seguro de querer cerrar esta semana?</h6>
+			</div>
+			<div class="modal-footer">
+        <button id="confirmaCerrarPlanillaAsistencia" style="margin-top: 10px;" type="button" class="btn btn-secondary">Aceptar</button>
+        <button style="margin-top: 10px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalConfirmaAprueba" class="modal modal-fullscreen fade" role="dialog" style="z-index: 1800;">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+			<div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-check-circle"></span>&nbsp;&nbsp;Aprobación de Semana</h5>
+      </div>
+      <div class="modal-body alerta-modal-body" style="text-align: left;">
+        <h6>¿Está seguro de querer aprobar esta semana?</h6>
+			</div>
+			<div class="modal-footer">
+        <button id="confirmaAprobarPlanillaAsistencia" style="margin-top: 10px;" type="button" class="btn btn-secondary">Aceptar</button>
+        <button style="margin-top: 10px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalConfirmaRechaza" class="modal modal-fullscreen fade" role="dialog" style="z-index: 1800;">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+			<div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-check-circle"></span>&nbsp;&nbsp;Rechazo de Semana</h5>
+      </div>
+      <div class="modal-body alerta-modal-body" style="text-align: left;">
+        <h6>¿Está seguro de querer rechazar esta semana?</h6>
+			</div>
+			<div class="modal-footer">
+        <button id="confirmaRechazarPlanillaAsistencia" style="margin-top: 10px;" type="button" class="btn btn-secondary">Aceptar</button>
+        <button style="margin-top: 10px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

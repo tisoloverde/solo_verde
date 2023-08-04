@@ -68,6 +68,12 @@
     <script src="view/js/auto-hiding-bootstrap-navbar.js"></script>
 
     <link rel="stylesheet" href="view/css/style.css?idLoad=81">
+
+    <script src="view/js/helpers/constants.js?idLoad=81"></script>
+    <script src="view/js/helpers/config.js?idLoad=81"></script>
+    <script src="view/js/helpers/validations.js?idLoad=81"></script>
+    <script src="view/js/helpers/functions.js?idLoad=81"></script>
+
     <script src="view/js/funciones.js?idLoad=81"></script>
     <script src="view/js/app.js?idLoad=81"></script>
 

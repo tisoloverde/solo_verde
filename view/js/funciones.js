@@ -14911,6 +14911,29 @@ $("#cerrarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
   // e.stopImmediatePropagation();
 
+  $("#modalConfirmaCierre").modal("show");
+});
+
+$("#aprobarPlanillaAsistencia").on("click", async function (e) {
+  e.preventDefault();
+  // e.stopImmediatePropagation();
+
+  $("#modalConfirmaAprueba").modal("show");
+});
+
+$("#rechazarPlanillaAsistencia").on("click", async function (e) {
+  e.preventDefault();
+  // e.stopImmediatePropagation();
+
+  $("#modalConfirmaRechaza").modal("show");
+});
+
+$("#confirmaCerrarPlanillaAsistencia").on("click", async function (e) {
+  e.preventDefault();
+  // e.stopImmediatePropagation();
+  $("#modalConfirmaCierre").modal("hide");
+
+  var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
   var week = $("#selectListaSemanas").val();
   var semanaInicio = '2021-01-01';
   var semanaFin = '2025-01-01';
@@ -14945,17 +14968,21 @@ $("#cerrarPlanillaAsistencia").on("click", async function (e) {
     success: function (response) {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla cerrada correctamente");
       setTimeout(function(){
-        $("#modalAlertasSplash").modal("hide");
+        // $("#modalAlertasSplash").modal("hide");
+        _TABLE_PLANILLA.DataTable().ajax.reload(null, false);
+        recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaInicio, semanaFin);
       }, 2000);
     }
   });
 });
 
 
-$("#aprobarPlanillaAsistencia").on("click", async function (e) {
+$("#confirmaAprobarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
   // e.stopImmediatePropagation();
+  $("#modalConfirmaAprueba").modal("hide");
 
+  var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
   var week = $("#selectListaSemanas").val();
   var semanaInicio = '2021-01-01';
   var semanaFin = '2025-01-01';
@@ -14990,16 +15017,21 @@ $("#aprobarPlanillaAsistencia").on("click", async function (e) {
     success: function (response) {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla aprobada correctamente");
       setTimeout(function(){
-        $("#modalAlertasSplash").modal("hide");
+        // $("#modalAlertasSplash").modal("hide");
+        _TABLE_PLANILLA.DataTable().ajax.reload(null, false);
+        recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaInicio, semanaFin);
       }, 2000);
     }
   });
 })
 
-$("#rechazarPlanillaAsistencia").on("click", async function () {
+$("#confirmaRechazarPlanillaAsistencia").on("click", async function () {
   e.preventDefault();
   e.stopImmediatePropagation();
 
+  $("#modalConfirmaRechaza").modal("hide");
+
+  var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
   var week = $("#selectListaSemanas").val();
   var semanaInicio = '2021-01-01';
   var semanaFin = '2025-01-01';
@@ -15034,8 +15066,42 @@ $("#rechazarPlanillaAsistencia").on("click", async function () {
     success: function (response) {
       alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla rechazada correctamente");
       setTimeout(function(){
-        $("#modalAlertasSplash").modal("hide");
+        // $("#modalAlertasSplash").modal("hide");
+        _TABLE_PLANILLA.DataTable().ajax.reload(null, false);
+        recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaInicio, semanaFin);
       }, 2000);
     }
   });
 })
+
+
+async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaInicio, semanaFin) {
+  await $.ajax({
+    url:   'controller/datosPersonalEstadoAprobacion.php',
+    type:  'post',
+    data: {
+      codigoEstructuraOperacion: idEstructuraOperacion,
+      fechaInicio: semanaInicio,
+      fechaFin: semanaFin,
+    },
+    dataType: 'json',
+    success:  function (response) {
+      if (response.aaData.length) {
+        var dt = response.aaData[0];
+        var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
+        var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
+        if (idEstadoCierre == 1) {
+          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+        } else {
+          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
+        }
+      } else {
+        $("#cerrarPlanillaAsistencia").removeAttr("disabled", "disabled");
+      }
+      $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+      $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+
+      loading(false);
+    }
+  });
+}
