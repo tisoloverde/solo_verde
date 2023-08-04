@@ -78,6 +78,9 @@
       <tbody id="cuerpoTablaPlanillaAsistencia" style="text-align: left;">
       </tbody>
     </table>
+
+    <input id="cerrarPlanillaAsistencia" type="hidden" value="0">
+    <input id="validaPlanillaAsistencia" type="hidden" value="0">
   </div>
 
   <div style="margin-bottom: 20px;" id="accionesPlanilla" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -107,16 +110,42 @@
       setTimeout(async function(){
         var table = $('#tablaListadoPlanillaAsistencia').DataTable();
         var datos = table.rows('.selected').data();
-        if(table.rows('.selected').data().length > 0){
-          if(table.rows('.selected').data().length > 1){
-            $("#editarPlanillaAsistencia").removeAttr("disabled");
+
+        var existeAprobacion = $("#aprobarPlanillaAsistencia").length > 0;
+
+        if (existeAprobacion) {
+
+          if ($("#validaPlanillaAsistencia").val().toString() == "0") {
+
+            if (table.rows('.selected').data().length > 0){
+              if (table.rows('.selected').data().length > 1){
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              } else {
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              }
+            } else {
+              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+            }
+
+          } else {
+            
+            $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+          
           }
-          else{
-            $("#editarPlanillaAsistencia").removeAttr("disabled");
+        } else {
+          if ($("#cerrarPlanillaAsistencia").val().toString() == "1") {
+            $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+          } else {
+            if (table.rows('.selected').data().length > 0){
+              if (table.rows('.selected').data().length > 1){
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              } else {
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              }
+            } else {
+              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+            }
           }
-        }
-        else{
-          $("#editarPlanillaAsistencia").attr("disabled", "disabled");
         }
       },100);
   });

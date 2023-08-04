@@ -9833,16 +9833,25 @@ async function filtrosPlanilla() {
         var dt = response.aaData[0];
         var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
         var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
+        
+        $("#cerrarPlanillaAsistencia").val(idEstadoCierre == 1 ? 1 : 0);
+        $("#validaPlanillaAsistencia").val(idEstadoAprobacion == 1 ? 1 : 0);
+        
         if (idEstadoCierre == 1) {
           $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+          if (idEstadoAprobacion != 1) {
+            $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+            $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+          } else {
+            $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+            $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+          }
         } else {
           $("#cerrarPlanillaAsistencia").removeAttr("disabled");
         }
       } else {
         $("#cerrarPlanillaAsistencia").removeAttr("disabled", "disabled");
       }
-      $("#aprobarPlanillaAsistencia").removeAttr("disabled");
-      $("#rechazarPlanillaAsistencia").removeAttr("disabled");
 
       listPlanillaAsistencia(
         idEstructuraOperacion,
@@ -15092,14 +15101,16 @@ async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaIni
         var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
         if (idEstadoCierre == 1) {
           $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+          if (idEstadoAprobacion != 1) {
+            $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+            $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+          }
         } else {
           $("#cerrarPlanillaAsistencia").removeAttr("disabled");
         }
       } else {
         $("#cerrarPlanillaAsistencia").removeAttr("disabled", "disabled");
       }
-      $("#aprobarPlanillaAsistencia").removeAttr("disabled");
-      $("#rechazarPlanillaAsistencia").removeAttr("disabled");
 
       loading(false);
     }
