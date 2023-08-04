@@ -9843,7 +9843,7 @@ async function filtrosPlanilla() {
       }
       $("#aprobarPlanillaAsistencia").removeAttr("disabled");
       $("#rechazarPlanillaAsistencia").removeAttr("disabled");
-      
+
       listPlanillaAsistencia(
         idEstructuraOperacion,
         semanaInicio,
@@ -14895,7 +14895,7 @@ $("#copecHistorialTarjetaCombustible").unbind("click").click(async function(){
                   setTimeout(function(){
                     $('#tablaHistorialTarjetaCombustible').DataTable().columns.adjust();
                     $('#tablaHistorialTarjetaCombustibleAbono').DataTable().columns.adjust();
-                  },100);
+                  },500);
                 },500);
               }
             });
