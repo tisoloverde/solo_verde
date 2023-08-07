@@ -2989,8 +2989,7 @@ app.controller("planillaAsistenciaController", function(){
                 }
               }
             }
-          });    
-
+          });
 
           $("#informeRexmasAsistencia").unbind("click").click(async function(){
             splashOpen();
@@ -3233,11 +3232,7 @@ app.controller("planillaAsistenciaController", function(){
               alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El valor ingresado no cumple con el patrón YYYY-MM");
             }
           });
-          setTimeout(function(){
-            var js = document.createElement('script');
-            js.src = 'view/js/funciones.js?idLoad=86';
-            document.getElementsByTagName('head')[0].appendChild(js);
-          },500);     
+
 
           await listComunesPlanilla();
           await listCentrosDeCostos();
