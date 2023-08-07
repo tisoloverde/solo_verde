@@ -79,8 +79,8 @@
       </tbody>
     </table>
 
-    <input id="cerrarPlanillaAsistencia" type="hidden" value="0">
-    <input id="validaPlanillaAsistencia" type="hidden" value="0">
+    <input id="validaCierrePlanillaAsistencia" type="hidden" value="0">
+    <input id="validaAprobacionPlanillaAsistencia" type="hidden" value="0">
   </div>
 
   <div style="margin-bottom: 20px;" id="accionesPlanilla" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -111,41 +111,44 @@
         var table = $('#tablaListadoPlanillaAsistencia').DataTable();
         var datos = table.rows('.selected').data();
 
-        var existeAprobacion = $("#aprobarPlanillaAsistencia").length > 0;
+        if (datos.length > 0) {
 
-        if (existeAprobacion) {
+          var idEstadoCierre = $("#validaCierrePlanillaAsistencia").val() ? Number($("#validaCierrePlanillaAsistencia").val()): 0;
+          var idEstadoAprobacion = $("#validaAprobacionPlanillaAsistencia").val() ? Number($("#validaAprobacionPlanillaAsistencia").val()): 0;;
 
-          if ($("#validaPlanillaAsistencia").val().toString() == "0") {
+          console.log('---ids--')
+          console.log(idEstadoCierre)
+          console.log(idEstadoAprobacion)
 
-            if (table.rows('.selected').data().length > 0){
-              if (table.rows('.selected').data().length > 1){
-                $("#editarPlanillaAsistencia").removeAttr("disabled");
-              } else {
+          var esAnalista = $("#aprobarPlanillaAsistencia").length > 0;
+
+          if (esAnalista) { // SOY ANALISTA
+            if (idEstadoAprobacion == 1) { // Aprobado
+              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+            } else {                      // Nada | Rechazado
+              $("#editarPlanillaAsistencia").removeAttr("disabled");
+            }
+          } else {          // SOY ASISTENTE
+            if (idEstadoAprobacion == 1) { // Aprobado
+              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+
+              if (idEstadoCierre == 1) { // Cerrado
+                $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+              } else {                   // Nada | Reabierto
+                $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+              }
+            } else {                       // Nada | Rechazado
+              $("#editarPlanillaAsistencia").removeAttr("disabled");
+
+              if (idEstadoCierre == 1) {  // Cerrado
+                $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+              } else {                    // Nada | Reabierto
                 $("#editarPlanillaAsistencia").removeAttr("disabled");
               }
-            } else {
-              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
             }
-
-          } else {
-            
-            $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-          
           }
         } else {
-          if ($("#cerrarPlanillaAsistencia").val().toString() == "1") {
-            $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-          } else {
-            if (table.rows('.selected').data().length > 0){
-              if (table.rows('.selected').data().length > 1){
-                $("#editarPlanillaAsistencia").removeAttr("disabled");
-              } else {
-                $("#editarPlanillaAsistencia").removeAttr("disabled");
-              }
-            } else {
-              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-            }
-          }
+          $("#editarPlanillaAsistencia").attr("disabled", "disabled");
         }
       },100);
   });

@@ -9829,28 +9829,45 @@ async function filtrosPlanilla() {
     },
     dataType: 'json',
     success:  function (response) {
+      var dt = {
+        'ESTADO_CIERRE': 0,
+        'ESTADO_APROBACION': 0
+      };
       if (response.aaData.length) {
-        var dt = response.aaData[0];
-        var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
-        var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
-        
-        $("#cerrarPlanillaAsistencia").val(idEstadoCierre == 1 ? 1 : 0);
-        $("#validaPlanillaAsistencia").val(idEstadoAprobacion == 1 ? 1 : 0);
-        
-        if (idEstadoCierre == 1) {
+        dt = response.aaData[0];
+      }
+
+      var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
+      var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
+
+      $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
+      $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
+
+
+      if (idEstadoAprobacion == 1) {  // Aprobado
+        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+
+        if (idEstadoCierre == 1) { // Cerrado
           $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-          if (idEstadoAprobacion != 1) {
-            $("#aprobarPlanillaAsistencia").removeAttr("disabled");
-            $("#rechazarPlanillaAsistencia").removeAttr("disabled");
-          } else {
-            $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
-            $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
-          }
-        } else {
+        } else {                   // Nada | Reabierto
           $("#cerrarPlanillaAsistencia").removeAttr("disabled");
         }
-      } else {
-        $("#cerrarPlanillaAsistencia").removeAttr("disabled", "disabled");
+      } else {                        // Nada | Rechazado
+        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+
+        if (idEstadoCierre == 1) { // Cerrado
+          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+          $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+          $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+        } else {                   // Nada | Reabierto
+          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
+          $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+          $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+        }
       }
 
       listPlanillaAsistencia(
@@ -15034,7 +15051,7 @@ $("#confirmaAprobarPlanillaAsistencia").on("click", async function (e) {
   });
 })
 
-$("#confirmaRechazarPlanillaAsistencia").on("click", async function () {
+$("#confirmaRechazarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
   e.stopImmediatePropagation();
 
@@ -15095,21 +15112,45 @@ async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaIni
     },
     dataType: 'json',
     success:  function (response) {
+      var dt = {
+        'ESTADO_CIERRE': 0,
+        'ESTADO_APROBACION': 0
+      };
+
       if (response.aaData.length) {
-        var dt = response.aaData[0];
-        var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
-        var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
-        if (idEstadoCierre == 1) {
+        dt = response.aaData[0];
+      }
+
+      var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
+      var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
+
+      $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
+      $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
+
+      if (idEstadoAprobacion == 1) {  // Aprobado
+        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+
+        if (idEstadoCierre == 1) { // Cerrado
           $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-          if (idEstadoAprobacion != 1) {
-            $("#aprobarPlanillaAsistencia").removeAttr("disabled");
-            $("#rechazarPlanillaAsistencia").removeAttr("disabled");
-          }
-        } else {
+        } else {                   // Nada | Reabierto
           $("#cerrarPlanillaAsistencia").removeAttr("disabled");
         }
-      } else {
-        $("#cerrarPlanillaAsistencia").removeAttr("disabled", "disabled");
+      } else {                        // Nada | Rechazado
+        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+
+        if (idEstadoCierre == 1) { // Cerrado
+          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+          $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+          $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+        } else {                   // Nada | Reabierto
+          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
+          $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+          $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+        }
       }
 
       loading(false);
