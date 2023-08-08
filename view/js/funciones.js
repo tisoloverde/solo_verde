@@ -9129,17 +9129,17 @@ $("#aceptarDesasignarJefaturaRespuesta").unbind('click').click(async function() 
 /* *************************************** */
 /* ********** PLANILLA ASISTENCIA ******** */
 /* *************************************** */
-var _DATA_PLANILLA = [];
-var _TABLE_PLANILLA = $('#tablaListadoPlanillaAsistencia');
-var _CALENDARIO_PLANILLA = [];
-var _DIAS_PLANILLA = [];
-var _LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/40);
-var _LST_NULLS = ['Seleccione', 0, '0'];
-var _COMUNES_PLANILLA = {};
+_DATA_PLANILLA = [];
+_TABLE_PLANILLA = $('#tablaListadoPlanillaAsistencia');
+_CALENDARIO_PLANILLA = [];
+_DIAS_PLANILLA = [];
+_LARGO = Math.trunc(($(window).height() - ($(window).height()/100)*50)/40);
+_LST_NULLS = ['Seleccione', 0, '0'];
+_COMUNES_PLANILLA = {};
 
-var _MODAL_PLANILLA_USUARIOS_TEMPORALES = [];
-var _MODAL_PLANILLA_DIAS_A_ASIGNAR = [];
-var _MODAL_PLANILLA_REEMPLAZO_EN_EL_MES = [];
+_MODAL_PLANILLA_USUARIOS_TEMPORALES = [];
+_MODAL_PLANILLA_DIAS_A_ASIGNAR = [];
+_MODAL_PLANILLA_REEMPLAZO_EN_EL_MES = [];
 
 async function listUsuariosTemporales(rutPersonal, fecIni, fecFin) {
   var codCECO = $('#selectListaCentrosDeCostos').val();
@@ -9182,7 +9182,7 @@ async function listDiasReemplazoTemporal(dias, rutPersonal, idPersonal, fecIni, 
 }
 
 async function listComunesPlanilla() {
-  $.ajax({
+  await $.ajax({
     url: 'controller/datosComunesPlanilla.php',
     type: 'get',
     dataType: 'json',
@@ -9197,7 +9197,7 @@ async function listCentrosDeCostos() {
   var parametros = {
     "path": path
   }
-  $.ajax({
+  await $.ajax({
     url: 'controller/datosCentrosDeCostosPerfil.php',
     type: 'post',
     dataType: 'json',

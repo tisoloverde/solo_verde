@@ -3233,11 +3233,426 @@ app.controller("planillaAsistenciaController", function(){
             }
           });
 
+          var lst = [
+            'view/js/funciones.js',
+          ];
+          lst.forEach((fl, idx) => {
+            setTimeout(function(){
+              var idload = 29 + idx;
+              var js = document.createElement('script');
+              js.src = `${fl}?idload=${idload}`;
+              document.getElementsByTagName('head')[0].appendChild(js);
+            }, 1000);
+          });
 
-          await listComunesPlanilla();
+          /*await listComunesPlanilla();
           await listCentrosDeCostos();
           await listCalendarioSegunPerfil(path);
-          await listPlanillaAsistencia('null', 'null', 'null');
+          await listPlanillaAsistencia('null', 'null', 'null');*/
+          await $.ajax({
+            url: 'controller/datosComunesPlanilla.php',
+            type: 'get',
+            dataType: 'json',
+            success: function (response) {
+              _COMUNES_PLANILLA = response.aaData;
+            },
+          });
+
+          await $.ajax({
+            url: 'controller/datosCentrosDeCostosPerfil.php',
+            type: 'post',
+            dataType: 'json',
+            data: { path: window.location.href.split('#/')[1] },
+            success: function (response) {
+              var data = response.aaData;
+              var html = "<option value='0'>Seleccione</option>";
+              data.forEach((item) => {
+                html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+              });
+              $('#selectListaCentrosDeCostos').html(html);
+            },
+          });
+
+          await $.ajax({
+            url:   'controller/datosFiltroPerfil.php',
+            type:  'post',
+            dataType: 'json',
+            data: { path: window.location.href.split('#/')[1] },
+            success:  async function (response) {
+              var data = response.aaData;
+              var filtro = data.length
+                ? data[0].FILTRO
+                  ? Number(data[0].FILTRO.replace("semanas=", ""))
+                  : null
+                : null;
+              
+              await $.ajax({
+                url:   'controller/datosCalendario2.php',
+                type:  'get',
+                dataType: 'json',
+                success:  async function (response) {
+                  var aux = response.aaData;
+                  if (!aux?.length) return
+              
+                  // total=10 , curr=8, semana=3 --> [5 - 8]
+                  // total=10 , curr=6, semana=3 --> [3 - 6]
+                  if (filtro >= 0) {
+                    var currentWeek = aux.findIndex(({ ES_ACTUAL}) => `${ES_ACTUAL}` == '1');
+                    aux = aux.splice(
+                      currentWeek - filtro >= 0 ? currentWeek - filtro : 0,
+                      currentWeek,
+                    );
+                  }
+              
+                  var dt = {}
+                  aux.forEach(({ ANHO, ...item }) => {
+                    if (!dt[ANHO]) dt[ANHO] = []
+                    dt[ANHO].push(item)
+                  });
+                  _CALENDARIO_PLANILLA = dt;
+              
+                  var html = "<option value='0'>Seleccione</option>";
+                  Object.keys(_CALENDARIO_PLANILLA).forEach((item) => {
+                    html += `<option value='${item}'>${item}</option>`;
+                  });
+                  $('#selectListaAnhos').html(html);
+              
+                  var html = "<option value='0'>Seleccione</option>";
+                  Object.keys(_CALENDARIO_PLANILLA).forEach((anho) => {
+                    _CALENDARIO_PLANILLA[anho].forEach((item, idx) => html += `<option value='${anho}_${idx}'>${item.LABEL}</option>`);
+                  });
+                  $('#selectListaSemanas').html(html);
+
+                  await $('#tablaListadoPlanillaAsistencia').DataTable({
+                    serverSide: true,
+                    processing: true,
+                    search: { return: true },
+                    ajax: {
+                      url: "controller/datosListadoPlanillaAsistencia.php",
+                      type: 'POST',
+                      data: { idEstructuraOperacion: 0, fecIni: '', fecFin: '', auxIni: '', auxFin: '', diaFinMes: '' },
+                      timeout: 60000,
+                      dataFilter: function(data) {
+                        _DATA_PLANILLA = JSON.parse(data).aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
+                        return data;
+                      },
+                    },
+                    columns: [
+                      { data: 'S' , className: 'dt-center' },
+                      { data: 'RUT' },
+                      { data: 'NOMBRES' },
+                      { data: 'CARGO_LIQUIDACION' },
+                      { data: 'CARGO_GENERICO_UNIFICADO' },
+                      { data: 'CLASIFICACION' , className: 'dt-center' },
+                      { data: 'REFERENCIA1' , className: 'dt-center' },
+                      { data: 'REFERENCIA2' , className: 'dt-center' },
+                      { data: 'CARGO_GENERICO_UNIFICADO_B' },
+                      { data: 'CLASIFICACION_B' },
+                      { data: 'REFERENCIA1_B' },
+                      { data: 'REFERENCIA2_B' },
+                      { data: 'RUT_REEMPLAZO' , className: 'dt-center' },
+                      { data: 'FECHA_INGRESO', className: 'dt-center' },
+                      { data: 'FECHA_TERMINO', className: 'dt-center' },
+                      { data: 'CLASIFICACION_CONTRATO', className: 'dt-center' },
+                      { data: 'TEMPORAL', className: 'dt-center' },
+                      { data: 'Lunes' , className: 'dt-center' },
+                      { data: 'Martes' , className: 'dt-center' },
+                      { data: 'Miercoles' , className: 'dt-center' },
+                      { data: 'Jueves' , className: 'dt-center' },
+                      { data: 'Viernes' , className: 'dt-center' },
+                      { data: 'Sabado' , className: 'dt-center' },
+                      { data: 'Domingo' , className: 'dt-center' },
+                      { data: 'NDIAS' , className: 'dt-center' },
+                      { data: 'HE50' , className: 'dt-center' },
+                      { data: 'HE100' , className: 'dt-center' },
+                      { data: 'ATRASO' , className: 'dt-center' },
+                      { data: 'OBSERVACION' , className: 'dt-center' },
+                    ],
+                    buttons: [
+                      {
+                        text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Seleccionar todo',
+                        action: function ( e, dt, node, config ) {
+                          var table = $('#tablaListadoPlanillaAsistencia').DataTable();
+                          table.rows().select();
+                          setTimeout(function(){
+                            var datos = table.rows('.selected').data();
+                            for(var i = 0; i < datos.length; i++){
+                              ponerDiasEn1s(i);
+                            }
+                          },100);
+                          setTimeout(async function(){
+                            var table2 = $('#tablaListadoPlanillaAsistencia').DataTable();
+                            var datos2 = table2.rows('.selected').data();
+                            if(table2.rows('.selected').data().length > 0){
+                              if(table2.rows('.selected').data().length > 1){
+                                $("#editarPlanillaAsistencia").removeAttr("disabled");
+                              }
+                              else{
+                                $("#editarPlanillaAsistencia").removeAttr("disabled");
+                              }
+                            }
+                            else{
+                              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+                            }
+                          },100);
+                        }
+                      }
+                    ],
+                    fixedColumns:   {
+                      leftColumns: 3
+                    },
+                    columnDefs: [
+                      { orderable: false, className: 'select-checkbox', targets: [ 0 ], width: "5px" },
+                      { width: "5px", targets: 1 },
+                      { targets: "_all" },
+                      { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23] },
+                    ],
+                    scrollX: true,
+                    paging: true,
+                    ordering: true,
+                    scrollCollapse: true,
+                    info: true,
+                    lengthMenu: [[_LARGO], [_LARGO]],
+                    dom: 'Bfrtip',
+                    language: {
+                      zeroRecords: "Seleccionar semana y centro de costo",
+                      info: "Registro _START_ de _END_ de _TOTAL_",
+                      infoEmpty: "No hay datos disponibles",
+                      paginate: {
+                        previous: "Anterior",
+                        next: "Siguiente",
+                      },
+                      search: "Buscar: ",
+                      select: {
+                        rows: "- %d registros seleccionados",
+                      },
+                      infoFiltered: "(Filtrado de _MAX_ registros)",
+                    },
+                    select: {
+                      style: 'multi',
+                      // selector: 'td:not(:nth-child(8),:nth-child(11))'
+                      selector: disableSelectionCols([9,11,12,13,14,15,16,17,18,19,20,21,22,23,24]),
+                    },
+                    destroy: true,
+                    autoWidth: false,
+                    initComplete: function (settings, json) {
+                      $('#contenido').show();
+                
+                      $('#footer').parent().show();
+                      $('#footer').show();
+                      setTimeout(function() {
+                        // _DATA_PLANILLA = json.aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
+                        $('#tablaListadoPlanillaAsistencia').DataTable().columns.adjust();
+                        loading(false);
+                      },500);
+                    },
+                    rowCallback:function(row,data){
+                      // Lunes
+                      try {
+                        if(data["Lunes"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[17]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[17]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Lunes"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[17]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[17]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[17]).css("border-top","6px solid red");
+                        }
+                      }
+                      // Martes
+                      try {
+                        if(data["Martes"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[18]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[18]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Martes"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[18]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[18]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[18]).css("border-top","6px solid red");
+                        }
+                      }
+                      // Miercoles
+                      try {
+                        if(data["Miercoles"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[19]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[19]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Miercoles"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[19]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[19]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[19]).css("border-top","6px solid red");
+                        }
+                      }
+                      // Jueves
+                      try {
+                        if(data["Jueves"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[20]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[20]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Jueves"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[20]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[20]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[20]).css("border-top","6px solid red");
+                        }
+                      }
+                      // Viernes
+                      try {
+                        if(data["Viernes"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[21]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[21]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Viernes"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[21]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[21]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[21]).css("border-top","6px solid red");
+                        }
+                      }
+                      // Sabado
+                      try {
+                        if(data["Sabado"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[22]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[22]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Sabado"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[22]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[22]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[22]).css("border-top","6px solid red");
+                        }
+                      }
+                      // Domingo
+                      try {
+                        if(data["Domingo"].split("selected>")[1].split("</option>")[0] != ""){
+                          $($(row).find("td")[23]).css("border-top","6px solid green");
+                        }
+                        else{
+                          $($(row).find("td")[23]).css("border-top","6px solid red");
+                        }
+                      } catch (error) {
+                        try {
+                          if(data["Domingo"].split("disabled")[1].split("</option>")[0] != ""){
+                            $($(row).find("td")[23]).css("border-top","6px solid green");
+                          }
+                          else{
+                            $($(row).find("td")[23]).css("border-top","6px solid red");
+                          }
+                        } catch (error) {
+                          $($(row).find("td")[23]).css("border-top","6px solid red");
+                        }
+                      }
+                
+                      //Bloqueamos rut de ser necesario
+                      var flagDSR = 0;
+                      try {
+                        if(data["Lunes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                      try {
+                        if(data["Martes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                      try {
+                        if(data["Miercoles"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                      try {
+                        if(data["Jueves"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                      try {
+                        if(data["Viernes"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                      try {
+                        if(data["Sabado"].split("<option>")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                      try {
+                        if(data["Domingo"].split("<option> ")[1].split("</option>")[0].localeCompare("DSR") == 0){
+                          $($(row).find("td")[12]).find("button").removeAttr("disabled");
+                        }
+                      }
+                      catch{
+                        // No se ejecuta acción
+                      }
+                    }
+                  });
+                }
+              });
+            }
+          });
+
           marcarMenuActivo(); menuElegant();
         }, 500);
       }

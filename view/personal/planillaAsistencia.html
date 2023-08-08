@@ -93,7 +93,6 @@
   </div>
 </div>
 <script>
-  
 	function randomTextoLoadJs(){
 	  var str = '';
 	  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
@@ -102,12 +101,8 @@
 	  }
 	  return str;
 	}
-
-    var js = document.createElement('script');
-    js.src = 'view/js/funciones.js?idLoad=86';
-    document.getElementsByTagName('head')[0].appendChild(js);
-    
-
+</script>
+<script>
   $('#tablaListadoPlanillaAsistencia tbody').on( 'click', 'tr', function () {
       setTimeout(async function(){
         var table = $('#tablaListadoPlanillaAsistencia').DataTable();
@@ -117,10 +112,6 @@
 
           var idEstadoCierre = $("#validaCierrePlanillaAsistencia").val() ? Number($("#validaCierrePlanillaAsistencia").val()): 0;
           var idEstadoAprobacion = $("#validaAprobacionPlanillaAsistencia").val() ? Number($("#validaAprobacionPlanillaAsistencia").val()): 0;;
-
-          console.log('---ids--')
-          console.log(idEstadoCierre)
-          console.log(idEstadoAprobacion)
 
           var esAnalista = $("#aprobarPlanillaAsistencia").length > 0;
 
