@@ -9324,16 +9324,6 @@ $('#selectListaSemanas').on('change', function (e) {
 })
 
 function listSemanas(val, text) {
-  /* IMPORTANTE - SI CAMBIA EL TEXTO DEL SELECTOR DE SEMANA PUEDE FALLAR
-  var anhoIni = '2023';
-  var splitted = text.split('(');
-  if (splitted.length > 1) {
-    var splitted2 = splitted[1].split('-');
-    if (splitted2.length > 0) {
-      anhoIni = splitted2[0];
-    }
-  }*/
-
   var [anho, idx] = val.split('_');
   listDiasPorSemana(anho, _CALENDARIO_PLANILLA[anho][idx].SEMANA);
 
@@ -9477,57 +9467,6 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     destroy: true,
     autoWidth: false,
     initComplete: function (settings, json) {
-      //Recargamos la funcion para guardado ya que si no se ingresa a veces no funciona el guardado
-      /*$(document).on('click', '#editarPlanillaAsistencia', async (e) => {
-        e.stopImmediatePropagation();
-        e.preventDefault();
-
-        if (!_DATA_PLANILLA.length || !_DATA_PLANILLA.some((item) => item['__isEdited'])) return;
-
-        var dataUpd = [];
-
-        _DATA_PLANILLA.forEach(({
-          IDPERSONAL,
-          IDCARGO_GENERICO_UNIFICADO_B,
-          IDREFERENCIA1_B,
-          IDREFERENCIA2_B,
-          __DIAS_PLN,
-          __HE50,
-          __HE100,
-          __ATRASO,
-          __isEdited,
-        }) => {
-          var aux = {
-            IDPERSONAL,
-            IDCARGO_GENERICO_UNIFICADO_B,
-            IDREFERENCIA1_B,
-            IDREFERENCIA2_B,
-            FECHA_BASE: _DIAS_PLANILLA[0]['fecha'],
-            DIAS: _DIAS_PLANILLA.map(({ fecha }) => fecha),
-            DIAS_PLANILLA: __DIAS_PLN,
-          }
-          if (__HE50) aux['HE50'] = __HE50;
-          if (__HE100) aux['HE100'] = __HE100;
-          if (__ATRASO) aux['ATRASO'] = __ATRASO;
-          if (__isEdited) dataUpd.push(aux);
-        })
-
-        console.log(dataUpd)
-
-        loading(true);
-        await $.ajax({
-          url:   'controller/actualizarListadoPlanilla.php',
-          type:  'post',
-          data: { dataUpd },
-          success:  function (response) {
-            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Planilla actualizada correctamente");
-            setTimeout(function(){
-              _TABLE_PLANILLA.DataTable().ajax.reload();
-              loading(false);
-            },1000);
-          }
-        })
-      });*/
       $('#contenido').show();
 
       $('#footer').parent().show();
@@ -9778,13 +9717,6 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
      }
   });
 }
-
-/*_TABLE_PLANILLA.DataTable().on('preDraw', function () {
-  var isEdited = _DATA_PLANILLA.some(({ __isEdited }) => __isEdited);
-  if (isEdited) {
-    return false;
-  }
-})*/
 
 $('#selectListaCentrosDeCostos').on('change', function (e) {
   e.stopImmediatePropagation();
