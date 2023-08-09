@@ -3233,7 +3233,7 @@ app.controller("planillaAsistenciaController", function(){
             }
           });
 
-          var lst = [
+          /*var lst = [
             'view/js/funciones.js',
           ];
           lst.forEach((fl, idx) => {
@@ -3243,7 +3243,7 @@ app.controller("planillaAsistenciaController", function(){
               js.src = `${fl}?idload=${idload}`;
               document.getElementsByTagName('head')[0].appendChild(js);
             }, 1000);
-          });
+          });*/
 
           /*await listComunesPlanilla();
           await listCentrosDeCostos();
