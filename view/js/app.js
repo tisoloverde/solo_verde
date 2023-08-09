@@ -2971,26 +2971,6 @@ app.controller("planillaAsistenciaController", function(){
         window.location.href = "#/home";
       } else {
         setTimeout(async function() {
-          await $.ajax({
-            url:   'controller/datosAccionesVisibles.php',
-            type:  'post',
-            data: { path, },
-            success: function (response) {
-              var p = jQuery.parseJSON(response);
-              if(p.aaData.length !== 0){
-                for(var i = 0; i < p.aaData.length; i++) {
-                  if(p.aaData[i].VISIBLE == 1){
-                    if(p.aaData[i].ENABLE == 1){
-                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
-                    } else{
-                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
-                    }
-                  }
-                }
-              }
-            }
-          });
-
           $("#informeRexmasAsistencia").unbind("click").click(async function(){
             splashOpen();
             var path = window.location.href.split('#/')[1];
@@ -3233,28 +3213,6 @@ app.controller("planillaAsistenciaController", function(){
             }
           });
 
-          /*var lst = [
-            'view/js/funciones.js',
-          ];
-          lst.forEach((fl, idx) => {
-            setTimeout(function(){
-              var idload = 29 + idx;
-              var js = document.createElement('script');
-              js.src = `${fl}?idload=${idload}`;
-              document.getElementsByTagName('head')[0].appendChild(js);
-            }, 1000);
-          });*/
-
-          setTimeout(function(){
-            var js = document.createElement('script');
-            js.src = 'view/js/funciones.js?idLoad=88';
-            document.getElementsByTagName('head')[0].appendChild(js);
-          },500);
-
-          /*await listComunesPlanilla();
-          await listCentrosDeCostos();
-          await listCalendarioSegunPerfil(path);
-          await listPlanillaAsistencia('null', 'null', 'null');*/
           await $.ajax({
             url: 'controller/datosComunesPlanilla.php',
             type: 'get',
@@ -3291,7 +3249,7 @@ app.controller("planillaAsistenciaController", function(){
                   ? Number(data[0].FILTRO.replace("semanas=", ""))
                   : null
                 : null;
-              
+
               await $.ajax({
                 url:   'controller/datosCalendario2.php',
                 type:  'get',
@@ -3299,7 +3257,7 @@ app.controller("planillaAsistenciaController", function(){
                 success:  async function (response) {
                   var aux = response.aaData;
                   if (!aux?.length) return
-              
+
                   // total=10 , curr=8, semana=3 --> [5 - 8]
                   // total=10 , curr=6, semana=3 --> [3 - 6]
                   if (filtro >= 0) {
@@ -3309,20 +3267,20 @@ app.controller("planillaAsistenciaController", function(){
                       currentWeek,
                     );
                   }
-              
+
                   var dt = {}
                   aux.forEach(({ ANHO, ...item }) => {
                     if (!dt[ANHO]) dt[ANHO] = []
                     dt[ANHO].push(item)
                   });
                   _CALENDARIO_PLANILLA = dt;
-              
+
                   var html = "<option value='0'>Seleccione</option>";
                   Object.keys(_CALENDARIO_PLANILLA).forEach((item) => {
                     html += `<option value='${item}'>${item}</option>`;
                   });
                   $('#selectListaAnhos').html(html);
-              
+
                   var html = "<option value='0'>Seleccione</option>";
                   Object.keys(_CALENDARIO_PLANILLA).forEach((anho) => {
                     _CALENDARIO_PLANILLA[anho].forEach((item, idx) => html += `<option value='${anho}_${idx}'>${item.LABEL}</option>`);
@@ -3443,7 +3401,7 @@ app.controller("planillaAsistenciaController", function(){
                     autoWidth: false,
                     initComplete: function (settings, json) {
                       $('#contenido').show();
-                
+
                       $('#footer').parent().show();
                       $('#footer').show();
                       setTimeout(function() {
@@ -3593,7 +3551,7 @@ app.controller("planillaAsistenciaController", function(){
                           $($(row).find("td")[23]).css("border-top","6px solid red");
                         }
                       }
-                
+
                       //Bloqueamos rut de ser necesario
                       var flagDSR = 0;
                       try {
@@ -3659,7 +3617,33 @@ app.controller("planillaAsistenciaController", function(){
             }
           });
 
+          await $.ajax({
+            url:   'controller/datosAccionesVisibles.php',
+            type:  'post',
+            data: { path, },
+            success: function (response) {
+              var p = jQuery.parseJSON(response);
+              if(p.aaData.length !== 0){
+                for(var i = 0; i < p.aaData.length; i++) {
+                  if(p.aaData[i].VISIBLE == 1){
+                    if(p.aaData[i].ENABLE == 1){
+                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                    } else{
+                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                    }
+                  }
+                }
+              }
+            }
+          });
+
           marcarMenuActivo(); menuElegant();
+
+          setTimeout(function(){
+            var js = document.createElement('script');
+            js.src = 'view/js/funciones.js?idLoad=88';
+            document.getElementsByTagName('head')[0].appendChild(js);
+          },500);
         }, 500);
       }
     }
