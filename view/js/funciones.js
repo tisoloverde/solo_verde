@@ -9348,7 +9348,7 @@ function disableSelectionCols(lst) {
   return `td${str}`;
 }
 
-async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
+async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idEstadoCierre, idEstadoAprobacion) {
   var auxIni = sanitizeDatePlanilla(fecIni);
   var auxFin = sanitizeDatePlanilla(fecFin);
   var auxFinMes = findFecEndByYearMonth(auxFin);
@@ -9427,7 +9427,10 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
             }
           },100);
         }
-      }
+      },
+      {
+        text: '<span id="estadoPlanillaAsistencia">Esta semana se encuentra cerrada</span>'
+      },
     ],
     fixedColumns:   {
       leftColumns: 3
@@ -9468,6 +9471,8 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin) {
     autoWidth: false,
     initComplete: function (settings, json) {
       $('#contenido').show();
+
+      alexis(idEstadoCierre, idEstadoAprobacion);
 
       $('#footer').parent().show();
       $('#footer').show();
@@ -9772,43 +9777,50 @@ async function filtrosPlanilla() {
       var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
       var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
 
-      $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
-      $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
-
-
-      if (idEstadoAprobacion == 1) {  // Aprobado
-        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
-
-        if (idEstadoCierre == 1) { // Cerrado
-          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-        } else {                   // Nada | Reabierto
-          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
-        }
-      } else {                        // Nada | Rechazado
-        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-
-        if (idEstadoCierre == 1) { // Cerrado
-          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-          $("#aprobarPlanillaAsistencia").removeAttr("disabled");
-          $("#rechazarPlanillaAsistencia").removeAttr("disabled");
-        } else {                   // Nada | Reabierto
-          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
-          $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
-          $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
-        }
-      }
-
       listPlanillaAsistencia(
         idEstructuraOperacion,
         semanaInicio,
-        semanaFin
+        semanaFin,
+        idEstadoCierre,
+        idEstadoAprobacion,
       );
     }
   });
+}
+
+function alexis(idEstadoCierre, idEstadoAprobacion) {
+  $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
+  $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
+
+  if (idEstadoAprobacion == 1) {  // Aprobado
+    $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+    $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+    $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+    $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+
+    if (idEstadoCierre == 1) { // Cerrado
+      $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+      $("#estadoPlanillaAsistencia").show();
+    } else {                   // Nada | Reabierto
+      $("#cerrarPlanillaAsistencia").removeAttr("disabled");
+      $("#estadoPlanillaAsistencia").hide();
+    }
+  } else {                        // Nada | Rechazado
+    $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+    $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+
+    if (idEstadoCierre == 1) { // Cerrado
+      $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+      $("#aprobarPlanillaAsistencia").removeAttr("disabled");
+      $("#rechazarPlanillaAsistencia").removeAttr("disabled");
+      $("#estadoPlanillaAsistencia").show();
+    } else {                   // Nada | Reabierto
+      $("#cerrarPlanillaAsistencia").removeAttr("disabled");
+      $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
+      $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
+      $("#estadoPlanillaAsistencia").hide();
+    }
+  }
 }
 
 function personalGetColAndId(strid) {
@@ -15055,34 +15067,7 @@ async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaIni
       var idEstadoCierre = dt['ESTADO_CIERRE'] ? Number(dt['ESTADO_CIERRE']) : 0;
       var idEstadoAprobacion = dt['ESTADO_APROBACION'] ? Number(dt['ESTADO_APROBACION']) : 0;
 
-      $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
-      $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
-
-      if (idEstadoAprobacion == 1) {  // Aprobado
-        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
-
-        if (idEstadoCierre == 1) { // Cerrado
-          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-        } else {                   // Nada | Reabierto
-          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
-        }
-      } else {                        // Nada | Rechazado
-        $("#editarPlanillaAsistencia").attr("disabled", "disabled");
-        $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-
-        if (idEstadoCierre == 1) { // Cerrado
-          $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
-          $("#aprobarPlanillaAsistencia").removeAttr("disabled");
-          $("#rechazarPlanillaAsistencia").removeAttr("disabled");
-        } else {                   // Nada | Reabierto
-          $("#cerrarPlanillaAsistencia").removeAttr("disabled");
-          $("#aprobarPlanillaAsistencia").attr("disabled", "disabled");
-          $("#rechazarPlanillaAsistencia").attr("disabled", "disabled");
-        }
-      }
+      alexis(idEstadoCierre, idEstadoAprobacion);
 
       loading(false);
     }

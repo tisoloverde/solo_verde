@@ -3431,6 +3431,8 @@ app.controller("planillaAsistenciaController", function(){
                     initComplete: function (settings, json) {
                       $('#contenido').show();
 
+                      $("#cerrarPlanillaAsistencia").attr("disabled", "disabled");
+
                       $('#footer').parent().show();
                       $('#footer').show();
                       setTimeout(function() {
