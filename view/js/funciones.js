@@ -9789,6 +9789,9 @@ async function filtrosPlanilla() {
 }
 
 function alexis(idEstadoCierre, idEstadoAprobacion) {
+  $("#estadoPlanillaAsistencia").parent().parent().removeClass("dt-button");
+  $("#estadoPlanillaAsistencia").parent().parent().addClass("btn btn-link");
+
   $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
   $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
 
