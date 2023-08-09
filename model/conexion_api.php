@@ -2,16 +2,16 @@
 	// Conectando a la base de datos
 	function conectar_api(){
 		//GCP - Desarrollo
-		$user = "AppConnect";
-		$pass = 'TCw4etVPjEcqTRkGOqG8';
-		$db = "GENERICA";
-		$host = "10.138.112.3";
+		// $user = "AppConnect";
+		// $pass = 'TCw4etVPjEcqTRkGOqG8';
+		// $db = "GENERICA";
+		// $host = "10.138.112.3";
 
 		// Producción
-		// $user = "AppConnect";
-		// $pass = "TCw4etVPjEcqTRkGOqG8";
-		// $db = "GENERICA";
-		// $host = "10.0.0.8";
+		$user = "AppConnect";
+		$pass = "TCw4etVPjEcqTRkGOqG8";
+		$db = "GENERICA";
+		$host = "10.0.0.8";
 
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		try
