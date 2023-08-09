@@ -14888,7 +14888,7 @@ $("#rechazarPlanillaAsistencia").on("click", async function (e) {
 
 $("#confirmaCerrarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
-  // e.stopImmediatePropagation();
+  e.stopImmediatePropagation();
   $("#modalConfirmaCierre").modal("hide");
 
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
@@ -14937,7 +14937,7 @@ $("#confirmaCerrarPlanillaAsistencia").on("click", async function (e) {
 
 $("#confirmaAprobarPlanillaAsistencia").on("click", async function (e) {
   e.preventDefault();
-  // e.stopImmediatePropagation();
+  e.stopImmediatePropagation();
   $("#modalConfirmaAprueba").modal("hide");
 
   var idEstructuraOperacion = $('#selectListaCentrosDeCostos').val();
@@ -15031,7 +15031,6 @@ $("#confirmaRechazarPlanillaAsistencia").on("click", async function (e) {
     }
   });
 })
-
 
 async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaInicio, semanaFin) {
   await $.ajax({
