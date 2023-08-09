@@ -9428,9 +9428,9 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
           },100);
         }
       },
-      {
+      /*{
         text: '<span id="estadoPlanillaAsistencia">Esta semana se encuentra cerrada</span>'
-      },
+      },*/
     ],
     fixedColumns:   {
       leftColumns: 3
@@ -9789,8 +9789,7 @@ async function filtrosPlanilla() {
 }
 
 function alexis(idEstadoCierre, idEstadoAprobacion) {
-  $("#estadoPlanillaAsistencia").parent().parent().removeClass("dt-button");
-  $("#estadoPlanillaAsistencia").parent().parent().addClass("btn btn-link");
+  $("#estadoPlanillaAsistencia").hide();
 
   $("#validaCierrePlanillaAsistencia").val(idEstadoCierre);
   $("#validaAprobacionPlanillaAsistencia").val(idEstadoAprobacion);
