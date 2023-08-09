@@ -3245,6 +3245,12 @@ app.controller("planillaAsistenciaController", function(){
             }, 1000);
           });*/
 
+          setTimeout(function(){
+            var js = document.createElement('script');
+            js.src = 'view/js/funciones.js?idLoad=86';
+            document.getElementsByTagName('head')[0].appendChild(js);
+          },500);
+
           /*await listComunesPlanilla();
           await listCentrosDeCostos();
           await listCalendarioSegunPerfil(path);
