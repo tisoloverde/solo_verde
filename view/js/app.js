@@ -2971,6 +2971,32 @@ app.controller("planillaAsistenciaController", function(){
         window.location.href = "#/home";
       } else {
         setTimeout(async function() {
+          await $.ajax({
+            url:   'controller/datosAccionesVisibles.php',
+            type:  'post',
+            data: { path, },
+            success: function (response) {
+              var p = jQuery.parseJSON(response);
+              if(p.aaData.length !== 0){
+                for(var i = 0; i < p.aaData.length; i++) {
+                  if(p.aaData[i].VISIBLE == 1){
+                    if(p.aaData[i].ENABLE == 1){
+                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                    } else{
+                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+          setTimeout(function(){
+            var js = document.createElement('script');
+            js.src = 'view/js/funciones.js?idLoad=88';
+            document.getElementsByTagName('head')[0].appendChild(js);
+          },500);
+
           $("#informeRexmasAsistencia").unbind("click").click(async function(){
             splashOpen();
             var path = window.location.href.split('#/')[1];
@@ -3617,33 +3643,7 @@ app.controller("planillaAsistenciaController", function(){
             }
           });
 
-          await $.ajax({
-            url:   'controller/datosAccionesVisibles.php',
-            type:  'post',
-            data: { path, },
-            success: function (response) {
-              var p = jQuery.parseJSON(response);
-              if(p.aaData.length !== 0){
-                for(var i = 0; i < p.aaData.length; i++) {
-                  if(p.aaData[i].VISIBLE == 1){
-                    if(p.aaData[i].ENABLE == 1){
-                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
-                    } else{
-                      $("#accionesPlanilla").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
-                    }
-                  }
-                }
-              }
-            }
-          });
-
           marcarMenuActivo(); menuElegant();
-
-          setTimeout(function(){
-            var js = document.createElement('script');
-            js.src = 'view/js/funciones.js?idLoad=88';
-            document.getElementsByTagName('head')[0].appendChild(js);
-          },500);
         }, 500);
       }
     }
