@@ -1,5 +1,5 @@
 <?php
-  // ini_set('display_errors', 'On');
+  ini_set('display_errors', 'On');
   date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
 
@@ -22,7 +22,7 @@
   $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
   $delimiter = ";";
 
-  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  $logFile = fopen($ruta . "controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
   fclose($logFile);
 
