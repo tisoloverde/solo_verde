@@ -9427,10 +9427,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
             }
           },100);
         }
-      },
-      /*{
-        text: '<span id="estadoPlanillaAsistencia">Esta semana se encuentra cerrada</span>'
-      },*/
+      }
     ],
     fixedColumns:   {
       leftColumns: 3

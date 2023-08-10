@@ -120,7 +120,11 @@
             if (idEstadoAprobacion == 1) { // Aprobado
               $("#editarPlanillaAsistencia").attr("disabled", "disabled");
             } else {                      // Nada | Rechazado
-              $("#editarPlanillaAsistencia").removeAttr("disabled");
+              if (idEstadoCierre == 1) { // Cerrado
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              } else {                   // Nada | Reabierto
+                $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+              }              
             }
           } else {          // SOY ASISTENTE
             if (idEstadoAprobacion == 1) { // Aprobado
