@@ -9622,101 +9622,6 @@ function consultaOrdenesAsignadasTac($fecha, $idtecnico){
 	}
 }
 
-// Consulta Rango Mantencion
-function consultaRangoMantencion(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "CALL LISTAR_RANGO_MANTENCIONES()";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-// Fin Consulta Rango Mantencion
-
-// Consulta para ingresar Rango Mantencion
-function ingresaRangoMantenciones($minutos, $horaInicio, $horaFin){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "CALL CREA_RANGOS_MANTENCION_FLOTA('{$minutos}','{$horaInicio}','{$horaFin}')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-// Fin Consulta para ingresar Rango Mantencion
-
-// Consulta para habilitar Rango Mantencion
-function activarRangoMantencion($idRangoMant, $tope){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE MANTENCION_RANGOS
-	SET TOPE = '{$tope}',
-	MANTENCION = 1
-	WHERE IDMANTENCION_RANGOS = '{$idRangoMant}'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-// Fin Consulta para habilitar Rango Mantencion
-
-// Consulta para deshabilitar Rango Mantencion
-function desactivarRangoMantencion($idRangoMant){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE MANTENCION_RANGOS
-	SET TOPE = 0,
-	MANTENCION = 0
-	WHERE IDMANTENCION_RANGOS = '{$idRangoMant}'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-// Fin Consulta para deshabilitar Rango Mantencion
-
 // Consulta Rango Mantenciones
 function consultaRangoHoraMantencion($fecha){
 	$con = conectar();
@@ -21454,66 +21359,153 @@ WHERE U.RUT = '{$rutUser}'";
 								AND TARJETA = '{$tarjeta}'";
 				if ($row = $con->query($sql)){
 					while($array = $row->fetch_array(MYSQLI_BOTH)){
-						$return[] = $array;
-					}
-					return $return;
-					}
-					else{
-						return "Error";
-					}
+					$return[] = $array;
+				}
+				return $return;
 				}
 				else{
 					return "Error";
 				}
 			}
+			else{
+				return "Error";
+			}
+		}
 
-			function consultaConsumosMesAno($mes, $ano, $tarjeta){
-				$con = conectar();
-				if($con != 'No conectado'){
-					$sql = "SELECT '' S, FECHA, HORA, PATENTE, COMUNA_E_S 'COMUNA', DIRECCION_ES 'DIRECCION', COMPROBANTE_TRANSACCION 'COMPROBANTE', RUT_CONDUCTOR 'RUT',
-									PRECIO_UNIT 'PRECIO', VOL_LTRS 'VOLUMEN', MONTO_TRANS 'TOTAL'
-									FROM PATENTE_CONSUMO C
-									WHERE C.MES = '{$mes}'
-									AND C.ANO = '{$ano}'
-									AND LEFT(C.TARJETA,8) = '{$tarjeta}'";
-					if ($row = $con->query($sql)){
-						while($array = $row->fetch_array(MYSQLI_BOTH)){
-							$return[] = $array;
-						}
-						return $return;
-						}
-						else{
-							return "Error";
-						}
-					}
-					else{
-						return "Error";
-					}
+		function consultaConsumosMesAno($mes, $ano, $tarjeta){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, FECHA, HORA, PATENTE, COMUNA_E_S 'COMUNA', DIRECCION_ES 'DIRECCION', COMPROBANTE_TRANSACCION 'COMPROBANTE', RUT_CONDUCTOR 'RUT',
+								PRECIO_UNIT 'PRECIO', VOL_LTRS 'VOLUMEN', MONTO_TRANS 'TOTAL'
+								FROM PATENTE_CONSUMO C
+								WHERE C.MES = '{$mes}'
+								AND C.ANO = '{$ano}'
+								AND LEFT(C.TARJETA,8) = '{$tarjeta}'";
+				if ($row = $con->query($sql)){
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
 				}
+				return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
 
-				function consultaPeriodosConsumoTarjeta(){
-					$con = conectar();
-					if($con != 'No conectado'){
-						$sql = "SELECT CONCAT_WS('-',ANO,
-										CASE WHEN MES < 10 THEN CONCAT('0',MES) ELSE MES END
-										) 'PERIODO'
-										FROM PATENTE_CONSUMO
-										GROUP BY ANO, MES
-										ORDER BY ANO DESC, MES DESC";
-						if ($row = $con->query($sql)){
-							while($array = $row->fetch_array(MYSQLI_BOTH)){
-								$return[] = $array;
-							}
-							return $return;
-							}
-							else{
-								return "Error";
-							}
-						}
-						else{
-							return "Error";
-						}
+		function consultaPeriodosConsumoTarjeta(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT CONCAT_WS('-',ANO,
+							CASE WHEN MES < 10 THEN CONCAT('0',MES) ELSE MES END
+							) 'PERIODO'
+							FROM PATENTE_CONSUMO
+							GROUP BY ANO, MES
+							ORDER BY ANO DESC, MES DESC";
+				if ($row = $con->query($sql)){
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+					$return[] = $array;
+				}
+				return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaRangoMantencion(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL LISTAR_RANGO_MANTENCIONES()";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
 					}
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaRangoMantenciones($minutos, $horaInicio, $horaFin){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "CALL CREA_RANGOS_MANTENCION_FLOTA('{$minutos}','{$horaInicio}','{$horaFin}')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function activarRangoMantencion($idRangoMant, $tope){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE MANTENCION_RANGOS
+			SET TOPE = '{$tope}',
+			MANTENCION = 1
+			WHERE IDMANTENCION_RANGOS = '{$idRangoMant}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function desactivarRangoMantencion($idRangoMant){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE MANTENCION_RANGOS
+			SET TOPE = 0,
+			MANTENCION = 0
+			WHERE IDMANTENCION_RANGOS = '{$idRangoMant}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
 		// Fin Flota
 
 		function datosEstructuraOperacion($codigo){

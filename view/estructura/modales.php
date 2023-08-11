@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=91';
+  js.src = 'view/js/funciones.js?idLoad=92';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -4545,83 +4545,6 @@ include "./modales/personal/update.php";
         </div>
     </div>
 </div>
-
-<!-- MODAL CONFIG RANGO MANTENCIONES -->
-<div id="modalConfigRangoMantenciones" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-history"></span>&nbsp;&nbsp;Ingresar Rango de Mantenciones</h5>
-      </div>
-      <div id="bodyConfigRangoMantenciones" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Minutos</label>
-            <input id="minutosConfigRangoMantenciones" class="form-control" type="number" min="0">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Hora Inicio</label>
-            <input id="horaInicioConfigRangoMantenciones" class="form-control" type="time" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Hora Fin</label>
-            <input id="horaFinConfigRangoMantenciones" class="form-control" type="time" value=" ">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarConfigRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarConfigRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL CONFIG RANGO MANTENCIONES -->
-
-<!-- MODAL HABILITAR/DESHABILITAR RANGO MANTENCIONES -->
-<div id="modalHabDeshRangoMantenciones" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-			<div class="modal-header">
-        <h5 style="color:gray;" id="tituloHabDeshRangoMantenciones"><span class="fas fa-wrench"></span>&nbsp;&nbsp;Activar/Desactivar Rangos Mantenciones</h5>
-      </div>
-			<div id="bodyHabDeshRangoMantenciones" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-          <!--
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <font style="font-weight: bold; font-size: 14pt;">Rango <span style="color:gray;" id="rangoHabilitado" ></span> de los dias <span style="color:gray;" id="diaHabilitado" ></span> para mantención.</font>
-          </div>
-          -->
-          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado</label>
-						<select id="selectHabDeshRangoMantenciones" class="form-control">
-							<option value="Habilitar">Activar</option>
-							<option value="Deshabilitar">Desactivar</option>
-            </select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Tope Mantenciones</label>
-            <input id="topeMantenciones" class="form-control" type="number" min="0">
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarHabDeshRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarHabDeshRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL HABILITAR/DESHABILITAR RANGO MANTENCIONES -->
 
 <!-- Modal Login 2FA -->
 <div id="modalLogin2fa" class="modal modal-fullscreen fade" role="dialog">
@@ -11420,6 +11343,79 @@ include "./modales/personal/update.php";
 					<div class="col-xl-1 col-lg-1 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
 						<button id="cancelarTarjetaCombustible" style="display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 					</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalConfigRangoMantenciones" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-history"></span>&nbsp;&nbsp;Ingresar Rango de Mantenciones</h5>
+      </div>
+      <div id="bodyConfigRangoMantenciones" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Minutos</label>
+            <input id="minutosConfigRangoMantenciones" class="form-control" type="number" min="0">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Hora Inicio</label>
+            <input id="horaInicioConfigRangoMantenciones" class="form-control" type="time" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Hora Fin</label>
+            <input id="horaFinConfigRangoMantenciones" class="form-control" type="time" value=" ">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarConfigRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarConfigRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalHabDeshRangoMantenciones" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+			<div class="modal-header">
+        <h5 style="color:gray;" id="tituloHabDeshRangoMantenciones"><span class="fas fa-wrench"></span>&nbsp;&nbsp;Activar/Desactivar Rangos Mantenciones</h5>
+      </div>
+			<div id="bodyHabDeshRangoMantenciones" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+          <!--
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <font style="font-weight: bold; font-size: 14pt;">Rango <span style="color:gray;" id="rangoHabilitado" ></span> de los dias <span style="color:gray;" id="diaHabilitado" ></span> para mantención.</font>
+          </div>
+          -->
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado</label>
+						<select id="selectHabDeshRangoMantenciones" class="form-control">
+							<option value="Habilitar">Activar</option>
+							<option value="Deshabilitar">Desactivar</option>
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Tope Mantenciones</label>
+            <input id="topeMantenciones" class="form-control" type="number" min="0">
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarHabDeshRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarHabDeshRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

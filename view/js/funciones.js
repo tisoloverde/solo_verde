@@ -14874,6 +14874,274 @@ $("#copecHistorialTarjetaCombustible").unbind("click").click(async function(){
   });
 });
 
+$("#ingresarRango").unbind("click").click(async function(){
+  $("#minutosConfigRangoMantenciones").val("");
+  $("#horaInicioConfigRangoMantenciones").val("");
+  $("#horaFinConfigRangoMantenciones").val("");
+  $("#minutosConfigRangoMantenciones").removeClass("is-invalid");
+  $("#horaInicioConfigRangoMantenciones").removeClass("is-invalid");
+  $("#horaFinConfigRangoMantenciones").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  $("#minutosConfigRangoMantenciones" ).focusout(function(){
+    minutos = $("#minutosConfigRangoMantenciones").val();
+    if(minutos < 0){
+      $("#minutosConfigRangoMantenciones").val(0);
+      $("#minutosConfigRangoMantenciones").addClass("is-invalid");
+
+
+      var random = Math.round(Math.random() * (1000000 - 1) + 1);
+      alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor negativo");
+    }
+    else{
+      $("#minutosConfigRangoMantenciones").val(minutos);
+    }
+  });
+
+  setTimeout(function(){
+    $("#modalConfigRangoMantenciones").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyConfigRangoMantenciones').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarConfigRangoMantenciones").unbind('click').click(function(){
+  if($("#minutosConfigRangoMantenciones").val().length == 0 || $("#horaInicioConfigRangoMantenciones").val().length == 0 || $("#horaFinConfigRangoMantenciones").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#minutosConfigRangoMantenciones").val().length == 0){
+      $("#minutosConfigRangoMantenciones").addClass("is-invalid");
+    }
+    if ($("#horaInicioConfigRangoMantenciones").val().length == 0){
+      $("#horaInicioConfigRangoMantenciones").addClass("is-invalid");
+    }
+    if ($("#horaFinConfigRangoMantenciones").val().length == 0){
+      $("#horaFinConfigRangoMantenciones").addClass("is-invalid");
+    }
+  }
+  else {
+    parametros = {
+      "minutos": $("#minutosConfigRangoMantenciones").val(),
+      "horaInicio": $("#horaInicioConfigRangoMantenciones").val(),
+      "horaFin": $("#horaFinConfigRangoMantenciones").val(),
+    }
+    $("#modalConfigRangoMantenciones").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/ingresaRangoMantenciones.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaRangoMantencion').DataTable();
+            table.ajax.reload();
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Rango de mantención ingresado correctamente");
+            $("#configurarRango").attr("disabled","disabled");
+            $('#ingresarRango').remove();
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar rango de mantención, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar rango de mantención, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#minutosConfigRangoMantenciones").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+$("#horaInicioConfigRangoMantenciones").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+$("#horaFinConfigRangoMantenciones").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#configurarRango").unbind("click").click(async function(){
+  $("#topeMantenciones").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  if($('select[id="selectHabDeshRangoMantenciones"] option:selected').text() === "Desactivar"){
+    $("#topeMantenciones").val("");
+    $("#topeMantenciones").attr("disabled","disabled");
+    $("#topeMantenciones").removeClass("is-invalid");
+  }
+  else{
+    $("#topeMantenciones").val("");
+    $("#topeMantenciones").removeAttr("disabled");
+  }
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#selectHabDeshRangoMantenciones").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  setTimeout(function(){
+    $("#modalHabDeshRangoMantenciones").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyHabDeshRangoMantenciones').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#selectHabDeshRangoMantenciones").unbind("click").change(async function(){
+  if($('select[id="selectHabDeshRangoMantenciones"] option:selected').text() === "Desactivar"){
+    $("#topeMantenciones").val("");
+    $("#topeMantenciones").attr("disabled","disabled");
+    $("#topeMantenciones").removeClass("is-invalid");
+  }
+  else{
+    $("#topeMantenciones").val("");
+    $("#topeMantenciones").removeAttr("disabled");
+  }
+});
+
+$("#guardarHabDeshRangoMantenciones").unbind('click').click(function(){
+  var table = $('#tablaRangoMantencion').DataTable();
+  var idRangoMant = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDMANTENCION_RANGOS;
+  });
+
+  if($('select[id="selectHabDeshRangoMantenciones"] option:selected').text() === "Activar"){
+    tope2 = $("#topeMantenciones").val();
+    if($("#topeMantenciones").val().length == 0 || tope2 < 0){
+      if ($("#topeMantenciones").val().length == 0){
+        $("#topeMantenciones").addClass("is-invalid");
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar el campo tope de mantenciones");
+      }
+      if (tope2 < 0){
+        $("#topeMantenciones").addClass("is-invalid");
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un valor negativo");
+        $("#topeMantenciones").val(0);
+      }
+    }
+    else {
+      parametros = {
+        "tope": tope2,
+        "idRangoMant": idRangoMant,
+      }
+      $("#modalHabDeshRangoMantenciones").modal("hide");
+      $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+      $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+      $('#modalAlertasSplash').modal('show');
+      $.ajax({
+        url: "controller/activarRangoMantenciones.php",
+        type: 'POST',
+        data: parametros,
+        success:  function (response) {
+          var p = response.split(",");
+          if(response.localeCompare("Sin datos")!= 0 && response != ""){
+            if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+              var table = $('#tablaRangoMantencion').DataTable();
+              table.ajax.reload();
+              setTimeout(function(){
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Rango de mantención activado correctamente");
+                $("#configurarRango").attr("disabled","disabled");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              },2000);
+            }
+            else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al activar rango de mantención, si el problema persiste favor comuniquese con soporte");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            }
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al activar rango de mantención, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+      });
+    }
+  }
+  else{
+    parametros = {
+      "idRangoMant": idRangoMant,
+    }
+    $("#modalHabDeshRangoMantenciones").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/desactivarRangoMantenciones.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaRangoMantencion').DataTable();
+            table.ajax.reload();
+            setTimeout(function(){
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Rango de mantención desactivado correctamente");
+              $("#configurarRango").attr("disabled","disabled");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+            },2000);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al desactivar rango de mantención, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al desactivar rango de mantención, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#topeMantenciones").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {
