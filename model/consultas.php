@@ -3665,28 +3665,6 @@ function ingresarAseguradora($nombre, $moneda){
 	}
 }
 
-// Consultas Sucursales Mantenedores
-function consultaSucursal(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "CALL SUCURSALES();";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consulta para chequear si existe una sucursal (Parte del mantenedor)
 function chequeaSucursal($sucursal){ //$sucursal viene del controlador datosChequeaSucursal
 	$con = conectar();
@@ -5291,7 +5269,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 				SELECT COUNT(*)
-				FROM calendario
+				FROM CALENDARIO
 				WHERE mes_calendario = $mes
 				AND anio_calendario = $ano
 				AND es_dia_habil = 1
@@ -5300,7 +5278,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 				SELECT COUNT(*)
-				FROM calendario
+				FROM CALENDARIO
 				WHERE mes_calendario = $mes
 				AND anio_calendario = $ano
 				AND es_dia_habil = 1
@@ -5348,7 +5326,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 1
@@ -5358,7 +5336,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 1
@@ -5399,7 +5377,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 2
@@ -5409,7 +5387,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 2
@@ -5450,7 +5428,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 3
@@ -5460,7 +5438,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 3
@@ -5501,7 +5479,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 4
@@ -5511,7 +5489,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 4
@@ -5552,7 +5530,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 5
@@ -5562,7 +5540,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 5
@@ -5603,7 +5581,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				SELECT CASE WHEN M.CICLO  = 'Diaria' THEN M.META*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 6
@@ -5613,7 +5591,7 @@ function datosDetallePracticaTodos($mes, $ano, $strDni){
 				CASE WHEN M.CICLO  = 'Semanal' THEN (M.META/5)*
 				(
 					SELECT COUNT(*)
-					FROM calendario
+					FROM CALENDARIO
 					WHERE mes_calendario = $mes
 					AND anio_calendario = $ano
 					AND semana_del_mes = 6
@@ -7585,29 +7563,6 @@ function codigoPatente($idPatente){
 	}
 }
 
-// Consulta para ingresar Notificaciones de Asignacion de Vehiculos
-function ingresarNotificacionAsignacionVeh($rutJefe, $tipo, $cuerpo, $url, $notificacion, $categoria){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO USUARIO_NOTIFICACIONES (RUT, TIPO, CUERPO, URL, VISTO, FECHA, HORA, NOTIFICACION, CATEGORIA)
-			VALUES('{$rutJefe}','{$tipo}', '{$cuerpo}', '{$url}', 0, NOW(), CAST(NOW() AS TIME), '{$notificacion}', '{$categoria}')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			return $sql;
-			$con->query("ROLLBACK");
-
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
 // Consulta Jefe directo para envio de email Asignacion Vehiculo
 function consultaJefeDirecto($rutPersonal){
 	$con = conectar();
@@ -8242,28 +8197,6 @@ function consultaDatosOrdenesFecha($rut,$path,$fecha){
 					$return[] = $array;
 				}
 				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para chequear rut de Personal
-function chequeaRutPersonal($rut){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT IDPERSONAL, initCap(CONCAT(NOMBRES ,' ',APELLIDOS)) 'PERSONAL', EMAIL, TELEFONO
-FROM PERSONAL
-WHERE DNI = '" . $rut . "'";
-		if ($row = $con->query($sql)) {
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-			return $return;
 		}
 		else{
 			return "Error";
@@ -9260,27 +9193,6 @@ function eliminarOrdenTipo($folio){
 		}
 }
 
-// Consulta Calendar
-function consultaCalendar($start, $end){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pc.title, CONCAT(pc.IDPATENTE_CALENDAR, '@@@@@', pc.descripcion) 'descripcion', pc.color, pc.textColor, pc.`start`, pc.`end`
-				FROM PATENTE_CALENDAR pc
-				WHERE start >= '{$start}'
-				AND end <= '{$end}'
-				AND pc.ESTADO <> 'Cancelada'";
-		if ($row = $con->query($sql)){
-				while($array = $row->fetch_assoc()){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-}
-
 // Consulta datos PDF para Desasignacion Vehiculos
 function consultaDatosPdfDesasignacionVehiculo($idDesasig){
 	$con = conectar();
@@ -9541,121 +9453,6 @@ function consultaOrdenesAsignadasTac($fecha, $idtecnico){
 	}
 }
 
-// Consulta Rango Mantenciones
-function consultaRangoHoraMantencion($fecha){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT mr.IDMANTENCION_RANGOS, CONCAT(mr.INICIO, ' - ', mr.FIN, ' (Disp: ', (mr.TOPE - SUM(CASE WHEN pc.ESTADO <> 'Cancelada' THEN 1 ELSE 0 END)
-				), ')') 'RANGO'
-				FROM MANTENCION_RANGOS mr
-				LEFT JOIN DIAS_SEMANA ds
-				ON mr.ID_DIA_SEMANA = ds.ID_DIAS_SEMANA
-				LEFT JOIN PATENTE_CALENDAR pc
-				ON mr.IDMANTENCION_RANGOS = pc.IDMANTENCION_RANGOS
-				AND DATE_FORMAT(pc.start, '%Y-%m-%d') = '{$fecha}'
-				WHERE mr.MANTENCION = 1 AND ds.DIA = (SELECT dia_nombre FROM calendario  WHERE fecha_calendario = '{$fecha}')
-				AND mr.TOPE >
-				(
-					SELECT COUNT(IDMANTENCION_RANGOS)
-					FROM PATENTE_CALENDAR
-					WHERE IDMANTENCION_RANGOS = mr.IDMANTENCION_RANGOS
-					AND DATE_FORMAT(start, '%Y-%m-%d') = '{$fecha}'
-					AND ESTADO <> 'Cancelada'
-				)
-				GROUP BY mr.IDMANTENCION_RANGOS, CONCAT(mr.INICIO, ' - ', mr.FIN, ' (Disp: ', mr.TOPE, ')')";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta Datos Rut para Mantencion
-function consultaRutForMantencion(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT p4.CODIGO, initCap(CONCAT(p3.NOMBRES ,' ',p3.APELLIDOS)) 'NOMBRE', p3.DNI
-		FROM PERSONAL p3
-		LEFT JOIN PATENTE p4
-		ON p3.IDPATENTE = p4.IDPATENTE
-		LEFT JOIN PERSONAL_ESTADO PE
-		ON p3.IDPERSONAL = PE.IDPERSONAL
-		AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= PE.FECHA_INICIO
-		AND (DATE_FORMAT(NOW(), '%Y-%m-%d') <= PE.FECHA_TERMINO
-		OR PE.FECHA_TERMINO IS NULL)
-		AND PE.FECHA_INICIO =
-		(
-			SELECT MAX(EE.FECHA_INICIO)
-			FROM PERSONAL_ESTADO EE
-			WHERE EE.IDPERSONAL = p3.IDPERSONAL
-			AND EE.FECHA_INICIO <= DATE_FORMAT(NOW(), '%Y-%m-%d')
-		)
-		AND PE.IDPERSONAL_ESTADO =
-		(
-			SELECT MAX(EE.IDPERSONAL_ESTADO)
-			FROM PERSONAL_ESTADO EE
-			WHERE EE.IDPERSONAL = p3.IDPERSONAL
-			AND EE.FECHA_INICIO <= DATE_FORMAT(NOW(), '%Y-%m-%d')
-		)
-		LEFT JOIN PERSONAL_ESTADO_CONCEPTO CPE
-		ON PE.IDPERSONAL_ESTADO_CONCEPTO = CPE.IDPERSONAL_ESTADO_CONCEPTO
-		WHERE ((CPE.PERSONAL_ESTADO_CONCEPTO <> 'Desvinculado'
-		AND CPE.PERSONAL_ESTADO_CONCEPTO <> 'Renuncia')
-		OR CPE.PERSONAL_ESTADO_CONCEPTO IS NULL)";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta Datos para Mantencion con rut seleccionada
-function consultaRutForMantencionSeleccionada($rut){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT p4.CODIGO, initCap(CONCAT(p3.NOMBRES ,' ',p3.APELLIDOS)) 'NOMBRE', p3.DNI, p3.EMAIL, p3.TELEFONO,
-						pm.MARCA, pm.MODELO, p4.AÑO, p4.KILOMETRAJE
-						FROM PERSONAL p3
-						LEFT JOIN PATENTE_PERSONAL PP
-						ON p3.IDPERSONAL = PP.IDPERSONAL
-						LEFT JOIN PATENTE p4
-						ON PP.IDPATENTE = p4.IDPATENTE
-						LEFT JOIN PATENTE_MARCAMODELO pm
-						ON p4.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
-						WHERE p3.DNI = '{$rut}'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consulta evento mantencion
 function consultaEventoMantencion($start, $end){
 	$con = conectar();
@@ -9682,142 +9479,6 @@ function consultaEventoMantencion($start, $end){
 		}
 	}
 	else{
-		return "Error";
-	}
-}
-
-// Consulta Datos Patente para Mantencion
-function consultaPatenteForMantencion(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT p.IDPATENTE, p.CODIGO
-		FROM PATENTE p
-		LEFT JOIN PATENTE_ESTADO pe
-		ON p.IDPATENTE_ESTADO = pe.IDPATENTE_ESTADO
-		WHERE pe.ESTADO <> 'TALLER'
-		AND pe.ESTADO <> 'BAJA'
-		AND pe.ESTADO <> 'ELIMINADO'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta Datos para mantencion si la patente tiene siniestros
-function consultaPatenteSiniestrosFormMantenciones($patente){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT ps.IDPATENTE_SINIESTROS 'FOLIO', p.CODIGO, p.AÑO, p.KILOMETRAJE, pm.MARCA, pm.MODELO
-		FROM PATENTE_SINIESTROS ps
-		LEFT JOIN PATENTE p
-		ON ps.IDPATENTE = p.IDPATENTE
-		LEFT JOIN PATENTE_MARCAMODELO pm
-		ON p.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
-		WHERE p.CODIGO = '{$patente}'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para ingresar Mantencion
-function ingresaMantencionesFlota($rutMantencion, $correoPersonal, $celularPersonal,$patenteMantencion, $kilometraje, $fechaMantencion,$horaMantencion, $motivoMantencion, $siniestro,$sucursal, $colorLetra, $colorFondo,$observacion,$idTaller){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "CALL INGRESAR_MANTENCION_FLOTA('{$rutMantencion}','{$correoPersonal}','{$celularPersonal}','{$patenteMantencion}','{$kilometraje}','{$fechaMantencion}','{$horaMantencion}','{$motivoMantencion}','{$siniestro}','{$sucursal}','{$colorLetra}','{$colorFondo}','{$observacion}','{$idTaller}')";
-		if ($row = $con->query($sql)){
-			$con->query("COMMIT");
-			while($array = $row->fetch_assoc()){
-		$return[] = $array;
-		}
-		return $return;
-		} else {
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	} else {
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-// Fin Consulta para ingresar Mantencion
-
-// Consultas Datos de Mantencion para generar PDF
-function consultaDatosMantencionPdf($idMantencion){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pc.FECHA, pc.CELULAR_PERSONAL, pc.MOTIVO, pc.SINIESTRO, pc.CORREO_PERSONAL, pc.KILOMETRAJE,
-				initCap(CONCAT(p.NOMBRES, ' ',p.APELLIDOS))'PERSONAL', p2.CODIGO, pm.MARCA, pm.MODELO, CONCAT(mr.INICIO, ' - ', mr.FIN) 'RANGO', pt.NOMBRE 'TALLER',pt.DIRECCION 'DIRECCION_TALLER',
-				pt.CONTACTO, pt.TELEFONO, pa.NOMBRE 'ASEGURADORA', pa.RUT 'RUT_ASEG'
-				FROM PATENTE_CALENDAR pc
-				LEFT JOIN PERSONAL p
-				ON pc.IDPERSONAL = p.IDPERSONAL
-				LEFT JOIN PATENTE p2
-				ON pc.IDPATENTE = p2.IDPATENTE
-				LEFT JOIN PATENTE_MARCAMODELO pm
-				ON p2.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
-				LEFT JOIN MANTENCION_RANGOS mr
-				ON pc.IDMANTENCION_RANGOS = mr.IDMANTENCION_RANGOS
-				LEFT JOIN PATENTE_TALLER pt
-				ON pc.IDPATENTE_TALLER = pt.IDPATENTE_TALLER
-				LEFT JOIN PATENTE_ASEGURADORA pa
-				ON p2.IDPATENTE_ASEGURADORA = pa.IDPATENTE_ASEGURADORA
-				WHERE pc.IDPATENTE_CALENDAR = '{$idMantencion}'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para actualizar Pdf Agenda generado para Mantencion
-function actualizarMantencionAgenda($idMantencion, $pdfAgenda){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_CALENDAR
-		SET PDF_AGENDA = '{$pdfAgenda}',
-		CONTADOR_AGENDA = 2
-		WHERE IDPATENTE_CALENDAR = '{$idMantencion}'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
 		return "Error";
 	}
 }
@@ -10094,163 +9755,6 @@ function consultaDatosTallerMantencion($idSucursal){
 	}
 }
 
-// Consulta Direccion Taller para Mantencion
-function consultaDireccionTallerMantencion($idTaller){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pt.DIRECCION, A.COMUNA
-						FROM PATENTE_TALLER pt
-						LEFT JOIN AREAFUNCIONAL A
-						ON pt.IDAREAFUNCIONAL = A.IDAREAFUNCIONAL
-						WHERE pt.IDPATENTE_TALLER = '{$idTaller}'";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta Calendar
-function consultaCalendarSelect($idMantencion){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT p.CODIGO, pm.MARCA, pm.MODELO, pc.CORREO_PERSONAL, pc.CELULAR_PERSONAL, initCap(CONCAT(p2.NOMBRES,' ',p2.APELLIDOS)) 'PERSONAL',
-				pc.FECHA, CONCAT(mr.INICIO, ' - ', mr.FIN) 'RANGO', pc.MOTIVO, pc.SINIESTRO, pt.NOMBRE, pt.DIRECCION, s.SUCURSAL, CONCAT(pc.ESTADO,' - ', pc.SUBESTADO)'ESTADO_FINAL',
-				pc.ESTADO, pc.SUBESTADO, pc.PDF_AGENDA, pc.PDF_DIAG, pc.PDF_FACTURA, pc.PDF_OC
-				FROM PATENTE_CALENDAR pc
-				LEFT JOIN PATENTE p
-				ON pc.IDPATENTE = p.IDPATENTE
-				LEFT JOIN PATENTE_MARCAMODELO pm
-				ON p.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
-				LEFT JOIN PERSONAL p2
-				ON pc.IDPERSONAL = p2.IDPERSONAL
-				LEFT JOIN MANTENCION_RANGOS mr
-				ON pc.IDMANTENCION_RANGOS = mr.IDMANTENCION_RANGOS
-				LEFT JOIN PATENTE_TALLER pt
-				ON p.IDPATENTE_TALLER = pt.IDPATENTE_TALLER
-				LEFT JOIN SUCURSAL s
-				ON pc.IDSUCURSAL = s.IDSUCURSAL
-				WHERE pc.IDPATENTE_CALENDAR = '{$idMantencion}'";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para rechazar mantencion
-function rechazarMantencion($idMantencion, $motivo, $observacion){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_CALENDAR
-	SET ESTADO = 'Cancelada',
-	SUBESTADO = '{$motivo}',
-	OBSERVACION_CIERRE_PROCESO = '{$observacion}'
-	WHERE IDPATENTE_CALENDAR = '{$idMantencion}'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para completar mantencion
-function completarMantencion($idMantencion,$observacion){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_CALENDAR
-	SET ESTADO = 'Agendada',
-	SUBESTADO = 'Completada',
-	OBSERVACION_CIERRE_PROCESO = '{$observacion}'
-	WHERE IDPATENTE_CALENDAR = '{$idMantencion}'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta datos PDF para Mantencion
-function consultaDatosPdfMantencion($idMantencion){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pc.PDF_AGENDA, pc.PDF_DIAG, pc.PDF_FACTURA, pc.PDF_OC, pc.CONTADOR_AGENDA,
-				pc.CONTADOR_DIAG, pc.CONTADOR_FACTURA, pc.CONTADOR_OC
-				FROM PATENTE_CALENDAR pc
-				WHERE pc.IDPATENTE_CALENDAR = '{$idMantencion}'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para actualizar la subida de PDFs en Mantenciones
-function actualizaPDFMantencion($idMantencion, $docPdfDiagnostico, $docPdfFactura, $docPdfOc, $contadorDiag, $contadorFactura, $contadorOc){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "CALL SUBIR_PDF_MANTENCION('$idMantencion','$docPdfDiagnostico','$docPdfFactura','$docPdfOc','$contadorDiag','$contadorFactura','$contadorOc')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			$con->query("ROLLBACK");
-      return "Error";
-		}
-	}
-	else{
-    $con->query("ROLLBACK");
-  }
-}
-
 // Consulta para actualizar estado del vehiculo luego de pasar por  Mantenciones
 function actualizarEstadoVehiculoMantencion($motivo,$patente){
 	$con = conectar();
@@ -10269,32 +9773,6 @@ function actualizarEstadoVehiculoMantencion($motivo,$patente){
 	else{
     $con->query("ROLLBACK");
   }
-}
-
-// Consulta chequear Patente para mantenciones
-function chequeaPatenteForMantenciones($patente){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT COUNT(*) 'CANTIDAD'
-		FROM PATENTE_CALENDAR PC
-		LEFT JOIN PATENTE P
-		ON PC.IDPATENTE = P.IDPATENTE
-		WHERE P.CODIGO = '{$patente}'
-		AND PC.`start` >= NOW()
-		AND PC.ESTADO = 'Agendada'";
-		if ($row = $con->query($sql)) {
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
 }
 
 function ingresaTarjetaSolicitudCarga( $tarjeta, $nombre, $rutUser,$patente, $monto, $observacion, $bodega, $producto, $tipo, $rutPersonal){
@@ -16129,30 +15607,6 @@ function consultaSociedadSelect(){
 		}
 	}
 
-	function consultaDatosTallerMantencionTodas(){
-		$con = conectar();
-		if($con != 'No conectado'){
-			$sql = "SELECT pt.RUT, pt.NOMBRE, pt.IDPATENTE_TALLER, pt.DIRECCION
-					FROM PATENTE_TALLER pt
-					LEFT JOIN SUCURSAL s
-					ON pt.IDAREAFUNCIONAL = s.IDAREAFUNCIONAL";
-			if ($row = $con->query($sql)) {
-				$return = array();
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-
-				return $return;
-			}
-			else{
-				return "Error";
-			}
-		}
-		else{
-			return "Error";
-		}
-	}
-
 	function consultaDatosCargosTI(){
 		$con = conectar();
 		if($con != 'No conectado'){
@@ -17588,87 +17042,6 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 			else{
 				$con->query("ROLLBACK");
-				return "Error";
-			}
-		}
-
-		function actualizarMantencionTaller($idMantencion,$motivo,$patente){
-			$con = conectar();
-			$con->query("START TRANSACTION");
-			if($con != 'No conectado'){
-				$sql = "CALL INGRESAR_MANTENCION_TALLER('$idMantencion','$motivo','$patente')";
-				if ($con->query($sql)) {
-					$con->query("COMMIT");
-					return "Ok";
-				}
-				else{
-					$con->query("ROLLBACK");
-		      return "Error";
-				}
-			}
-			else{
-		    $con->query("ROLLBACK");
-		  }
-		}
-
-		function actualizarEstadoVechiculoCompletarMantencion($patente,$idEstado){
-			$con = conectar();
-			$con->query("START TRANSACTION");
-			if($con != 'No conectado'){
-				$sql = "UPDATE PATENTE
-								SET IDPATENTE_ESTADO = '{$idEstado}'
-								WHERE CODIGO = '{$patente}'";
-				if ($con->query($sql)) {
-					$con->query("COMMIT");
-					return "Ok";
-				}
-				else{
-					$con->query("ROLLBACK");
-		      return "Error";
-				}
-			}
-			else{
-		    $con->query("ROLLBACK");
-		  }
-		}
-
-		function consultaPatenteEstadoCompletarMantencion(){
-			$con = conectar();
-			if($con != 'No conectado'){
-				$sql = "SELECT  IDPATENTE_ESTADO, initCap(ESTADO) 'ESTADO',
-				CASE WHEN SUB_ESTADO1 IS NOT NULL THEN initCap(SUB_ESTADO1) ELSE '' END 'SUB_ESTADO1',
-				CASE WHEN SUB_ESTADO2 IS NOT NULL THEN initCap(SUB_ESTADO2) ELSE '' END 'SUB_ESTADO2'
-		FROM PATENTE_ESTADO";
-				if ($row = $con->query($sql)) {
-						while($array = $row->fetch_array(MYSQLI_BOTH)){
-							$return[] = $array;
-						}
-						return $return;
-				}
-				else{
-					return "Error";
-				}
-			}
-			else{
-				return "Error";
-			}
-		}
-
-		function consultaDatosMantencionLista($mes, $ano){
-			$con = conectar();
-			if($con != 'No conectado'){
-				$sql = "CALL LISTADO_MANTENCIONES('{$mes}','{$ano}');";
-				if ($row = $con->query($sql)) {
-						while($array = $row->fetch_array(MYSQLI_BOTH)){
-							$return[] = $array;
-						}
-						return $return;
-				}
-				else{
-					return "Error";
-				}
-			}
-			else{
 				return "Error";
 			}
 		}
@@ -21486,6 +20859,613 @@ WHERE U.RUT = '{$rutUser}'";
 			EMAIL = '" .$email . "',
 			TELEFONO = '" .$telefono . "'
 			WHERE IDPATENTE_TALLER = '" . $idTaller . "'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function consultaCalendar($start, $end){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pc.title, CONCAT(pc.IDPATENTE_CALENDAR, '@@@@@', pc.descripcion) 'descripcion', pc.color, pc.textColor, pc.`start`, pc.`end`
+						FROM PATENTE_CALENDAR pc
+						WHERE start >= '{$start}'
+						AND end <= '{$end}'
+						AND pc.ESTADO <> 'Cancelada'";
+				if ($row = $con->query($sql)){
+						while($array = $row->fetch_assoc()){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+		}
+
+		function consultaSucursal(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL SUCURSALES();";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaRangoHoraMantencion($fecha){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT mr.IDMANTENCION_RANGOS, CONCAT(mr.INICIO, ' - ', mr.FIN, ' (Disp: ', (mr.TOPE - SUM(CASE WHEN pc.ESTADO <> 'Cancelada' THEN 1 ELSE 0 END)
+						), ')') 'RANGO'
+						FROM MANTENCION_RANGOS mr
+						LEFT JOIN DIAS_SEMANA ds
+						ON mr.ID_DIA_SEMANA = ds.ID_DIAS_SEMANA
+						LEFT JOIN PATENTE_CALENDAR pc
+						ON mr.IDMANTENCION_RANGOS = pc.IDMANTENCION_RANGOS
+						AND DATE_FORMAT(pc.start, '%Y-%m-%d') = '{$fecha}'
+						WHERE mr.MANTENCION = 1 AND ds.DIA = (SELECT dia_nombre FROM CALENDARIO  WHERE fecha_calendario = '{$fecha}')
+						AND mr.TOPE >
+						(
+							SELECT COUNT(IDMANTENCION_RANGOS)
+							FROM PATENTE_CALENDAR
+							WHERE IDMANTENCION_RANGOS = mr.IDMANTENCION_RANGOS
+							AND DATE_FORMAT(start, '%Y-%m-%d') = '{$fecha}'
+							AND ESTADO <> 'Cancelada'
+						)
+						GROUP BY mr.IDMANTENCION_RANGOS, CONCAT(mr.INICIO, ' - ', mr.FIN, ' (Disp: ', mr.TOPE, ')')";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaDatosTallerMantencionTodas(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pt.RUT, pt.NOMBRE, pt.IDPATENTE_TALLER, pt.DIRECCION
+						FROM PATENTE_TALLER pt
+						LEFT JOIN SUCURSAL s
+						ON pt.IDAREAFUNCIONAL = s.IDAREAFUNCIONAL";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaRutForMantencion(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT p4.CODIGO, initCap(CONCAT(p3.NOMBRES ,' ',p3.APELLIDOS)) 'NOMBRE', p3.DNI
+				FROM PERSONAL p3
+				LEFT JOIN PATENTE p4
+				ON p3.IDPATENTE = p4.IDPATENTE
+				LEFT JOIN PERSONAL_ESTADO PE
+				ON p3.IDPERSONAL = PE.IDPERSONAL
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= PE.FECHA_INICIO
+				AND (DATE_FORMAT(NOW(), '%Y-%m-%d') <= PE.FECHA_TERMINO
+				OR PE.FECHA_TERMINO IS NULL)
+				AND PE.FECHA_INICIO =
+				(
+					SELECT MAX(EE.FECHA_INICIO)
+					FROM PERSONAL_ESTADO EE
+					WHERE EE.IDPERSONAL = p3.IDPERSONAL
+					AND EE.FECHA_INICIO <= DATE_FORMAT(NOW(), '%Y-%m-%d')
+				)
+				AND PE.IDPERSONAL_ESTADO =
+				(
+					SELECT MAX(EE.IDPERSONAL_ESTADO)
+					FROM PERSONAL_ESTADO EE
+					WHERE EE.IDPERSONAL = p3.IDPERSONAL
+					AND EE.FECHA_INICIO <= DATE_FORMAT(NOW(), '%Y-%m-%d')
+				)
+				LEFT JOIN PERSONAL_ESTADO_CONCEPTO CPE
+				ON PE.IDPERSONAL_ESTADO_CONCEPTO = CPE.IDPERSONAL_ESTADO_CONCEPTO
+				WHERE ((CPE.PERSONAL_ESTADO_CONCEPTO <> 'Desvinculado'
+				AND CPE.PERSONAL_ESTADO_CONCEPTO <> 'Renuncia')
+				OR CPE.PERSONAL_ESTADO_CONCEPTO IS NULL)";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaPatenteForMantencion(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT p.IDPATENTE, p.CODIGO
+				FROM PATENTE p
+				LEFT JOIN PATENTE_ESTADO pe
+				ON p.IDPATENTE_ESTADO = pe.IDPATENTE_ESTADO
+				WHERE pe.ESTADO <> 'TALLER'
+				AND pe.ESTADO <> 'BAJA'
+				AND pe.ESTADO <> 'ELIMINADO'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaCalendarSelect($idMantencion){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT p.CODIGO, pm.MARCA, pm.MODELO, pc.CORREO_PERSONAL, pc.CELULAR_PERSONAL, initCap(CONCAT(p2.NOMBRES,' ',p2.APELLIDOS)) 'PERSONAL',
+						pc.FECHA, CONCAT(mr.INICIO, ' - ', mr.FIN) 'RANGO', pc.MOTIVO, pc.SINIESTRO, pt.NOMBRE, pt.DIRECCION, s.SUCURSAL, CONCAT(pc.ESTADO,' - ', pc.SUBESTADO)'ESTADO_FINAL',
+						pc.ESTADO, pc.SUBESTADO, pc.PDF_AGENDA, pc.PDF_DIAG, pc.PDF_FACTURA, pc.PDF_OC
+						FROM PATENTE_CALENDAR pc
+						LEFT JOIN PATENTE p
+						ON pc.IDPATENTE = p.IDPATENTE
+						LEFT JOIN PATENTE_MARCAMODELO pm
+						ON p.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
+						LEFT JOIN PERSONAL p2
+						ON pc.IDPERSONAL = p2.IDPERSONAL
+						LEFT JOIN MANTENCION_RANGOS mr
+						ON pc.IDMANTENCION_RANGOS = mr.IDMANTENCION_RANGOS
+						LEFT JOIN PATENTE_TALLER pt
+						ON p.IDPATENTE_TALLER = pt.IDPATENTE_TALLER
+						LEFT JOIN SUCURSAL s
+						ON pc.IDSUCURSAL = s.IDSUCURSAL
+						WHERE pc.IDPATENTE_CALENDAR = '{$idMantencion}'";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaDatosMantencionLista($mes, $ano){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL LISTADO_MANTENCIONES('{$mes}','{$ano}');";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function chequeaRutPersonal($rut){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT IDPERSONAL, initCap(CONCAT(NOMBRES ,' ',APELLIDOS)) 'PERSONAL', EMAIL, TELEFONO
+		FROM PERSONAL
+		WHERE DNI = '" . $rut . "'";
+				if ($row = $con->query($sql)) {
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaPatenteSiniestrosFormMantenciones($patente){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT ps.IDPATENTE_SINIESTROS 'FOLIO', p.CODIGO, p.AÑO, p.KILOMETRAJE, pm.MARCA, pm.MODELO
+				FROM PATENTE_SINIESTROS ps
+				LEFT JOIN PATENTE p
+				ON ps.IDPATENTE = p.IDPATENTE
+				LEFT JOIN PATENTE_MARCAMODELO pm
+				ON p.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
+				WHERE p.CODIGO = '{$patente}'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaRutForMantencionSeleccionada($rut){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT p4.CODIGO, initCap(CONCAT(p3.NOMBRES ,' ',p3.APELLIDOS)) 'NOMBRE', p3.DNI, p3.EMAIL, p3.TELEFONO,
+								pm.MARCA, pm.MODELO, p4.AÑO, p4.KILOMETRAJE
+								FROM PERSONAL p3
+								LEFT JOIN PATENTE_PERSONAL PP
+								ON p3.IDPERSONAL = PP.IDPERSONAL
+								LEFT JOIN PATENTE p4
+								ON PP.IDPATENTE = p4.IDPATENTE
+								LEFT JOIN PATENTE_MARCAMODELO pm
+								ON p4.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
+								WHERE p3.DNI = '{$rut}'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaDireccionTallerMantencion($idTaller){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pt.DIRECCION, A.COMUNA
+								FROM PATENTE_TALLER pt
+								LEFT JOIN AREAFUNCIONAL A
+								ON pt.IDAREAFUNCIONAL = A.IDAREAFUNCIONAL
+								WHERE pt.IDPATENTE_TALLER = '{$idTaller}'";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresarNotificacionAsignacionVeh($rutJefe, $tipo, $cuerpo, $url, $notificacion, $categoria){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO USUARIO_NOTIFICACIONES (RUT, TIPO, CUERPO, URL, VISTO, FECHA, HORA, NOTIFICACION, CATEGORIA)
+					VALUES('{$rutJefe}','{$tipo}', '{$cuerpo}', '{$url}', 0, NOW(), CAST(NOW() AS TIME), '{$notificacion}', '{$categoria}')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					return $sql;
+					$con->query("ROLLBACK");
+
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function consultaDatosMantencionPdf($idMantencion){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pc.FECHA, pc.CELULAR_PERSONAL, pc.MOTIVO, pc.SINIESTRO, pc.CORREO_PERSONAL, pc.KILOMETRAJE,
+						initCap(CONCAT(p.NOMBRES, ' ',p.APELLIDOS))'PERSONAL', p2.CODIGO, pm.MARCA, pm.MODELO, CONCAT(mr.INICIO, ' - ', mr.FIN) 'RANGO', pt.NOMBRE 'TALLER',pt.DIRECCION 'DIRECCION_TALLER',
+						pt.CONTACTO, pt.TELEFONO, pa.NOMBRE 'ASEGURADORA', pa.RUT 'RUT_ASEG'
+						FROM PATENTE_CALENDAR pc
+						LEFT JOIN PERSONAL p
+						ON pc.IDPERSONAL = p.IDPERSONAL
+						LEFT JOIN PATENTE p2
+						ON pc.IDPATENTE = p2.IDPATENTE
+						LEFT JOIN PATENTE_MARCAMODELO pm
+						ON p2.IDPATENTE_MARCAMODELO = pm.IDPATENTE_MARCAMODELO
+						LEFT JOIN MANTENCION_RANGOS mr
+						ON pc.IDMANTENCION_RANGOS = mr.IDMANTENCION_RANGOS
+						LEFT JOIN PATENTE_TALLER pt
+						ON pc.IDPATENTE_TALLER = pt.IDPATENTE_TALLER
+						LEFT JOIN PATENTE_ASEGURADORA pa
+						ON p2.IDPATENTE_ASEGURADORA = pa.IDPATENTE_ASEGURADORA
+						WHERE pc.IDPATENTE_CALENDAR = '{$idMantencion}'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function actualizarMantencionAgenda($idMantencion, $pdfAgenda){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_CALENDAR
+				SET PDF_AGENDA = '{$pdfAgenda}',
+				CONTADOR_AGENDA = 2
+				WHERE IDPATENTE_CALENDAR = '{$idMantencion}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function ingresaMantencionesFlota($rutMantencion, $correoPersonal, $celularPersonal,$patenteMantencion, $kilometraje, $fechaMantencion,$horaMantencion, $motivoMantencion, $siniestro,$sucursal, $colorLetra, $colorFondo,$observacion,$idTaller){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "CALL INGRESAR_MANTENCION_FLOTA('{$rutMantencion}','{$correoPersonal}','{$celularPersonal}','{$patenteMantencion}','{$kilometraje}','{$fechaMantencion}','{$horaMantencion}','{$motivoMantencion}','{$siniestro}','{$sucursal}','{$colorLetra}','{$colorFondo}','{$observacion}','{$idTaller}')";
+				if ($row = $con->query($sql)){
+					$con->query("COMMIT");
+					while($array = $row->fetch_assoc()){
+				$return[] = $array;
+				}
+				return $return;
+				} else {
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			} else {
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function chequeaPatenteForMantenciones($patente){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT COUNT(*) 'CANTIDAD'
+				FROM PATENTE_CALENDAR PC
+				LEFT JOIN PATENTE P
+				ON PC.IDPATENTE = P.IDPATENTE
+				WHERE P.CODIGO = '{$patente}'
+				AND PC.`start` >= NOW()
+				AND PC.ESTADO = 'Agendada'";
+				if ($row = $con->query($sql)) {
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaDatosPdfMantencion($idMantencion){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pc.PDF_AGENDA, pc.PDF_DIAG, pc.PDF_FACTURA, pc.PDF_OC, pc.CONTADOR_AGENDA,
+						pc.CONTADOR_DIAG, pc.CONTADOR_FACTURA, pc.CONTADOR_OC
+						FROM PATENTE_CALENDAR pc
+						WHERE pc.IDPATENTE_CALENDAR = '{$idMantencion}'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function actualizaPDFMantencion($idMantencion, $docPdfDiagnostico, $docPdfFactura, $docPdfOc, $contadorDiag, $contadorFactura, $contadorOc){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "CALL SUBIR_PDF_MANTENCION('$idMantencion','$docPdfDiagnostico','$docPdfFactura','$docPdfOc','$contadorDiag','$contadorFactura','$contadorOc')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					$con->query("ROLLBACK");
+		      return "Error";
+				}
+			}
+			else{
+		    $con->query("ROLLBACK");
+		  }
+		}
+
+		function actualizarMantencionTaller($idMantencion,$motivo,$patente){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "CALL INGRESAR_MANTENCION_TALLER('$idMantencion','$motivo','$patente')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					$con->query("ROLLBACK");
+		      return "Error";
+				}
+			}
+			else{
+		    $con->query("ROLLBACK");
+		  }
+		}
+
+		function consultaPatenteEstadoCompletarMantencion(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT  IDPATENTE_ESTADO, initCap(ESTADO) 'ESTADO',
+				CASE WHEN SUB_ESTADO1 IS NOT NULL THEN initCap(SUB_ESTADO1) ELSE '' END 'SUB_ESTADO1',
+				CASE WHEN SUB_ESTADO2 IS NOT NULL THEN initCap(SUB_ESTADO2) ELSE '' END 'SUB_ESTADO2'
+		FROM PATENTE_ESTADO";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function completarMantencion($idMantencion,$observacion){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_CALENDAR
+			SET ESTADO = 'Agendada',
+			SUBESTADO = 'Completada',
+			OBSERVACION_CIERRE_PROCESO = '{$observacion}'
+			WHERE IDPATENTE_CALENDAR = '{$idMantencion}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function actualizarEstadoVechiculoCompletarMantencion($patente,$idEstado){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE
+								SET IDPATENTE_ESTADO = '{$idEstado}'
+								WHERE CODIGO = '{$patente}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					$con->query("ROLLBACK");
+		      return "Error";
+				}
+			}
+			else{
+		    $con->query("ROLLBACK");
+		  }
+		}
+
+		function rechazarMantencion($idMantencion, $motivo, $observacion){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_CALENDAR
+			SET ESTADO = 'Cancelada',
+			SUBESTADO = '{$motivo}',
+			OBSERVACION_CIERRE_PROCESO = '{$observacion}'
+			WHERE IDPATENTE_CALENDAR = '{$idMantencion}'";
 				if ($con->query($sql)) {
 					$con->query("COMMIT");
 					return "Ok";

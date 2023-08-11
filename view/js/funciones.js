@@ -15438,6 +15438,1404 @@ $("#guardarEditarTaller").unbind('click').click(function(){
     }
   });
 });
+
+$("#rutAgregarMantencion").focusout(function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  vari = $("#rutAgregarMantencion").val().split(" - ")[0];
+  if(vari.length > 8){
+    $('#agregarMantencion').modal('hide');
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+
+    var parametrosRut = {
+      "rut": $.trim(vari.replace('.','').replace('.','')),
+    }
+    $.ajax({
+      url:   'controller/datosRutForMantencionSelect.php',
+      type:  'post',
+      data: parametrosRut,
+      success: function (response3) {
+        if(response3.localeCompare("Sin datos") != 0 && response3 != ""){
+          var p3 = jQuery.parseJSON(response3);
+          if(p3.aaData[0].CODIGO !== null){
+            $("#rutAgregarMantencion").val(vari);
+            $("#guardarAgregarMantencion").removeAttr("disabled");
+            $("#nombreAgregarMantencion").val(p3.aaData[0].NOMBRE);
+            $("#correoAgregarMantencion").val(p3.aaData[0].EMAIL);
+            $("#celularAgregarMantencion").val(p3.aaData[0].TELEFONO);
+            $("#patenteAgregarMantencion").val(p3.aaData[0].CODIGO);
+            $("#marcaAgregarMantencion").val(p3.aaData[0].MARCA);
+            $("#modeloAgregarMantencion").val(p3.aaData[0].MODELO);
+            $("#anoAgregarMantencion").val(p3.aaData[0].AÑO);
+            $("#kilometrajeAgregarMantencion").val(p3.aaData[0].KILOMETRAJE);
+            // Buscamos siniestros con la patente
+            var parametros = {
+              "patente": p3.aaData[0].CODIGO,
+            }
+
+            $.ajax({
+              url:   'controller/datosPatenteSiniestrosForMantenciones.php',
+              type:  'post',
+              data: parametros,
+              success: function (response) {
+                if(response.localeCompare("Sin datos") != 0 && response != ""){
+                  var p = jQuery.parseJSON(response);
+                  if(p.aaData.length !== 0 ){
+                    var cuerpoS = "";
+                    for(var i = 0; i < p.aaData.length; i++){
+                      cuerpoS += '<option value="' + p.aaData[i].FOLIO + '">' + p.aaData[i].FOLIO + '</option>';
+                    }
+                    $("#motivoAgregarMantencion").html('<option value="Mantencion_correctiva">Mantención correctiva</option>,<option value="Mantencion_preventiva">Mantención preventiva</option>,<option value="Siniestro">Siniestro</option>');
+                    $("#siniestroAgregarMantencion").removeAttr("disabled");
+                    $("#siniestroAgregarMantencion").html(cuerpoS);
+                  }
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                    $('#agregarMantencion').modal('show');
+                  },500);
+                }
+                else{
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                    $('#agregarMantencion').modal('show');
+                  },500);
+                }
+              }
+            });
+          }
+          else{
+            $.ajax({
+              url:   'controller/datosChequeaPersonal.php',
+              type:  'post',
+              data: parametrosRut,
+              success: function (response2) {
+                if(response2.localeCompare("Sin datos") != 0 && response2 != ""){
+                  var p2 = jQuery.parseJSON(response2);
+                  $("#guardarAgregarMantencion").attr("disabled","disabled");
+                  $("#rutAgregarMantencion").val(vari);
+                  $("#nombreAgregarMantencion").val(p2.aaData[0].PERSONAL);
+                  $("#correoAgregarMantencion").val(p2.aaData[0].EMAIL);
+                  $("#celularAgregarMantencion").val(p2.aaData[0].TELEFONO);
+
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El DNI ingresado no tiene vehículo asignado");
+
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                    $('#agregarMantencion').modal('show');
+                  },500);
+
+                }
+                else{
+
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El DNI ingresado es inválido o no pertenece a la empresa");
+                  $("#rutAgregarMantencion").val("");
+                  $("#rutAgregarMantencion").addClass("is-invalid");
+
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                    $('#agregarMantencion').modal('show');
+                  },500);
+
+                }
+              }
+            });
+          }
+        }
+        else{
+
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El DNI ingresado es inválido o no pertenece a la empresa");
+          $("#rutAgregarMantencion").val("");
+          $("#rutAgregarMantencion").addClass("is-invalid");
+
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#agregarMantencion').modal('show');
+          },500);
+
+        }
+      }
+    });
+  }
+});
+
+$("#patenteAgregarMantencion").focusout(function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  patente = $("#patenteAgregarMantencion").val();
+  if(patente.length > 5){
+    $('#agregarMantencion').modal('hide');
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    var parametros = {
+      "patente": patente
+    }
+    $.ajax({
+      url:   'controller/datosPatenteSiniestrosForMantenciones.php',
+      type:  'post',
+      data: parametros,
+      success: function (response3) {
+        if(response3.localeCompare("Sin datos") != 0 && response3 != ""){
+          var p3 = jQuery.parseJSON(response3);
+          $("#patenteAgregarMantencion").val(patente);
+          $("#guardarAgregarMantencion").removeAttr("disabled");
+          $("#marcaAgregarMantencion").val(p3.aaData[0].MARCA);
+          $("#modeloAgregarMantencion").val(p3.aaData[0].MODELO);
+          $("#anoAgregarMantencion").val(p3.aaData[0].AÑO);
+          $("#kilometrajeAgregarMantencion").val(p3.aaData[0].KILOMETRAJE);
+          if(p3.aaData.length !== 0 ){
+            var cuerpoS1 = "";
+            for(var i = 0; i < p3.aaData.length; i++){
+              cuerpoS1 += '<option value="' + p3.aaData[i].FOLIO + '">' + p3.aaData[i].FOLIO + '</option>';
+            }
+            $("#motivoAgregarMantencion").html('<option value="Mantencion_correctiva">Mantención correctiva</option>,<option value="Mantencion_preventiva">Mantención preventiva</option>,<option value="Siniestro">Siniestro</option>');
+            $("#siniestroAgregarMantencion").removeAttr("disabled");
+            $("#siniestroAgregarMantencion").html(cuerpoS1);
+          }
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#agregarMantencion').modal('show');
+          },500);
+        }
+        else{
+          $.ajax({
+            url:   'controller/datosChequeaPatente.php',
+            type:  'post',
+            data: parametros,
+            success: function (response2) {
+              if(response2.localeCompare("Sin datos") != 0 && response2 != ""){
+                var p2 = jQuery.parseJSON(response2);
+                $("#patenteAgregarMantencion").val(patente);
+                $("#guardarAgregarMantencion").removeAttr("disabled");
+                $("#marcaAgregarMantencion").val(p2.aaData[0].MARCA);
+                $("#modeloAgregarMantencion").val(p2.aaData[0].MODELO);
+                $("#anoAgregarMantencion").val(p2.aaData[0].AÑO);
+                $("#kilometrajeAgregarMantencion").val(p2.aaData[0].KILOMETRAJE);
+
+
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/info.png' class='splash_load'><br/>La patente ingresada no tiene siniestro");
+
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  $('#agregarMantencion').modal('show');
+                },2000);
+              }
+              else{
+
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/info.png' class='splash_load'><br/>La patente ingresada es inválida o no pertenece a la empresa");
+                $("#patenteAgregarMantencion").val("");
+                $("#patenteAgregarMantencion").addClass("is-invalid");
+
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  $('#agregarMantencion').modal('show');
+                },2000);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#kilometrajeAgregarMantencion").focusout(async function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  patente = $("#patenteAgregarMantencion").val();
+  var parametrosPatente = {
+    "patente" : patente
+  }
+  await $.ajax({
+    url:   'controller/datosChequeaPatente.php',
+    type:  'post',
+    data: parametrosPatente,
+    success: function (response31) {
+      var p3 = jQuery.parseJSON(response31);
+      var kil = p3.aaData[0].KILOMETRAJE;
+      if(parseInt($("#kilometrajeAgregarMantencion").val()) < parseInt(kil) || $("#kilometrajeAgregarMantencion").val().length == 0){
+        $("#kilometrajeAgregarMantencion").val(kil);
+        $("#kilometrajeAgregarMantencion").addClass("is-invalid");
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un kilometraje menor al del sistema");
+      }
+    }
+  });
+});
+
+$("#kilometrajeAgregarMantencion").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#rutAgregarMantencion").on('input', function(){
+  $(this).removeClass("is-invalid");
+  $("#guardarAgregarMantencion").attr("disabled","disabled");
+  $("#patenteAgregarMantencion").removeAttr("disabled","disabled");
+  $("#motivoAgregarMantencion").html('<option value="Mantencion_correctiva">Mantención correctiva</option>,<option value="Mantencion_preventiva">Mantención preventiva</option>,<option value="Siniestro">Siniestro</option>');
+  $("#nombreAgregarMantencion").val("");
+  $("#correoAgregarMantencion").val("");
+  $("#celularAgregarMantencion").val("");
+  $("#patenteAgregarMantencion").val("");
+  $("#marcaAgregarMantencion").val("");
+  $("#modeloAgregarMantencion").val("");
+  $("#anoAgregarMantencion").val("");
+  $("#kilometrajeAgregarMantencion").val("");
+  $("#siniestroAgregarMantencion").html('<option value="Ninguno">Ninguno</option>');
+  $("#siniestroAgregarMantencion").attr("disabled","disabled");
+});
+
+$("#patenteAgregarMantencion").on('input', function(){
+  $(this).removeClass("is-invalid");
+  $("#guardarAgregarMantencion").attr("disabled","disabled");
+  $("#motivoAgregarMantencion").html('<option value="Mantencion_correctiva">Mantención correctiva</option>,<option value="Mantencion_preventiva">Mantención preventiva</option>,<option value="Siniestro">Siniestro</option>');
+  $("#marcaAgregarMantencion").val("");
+  $("#modeloAgregarMantencion").val("");
+  $("#anoAgregarMantencion").val("");
+  $("#kilometrajeAgregarMantencion").val("");
+  $("#siniestroAgregarMantencion").html('<option value="Ninguno">Ninguno</option>');
+  $("#siniestroAgregarMantencion").attr("disabled","disabled");
+});
+
+$("#tallerAgregarMantencion").unbind("click").change(async function(){
+  $("#direccionTallerAgregarMantencion").val("Cargando dirección...");
+  var param = {
+    "idTaller": $("#tallerAgregarMantencion").val(),
+  }
+  await $.ajax({
+    url:   'controller/datosDireccionTallerMantencion.php',
+    type:  'post',
+    data: param,
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      if(p.aaData.length !== 0){
+        $("#direccionTallerAgregarMantencion").val(p.aaData[0].DIRECCION + ' (' + p.aaData[0].COMUNA + ')');
+      }
+      else{
+        $("#direccionTallerAgregarMantencion").val("");
+      }
+    }
+  });
+});
+
+$("#guardarAgregarMantencion").unbind('click').click(function(){
+  if($("#tallerAgregarMantencion").val() != 0 && $("#celularAgregarMantencion").val().length >= 9){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $("#agregarMantencion").modal("hide");
+    $.ajax({
+      url:   'controller/datosChequeaPatenteForMantencion.php',
+      type:  'post',
+      data: {
+        "patente": $("#patenteAgregarMantencion").val(),
+      },
+      success: function (response3) {
+        var p3 = jQuery.parseJSON(response3);
+        if(response3.localeCompare("Sin datos") != 0){
+          if (parseInt(p3.aaData[0].CANTIDAD) !== 0){
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar una agenda de mantención a este vehículo ya que tiene otra agenda en proceso en días superiores o igual a hoy");
+              $('#modalAlertasSplash').modal('hide');
+              $("#agregarMantencion").modal("show");
+          }
+          else{
+            var taller = $("#tallerAgregarMantencion").find('option:selected').text();
+            var direccionTaller = $("#direccionTallerAgregarMantencion").val();
+            parametros = {
+              "rutMantencion": $("#rutAgregarMantencion").val(),
+              "correoPersonal": $("#correoAgregarMantencion").val(),
+              "celularPersonal": $("#celularAgregarMantencion").val(),
+              "patenteMantencion": $("#patenteAgregarMantencion").val(),
+              "kilometraje": $("#kilometrajeAgregarMantencion").val(),
+              "fechaMantencion": $("#fechaAgregarMantencion").val(),
+              "horaMantencion": $("#horaAgregarMantencion").val(),
+              "motivoMantencion": $("#motivoAgregarMantencion").val(),
+              "siniestro": $("#siniestroAgregarMantencion").val(),
+              "sucursal": $("#sucursalAgregarMantencion").val(),
+              "colorLetra": $("#colorLetraAgregarMantencion").val(),
+              "colorFondo": $("#colorFondoAgregarMantencion").val(),
+              "observacion": $("#observacionAgregarMantencion").val(),
+              "idTaller": $("#tallerAgregarMantencion").val(),
+            }
+            $.ajax({
+              url: "controller/ingresaMantencionesFlota.php",
+              type: 'POST',
+              data: parametros,
+              success:  async function (response) {
+                var p = jQuery.parseJSON(response);
+                await $.ajax({
+                  url: "controller/generaPDF/agendaMantencion.php?idLoad=94",
+                  type: "POST",
+                  data:{
+                    "idMantencion": Number(p[0]['LAST_INSERT_ID()']),
+                    "url": window.location.toString().split("?")[0]
+                  },
+                  success: async function (res2){
+                    window.open(window.location.toString().split("#/")[0].split('?')[0] + '/controller/repositorio/flota/mantenciones/agenda' + res2, '_blank');
+                    // await $.ajax({
+                    //   url: "controller/envio_sms.php",
+                    //   type:"POST",
+                    //   data:{
+                    //     'celular': $("#celularAgregarMantencion").val(),
+                    //     'mensaje': "Le informamos que se ha agendado una nueva mantención para el vehículo con patente " + $("#patenteAgregarMantencion").val() + ", fecha: " + $("#fechaAgregarMantencion").val() + ", hora: " + $("#horaAgregarMantencion").find('option:selected').text().split(' (Dis')[0] + " en el taller: " + taller + " con dirección en " + direccionTaller,
+                    //   },
+                    //   success: function (resp2){
+                    //   }
+                    // });
+                    await $.ajax({
+                      url: "controller/enviaEmailNotificacionesMantencion.php",
+                      type:"POST",
+                      data:{
+                        "pdf":res2,
+                        "nombrePersonal": $("#nombreAgregarMantencion").val(),
+                        "correoPersonal": $("#correoAgregarMantencion").val(),
+                        "rutPersonal": $("#rutAgregarMantencion").val(),
+                        "patenteMantencion": $("#patenteAgregarMantencion").val(),
+                        "taller": $("#tallerAgregarMantencion").find('option:selected').text(),
+                        "direccionTaller": $("#direccionTallerAgregarMantencion").val(),
+                      },
+                      success: function (res1){
+                        var p1 = res1.split(",");
+                        if(res1.localeCompare("Sin datos")!= 0 && res1 != ""){
+                          if(p1[0].localeCompare("Sin datos") != 0 && p1[0] != ""){
+                            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Mantención ingresado correctamente");
+
+                            var calendarEl = document.getElementById('calendario');
+
+                            var calendar = new FullCalendar.Calendar(calendarEl, {
+                              themeSystem: 'standard',
+                              height: $(window).height() - 120,
+                              timezoneParam: 'America/Santiago',
+                              locale: 'es',
+                              firstDay: 1,
+                              buttonIcons: true,
+                              navLinks: true, // can click day/week names to navigate views
+                              businessHours: true, // display business hours
+                              editable: true,
+                              selectable: false,
+                              weekNumbers: false,
+                              eventDisplay: 'block',
+                              titleFormat: { year: 'numeric', month: 'numeric' },
+                              headerToolbar: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth'
+                              },
+                              events: "controller/datosCalendar.php",
+                              dateClick: async function(info){
+                                  var dia = info.dateStr;
+                                  var actual = moment().format('YYYY-MM-DD').toString();
+                                  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+                                  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+                                  $('#modalAlertasSplash').modal('show');
+                                  if(moment(dia).isSameOrAfter(actual, 'day')){
+                                    $("#horaAgregarMantencion").html("");
+                                    $("#guardarAgregarMantencion").attr("disabled","disabled");
+                                    $("#rutAgregarMantencion").val("");
+                                    $("#nombreAgregarMantencion").val("");
+                                    $("#direccionTallerAgregarMantencion").val("")
+                                    $("#correoAgregarMantencion").val("");
+                                    $("#celularAgregarMantencion").val("");
+                                    $("#patenteAgregarMantencion").val("");
+                                    $("#marcaAgregarMantencion").val("");
+                                    $("#modeloAgregarMantencion").val("");
+                                    $("#anoAgregarMantencion").val("");
+                                    $("#kilometrajeAgregarMantencion").val("");
+                                    $("#siniestroAgregarMantencion").val("");
+                                    $("#observacionAgregarMantencion").val("");
+                                    $("#motivoAgregarMantencion").html('<option value="Mantencion_correctiva">Mantención correctiva</option>,<option value="Mantencion_preventiva">Mantención preventiva</option>,<option value="Siniestro">Siniestro</option>');
+                                    $("#nombreAgregarMantencion").attr("disabled","disabled");
+                                    $("#patenteAgregarMantencion").removeAttr("disabled","disabled");
+                                    $("#marcaAgregarMantencion").attr("disabled","disabled");
+                                    $("#modeloAgregarMantencion").attr("disabled","disabled");
+                                    $("#direccionTallerAgregarMantencion").attr("disabled","disabled");
+                                    $("#anoAgregarMantencion").attr("disabled","disabled");
+                                    $("#rutAgregarMantencion").removeAttr("disabled","disabled");
+                                    $("#rutAgregarMantencion").removeClass("is-invalid");
+                                    $("#patenteAgregarMantencion").removeClass("is-invalid");
+                                    $("#celularAgregarMantencion").removeClass("is-invalid");
+                                    $("#kilometrajeAgregarMantencion").removeClass("is-invalid");
+                                    if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                                      $("#motivoAgregarMantencion").select2({
+                                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+                                      });
+                                      $("#horaAgregarMantencion").select2({
+                                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+                                      });
+                                      $("#sucursalAgregarMantencion").select2({
+                                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+                                      });
+                                      $("#siniestroAgregarMantencion").select2({
+                                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+                                      });
+                                      $("#tallerAgregarMantencion").select2({
+                                        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+                                      });
+                                    }
+
+                                    if($('select[id="motivoAgregarMantencion"] option:selected').text() === "Mantención correctiva" || $('select[id="motivoAgregarMantencion"] option:selected').text() === "Mantención preventiva"){
+                                      $("#siniestroAgregarMantencion").html('<option value="Ninguno">Ninguno</option>');
+                                      $("#siniestroAgregarMantencion").attr("disabled","disabled");
+                                    }
+                                    else{
+                                      $("#siniestroAgregarMantencion").removeAttr("disabled");
+                                    }
+
+                                    $("#motivoAgregarMantencion").unbind("click").change(async function(){
+                                      if($('select[id="motivoAgregarMantencion"] option:selected').text() === "Mantención correctiva" || $('select[id="motivoAgregarMantencion"] option:selected').text() === "Mantención preventiva"){
+                                        $("#siniestroAgregarMantencion").html('<option value="Ninguno">Ninguno</option>');
+                                        $("#siniestroAgregarMantencion").attr("disabled","disabled");
+                                      }
+                                      else{
+                                        $("#siniestroAgregarMantencion").removeAttr("disabled");
+                                      }
+                                    });
+
+                                    await $.ajax({
+                                      url:   'controller/datosSucursal.php',
+                                      type:  'post',
+                                      success: function (response2) {
+                                        var p2 = jQuery.parseJSON(response2);
+                                        if(p2.aaData.length !== 0){
+                                          var cuerpoS = '';
+                                          for(var i = 0; i < p2.aaData.length; i++){
+                                            if(p2.aaData[i].BODEGA_FLOTA === "SI"){
+                                              cuerpoS += '<option value="' + p2.aaData[i].IDSUCURSAL + '">' + p2.aaData[i].COMUNA + ' - ' + p2.aaData[i].SUCURSAL + '</option>';
+                                            }
+                                          }
+                                          $("#sucursalAgregarMantencion").html(cuerpoS);
+                                        }
+                                      }
+                                    });
+
+                                    var parametros = {
+                                      "fecha": info.dateStr
+                                    }
+                                    await $.ajax({
+                                      url:   'controller/datosRangoHoraMantencion.php',
+                                      type:  'post',
+                                      data: parametros,
+                                      success: function (response3) {
+                                        var p2 = jQuery.parseJSON(response3);
+                                        if(p2.aaData.length !== 0){
+                                          var cuerpoR = '';
+                                          for(var i = 0; i < p2.aaData.length; i++){
+                                            cuerpoR += '<option value="' + p2.aaData[i].IDMANTENCION_RANGOS + '">' + p2.aaData[i].RANGO + '</option>';
+                                          }
+                                          $("#horaAgregarMantencion").html(cuerpoR);
+                                        }
+                                      }
+                                    });
+
+                                    var param = {
+                                      "idSucursal": $("#sucursalAgregarMantencion").val(),
+                                    }
+                                    await $.ajax({
+                                      url:   'controller/datosTallerMantencion.php',
+                                      type:  'post',
+                                      data: param,
+                                      success: function (response) {
+                                        var p = jQuery.parseJSON(response);
+                                        if(p.aaData.length !== 0){
+                                          var cuerpoM = '<option selected value=0>Seleccionar Taller</option>';
+                                          for(var i = 0; i < p.aaData.length; i++){
+                                            cuerpoM += '<option value="' + p.aaData[i].IDPATENTE_TALLER + '">' + p.aaData[i].NOMBRE + ' - ' + p.aaData[i].DIRECCION + '</option>';
+                                          }
+                                          $("#tallerAgregarMantencion").html(cuerpoM);
+                                        }
+                                        else{
+                                          $("#tallerAgregarMantencion").html('<option selected value=0>Seleccionar Taller</option>');
+                                        }
+                                      }
+                                    });
+
+                                    await $.ajax({
+                                      url:   'controller/datosRutForMantencion.php',
+                                      type:  'post',
+                                      success: function (response) {
+                                        var p = jQuery.parseJSON(response);
+                                        if(p.aaData.length !== 0){
+                                          var listaPersonalSiniestro = [];
+                                          for(var i = 0; i < p.aaData.length; i++) {
+                                            if(p.aaData[i].CODIGO === null){
+                                              listaPersonalSiniestro.push(p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRE);
+                                            }else{
+                                              listaPersonalSiniestro.push(p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRE + ' - ' + p.aaData[i].CODIGO);
+                                            }
+                                          }
+                                          $('#rutAgregarMantencion').autocomplete({
+                                            // req will contain an object with a "term" property that contains the value
+                                            // currently in the text input.  responseFn should be invoked with the options
+                                            // to display to the user.
+                                            source: function (req, responseFn) {
+                                              // Escape any RegExp meaningful characters such as ".", or "^" from the
+                                              // keyed term.
+                                              var term = $.ui.autocomplete.escapeRegex(req.term),
+                                                // '^' is the RegExp character to match at the beginning of the string.
+                                                // 'i' tells the RegExp to do a case insensitive match.
+                                                matcher = new RegExp(term, 'i'),
+                                                // Loop over the options and selects only the ones that match the RegExp.
+                                                matches = $.grep(listaPersonalSiniestro, function (item) {
+                                                  return matcher.test(item);
+                                                });
+                                              // Return the matched options.
+                                              responseFn(matches);
+                                            }
+                                          });
+                                        }
+                                      }
+                                    });
+
+                                    await $.ajax({
+                                      url:   'controller/datosPatenteForMantencion.php',
+                                      type:  'post',
+                                      success: function (response) {
+                                        var p = jQuery.parseJSON(response);
+                                        if(p.aaData.length !== 0){
+                                          var listaPersonalSiniestro = [];
+                                          for(var i = 0; i < p.aaData.length; i++) {
+                                            listaPersonalSiniestro.push(p.aaData[i].CODIGO);
+                                          }
+                                          $('#patenteAgregarMantencion').autocomplete({
+                                            // req will contain an object with a "term" property that contains the value
+                                            // currently in the text input.  responseFn should be invoked with the options
+                                            // to display to the user.
+                                            source: function (req, responseFn) {
+                                              // Escape any RegExp meaningful characters such as ".", or "^" from the
+                                              // keyed term.
+                                              var term = $.ui.autocomplete.escapeRegex(req.term),
+                                                // '^' is the RegExp character to match at the beginning of the string.
+                                                // 'i' tells the RegExp to do a case insensitive match.
+                                                matcher = new RegExp(term, 'i'),
+                                                // Loop over the options and selects only the ones that match the RegExp.
+                                                matches = $.grep(listaPersonalSiniestro, function (item) {
+                                                  return matcher.test(item);
+                                                });
+                                              // Return the matched options.
+                                              responseFn(matches);
+                                            }
+                                          });
+                                        }
+                                      }
+                                    });
+
+                                    $("#fechaAgregarMantencion").val(info.dateStr);
+                                    $("#fechaAgregarMantencion").attr("disabled","disabled");
+
+                                    setTimeout(function(){
+                                      hora = $("#horaAgregarMantencion").val();
+                                      if(hora === null){
+                                        $("#buttonAceptarAlerta").css("display","inline");
+                                        $("#modalAlertas").modal({backdrop: 'static', keyboard: false});
+                                        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                                        alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No se puede ingresar una mantención por que no hay horario disponible");
+                                        setTimeout(function(){
+                                          $('#modalAlertasSplash').modal('hide');
+                                        },500);
+                                      }
+                                      else{
+                                        var h = $(window).height() - 200;
+                                        $("#bodyAgregarMantencion").css("height",h);
+                                        setTimeout(function(){
+                                          $('#modalAlertasSplash').modal('hide');
+                                          $("#agregarMantencion").modal("show");
+                                        },1000);
+                                      }
+                                      setTimeout(function(){
+                                        $('#bodyAgregarMantencion').animate({ scrollTop: 0 }, 'fast');
+                                      },200);
+                                    },500);
+                                  }
+                                  else{
+                                    $("#buttonAceptarAlerta").css("display","inline");
+                                    $("#modalAlertas").modal({backdrop: 'static', keyboard: false});
+                                    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                                    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar una agenda de mantención en días anteriores a hoy");
+                                    setTimeout(function(){
+                                      $('#modalAlertasSplash').modal('hide');
+                                    },500);
+                                  }
+
+                              },
+                              eventClick: async function(calEvent){
+                                id = calEvent.event.extendedProps.descripcion.split("@@@@@")[0];
+                                $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+                                $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+                                $('#modalAlertasSplash').modal('show');
+                                parametros = {
+                                  "idMantencion": id
+                                }
+                                await $.ajax({
+                                  url:   'controller/datosCalendarSelect.php',
+                                  type:  'post',
+                                  data: parametros,
+                                  success: function (response3) {
+                                    var p3 = jQuery.parseJSON(response3);
+                                    if(response3.localeCompare("Sin datos") != 0){
+                                      $("#patenteMantencion").html(p3.aaData[0].CODIGO);
+                                      $("#marcaMantencion").html(p3.aaData[0].MARCA);
+                                      $("#modeloMantencion").html(p3.aaData[0].MODELO);
+                                      $("#personalMantencion").html(p3.aaData[0].PERSONAL);
+                                      $("#correoMantencion").html(p3.aaData[0].CORREO_PERSONAL);
+                                      $("#telefonoMantencion").html(p3.aaData[0].CELULAR_PERSONAL);
+                                      $("#fechaMantencion").html(p3.aaData[0].FECHA);
+                                      $("#horaMantencion").html(p3.aaData[0].RANGO);
+                                      $("#sucursalMantencion").html(p3.aaData[0].SUCURSAL);
+                                      $("#tallerMantencion").html(p3.aaData[0].NOMBRE);
+                                      $("#direccionMantencion").html(p3.aaData[0].DIRECCION);
+                                      $("#motivoMantencion").html(p3.aaData[0].MOTIVO);
+                                      $("#folioSiniestroMantencion").html(p3.aaData[0].SINIESTRO);
+                                      $("#estadoMantencion").html(p3.aaData[0].ESTADO_FINAL);
+                                      $("#folioMantencion").html(id);
+
+                                      if(p3.aaData[0].PDF_AGENDA != null){
+                                        $("#agendaVerMantencion").removeAttr("disabled","disabled");
+                                        $("#colorAgendaVerMantencion").css("color","red");
+                                        $("#agendaVerMantencion").attr("onclick","pdf_Mantencion('/agenda/"+ p3.aaData[0].PDF_AGENDA + "');");
+                                      }
+                                      else{
+                                        $("#agendaVerMantencion").attr("disabled","disabled");
+                                        $("#colorAgendaVerMantencion").css("color","gray");
+                                      }
+
+                                      if(p3.aaData[0].PDF_DIAG != null){
+                                        $("#diagnosticoVerMantencion").removeAttr("disabled","disabled");
+                                        $("#colorDiagnosticoVerMantencion").css("color","red");
+                                        $("#diagnosticoVerMantencion").attr("onclick","pdf_Mantencion('/diagnostico/"+ p3.aaData[0].PDF_DIAG + "');");
+                                      }
+                                      else{
+                                        $("#diagnosticoVerMantencion").attr("disabled","disabled");
+                                        $("#colorDiagnosticoVerMantencion").css("color","gray");
+                                      }
+
+                                      if(p3.aaData[0].PDF_FACTURA != null){
+                                        $("#facturaVerMantencion").removeAttr("disabled","disabled");
+                                        $("#colorFacturaVerMantencion").css("color","red");
+                                        $("#facturaVerMantencion").attr("onclick","pdf_Mantencion('/factura/"+ p3.aaData[0].PDF_FACTURA + "');");
+                                      }
+                                      else{
+                                        $("#facturaVerMantencion").attr("disabled","disabled");
+                                        $("#colorFacturaVerMantencion").css("color","gray");
+                                      }
+
+                                      if(p3.aaData[0].PDF_OC != null){
+                                        $("#ocVerMantencion").removeAttr("disabled","disabled");
+                                        $("#colorOcVerMantencion").css("color","red");
+                                        $("#ocVerMantencion").attr("onclick","pdf_Mantencion('/oc/"+ p3.aaData[0].PDF_OC + "');");
+                                      }
+                                      else{
+                                        $("#ocVerMantencion").attr("disabled","disabled");
+                                        $("#colorOcVerMantencion").css("color","gray");
+                                      }
+
+                                      if(p3.aaData[0].ESTADO === "Agendada" && p3.aaData[0].SUBESTADO === "Agendada"){
+                                        if(p3.aaData[0].PDF_AGENDA != null && p3.aaData[0].PDF_DIAG != null && p3.aaData[0].PDF_FACTURA != null &&  p3.aaData[0].PDF_OC != null){
+                                          $("#subirPdfMantencion").attr("disabled","disabled");
+                                          $("#cancelarMantencion").removeAttr("disabled","disabled");
+                                          $("#completarMantencion").removeAttr("disabled","disabled");
+                                        }
+                                        else{
+                                          $("#subirPdfMantencion").removeAttr("disabled","disabled");
+                                          $("#completarMantencion").removeAttr("disabled","disabled");
+                                          $("#cancelarMantencion").removeAttr("disabled","disabled");
+                                        }
+                                      }
+                                      else if(p3.aaData[0].ESTADO === "Taller" && p3.aaData[0].SUBESTADO === "Ingresado"){
+                                        $("#subirPdfMantencion").removeAttr("disabled","disabled");
+                                        $("#completarMantencion").removeAttr("disabled","disabled");
+                                        $("#cancelarMantencion").attr("disabled","disabled");
+                                        $("#ingregoTallerMantencion").attr("disabled","disabled");
+                                      }
+                                      else{
+                                        $("#subirPdfMantencion").attr("disabled","disabled");
+                                        $("#completarMantencion").attr("disabled","disabled");
+                                        $("#cancelarMantencion").attr("disabled","disabled");
+                                      }
+                                    }
+                                  }
+                                });
+                                setTimeout(function(){
+                                  var h = $(window).height() - 250;
+                                  $("#bodyVerEvento").css("height",h);
+                                  $('#modalAlertasSplash').modal('hide');
+                                  $('#modalVerEvento').modal('show');
+                                },2000);
+                              },
+                              loading: async function(bool) {
+                                if(bool === false){
+                                  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+                                  var parametros = {
+                                    "mes": $("#fc-dom-1").html().split("/")[0],
+                                    "ano": $("#fc-dom-1").html().split("/")[1]
+                                  }
+                                  await $('#tablaCalendario').DataTable( {
+                                      ajax: {
+                                          url: "controller/datosPatenteMantencionLista.php",
+                                          type: 'POST',
+                                          data: parametros
+                                      },
+                                      columns: [
+                                        { data: 'S', className: "centerDataTable" },
+                                        { data: 'FOLIO', className: "centerDataTable" },
+                                        { data: 'ESTADO', className: "centerDataTable" },
+                                        { data: 'FECHA_HORA_AGENDA'},
+                                        { data: 'FECHA_INGRESO'},
+                                        { data: 'MOTIVO'},
+                                        { data: 'PATENTE' },
+                                        { data: 'COLABORADOR'},
+                                        { data: 'CORREO_PERSONAL'},
+                                        { data: 'CELULAR_PERSONAL'},
+                                        { data: 'TALLER' },
+                                        { data: 'DIRECCION_TALLER'},
+                                        { data: 'CONTACTO_TALLER'},
+                                        { data: 'FONO_TALLER' },
+                                        { data: 'PDF_AGENDA_D', className: "centerDataTable" },
+                                        { data: 'PDF_DIAG_D' , className: "centerDataTable" },
+                                        { data: 'PDF_FACTURA_D', className: "centerDataTable" },
+                                        { data: 'PDF_OC_D' , className: "centerDataTable" },
+                                        { data: 'PDF_AGENDA' },
+                                        { data: 'PDF_DIAG' },
+                                        { data: 'PDF_FACTURA'},
+                                        { data: 'PDF_OC' }
+                                      ],
+                                      buttons: [
+                                          {
+                                            extend: 'excel',
+                                            exportOptions: {
+                                              columns: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,18,19,20,21 ]
+                                            },
+                                            title: null,
+                                            text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                                          },
+                                          {
+                                            text: '<span class="fas fa-broom"></span>&nbsp;&nbsp;Deseleccionar todo',
+                                            action: function ( e, dt, node, config ) {
+                                              var table = $('#tablaCalendario').DataTable();
+                                              table.rows().deselect();
+                                            }
+                                          }
+                                      ],
+                                      "columnDefs": [
+                                        {
+                                          "width": "5px",
+                                          "targets": 0
+                                        },
+                                        {
+                                          "orderable": false,
+                                          "className": 'select-checkbox',
+                                          "targets": [ 0 ]
+                                        },
+                                        {
+                                          "visible": false,
+                                          "searchable": false,
+                                          "targets": [ 18 ]
+                                        },
+                                        {
+                                          "visible": false,
+                                          "searchable": false,
+                                          "targets": [ 19 ]
+                                        },
+                                        {
+                                          "visible": false,
+                                          "searchable": false,
+                                          "targets": [ 20 ]
+                                        },
+                                        {
+                                          "visible": false,
+                                          "searchable": false,
+                                          "targets": [ 21 ]
+                                        },
+                                      ],
+                                      "select": {
+                                          style: 'single'
+                                      },
+                                      "paging": true,
+                                      "ordering": true,
+                                      "scrollCollapse": true,
+                                      "scrollX": false,
+                                      "responsive": {
+                                          details: {
+                                              renderer: function ( api, rowIdx, columns ) {
+                                                  var data = $.map( columns, function ( col, i ) {
+                                                      return col.hidden ?
+                                                          '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                                                              '<td style="font-weight: bold; min-width: 150px;">'+col.title+':'+'</td> '+
+                                                              '<td style="min-width: 150px; text-align: center;">'+col.data+'</td>'+
+                                                          '</tr>' :
+                                                          '';
+                                                  } ).join('');
+
+                                                  return data ?
+                                                      $('<table/>').append( data ) :
+                                                      false;
+                                              }
+                                          }
+                                      },
+                                      "info":     true,
+                                      "lengthMenu": [[largo], [largo]],
+                                      "dom": 'Bfrtip',
+                                      "language": {
+                                        "zeroRecords": "No hay datos disponibles",
+                                        "info": "Registro _START_ de _END_ de _TOTAL_",
+                                        "infoEmpty": "No hay datos disponibles",
+                                        "paginate": {
+                                            "previous": "Anterior",
+                                            "next": "Siguiente"
+                                          },
+                                          "search": "Buscar: ",
+                                          "select": {
+                                              "rows": "- %d registros seleccionados"
+                                          },
+                                          "infoFiltered": "(Filtrado de _MAX_ registros)"
+                                      },
+                                      "destroy": true,
+                                      "autoWidth": false,
+                                      "initComplete": function( settings, json){
+                                        setTimeout(function(){
+                                          $('#modalAlertasSplash').modal('hide');
+                                          setTimeout(function(){
+                                            $('#tablaCalendario').DataTable().columns.adjust();
+                                          },200);
+                                        },1000);
+                                      },
+                                      "drawCallback": function( settings ) {
+                                          setTimeout(function(){
+                                            $('#tablaCalendario').DataTable().columns.adjust();
+                                          },50);
+                                      }
+                                  });
+                                }
+                                else{
+                                  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+                                  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+                                  $('#modalAlertasSplash').modal('show');
+                                }
+                              }
+                            });
+
+                            calendar.render();
+
+                            setTimeout(function(){
+                              $('#modalAlertasSplash').modal('hide');
+                            },1000);
+                          }
+                          else{
+                            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar mantención, si el problema persiste favor comuniquese con soporte");
+                            setTimeout(function(){
+                              $('#modalAlertasSplash').modal('hide');
+                            },1000);
+                          }
+                        }
+                        else{
+                          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar mantención, si el problema persiste favor comuniquese con soporte");
+                          setTimeout(function(){
+                            $('#modalAlertasSplash').modal('hide');
+                          },1000);
+                        }
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        }
+      }
+    });
+  }
+  else if($("#celularAgregarMantencion").val().length < 9){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe ingresar un celular con 9 digitos");
+  }
+  else{
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe seleccionar un taller");
+  }
+});
+
+$("#celularAgregarMantencion").focusout(function(e){
+  e.preventDefault();
+  var telefono = $("#celularAgregarMantencion").val();
+  if(telefono.length < 9){
+    $("#celularAgregarMantencion").addClass("is-invalid");
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El número de celular debe tener 9 digitos exactos");
+  }
+});
+
+$("#celularAgregarMantencion").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+async function pdf_Mantencion(pdf){
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    window.open(window.location.toString().split("#/")[0].split('?')[0] + 'controller/repositorio/flota/mantenciones' + pdf, '_blank');
+  }
+}
+
+$("#pdfCargaAgenda" ).on('change', function(e){
+  var file = e.target.files[0].name; // agarramos solo el nombre([0].name) del array que tiene tamaño, fecha y mas
+  $("#inputPdfAgenda").val(file);
+  $("#inputPdfAgenda").removeClass("is-invalid");
+});
+
+$("#pdfCargaDiagnostico" ).on('change', function(e){
+  var file = e.target.files[0].name;
+  $("#inputPdfDiagnostico").val(file);
+  $("#inputPdfDiagnostico").removeClass("is-invalid");
+});
+
+$("#pdfCargaFactura" ).on('change', function(e){
+  var file = e.target.files[0].name;
+  $("#inputPdfFactura").val(file);
+  $("#inputPdfFactura").removeClass("is-invalid");
+});
+
+$("#pdfCargaOc" ).on('change', function(e){
+  var file = e.target.files[0].name;
+  $("#inputPdfOc").val(file);
+  $("#inputPdfOc").removeClass("is-invalid");
+});
+
+$("#subirPdfMantencion").unbind("click").click(async function(){
+  $("#modalVerEvento").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var parametros = {
+    "idMantencion" : $("#folioMantencion").text()
+  }
+  await $.ajax({
+    url:   'controller/datosPdfMantencion.php',
+    type:  'post',
+    data: parametros,
+    success: function (response3) {
+      var p3 = jQuery.parseJSON(response3);
+      agenda = p3.aaData[0].PDF_AGENDA;
+      diagnostico = p3.aaData[0].PDF_DIAG;
+      factura = p3.aaData[0].PDF_FACTURA;
+      oc = p3.aaData[0].PDF_OC;
+      cont_agenda = p3.aaData[0].CONTADOR_AGENDA;
+      cont_diag = p3.aaData[0].CONTADOR_DIAG;
+      cont_factura = p3.aaData[0].CONTADOR_FACTURA;
+      cont_oc = p3.aaData[0].CONTADOR_OC;
+    }
+  });
+
+  if(cont_agenda == null || cont_agenda == 1){
+    $("#inputPdfAgenda").val(agenda);
+    $("#spanAgenda").html("<font> </font>");
+    $("#pdfCargaAgenda").removeAttr("disabled");
+  }
+  else{
+    $("#spanAgenda").html("<font>  ¡PDF Cargado! </font>");
+    $("#inputPdfAgenda").val(agenda);
+    $("#pdfCargaAgenda").attr("disabled","disabled");
+  }
+
+  if(cont_diag == null || cont_diag == 1){
+    $("#inputPdfDiagnostico").val(diagnostico);
+    $("#spanDiagnostico").html("<font> </font>");
+    $("#pdfCargaDiagnostico").removeAttr("disabled");
+  }
+  else{
+    $("#spanDiagnostico").html("<font>  ¡PDF Cargado! </font>");
+    $("#inputPdfDiagnostico").val(diagnostico);
+    $("#pdfCargaDiagnostico").attr("disabled","disabled");
+  }
+
+  if(cont_factura == null || cont_factura == 1){
+    $("#inputPdfFactura").val(factura);
+    $("#spanFactura").html("<font> </font>");
+    $("#pdfCargaFactura").removeAttr("disabled");
+  }
+  else{
+    $("#spanFactura").html("<font>  ¡PDF Cargado! </font>");
+    $("#inputPdfFactura").val(factura);
+    $("#pdfCargaFactura").attr("disabled","disabled");
+  }
+
+  if(cont_oc == null || cont_oc == 1){
+    $("#inputPdfOc").val(oc);
+    $("#spanOc").html("<font> </font>");
+    $("#pdfCargaOc").removeAttr("disabled");
+  }
+  else{
+    $("#spanOc").html("<font>  ¡PDF Cargado! </font>");
+    $("#inputPdfOc").val(oc);
+    $("#pdfCargaOc").attr("disabled","disabled");
+  }
+
+  $("#pdfCargaAgenda").val('');
+  $("#inputPdfAgenda").removeClass("is-invalid");
+
+  $("#pdfCargaDiagnostico").val('');
+  $("#inputPdfDiagnostico").removeClass("is-invalid");
+
+  $("#pdfCargaFactura").val('');
+  $("#inputPdfFactura").removeClass("is-invalid");
+
+  $("#pdfCargaOc").val('');
+  $("#inputPdfOc").removeClass("is-invalid");
+
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalSubirPdfMantencion").modal("show");
+  },500);
+});
+
+$("#guardarSubirPdfMantencion").unbind("click").click( async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalSubirPdfMantencion").modal("hide");
+
+  var idMant = $("#folioMantencion").text();
+  var patente = $("#patenteMantencion").text();
+  var motivo = $("#motivoMantencion").text();
+
+  var formdata = new FormData();
+  formdata.append('idMantencion',idMant);
+  formdata.append('patente',patente);
+  formdata.append('motivo',motivo);
+  formdata.append('pdfDiagnostico',$("#pdfCargaDiagnostico")[0].files[0]);
+  formdata.append('pdfFactura',$("#pdfCargaFactura")[0].files[0]);
+  formdata.append('pdfOc',$("#pdfCargaOc")[0].files[0]);
+
+  await $.ajax({
+    url: "controller/ingresaPdfMantencion.php",
+    type: 'POST',
+    data: formdata,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: async function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Pdf ingresado correctamente");
+
+            parametros = {
+              "idMantencion": idMant
+            }
+            await $.ajax({
+              url:   'controller/datosCalendarSelect.php',
+              type:  'post',
+              data: parametros,
+              success: function (response3) {
+                var p3 = jQuery.parseJSON(response3);
+                if(response3.localeCompare("Sin datos") != 0){
+                  $("#patenteMantencion").html(p3.aaData[0].CODIGO);
+                  $("#marcaMantencion").html(p3.aaData[0].MARCA);
+                  $("#modeloMantencion").html(p3.aaData[0].MODELO);
+                  $("#personalMantencion").html(p3.aaData[0].PERSONAL);
+                  $("#correoMantencion").html(p3.aaData[0].CORREO_PERSONAL);
+                  $("#telefonoMantencion").html(p3.aaData[0].CELULAR_PERSONAL);
+                  $("#fechaMantencion").html(p3.aaData[0].FECHA);
+                  $("#horaMantencion").html(p3.aaData[0].RANGO);
+                  $("#sucursalMantencion").html(p3.aaData[0].SUCURSAL);
+                  $("#tallerMantencion").html(p3.aaData[0].NOMBRE);
+                  $("#direccionMantencion").html(p3.aaData[0].DIRECCION);
+                  $("#motivoMantencion").html(p3.aaData[0].MOTIVO);
+                  $("#folioSiniestroMantencion").html(p3.aaData[0].SINIESTRO);
+                  $("#estadoMantencion").html(p3.aaData[0].ESTADO_FINAL);
+                  $("#folioMantencion").html(id);
+
+                  if(p3.aaData[0].PDF_AGENDA != null){
+                    $("#agendaVerMantencion").removeAttr("disabled","disabled");
+                    $("#colorAgendaVerMantencion").css("color","red");
+                    $("#agendaVerMantencion").attr("onclick","pdf_Mantencion('/agenda/"+ p3.aaData[0].PDF_AGENDA + "');");
+                  }
+                  else{
+                    $("#agendaVerMantencion").attr("disabled","disabled");
+                    $("#colorAgendaVerMantencion").css("color","gray");
+                  }
+
+                  if(p3.aaData[0].PDF_DIAG != null){
+                    $("#diagnosticoVerMantencion").removeAttr("disabled","disabled");
+                    $("#colorDiagnosticoVerMantencion").css("color","red");
+                    $("#diagnosticoVerMantencion").attr("onclick","pdf_Mantencion('/diagnostico/"+ p3.aaData[0].PDF_DIAG + "');");
+                  }
+                  else{
+                    $("#diagnosticoVerMantencion").attr("disabled","disabled");
+                    $("#colorDiagnosticoVerMantencion").css("color","gray");
+                  }
+
+                  if(p3.aaData[0].PDF_FACTURA != null){
+                    $("#facturaVerMantencion").removeAttr("disabled","disabled");
+                    $("#colorFacturaVerMantencion").css("color","red");
+                    $("#facturaVerMantencion").attr("onclick","pdf_Mantencion('/factura/"+ p3.aaData[0].PDF_FACTURA + "');");
+                  }
+                  else{
+                    $("#facturaVerMantencion").attr("disabled","disabled");
+                    $("#colorFacturaVerMantencion").css("color","gray");
+                  }
+
+                  if(p3.aaData[0].PDF_OC != null){
+                    $("#ocVerMantencion").removeAttr("disabled","disabled");
+                    $("#colorOcVerMantencion").css("color","red");
+                    $("#ocVerMantencion").attr("onclick","pdf_Mantencion('/oc/"+ p3.aaData[0].PDF_OC + "');");
+                  }
+                  else{
+                    $("#ocVerMantencion").attr("disabled","disabled");
+                    $("#colorOcVerMantencion").css("color","gray");
+                  }
+
+                  if(p3.aaData[0].ESTADO === "Agendada" && p3.aaData[0].SUBESTADO === "Agendada"){
+                    if(p3.aaData[0].PDF_AGENDA != null && p3.aaData[0].PDF_DIAG != null && p3.aaData[0].PDF_FACTURA != null &&  p3.aaData[0].PDF_OC != null){
+                      $("#subirPdfMantencion").attr("disabled","disabled");
+                      $("#cancelarMantencion").attr("disabled","disabled");
+                      $("#completarMantencion").removeAttr("disabled","disabled");
+                    }
+                    else{
+                      $("#subirPdfMantencion").removeAttr("disabled","disabled");
+                      $("#completarMantencion").attr("disabled","disabled");
+                      $("#cancelarMantencion").removeAttr("disabled","disabled");
+                    }
+                  }
+                  else{
+                    $("#subirPdfMantencion").attr("disabled","disabled");
+                    $("#completarMantencion").attr("disabled","disabled");
+                    $("#cancelarMantencion").attr("disabled","disabled");
+                  }
+                }
+
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  $('#modalVerEvento').modal('show');
+                },500);
+              }
+            });
+        }
+        else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar Pdf");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+      }else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al ingresar Pdf");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+      }
+    }
+  });
+});
+
+$("#ingregoTallerMantencion").unbind("click").click(async function(){
+  $("#modalVerEvento").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  var parametros = {
+    "idMantencion" : $("#folioMantencion").text(),
+    "motivo": $("#motivoMantencion").html(),
+    "patente": $("#patenteMantencion").html()
+  }
+
+  await $.ajax({
+    url:   'controller/actualizarMantencionTaller.php',
+    type:  'post',
+    data: parametros,
+    success: function (response3) {
+      var p = response3.split(",");
+      if(response3.localeCompare("Sin datos")!= 0 && response3 != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          // var table = $('#tablaMetaPractica').DataTable();
+          // table.ajax.reload();
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Ingreso a taller indicado correctamente");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al indicar ingreso a taller, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al indicar ingreso a taller, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#completarMantencion").unbind('click').click(async function(){
+  $("#observacionCompletarMantencion").val("");
+  $("#observacionCompletarMantencion").removeClass("is-invalid");
+
+  await $.ajax({
+    url:   'controller/datosPatenteEstadoCompletarMantencion.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEst = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].IDPATENTE_ESTADO == 1){
+            cuerpoEst += '<option selected value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+          }
+          else if(p2.aaData[i].IDPATENTE_ESTADO == 2){
+            cuerpoEst += '<option value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+          }
+          else if(p2.aaData[i].IDPATENTE_ESTADO >= 19){
+            cuerpoEst += '<option value="' + p2.aaData[i].IDPATENTE_ESTADO + '">' + p2.aaData[i].ESTADO + '    ' + p2.aaData[i].SUB_ESTADO1 + '    ' + p2.aaData[i].SUB_ESTADO2 + '</option>';
+          }
+        }
+        $("#estadoVehiculoCompletarMantencion").html(cuerpoEst);
+      }
+    }
+  });
+
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#estadoVehiculoCompletarMantencion").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+
+  $('#modalVerEvento').modal('hide');
+  $('#modalCompletarMantencion').modal('show');
+});
+
+$("#guardarCompletarMantencion").unbind('click').click(async function(){
+  if($("#observacionCompletarMantencion").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe ingresar una observación");
+    if ($("#observacionCompletarMantencion").val().length == 0){
+      $("#observacionCompletarMantencion").addClass("is-invalid");
+    }
+  }
+  else{
+    $("#modalCompletarMantencion").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "idMantencion": $("#folioMantencion").text(),
+      "observacion": $("#observacionCompletarMantencion").val(),
+      "patente": $("#patenteMantencion").text(),
+      "estado": $("#estadoVehiculoCompletarMantencion").val()
+    }
+    await $.ajax({
+      url:   'controller/completarMantencion.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Mantención completada correctamente");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+          }
+          else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al completar la Mantención");
+              setTimeout(function(){
+                $('#modalAlertasSplash').modal('hide');
+              },500);
+          }
+        }else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al completar la Mantención");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+      }
+    });
+  }
+});
+
+$("#observacionCompletarMantencion").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#cancelarMantencion").unbind('click').click(function(){
+  $("#observacionCancelarMantencion").val("");
+  $("#observacionCancelarMantencion").removeClass("is-invalid");
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#motivoCancelarMantencion").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  $('#modalVerEvento').modal('hide');
+  $('#modalCancelarMantencion').modal('show');
+});
+
+$("#guardarCancelarMantencion").unbind('click').click(async function(){
+  if($("#observacionCancelarMantencion").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe ingresar una observación");
+    if ($("#observacionCancelarMantencion").val().length == 0){
+      $("#observacionCancelarMantencion").addClass("is-invalid");
+    }
+  }
+  else{
+    $("#modalCancelarMantencion").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "idMantencion": $("#folioMantencion").text(),
+      "motivo": $("#motivoCancelarMantencion").val(),
+      "observacion": $("#observacionCancelarMantencion").val(),
+      "patente": $("#patenteMantencion").text(),
+    }
+    await $.ajax({
+      url:   'controller/rechazarMantencion.php',
+      type:  'post',
+      data:  parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Mantención rechazada correctamente");
+              $('#modalAlertasSplash').modal('hide');
+              $('#calendario').fullCalendar('refetchEvents');
+          }
+          else{
+              var random = Math.round(Math.random() * (1000000 - 1) + 1);
+              alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al rechazar la Mantención");
+              $('#modalAlertasSplash').modal('hide');
+          }
+        }
+        else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al rechazar la Mantención");
+            $('#modalAlertasSplash').modal('hide');
+        }
+      }
+    });
+  }
+});
+
+$("#observacionCancelarMantencion").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {

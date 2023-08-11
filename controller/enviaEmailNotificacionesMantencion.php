@@ -71,21 +71,21 @@
 
         $mail->CharSet = 'UTF-8';
 
-        //indico a la clase que use SMTP
-        $mail->SMTPSecure = 'tls';
-	      $mail->Host = "smtp.gmail.com"; // GMail
+				//indico a la clase que use SMTP
+				$mail->SMTPSecure = 'tls';
+	      $mail->Host = "mail.cimaurbano.cl"; // GMail
 	      $mail->Port = 587;
 	      $mail->IsSMTP(); // use SMTP
 	      $mail->SMTPAuth = true;
 	      //indico un usuario / clave de un usuario
-	      $mail->Username = "contacto@cryptodata.cl";
-	      $mail->Password = "biymiefrzcxdgock";
+	      $mail->Username = "notificaciones@cimaurbano.cl";
+	      $mail->Password = "avJ8s8sCoG";
 
         $firma = "--
         <br />
-        <img src='cid:firmaPng' alt='CIMAURBANO' style='width: 180px;'>
+        <img src='cid:firmaPng' alt='Equans Chile' style='width: 180px;'>
         <br />
-        Aportando calidad de vida en espacios urbanos
+        Integración y control operacional
         <br />
         ..........................................................................................................................................................................
         <br>
@@ -97,10 +97,10 @@
         </font>
         <br>";
 
-        $mail->AddEmbeddedImage('../view/img/logo_home.png', 'firmaPng', 'firmaPng.png');
+        $mail->AddEmbeddedImage('../view/img/logoEmail.png', 'firmaPng', 'firmaPng.png');
 
 
-        $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Solo Verde - Favor no responder este e-mail</u></span></em></p><br>
+        $body = "<p><em><span style='color:rgb(165, 165, 165)'><u>Sistema integración Equans - Favor no responder este e-mail</u></span></em></p><br>
                 <div style='width: 100%; text-align: justify; margin: 0 auto;'>
             <font style='font-size: 14px;'>
             Estimado " . $nombreJefe . ",
@@ -119,7 +119,7 @@
             </div>
             ";
 
-        $mail->SetFrom('contacto@cryptodata.cl', "Alertas");
+            $mail->SetFrom('contacto@cryptodata.cl', "Alertas");
 
             //defino la dirección de email de "reply", a la que responder los mensajes
             //Obs: es bueno dejar la misma dirección que el From, para no caer en spam

@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=93';
+  js.src = 'view/js/funciones.js?idLoad=94';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -4077,217 +4077,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-<!-- MODAL AGREGAR MANTENCION -->
-<div id="agregarMantencion" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-wrench"></span>&nbsp;&nbsp;Agregar Mantención</div>
-      <div id="bodyAgregarMantencion" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">DNI</label>
-            <input id="rutAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombre</label>
-            <input id="nombreAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Correo</label>
-            <input id="correoAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Celular</label>
-            <input id="celularAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente</label>
-            <input id="patenteAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Marca</label>
-            <input id="marcaAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Modelo</label>
-            <input id="modeloAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Año</label>
-            <input id="anoAgregarMantencion" class="form-control" type="text">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">KM</label>
-            <input id="kilometrajeAgregarMantencion" class="form-control" type="number" min="0">
-          </div>
-
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Fecha</label>
-            <input id="fechaAgregarMantencion" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Hora</label>
-            <select id="horaAgregarMantencion" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Motivo</label>
-            <select id="motivoAgregarMantencion" class="form-control">
-            </select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Siniestro (Folio)</label>
-            <select id="siniestroAgregarMantencion" class="form-control"></select>
-          </div>
-
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Sucursal</label>
-            <select id="sucursalAgregarMantencion" class="form-control"></select>
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Color Letra</label>
-            <input id="colorLetraAgregarMantencion" class="form-control" type="color" value="#000000">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Color Fondo</label>
-            <input id="colorFondoAgregarMantencion" class="form-control" type="color" value="#00aae4">
-          </div>
-
-          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Taller</label>
-            <select id="tallerAgregarMantencion" class="form-control"></select>
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Dirección (taller)</label>
-            <input id="direccionTallerAgregarMantencion" class="form-control" type="text" value="">
-          </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Observación</label>
-            <textarea id="observacionAgregarMantencion" class="form-control" rows="3" style="resize: none;" maxlength="4000"></textarea>
-          </div>
-
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarAgregarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarAgregarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL AGREGAR MANTENCION -->
-
-<!-- MODAL VER EVENTO MANTENCION -->
-<div id="modalVerEvento" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document">
-    <!-- Modal content -->
-    <div class="modal-content">
-
-			<div class="modal-header">
-				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-wrench"></span>&nbsp;&nbsp;Detalle Mantención
-			</div>
-      <div id="bodyVerEvento" class="modal-body alerta-modal-body">
-				<div class="row" style="text-align: left; margin-bottom: 20pt;">
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: black; font-size: 14pt;">Detalle de mantención</label>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <label style="font-weight: bold;">Patente:&nbsp;</label><span id="patenteMantencion"></span><br>
-            <label style="font-weight: bold;">Marca:&nbsp;</label><span id="marcaMantencion"></span><br>
-            <label style="font-weight: bold;">Modelo:&nbsp;</label><span id="modeloMantencion"></span>
-        	</div>
-
-	        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-	            <label style="font-weight: normal;">Personal:&nbsp;</label><span id="personalMantencion"></span><br>
-	            <label style="font-weight: normal;">Correo:&nbsp;</label><span id="correoMantencion"></span><br>
-	            <label style="font-weight: normal;">Teléfono:&nbsp;</label><span id="telefonoMantencion"></span>
-	        </div>
-
-	        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-	            <label style="font-weight: normal;">Fecha:&nbsp;</label><span id="fechaMantencion"></span><br>
-	            <label style="font-weight: normal;">Hora:&nbsp;</label><span id="horaMantencion"></span><br>
-	            <label style="font-weight: normal;">Estado:&nbsp;</label><span id="estadoMantencion"></span>
-	        </div>
-
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		        <hr class="hr-separador">
-		      </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: black; font-size: 14pt;">Datos de mantención</label>
-          </div>
-
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <label style="font-weight: normal;">Sucursal:&nbsp;</label><span id="sucursalMantencion"></span><br>
-            <label style="font-weight: normal;">Taller:&nbsp;</label><span id="tallerMantencion"></span><br>
-            <label style="font-weight: normal;">Dirección:&nbsp;</label><span id="direccionMantencion"></span>
-          </div>
-
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-              <label style="font-weight: normal;">Motivo:&nbsp;</label><span id="motivoMantencion"></span><br>
-              <label style="font-weight: normal;">Folio (Siniestro):&nbsp;</label><span id="folioSiniestroMantencion"></span><br>
-              <label style="font-weight: normal;">Folio (Mantención):&nbsp;</label><span id="folioMantencion"></span><br>
-          </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15pt;">
-            <label style="font-weight: bold; color: black; font-size: 14pt;">Documentos</label>
-          </div>
-
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <label style="font-weight: normal;">Agenda: </label><br>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <button id="agendaVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorAgendaVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
-          </div>
-
-					<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <label style="font-weight: normal;">Diagnóstico: </label><br>
-          </div>
-
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <button id="diagnosticoVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorDiagnosticoVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
-          </div>
-
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-              <label style="font-weight: normal;">Factura: </label><br>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <button id="facturaVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorFacturaVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
-          </div>
-
-					<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-              <label style="font-weight: normal;">OC: </label><br>
-          </div>
-
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
-            <button id="ocVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorOcVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
-          </div>
-
-        </div>
-	     </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="subirPdfMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Subir PDF</button>
-        <button id="ingregoTallerMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Ingreso a taller</button>
-        <button id="completarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Completar</button>
-        <button id="cancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Rechazar</button>
-        <button id="cerrarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL VER EVENTO MANTENCION -->
-
 <!-- Modal Agregar Categoria de orden -->
 <div id="modalAgregarCategoriaOrden" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-md" role="document">
@@ -4546,80 +4335,6 @@ include "./modales/personal/update.php";
   </div>
 </div>
 
-
-<!-- MODAL CANCELAR MANTENCION-->
-<div id="modalCancelarMantencion" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-			<div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="far fa-times-circle"></span>&nbsp;&nbsp;Cancelar Mantención</h5>
-      </div>
-			<div id="bodyCancelarMantencion" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Motivo</label>
-            <select id="motivoCancelarMantencion" class="form-control">
-              <option value="Taller">Taller</option>
-							<option value="Personal">Personal</option>
-              <option value="Flota">Flota</option>
-            </select>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Observación</label>
-            <textarea id="observacionCancelarMantencion" class="form-control" rows="3" style="resize: none;" maxlength="4000"></textarea>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20pt; text-align: center;">
-            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea cancelar la mantención?</font>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarCancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarCancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL CANCELAR MANTENCION -->
-
-<!-- MODAL COMPLETAR MANTENCION-->
-<div id="modalCompletarMantencion" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-			<div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-check"></span>&nbsp;&nbsp;Completar Mantención</h5>
-      </div>
-			<div id="bodyCompletarMantencion" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Estado de vehículo</label>
-						<select id="estadoVehiculoCompletarMantencion" class="form-control">
-            </select>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Observación</label>
-            <textarea id="observacionCompletarMantencion" class="form-control" rows="3" style="resize: none;" maxlength="4000"></textarea>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20pt; text-align: center;">
-            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea completar la mantención?</font>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarCompletarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarCompletarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL COMPLETAR MANTENCION -->
-
 <!-- MODAL SOLICITAR CARGA -->
 <div id="modalSolicitarCarga" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog  modal-lg" role="document">
@@ -4792,80 +4507,6 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
-
-<!-- MODAL SUBIR PDF MANTENCION -->
-<div id="modalSubirPdfMantencion" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-xl" role="document">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-pdf"></span>&nbsp;&nbsp;
-          <span>Cargar PDF</span>
-          <br>
-          <span id="tituloSubirPdfMantencion" style="font-size: 12pt;"></span>
-        </h5>
-      </div>
-      <div id="bodySubirPdfMantencion" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Agenda <b><span id="spanAgenda" style="color:green;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaAgenda' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfAgenda' type="text" class="form-control" readonly>
-						</div>
-          </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Diagnóstico <b><span id="spanDiagnostico" style="color:green;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaDiagnostico' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfDiagnostico' type="text" class="form-control" readonly>
-						</div>
-          </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;"> PDF Factura <b><span id="spanFactura" style="color:green;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaFactura' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfFactura' type="text" class="form-control" readonly>
-						</div>
-          </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;"> PDF OC <b><span id="spanOc" style="color:green;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaOc' style="display: none;">
-									</span>
-							</label>
-							<input disabled id='inputPdfOc' type="text" class="form-control" readonly>
-						</div>
-          </div>
-
-        </div>
-        <div class="modal-footer" style="text-align: left;">
-        <button id="guardarSubirPdfMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarSubirPdfMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL SUBIR PDF MANTENCION -->
 
 <!-- Configurar personal en zonas de trabajo orden -->
 <div id="modalConfigurarZonasPersonalObra" class="modal modal-fullscreen fade" role="dialog">
@@ -11413,6 +11054,354 @@ include "./modales/personal/update.php";
       <div class="modal-footer" style="text-align: left;">
         <button id="guardarEditarTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
         <button id="cancelarEditarTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="agregarMantencion" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-wrench"></span>&nbsp;&nbsp;Agregar Mantención</div>
+      <div id="bodyAgregarMantencion" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">DNI</label>
+            <input id="rutAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Correo</label>
+            <input id="correoAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Celular</label>
+            <input id="celularAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente</label>
+            <input id="patenteAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Marca</label>
+            <input id="marcaAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Modelo</label>
+            <input id="modeloAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Año</label>
+            <input id="anoAgregarMantencion" class="form-control" type="text">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">KM</label>
+            <input id="kilometrajeAgregarMantencion" class="form-control" type="number" min="0">
+          </div>
+
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Fecha</label>
+            <input id="fechaAgregarMantencion" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Hora</label>
+            <select id="horaAgregarMantencion" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Motivo</label>
+            <select id="motivoAgregarMantencion" class="form-control">
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Siniestro (Folio)</label>
+            <select id="siniestroAgregarMantencion" class="form-control"></select>
+          </div>
+
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Sucursal</label>
+            <select id="sucursalAgregarMantencion" class="form-control"></select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Color Letra</label>
+            <input id="colorLetraAgregarMantencion" class="form-control" type="color" value="#000000">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Color Fondo</label>
+            <input id="colorFondoAgregarMantencion" class="form-control" type="color" value="#00aae4">
+          </div>
+
+          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Taller</label>
+            <select id="tallerAgregarMantencion" class="form-control"></select>
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Dirección (taller)</label>
+            <input id="direccionTallerAgregarMantencion" class="form-control" type="text" value="">
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Observación</label>
+            <textarea id="observacionAgregarMantencion" class="form-control" rows="3" style="resize: none;" maxlength="4000"></textarea>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarAgregarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarAgregarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalVerEvento" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document">
+    <!-- Modal content -->
+    <div class="modal-content">
+
+			<div class="modal-header">
+				<h5 style="color:gray; font-weight: bold;"><span class="fas fa-wrench"></span>&nbsp;&nbsp;Detalle Mantención
+			</div>
+      <div id="bodyVerEvento" class="modal-body alerta-modal-body">
+				<div class="row" style="text-align: left; margin-bottom: 20pt;">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: black; font-size: 14pt;">Detalle de mantención</label>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <label style="font-weight: bold;">Patente:&nbsp;</label><span id="patenteMantencion"></span><br>
+            <label style="font-weight: bold;">Marca:&nbsp;</label><span id="marcaMantencion"></span><br>
+            <label style="font-weight: bold;">Modelo:&nbsp;</label><span id="modeloMantencion"></span>
+        	</div>
+
+	        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+	            <label style="font-weight: normal;">Personal:&nbsp;</label><span id="personalMantencion"></span><br>
+	            <label style="font-weight: normal;">Correo:&nbsp;</label><span id="correoMantencion"></span><br>
+	            <label style="font-weight: normal;">Teléfono:&nbsp;</label><span id="telefonoMantencion"></span>
+	        </div>
+
+	        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+	            <label style="font-weight: normal;">Fecha:&nbsp;</label><span id="fechaMantencion"></span><br>
+	            <label style="font-weight: normal;">Hora:&nbsp;</label><span id="horaMantencion"></span><br>
+	            <label style="font-weight: normal;">Estado:&nbsp;</label><span id="estadoMantencion"></span>
+	        </div>
+
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		        <hr class="hr-separador">
+		      </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: black; font-size: 14pt;">Datos de mantención</label>
+          </div>
+
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <label style="font-weight: normal;">Sucursal:&nbsp;</label><span id="sucursalMantencion"></span><br>
+            <label style="font-weight: normal;">Taller:&nbsp;</label><span id="tallerMantencion"></span><br>
+            <label style="font-weight: normal;">Dirección:&nbsp;</label><span id="direccionMantencion"></span>
+          </div>
+
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+              <label style="font-weight: normal;">Motivo:&nbsp;</label><span id="motivoMantencion"></span><br>
+              <label style="font-weight: normal;">Folio (Siniestro):&nbsp;</label><span id="folioSiniestroMantencion"></span><br>
+              <label style="font-weight: normal;">Folio (Mantención):&nbsp;</label><span id="folioMantencion"></span><br>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 15pt;">
+            <label style="font-weight: bold; color: black; font-size: 14pt;">Documentos</label>
+          </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <label style="font-weight: normal;">Agenda: </label><br>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <button id="agendaVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorAgendaVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
+          </div>
+
+					<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <label style="font-weight: normal;">Diagnóstico: </label><br>
+          </div>
+
+					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <button id="diagnosticoVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorDiagnosticoVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
+          </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+              <label style="font-weight: normal;">Factura: </label><br>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <button id="facturaVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorFacturaVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
+          </div>
+
+					<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+              <label style="font-weight: normal;">OC: </label><br>
+          </div>
+
+					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5pt; text-align: left;">
+            <button id="ocVerMantencion"  type="button" class="form-control btn btn-secondary btn-sm" disabled><span id="colorOcVerMantencion" class="far fa-file-pdf" style="color: gray;"></span></button><br>
+          </div>
+
+        </div>
+	     </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="subirPdfMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Subir PDF</button>
+        <button id="ingregoTallerMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Ingreso a taller</button>
+        <button id="completarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Completar</button>
+        <button id="cancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Rechazar</button>
+        <button id="cerrarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalSubirPdfMantencion" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-xl" role="document">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-pdf"></span>&nbsp;&nbsp;
+          <span>Cargar PDF</span>
+          <br>
+          <span id="tituloSubirPdfMantencion" style="font-size: 12pt;"></span>
+        </h5>
+      </div>
+      <div id="bodySubirPdfMantencion" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Agenda <b><span id="spanAgenda" style="color:green;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaAgenda' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfAgenda' type="text" class="form-control" readonly>
+						</div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Diagnóstico <b><span id="spanDiagnostico" style="color:green;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaDiagnostico' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfDiagnostico' type="text" class="form-control" readonly>
+						</div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;"> PDF Factura <b><span id="spanFactura" style="color:green;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaFactura' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfFactura' type="text" class="form-control" readonly>
+						</div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;"> PDF OC <b><span id="spanOc" style="color:green;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id='pdfCargaOc' style="display: none;">
+									</span>
+							</label>
+							<input disabled id='inputPdfOc' type="text" class="form-control" readonly>
+						</div>
+          </div>
+
+        </div>
+        <div class="modal-footer" style="text-align: left;">
+        <button id="guardarSubirPdfMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarSubirPdfMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalCompletarMantencion" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+			<div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-check"></span>&nbsp;&nbsp;Completar Mantención</h5>
+      </div>
+			<div id="bodyCompletarMantencion" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Estado de vehículo</label>
+						<select id="estadoVehiculoCompletarMantencion" class="form-control">
+            </select>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Observación</label>
+            <textarea id="observacionCompletarMantencion" class="form-control" rows="3" style="resize: none;" maxlength="4000"></textarea>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20pt; text-align: center;">
+            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea completar la mantención?</font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarCompletarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarCompletarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalCancelarMantencion" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+			<div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="far fa-times-circle"></span>&nbsp;&nbsp;Cancelar Mantención</h5>
+      </div>
+			<div id="bodyCancelarMantencion" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Motivo</label>
+            <select id="motivoCancelarMantencion" class="form-control">
+              <option value="Taller">Taller</option>
+							<option value="Personal">Personal</option>
+              <option value="Flota">Flota</option>
+            </select>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Observación</label>
+            <textarea id="observacionCancelarMantencion" class="form-control" rows="3" style="resize: none;" maxlength="4000"></textarea>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20pt; text-align: center;">
+            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea cancelar la mantención?</font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarCancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarCancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
