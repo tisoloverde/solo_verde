@@ -15142,6 +15142,302 @@ $("#guardarHabDeshRangoMantenciones").unbind('click').click(function(){
 $("#topeMantenciones").on('input', function(){
   $(this).removeClass("is-invalid");
 });
+
+$("#agregarTaller").unbind("click").click(async function(){
+  $("#modalIngresoTaller").find("input,textarea,select").val("");
+  $("#rutIngresoTaller").removeClass("is-invalid");
+  $("#nombreIngresoTaller").removeClass("is-invalid");
+  $("#monedaIngresoTaller").removeClass("is-invalid");
+  $("#direccionIngresoTaller").removeClass("is-invalid");
+  $("#comunaIngresoTaller").removeClass("is-invalid");
+  $("#contactoIngresoTaller").removeClass("is-invalid");
+  $("#emailIngresoTaller").removeClass("is-invalid");
+  $("#telefonoIngresoTaller").removeClass("is-invalid");
+  $("#monedaIngresoTaller").html('<option value="UF">UF</option>,<option value="Peso">Peso</option>');
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  // Funcion para desplegar selector de Comuna desde BD
+  await $.ajax({
+    url:   'controller/datosAreaFuncional.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          cuerpoEC += '<option value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + '</option>';
+        }
+        $("#comunaIngresoTaller").html(cuerpoEC);
+      }
+    }
+  });
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#comunaIngresoTaller").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#monedaIngresoTaller").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  setTimeout(function(){
+    if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      var h = $(window).height() - 200;
+      $("#bodyIngresoTaller").css("height",h);
+    }
+    $("#modalIngresoTaller").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoTaller').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("input#rutIngresoTaller").rut({
+  formatOn: 'blur',
+  minimumLength: 8,
+  validateOn: 'change'
+}).on('rutInvalido', function(e) {
+  if($("#rutIngresoTaller").val() !== ''){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El RUT ingresado no es válido");
+    $("#rutIngresoTaller").val("");
+    $("#rutIngresoTaller").addClass("is-invalid");
+  }
+});
+
+$("#guardarIngresoTaller").unbind('click').click(function(){
+  if($("#rutIngresoTaller").val().length == 0 || $("#nombreIngresoTaller").val().length == 0 || $("#monedaIngresoTaller").val().length == 0 || $("#direccionIngresoTaller").val().length == 0 || $("#comunaIngresoTaller").val().length == 0 ){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos marcados");
+    if ($("#rutIngresoTaller").val().length == 0){
+      $("#rutIngresoTaller").addClass("is-invalid");
+    }
+    if ($("#nombreIngresoTaller").val().length == 0){
+      $("#nombreIngresoTaller").addClass("is-invalid");
+    }
+    if ($("#direccionIngresoTaller").val().length == 0){
+      $("#direccionIngresoTaller").addClass("is-invalid");
+    }
+    if ($("#monedaIngresoTaller").val().length == 0){
+      $("#monedaIngresoTaller").addClass("is-invalid");
+    }
+    if ($("#comunaIngresoTaller").val().length == 0){
+      $("#comunaIngresoTaller").addClass("is-invalid");
+    }
+  }
+  else {
+    $("#modalIngresoTaller").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    parametros = {
+      "rutIngreso": $.trim($("#rutIngresoTaller").val().replace('.','').replace('.','')),
+      "nombreIngreso":  $("#nombreIngresoTaller").val(),
+      "monedaIngreso": $("#monedaIngresoTaller").val(),
+      "direccionIngreso": $("#direccionIngresoTaller").val(),
+      "comunaIngreso": $("#comunaIngresoTaller").val(),
+      "contactoIngreso": $("#contactoIngresoTaller").val(),
+      "emailIngreso": $("#emailIngresoTaller").val(),
+      "telefonoIngreso": $("#telefonoIngresoTaller").val()
+    }
+    $.ajax({
+      url: "controller/ingresaTaller.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoTaller').DataTable();
+            table.ajax.reload();
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Taller Creado correctamente");
+            $("#editarTaller").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Taller, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Taller, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#rutIngresoTaller").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#nombreIngresoTaller").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#direccionIngresoTaller").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#contactoIngresoTaller").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#emailIngresoTaller").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#telefonoIngresoTaller").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarTaller").unbind('click').click( async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoTaller').DataTable();
+  var rut = $.map(table.rows('.selected').data(), function (item) {
+      return item.RUT;
+  });
+  var nombre = $.map(table.rows('.selected').data(), function (item) {
+    return item.NOMBRE;
+  });
+  var direccion = $.map(table.rows('.selected').data(), function (item) {
+    return item.DIRECCION;
+  });
+  var contacto = $.map(table.rows('.selected').data(), function (item) {
+    return item.CONTACTO;
+  });
+  var email = $.map(table.rows('.selected').data(), function (item) {
+    return item.EMAIL;
+  });
+  var telefono = $.map(table.rows('.selected').data(), function (item) {
+    return item.TELEFONO;
+  });
+  var moneda = $.map(table.rows('.selected').data(), function (item) {
+    return item.MONEDA;
+  });
+  var comuna = $.map(table.rows('.selected').data(), function (item) {
+    return item.COMUNA;
+  });
+
+  await $.ajax({
+    url:   'controller/datosAreaFuncional.php',
+    type:  'post',
+    success: function (response2) {
+      var p2 = jQuery.parseJSON(response2);
+      if(p2.aaData.length !== 0){
+        var cuerpoEC = '';
+        for(var i = 0; i < p2.aaData.length; i++){
+          if(p2.aaData[i].COMUNA == comuna){
+            cuerpoEC += '<option selected value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + '</option>';
+            $("#comunaEditarTaller").html(cuerpoEC);
+          }
+          else{
+            cuerpoEC += '<option value="' + p2.aaData[i].IDAREAFUNCIONAL + '">' + p2.aaData[i].COMUNA + '</option>';
+          }
+        }
+        $("#comunaEditarTaller").html(cuerpoEC);
+      }
+    }
+  });
+  $("#rutEditarTaller").val(rut);
+  $("#rutEditarTaller").attr("disabled","disabled");
+  $("#nombreEditarTaller").val(nombre);
+  $("#direccionEditarTaller").val(direccion);
+  $("#contactoEditarTaller").val(contacto);
+  $("#emailEditarTaller").val(email);
+  $("#telefonoEditarTaller").val(telefono);
+  if (moneda[0] == "UF"){
+    $("#monedaEditarTaller").html('<option value="UF">UF</option>,<option value="Peso">Peso</option>');
+  }
+  else {
+    $("#monedaEditarTaller").html('<option value="Peso">Peso</option>,<option value="UF">UF</option>');
+  }
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $("#monedaEditarTaller").select2({
+        theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+    $("#comunaEditarTaller").select2({
+      theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+    });
+  }
+  if( /AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    var h = $(window).height() - 200;
+    $("#bodyEditarTaller").css("height",h);
+  }
+  setTimeout(function(){
+    $('#modalEditarTaller').modal('show');
+    $('#modalAlertasSplash').modal('hide');
+  },500);
+});
+
+$("#guardarEditarTaller").unbind('click').click(function(){
+  var table = $('#tablaListadoTaller').DataTable();
+  var idTaller = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_TALLER;
+  });
+  parametros = {
+    "idTaller": idTaller[0],
+    "rutTaller":  $.trim($("#rutEditarTaller").val().replace('.','').replace('.','')),
+    "nombreTaller": $("#nombreEditarTaller").val(),
+    "monedaTaller": $("#monedaEditarTaller").val(),
+    "direccionTaller": $("#direccionEditarTaller").val(),
+    "comunaTaller": $("#comunaEditarTaller").val(),
+    "contactoTaller": $("#contactoEditarTaller").val(),
+    "emailTaller": $("#emailEditarTaller").val(),
+    "telefonoTaller": $("#telefonoEditarTaller").val()
+  }
+  $("#modalEditarTaller").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $.ajax({
+    url: "controller/editarTaller.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoTaller').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Taller Editado correctamente");
+          $("#editarTaller").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Taller, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Taller, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {

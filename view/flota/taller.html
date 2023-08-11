@@ -1,0 +1,46 @@
+	<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+				<div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+						<span style="color: gray;" class="fas fa-toolbox">&nbsp;&nbsp;Listado de Talleres</span>
+					</font>
+			  </div>
+				<div id="divTablaListadoTaller" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+				  <table id="tablaListadoTaller" class="cell-border compact" style="width: 100%;">
+				    <thead>
+				      <tr>
+								<th class="celdaColor" style="border: 1pt solid white;">S</th>
+				      	<th class="celdaColor" style="border: 1pt solid white;">RUT</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Nombre</th>
+                        <th class="celdaColor" style="border: 1pt solid white;">Moneda</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Dirección</th>
+                        <th class="celdaColor" style="border: 1pt solid white;">Comuna</th>
+				        <th class="celdaColor" style="border: 1pt solid white;">Contacto</th>
+                        <th class="celdaColor" style="border: 1pt solid white;">Email</th>
+						<th class="celdaColor" style="border: 1pt solid white;">Telefono</th>
+				      </tr>
+				    </thead>
+				    <tbody id="cuerpoTablaListadoTaller" style="text-align: left;">
+
+				    </tbody>
+				  </table>
+				</div>
+      <!-- Botones -->
+			<div id="accionesTalleres" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+			</div>
+    </div>
+
+	<script>
+		//Para interactuar con los botones
+			$('#tablaListadoTaller tbody').on( 'click', 'tr', function () {
+				var table = $('#tablaListadoTaller').DataTable();
+				if ( $(this).hasClass('selected') ) {
+				$("#editarTaller").attr("disabled","disabled");
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+				$("#editarTaller").removeAttr("disabled");
+				}
+			});
+		
+		</script>

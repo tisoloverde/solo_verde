@@ -9,7 +9,7 @@
 	  return str;
 	}
   var js = document.createElement('script');
-  js.src = 'view/js/funciones.js?idLoad=92';
+  js.src = 'view/js/funciones.js?idLoad=93';
   document.getElementsByTagName('head')[0].appendChild(js);
 </script>
 
@@ -1551,123 +1551,6 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
-
-<!-- MODAL INGRESO TALLERES -->
-<div id="modalIngresoTaller" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloIngresoTaller"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Talleres</h5>
-      </div>
-      <div id="bodyIngresoTaller" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">RUT</label>
-            <input id="rutIngresoTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombre</label>
-            <input id="nombreIngresoTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Moneda</label>
-            <select id="monedaIngresoTaller">
-            </select>
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Dirección</label>
-            <input id="direccionIngresoTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Comuna</label>
-            <select id="comunaIngresoTaller" class="form-control"></select>
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Contacto</label>
-            <input id="contactoIngresoTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">E-mail</label>
-            <input id="emailIngresoTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Telefono</label>
-            <input id="telefonoIngresoTaller" class="form-control" type="text" value=" ">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL EDITAR TALLERES -->
-<div id="modalEditarTaller" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloEditarTaller"><span class="fas fa-toolbox"></span>&nbsp;&nbsp;Editar Taller</h5>
-      </div>
-      <div id="bodyEditarTaller" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">RUT</label>
-            <input id="rutEditarTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombre</label>
-            <input id="nombreEditarTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Moneda</label>
-            <select id="monedaEditarTaller">
-            </select>
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Dirección</label>
-            <input id="direccionEditarTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Comuna</label>
-            <select id="comunaEditarTaller" class="form-control"></select>
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Contacto</label>
-            <input id="contactoEditarTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">E-mail</label>
-            <input id="emailEditarTaller" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Telefono</label>
-            <input id="telefonoEditarTaller" class="form-control" type="text" value=" ">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarEditarTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEditarTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <!-- MODAL RECUPERAR CONTRASEÑA -->
 <div id="modalRecuperarContraseña" class="modal modal-fullscreen fade" role="dialog">
@@ -11416,6 +11299,120 @@ include "./modales/personal/update.php";
 			<div class="modal-footer" style="text-align: left;">
         <button id="guardarHabDeshRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
         <button id="cancelarHabDeshRangoMantenciones" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalIngresoTaller" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloIngresoTaller"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Talleres</h5>
+      </div>
+      <div id="bodyIngresoTaller" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">RUT</label>
+            <input id="rutIngresoTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreIngresoTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Moneda</label>
+            <select id="monedaIngresoTaller">
+            </select>
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Dirección</label>
+            <input id="direccionIngresoTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Comuna</label>
+            <select id="comunaIngresoTaller" class="form-control"></select>
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Contacto</label>
+            <input id="contactoIngresoTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">E-mail</label>
+            <input id="emailIngresoTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Telefono</label>
+            <input id="telefonoIngresoTaller" class="form-control" type="text" value=" ">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarTaller" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloEditarTaller"><span class="fas fa-toolbox"></span>&nbsp;&nbsp;Editar Taller</h5>
+      </div>
+      <div id="bodyEditarTaller" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">RUT</label>
+            <input id="rutEditarTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreEditarTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Moneda</label>
+            <select id="monedaEditarTaller">
+            </select>
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Dirección</label>
+            <input id="direccionEditarTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Comuna</label>
+            <select id="comunaEditarTaller" class="form-control"></select>
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Contacto</label>
+            <input id="contactoEditarTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">E-mail</label>
+            <input id="emailEditarTaller" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Telefono</label>
+            <input id="telefonoEditarTaller" class="form-control" type="text" value=" ">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarEditarTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarTaller" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

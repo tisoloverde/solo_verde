@@ -3665,29 +3665,6 @@ function ingresarAseguradora($nombre, $moneda){
 	}
 }
 
-// Consultas Taller Mantenedores
-function consultaTaller(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, IDPATENTE_TALLER, RUT, NOMBRE, MONEDA, DIRECCION, A.COMUNA, CONTACTO, EMAIL, TELEFONO
-FROM PATENTE_TALLER P
-LEFT JOIN AREAFUNCIONAL A
-ON P.IDAREAFUNCIONAL  = A.IDAREAFUNCIONAL";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consultas Sucursales Mantenedores
 function consultaSucursal(){
 	$con = conectar();
@@ -4178,32 +4155,6 @@ function consultaInformePracticasEvolucionServicioPro($rut,$pat,$inicio,$fin,$au
 	}
 }
 
-// Consulta para ingresar Taller
-function ingresaTaller($rutIngreso, $mombreIngreso, $monedaIngreso, $direccionIngreso, $comunaIngreso,
-$contactoIngreso, $emailIngreso, $telefonoIngreso){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_TALLER(RUT, NOMBRE, MONEDA, DIRECCION, IDAREAFUNCIONAL, CONTACTO, EMAIL, TELEFONO)
-VALUES ( '" .$rutIngreso."', '" . $mombreIngreso . "', '" . $monedaIngreso . "', '" . $direccionIngreso . "',
-'" . $comunaIngreso . "', '" . $contactoIngreso . "', '" . $emailIngreso . "', '" . $telefonoIngreso . "')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-
 function consultaInformePracticasEvolucionClientePro($rut,$pat,$inicio,$fin,$auditoria,$servicio,$jefatura,$personal,$comuna,$servicioPro,$clientePro,$actividadPro){
 	$con = conectar();
 	if($con != 'No conectado'){
@@ -4241,38 +4192,6 @@ function consultaInformePracticasEvolucionActividadPro($rut,$pat,$inicio,$fin,$a
 		return "Error";
 	}
 }
-
-// Consulta para Editar Taller
-function editarTaller(  $idTaller, $rut, $nombre, $moneda, $direccion,
-$comuna, $contacto, $email, $telefono){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_TALLER
-	SET RUT = '" . $rut . "',
-	NOMBRE = '" .$nombre . "',
-	MONEDA = '" .$moneda . "',
-	DIRECCION = '" .$direccion . "',
-	IDAREAFUNCIONAL = '" .$comuna . "',
-	CONTACTO = '" .$contacto . "',
-	EMAIL = '" .$email . "',
-	TELEFONO = '" .$telefono . "'
-	WHERE IDPATENTE_TALLER = '" . $idTaller . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
 
 function checkUsuarioSinPassPorRut($rut){
 	$con = conectar();
@@ -21491,6 +21410,82 @@ WHERE U.RUT = '{$rutUser}'";
 			SET TOPE = 0,
 			MANTENCION = 0
 			WHERE IDMANTENCION_RANGOS = '{$idRangoMant}'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function consultaTaller(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, IDPATENTE_TALLER, RUT, NOMBRE, MONEDA, DIRECCION, A.COMUNA, CONTACTO, EMAIL, TELEFONO
+		FROM PATENTE_TALLER P
+		LEFT JOIN AREAFUNCIONAL A
+		ON P.IDAREAFUNCIONAL  = A.IDAREAFUNCIONAL";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaTaller($rutIngreso, $mombreIngreso, $monedaIngreso, $direccionIngreso, $comunaIngreso,
+		$contactoIngreso, $emailIngreso, $telefonoIngreso){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_TALLER(RUT, NOMBRE, MONEDA, DIRECCION, IDAREAFUNCIONAL, CONTACTO, EMAIL, TELEFONO)
+		VALUES ( '" .$rutIngreso."', '" . $mombreIngreso . "', '" . $monedaIngreso . "', '" . $direccionIngreso . "',
+		'" . $comunaIngreso . "', '" . $contactoIngreso . "', '" . $emailIngreso . "', '" . $telefonoIngreso . "')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function editarTaller(  $idTaller, $rut, $nombre, $moneda, $direccion,
+		$comuna, $contacto, $email, $telefono){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_TALLER
+			SET RUT = '" . $rut . "',
+			NOMBRE = '" .$nombre . "',
+			MONEDA = '" .$moneda . "',
+			DIRECCION = '" .$direccion . "',
+			IDAREAFUNCIONAL = '" .$comuna . "',
+			CONTACTO = '" .$contacto . "',
+			EMAIL = '" .$email . "',
+			TELEFONO = '" .$telefono . "'
+			WHERE IDPATENTE_TALLER = '" . $idTaller . "'";
 				if ($con->query($sql)) {
 					$con->query("COMMIT");
 					return "Ok";
