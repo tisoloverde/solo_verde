@@ -146,6 +146,11 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: "vm",
       templateUrl : "view/flota/mantencion.html?idLoad=94"
     })
+    .when("/clausulas", {
+      controller: "clausulasController",
+      controllerAs: "vm",
+      templateUrl : "view/flota/clausulas.html?idLoad=298"
+    })
     // Fin Flota
     .otherwise({redirectTo: '/home'});
 
@@ -6129,6 +6134,160 @@ app.controller("mantencionController", function(){
           $('#menu-lateral').fadeIn();
           $('#footer').parent().fadeIn();
 
+          marcarMenuActivo();
+          menuElegant();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("clausulasController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+          $('#modalAlertasSplash').modal('show');
+          var path = window.location.href.split('#/')[1];
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+          var parametros = {
+            "path": path
+          }
+          await $('#tablaListadoClausulas').DataTable( {
+              ajax: {
+                  url: "controller/datosClausulas.php",
+                  type: 'POST',
+                  data: parametros
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'IDPATENTE_CLAUSULAS'},
+                  { data: 'CLAUSULA' }
+              ],
+              buttons: [
+                  {
+                    extend: 'excel',
+                    exportOptions: {
+                      columns: [ 1,2 ]
+                    },
+                    title: null,
+                    text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                  }
+              ],
+              "columnDefs": [
+                {
+                  "width": "5px",
+                  "targets": 0
+                },
+                {
+                  "orderable": false,
+                  "className": 'select-checkbox',
+                  "targets": [ 0 ]
+                }
+              ],
+              "select": {
+                  style: 'single'
+              },
+              "scrollX": true,
+              "paging": true,
+              "ordering": true,
+              "scrollCollapse": true,
+              "info":     true,
+              "lengthMenu": [[largo], [largo]],
+              "dom": 'Bfrtip',
+              "language": {
+                "zeroRecords": "No hay datos disponibles",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No hay datos disponibles",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                  },
+                  "search": "Buscar: ",
+                  "select": {
+                      "rows": "- %d registros seleccionados"
+                  },
+                  "infoFiltered": "(Filtrado de _MAX_ registros)"
+              },
+              "destroy": true,
+              "autoWidth": false,
+              "initComplete": function( settings, json){
+                $('#contenido').fadeIn();
+                $('#footer').parent().fadeIn();
+                setTimeout(async function(){
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },2000);
+                  $('#tablaListadoClausulas').DataTable().columns.adjust();
+                },500);
+              }
+          });
+          await esconderMenu();
+          setTimeout(function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+      			setTimeout(async function(){
+      			  await $.ajax({
+      			    url:   'controller/datosAccionesVisibles.php',
+      			    type:  'post',
+      			    data: parametros,
+      			    success: function (response) {
+      			      var p = jQuery.parseJSON(response);
+      			      if(p.aaData.length !== 0){
+      			        for(var i = 0; i < p.aaData.length; i++) {
+      			          if(p.aaData[i].VISIBLE == 1){
+      			            if(p.aaData[i].ENABLE == 1){
+      			              $("#accionesClausulas").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+      			            }
+      			            else{
+      			              $("#accionesClausulas").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+      			            }
+      			          }
+      			        }
+      			      }
+      			    }
+      			  });
+
+      			  setTimeout(function(){
+      			    var js = document.createElement('script');
+      			    js.src = 'view/js/funciones.js?idLoad=298';
+      			    document.getElementsByTagName('head')[0].appendChild(js);
+      			  },500);
+      			},100);
+          },1000);
           marcarMenuActivo();
           menuElegant();
         },200);

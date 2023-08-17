@@ -7447,96 +7447,6 @@ function ingresaAccionPerfilArea($idPerfil, $idAreaWeb, $id, $val){
 	}
 }
 
-// Consulta Clausulas Mantenedores
-function consultaClausulas(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT '' S, CLAUSULA, IDPATENTE_CLAUSULAS
-FROM PATENTE_CLAUSULAS";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para ingresar Cláusulas
-function ingresaClausulas($clausula){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "INSERT INTO PATENTE_CLAUSULAS(CLAUSULA)
-VALUES ( '" . $clausula . "')";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para Editar Cláusulas
-function editarClausulas( $idClausulas, $clausula){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_CLAUSULAS
-	SET CLAUSULA = '" . $clausula . "'
-	WHERE IDPATENTE_CLAUSULAS = '" . $idClausulas . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para eliminar Cláusulas
-function eliminarClausulas($idClausulas){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "DELETE FROM PATENTE_CLAUSULAS
-		 WHERE IDPATENTE_CLAUSULAS = '" . $idClausulas . "'";
-		if($con->query($sql)){
-				$con->query("COMMIT");
-				return "Ok";
-		}
-		else{
-				$con->query("ROLLBACK");
-				// return $con->error;
-				return "Error";
-		}
-	}
-	else{
-			$con->query("ROLLBACK");
-			return "Error";
-	}
-}
-
 // Funcion para traer codigo de Patente mediante su ID
 function codigoPatente($idPatente){
 	$con = conectar();
@@ -21479,6 +21389,92 @@ WHERE U.RUT = '{$rutUser}'";
 			else{
 				$con->query("ROLLBACK");
 				return "Error";
+			}
+		}
+
+		function consultaClausulas(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT '' S, CLAUSULA, IDPATENTE_CLAUSULAS
+		FROM PATENTE_CLAUSULAS";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function ingresaClausulas($clausula){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "INSERT INTO PATENTE_CLAUSULAS(CLAUSULA)
+		VALUES ( '" . $clausula . "')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function editarClausulas( $idClausulas, $clausula){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_CLAUSULAS
+			SET CLAUSULA = '" . $clausula . "'
+			WHERE IDPATENTE_CLAUSULAS = '" . $idClausulas . "'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function eliminarClausulas($idClausulas){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "DELETE FROM PATENTE_CLAUSULAS
+				 WHERE IDPATENTE_CLAUSULAS = '" . $idClausulas . "'";
+				if($con->query($sql)){
+						$con->query("COMMIT");
+						return "Ok";
+				}
+				else{
+						$con->query("ROLLBACK");
+						// return $con->error;
+						return "Error";
+				}
+			}
+			else{
+					$con->query("ROLLBACK");
+					return "Error";
 			}
 		}
 		// Fin Flota

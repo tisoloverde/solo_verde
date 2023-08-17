@@ -2674,95 +2674,6 @@ include "./modales/personal/update.php";
 </div>
 <!-- FIN MODAL ANULAR ASIGNACION VEHICULO -->
 
-<!-- MODAL INGRESO CLAUSULAS -->
-<div id="modalIngresoClausulas" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h5 style="color:gray;" id="tituloIngresoClausulas"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Cláusulas</h5>
-      </div>
-      <div id="bodyIngresoClausulas" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Cláusula</label>
-            <textarea id="clausulaIngresoClausulas" class="form-control" rows="4" style="resize: none;" maxlength="9900"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarIngresoClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarIngresoClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL INGRESO CLAUSULAS -->
-
-<!-- MODAL EDITAR CLAUSULAS -->
-<div id="modalEditarClausulas" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray;" id="tituloEditarClausulas"><span class="far fa-file-alt"></span>&nbsp;&nbsp;Editar Cláusula </h5>
-      </div>
-      <div id="bodyEditarClausulas" class="modal-body alerta-modal-body">
-      <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Cláusula</label>
-            <textarea id="clausulaEditarClausulas" class="form-control" rows="4"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-				<button id="guardarEditarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEditarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL EDITAR CLAUSULAS -->
-
-<!-- MODAL ELIMINAR CLAUSULAS -->
-<div id="modalEliminarClausulas" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-			<div class="modal-header">
-        <h5 style="color:gray;" id="tituloEliminarClausulas"><span class="fas fa-trash-alt"></span>&nbsp;&nbsp;Eliminar Cláusula</h5>
-      </div>
-			<div id="bodyEliminarClausulas" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea Eliminar la Cláusula?</font>
-            <font style="font-weight: nomal; font-size: 14pt;"></br><i style="font-weight: normal; font-size: 14pt;" id="clausulaEliminarClausulas"></i></font>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarEliminarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarEliminarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL ELIMINAR CLAUSULAS -->
-
 <!-- MODAL CREAR DESASIGNACION VEHICULO -->
 <div id="modalDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
   <div class="modal-dialog" role="document" style="min-width: 90%; width: 90%;">
@@ -11402,6 +11313,89 @@ include "./modales/personal/update.php";
 			<div class="modal-footer" style="text-align: left;">
         <button id="guardarCancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
         <button id="cancelarCancelarMantencion" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalIngresoClausulas" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 style="color:gray;" id="tituloIngresoClausulas"><span class="fas fa-plus-circle"></span>&nbsp;&nbsp;Ingreso Cláusulas</h5>
+      </div>
+      <div id="bodyIngresoClausulas" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Cláusula</label>
+            <textarea id="clausulaIngresoClausulas" class="form-control" rows="4" style="resize: none;" maxlength="9900"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarIngresoClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarIngresoClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEditarClausulas" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray;" id="tituloEditarClausulas"><span class="far fa-file-alt"></span>&nbsp;&nbsp;Editar Cláusula </h5>
+      </div>
+      <div id="bodyEditarClausulas" class="modal-body alerta-modal-body">
+      <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;">Datos</label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Cláusula</label>
+            <textarea id="clausulaEditarClausulas" class="form-control" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+				<button id="guardarEditarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEditarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalEliminarClausulas" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+			<div class="modal-header">
+        <h5 style="color:gray;" id="tituloEliminarClausulas"><span class="fas fa-trash-alt"></span>&nbsp;&nbsp;Eliminar Cláusula</h5>
+      </div>
+			<div id="bodyEliminarClausulas" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea Eliminar la Cláusula?</font>
+            <font style="font-weight: nomal; font-size: 14pt;"></br><i style="font-weight: normal; font-size: 14pt;" id="clausulaEliminarClausulas"></i></font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarEliminarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarEliminarClausulas" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

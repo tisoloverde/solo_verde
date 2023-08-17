@@ -16836,6 +16836,196 @@ $("#guardarCancelarMantencion").unbind('click').click(async function(){
 $("#observacionCancelarMantencion").on('input', function(){
   $(this).removeClass("is-invalid");
 });
+
+$("#agregarClausula").unbind("click").click(async function(){
+  $("#modalIngresoClausulas").find("input,textarea,select").val("");
+  $("#clausulaIngresoClausulas").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalIngresoClausulas").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyIngresoClausulas').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#guardarIngresoClausulas").unbind('click').click(function(){
+  if($("#clausulaIngresoClausulas").val().length == 0){
+    var random = Math.round(Math.random() * (1000000 - 1) + 1);
+    alertasToast("<img src='view/img/info.png' class='splash_load'><br/>Debe completar todos los campos");
+    if ($("#clausulaIngresoClausulas").val().length == 0){
+      $("#clausulaIngresoClausulas").addClass("is-invalid");
+    }
+  }
+  else {
+    parametros = {
+      "clausula": $("#clausulaIngresoClausulas").val(),
+    }
+    $("#modalIngresoClausulas").modal("hide");
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    $.ajax({
+      url: "controller/ingresaClausulas.php",
+      type: 'POST',
+      data: parametros,
+      success:  function (response) {
+        var p = response.split(",");
+        if(response.localeCompare("Sin datos")!= 0 && response != ""){
+          if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoClausulas').DataTable();
+            table.ajax.reload();
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Cláusula Creado correctamente");
+            $("#editarClausula").attr("disabled","disabled");
+            $("#eliminarClausula").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+          else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Cláusula, si el problema persiste favor comuniquese con soporte");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+          }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al crear Cláusula, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+    });
+  }
+});
+
+$("#clausulaIngresoClausulas").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#editarClausula").unbind('click').click( async function(){
+  var table = $('#tablaListadoClausulas').DataTable();
+  var clausula = $.map(table.rows('.selected').data(), function (item) {
+      return item.CLAUSULA;
+  });
+  $("#clausulaEditarClausulas").val(clausula);
+  $('#modalEditarClausulas').modal('show');
+});
+
+$("#guardarEditarClausulas").unbind('click').click(function(){
+  var table = $('#tablaListadoClausulas').DataTable();
+  var idClausulas = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_CLAUSULAS;
+  });
+  parametros = {
+    "idClausulas": idClausulas[0],
+    "clausula":  $("#clausulaEditarClausulas").val(),
+  }
+  $("#modalEditarClausulas").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $.ajax({
+    url: "controller/editarClausulas.php",
+    type: 'POST',
+    data: parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoClausulas').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Cláusula Editada correctamente");
+          $("#editarClausula").attr("disabled","disabled");
+          $("#eliminarClausula").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Cláusula, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+      else{
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al editar Cláusula, si el problema persiste favor comuniquese con soporte");
+        setTimeout(function(){
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+    }
+  });
+});
+
+$("#eliminarClausula").unbind('click').click(function(){
+  var table = $('#tablaListadoClausulas').DataTable();
+  var clausula = $.map(table.rows('.selected').data(), function (item) {
+    return item.CLAUSULA;
+  });
+
+  $("#clausulaEliminarClausulas").html(clausula);
+  $('#modalEliminarClausulas').modal('show');
+});
+
+$("#guardarEliminarClausulas").unbind('click').click(async function(){
+  var table = $('#tablaListadoClausulas').DataTable();
+  var idClausulas = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDPATENTE_CLAUSULAS;
+  });
+  parametros = {
+    "idClausulas": idClausulas[0],
+  }
+  $("#modalEliminarClausulas").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  await $.ajax({
+    url:   'controller/eliminarClausulas.php',
+    type:  'post',
+    data:  parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoClausulas').DataTable();
+            table.ajax.reload()
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Cláusula eliminada correctamente");
+            $("#editarClausula").attr("disabled","disabled");
+            $("#eliminarClausula").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+        else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al eliminar la Cláusula");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+      }else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al eliminar la Cláusula");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+      }
+    }
+  });
+});
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {
