@@ -15771,7 +15771,7 @@ $("#guardarAgregarMantencion").unbind('click').click(function(){
               success:  async function (response) {
                 var p = jQuery.parseJSON(response);
                 await $.ajax({
-                  url: "controller/generaPDF/agendaMantencion.php?idLoad=94",
+                  url: "controller/generaPDF/agendaMantencion.php?idLoad=95",
                   type: "POST",
                   data:{
                     "idMantencion": Number(p[0]['LAST_INSERT_ID()']),
