@@ -53,7 +53,7 @@
     <script src="view/js/buttons.html5.min.js"></script>
     <script src="view/js/buttons.print.min.js"></script>
     <script src="view/js/buttons.flash.min.js"></script>
-    <script src="view/js/popper.min.js"></script>idLoad=95
+    <script src="view/js/popper.min.js"></script>
     <script src="view/js/moment.min.js"></script>
     <script src="view/js/datetime-moment.js"></script>
     <script src="view/js/datetime.js"></script>
