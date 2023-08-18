@@ -1,5 +1,5 @@
 <?php
-//ini_set('display_errors', 'On');
+// ini_set('display_errors', 'On');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require '../html2pdf/vendor/autoload.php';
 date_default_timezone_set("America/Santiago");
@@ -26,11 +26,7 @@ ob_start();
 		<td style="max-width: 640px; min-width: 640px; width: 640px; ">
 			<table style="margin-top: 10px;">
 				<tr>
-					<td style="max-width: 160px; min-width: 160px; width: 160px;"><img style="margin-left: 0px; height: 30px; min-height: 30px; max-height: 30px; margin-top:"
-						<?php
-							echo "src='" . $_POST['url'] .  "controller/cargarLogo.php?url=" . $_POST['url'] . "'";
-						?>
-					></td>
+					<td style="max-width: 160px; min-width: 160px; width: 160px;"><img style="margin-left: 0px; height: 30px; min-height: 30px; max-height: 30px; margin-top:" src="../../view/img/logoInformes.jpg"></td>
 					<td style="max-width: 358px; min-width: 358px; width: 358px; ">
 						<table style="margin-top: 30px;">
 							<TR>
