@@ -176,10 +176,10 @@ ob_start();
 										<td style="width: 3%; max-width: 3%; min-width: 3%; text-align: left;">
 											';
 											if($datos_check[$i]["DATO"] === 'Si'){
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check.png"></td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check2.png"></td>';
 											}
 											else{
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;">&nbsp;</td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="no_check.png"></td>';
 											}
 									echo '
 										</td>
@@ -191,10 +191,10 @@ ob_start();
 									echo '<td style="width: 3%; max-width: 3%; min-width: 3%; text-align: left;">
 											';
 											if($datos_check[$i+1]["DATO"] === 'Si'){
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check.png"></td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check2.png"></td>';
 											}
 											else{
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;">&nbsp;</td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="no_check.png"></td>';
 											}
 									echo '
 										</td>
@@ -206,10 +206,10 @@ ob_start();
 									echo '<td style="width: 3%; max-width: 3%; min-width: 3%; text-align: left;">
 											';
 											if($datos_check[$i+2]["DATO"] === 'Si'){
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check.png"></td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check2.png"></td>';
 											}
 											else{
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;">&nbsp;</td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="no_check.png"></td>';
 											}
 									echo '
 										</td>
