@@ -12,7 +12,7 @@
     foreach ($checkboxs as $value){
         $id = $value['id'];
         $estado = $value['status'];
-        $newEstado = $estado ? 'Si' : 'No';
+        $newEstado = $estado == "true" ? 'Si' : 'No';
         $row = insertarChecksbox($idAsig, $id, $newEstado);
     }
 
