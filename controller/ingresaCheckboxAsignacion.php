@@ -9,8 +9,7 @@
     $checkboxs  = $_POST['checkboxs'];
     $idAsig = $_POST['idAsig'];
 
-    $datos = json_decode($checkboxs, true);
-    foreach ($datos as $value){
+    foreach ($checkboxs as $value){
         $id = $value['id'];
         $estado = $value['status'];
         $newEstado = $estado ? 'Si' : 'No';

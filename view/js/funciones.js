@@ -17501,7 +17501,7 @@ $("#guardarAsignacionVehiculo").unbind('click').click( async function(){
     arrTodo.push(item);
   });
 
-  var toPost = JSON.stringify(arrTodo);
+  var toPost = arrTodo;
 
   parametros = {
     "rutPersonal": $.trim($("#rutAsignacionVehiculo").val().replace('.','').replace('.','')),
