@@ -5,11 +5,10 @@
 	// Conectando a la base de datos
 	function conectar(){
 		//GCP - Desarrollo
-		// $user = "AppConnect";
-		// $pass = 'TCw4etVPjEcqTRkGOqG8';
+		// $user = $_ENV['DB_USER_QA'];
+		// $pass = $_ENV['DB_PASS_QA'];
 		// $db = "SOLO_VERDE";
-		// $host = "10.138.112.3";
-		
+		// $host = $_ENV['DB_HOST_QA'];
 
 		// // Producción
 		$user = "AppConnect";
