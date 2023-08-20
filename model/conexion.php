@@ -5,16 +5,16 @@
 	// Conectando a la base de datos
 	function conectar(){
 		//GCP - Desarrollo
-		// $user = $_ENV['DB_USER_QA'];
-		// $pass = $_ENV['DB_PASS_QA'];
-		// $db = "SOLO_VERDE";
-		// $host = $_ENV['DB_HOST_QA'];
+		$user = $_ENV['DB_USER_QA'];
+		$pass = $_ENV['DB_PASS_QA'];
+		$db = "SOLO_VERDE";
+		$host = $_ENV['DB_HOST_QA'];
 
 		// // Producción
-		$user = "AppConnect";
-		$pass = "TCw4etVPjEcqTRkGOqG8";
-		$db = "SOLO_VERDE";
-		$host = "10.0.0.8";
+		// $user = "AppConnect";
+		// $pass = "TCw4etVPjEcqTRkGOqG8";
+		// $db = "SOLO_VERDE";
+		// $host = "10.0.0.8";
 
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		try
