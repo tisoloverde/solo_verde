@@ -40,9 +40,11 @@
 		$anoMes = $_POST['anoMes'];
 		$output = array();
 		$return_var = 0;
-		
+
 
 		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneralMensual.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $anoMes, $output, $return_var);
+
+		var_dump($output);
 	}
 	echo "Ok";
 ?>
