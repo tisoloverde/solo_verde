@@ -3,6 +3,11 @@
   date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
 
+  $_SERVER['DB_HOST'] = 'GfD5FyT5IaW/yfUvHs0leg==';
+  $_SERVER['DB_USER'] = 'DF918ru9PmuGsp1Num4j9Q==';
+  $_SERVER['DB_PASS'] = 'JSciPp8ebWHm/6RcO4gfioauF+no7qcox395gz/gK7c=';
+  $_SERVER['DB_CLAVE_EC'] = 'As233@sZ&eibhQZ#mIkV';
+
   require($ruta . 'model/consultas.php');
 
   require 'phpmailer/src/Exception.php';

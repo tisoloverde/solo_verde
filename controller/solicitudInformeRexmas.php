@@ -37,14 +37,10 @@
 	}
 	else if($tipo == "generalMensual"){
 		$ceco = $_POST['ceco'];
-		$anoMes = $_POST['anoMes'];
-		$output = array();
-		$return_var = 0;
+	  $anoMes = $_POST['anoMes'];
+		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneralMensual.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $anoMes . ' > /dev/null 2>&1 &');
 
-
-		exec('php -f ' . $ruta . 'controller/generaInformeRexmasGeneralMensual.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $anoMes, $output, $return_var);
-
-		var_dump($output);
+		// echo 'php -f ' . $ruta . 'controller/generaInformeRexmasGeneralMensual.php ' . $rutUser . ' ' . $row['EMAIL'] . ' ' . $ceco . ' ' . $anoMes . ' > /dev/null 2>&1 &';
 	}
 	echo "Ok";
 ?>

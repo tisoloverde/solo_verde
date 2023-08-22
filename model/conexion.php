@@ -16,11 +16,6 @@
 		$db = "SOLO_VERDE";
 		$host = openssl_decrypt($_SERVER['DB_HOST'], 'aes-256-cbc', $_SERVER['DB_CLAVE_EC'], 0, $_SERVER['DB_CLAVE_EC']);
 
-		// $user = "AppConnect";
-		// $pass = "TCw4etVPjEcqTRkGOqG8";
-		// $db = "SOLO_VERDE";
-		// $host = "10.0.0.8";		
-
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		try
 		{
