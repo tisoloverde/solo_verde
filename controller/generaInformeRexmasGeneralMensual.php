@@ -2,7 +2,7 @@
   ini_set('display_errors', 'On');
   // ok
 
-  echo phpinfo();
+  var_dump($_SERVER);
 
   date_default_timezone_set("America/Santiago");
   $ruta = str_replace("controller", "", getcwd()) . '/';
