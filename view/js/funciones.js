@@ -9192,6 +9192,27 @@ async function listComunesPlanilla() {
   })
 }
 
+async function listEmpresas() {
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  await $.ajax({
+    url: 'controller/datosSubcontratistas.php',
+    type: 'post',
+    dataType: 'json',
+    data: parametros,
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option value='0'>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
+      });
+      $('#selectListaEmpresa').html(html);
+    },
+  })
+}
+
 async function listCentrosDeCostos() {
   var path = window.location.href.split('#/')[1];
   var parametros = {

@@ -2965,6 +2965,10 @@ app.controller("planillaAsistenciaController", function(){
   loading(true);
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaEmpresa").select2(theme);
+  }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $("#selectListaCentrosDeCostos").select2(theme);
   }
 
@@ -3273,6 +3277,21 @@ app.controller("planillaAsistenciaController", function(){
               _COMUNES_PLANILLA = response.aaData;
             },
           });
+
+          await $.ajax({
+            url: 'controller/datosSubcontratistas.php',
+            type: 'post',
+            dataType: 'json',
+            data: { path: window.location.href.split('#/')[1] },
+            success: function (response) {
+              var data = response.aaData;
+              var html = "<option value='0'>Seleccione</option>";
+              data.forEach((item) => {
+                html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
+              });
+              $('#selectListaEmpresa').html(html);
+            },
+          })
 
           await $.ajax({
             url: 'controller/datosCentrosDeCostosPerfil.php',
