@@ -9448,7 +9448,14 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
             }
           },100);
         }
-      }
+      },
+      {
+        text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Glosario',
+        action: function ( e, dt, node, config ) {
+          console.log('--mostrear modal--')
+          console.log(_COMUNES_PLANILLA);
+        },
+      },
     ],
     fixedColumns:   {
       leftColumns: 3

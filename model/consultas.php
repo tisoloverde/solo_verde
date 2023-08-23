@@ -17426,7 +17426,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaPersonalEstadoConcepto() {
 		$con = conectar();
 		if ($con != "No conectado") {
-			$sql = "SELECT IDPERSONAL_ESTADO_CONCEPTO, SIGLA FROM PERSONAL_ESTADO_CONCEPTO WHERE VISIBLE = 1;";
+			$sql = "SELECT IDPERSONAL_ESTADO_CONCEPTO, SIGLA, PERSONAL_ESTADO_CONCEPTO FROM PERSONAL_ESTADO_CONCEPTO WHERE VISIBLE = 1;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){

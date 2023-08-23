@@ -3433,7 +3433,15 @@ app.controller("planillaAsistenciaController", function(){
                             }
                           },100);
                         }
-                      }
+                      },
+                      {
+                        text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Glosario',
+                        action: function ( e, dt, node, config ) {
+                          console.log('--mostrear modal--')
+                          console.log(_COMUNES_PLANILLA);
+                          $("#modalGlosario").modal("show");
+                        },
+                      },
                     ],
                     fixedColumns:   {
                       leftColumns: 3

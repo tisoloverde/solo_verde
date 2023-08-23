@@ -11442,3 +11442,19 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
+
+<div id="modalGlosario" class="modal modal-fullscreen fade" role="dialog" style="z-index: 1800;">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+			<div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-check-circle"></span>&nbsp;&nbsp;Glosario</h5>
+      </div>
+      <div class="modal-body alerta-modal-body" style="text-align: left;">
+        <div id="glosarioContenido"></div>
+			</div>
+			<div class="modal-footer">
+        <button style="margin-top: 10px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
