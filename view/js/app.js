@@ -3303,7 +3303,7 @@ app.controller("planillaAsistenciaController", function(){
               var data = response.aaData;
               var html = "<option value='0'>Seleccione</option>";
               data.forEach((item) => {
-                html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+                html += `<option value="${item.DEFINICION}" subcontrato="${item.IDSUBCONTRATO ?? 0}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
               });
               $('#selectListaCentrosDeCostos').html(html);
             },

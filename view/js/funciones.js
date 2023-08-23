@@ -18191,3 +18191,27 @@ async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaIni
     }
   });
 }
+
+$("#selectListaEmpresa").on("change", function (e) {
+  e.stopImmediatePropagation();
+  var idSubcontratista = $("#selectListaEmpresa").val();
+  $(`#selectListaCentrosDeCostos option`).hide();
+  $(`#selectListaCentrosDeCostos option[subcontrato='${idSubcontratista}']`).show();
+
+  var theme = {
+    theme: 'bootstrap4',
+    width: $(this).data('width')
+      ? $(this).data('width')
+      : $(this).hasClass('w-100')
+        ? '100%'
+        : 'style',
+    placeholder: $(this).data('placeholder'),
+    allowClear: Boolean($(this).data('allow-clear')),
+    closeOnSelect: !$(this).attr('multiple'),
+    // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+  }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaCentrosDeCostos").select2(theme);
+  }
+});

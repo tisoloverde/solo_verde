@@ -18289,7 +18289,7 @@ WHERE U.RUT = '{$rutUser}'";
 	function consultaListaCentrosDeCostoPerfil($rut,$path){
 		$con = conectar();
 		if($con != 'No conectado'){
-			$sql = "CALL LISTADO_CECO_ASISTENCIA('{$rut}','{$path}')";
+			$sql = "CALL LISTADO_CECO_ASISTENCIA_2('{$rut}','{$path}')";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
