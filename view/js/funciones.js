@@ -9216,7 +9216,8 @@ async function listEmpresas() {
 async function listCentrosDeCostos() {
   var path = window.location.href.split('#/')[1];
   var parametros = {
-    "path": path
+    "path": path,
+    idsubcontrato: 0,
   }
   await $.ajax({
     url: 'controller/datosCentrosDeCostosPerfil.php',
@@ -18199,12 +18200,8 @@ async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaIni
   });
 }
 
-$("#selectListaEmpresa").on("change", function (e) {
+$("#selectListaEmpresa").on("change", async function (e) {
   e.stopImmediatePropagation();
-  var idSubcontratista = $("#selectListaEmpresa").val();
-  $(`#selectListaCentrosDeCostos option`).hide();
-  $(`#selectListaCentrosDeCostos option[subcontrato='${idSubcontratista}']`).show();
-
   var theme = {
     theme: 'bootstrap4',
     width: $(this).data('width')
@@ -18218,7 +18215,29 @@ $("#selectListaEmpresa").on("change", function (e) {
     // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
   }
 
-  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    $("#selectListaCentrosDeCostos").select2(theme);
+  var idSubcontratista = $("#selectListaEmpresa").val();
+
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path,
+    idsubcontrato: idSubcontratista,
   }
+  await $.ajax({
+    url: 'controller/datosCentrosDeCostosPerfil.php',
+    type: 'post',
+    dataType: 'json',
+    data: parametros,
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option value='0'>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.DEFINICION}" data-subcontrato="${item.IDSUBCONTRATO ?? 0}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+      });
+      $('#selectListaCentrosDeCostos').html(html);
+
+      if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        $("#selectListaCentrosDeCostos").select2(theme);
+      }
+    },
+  })
 });

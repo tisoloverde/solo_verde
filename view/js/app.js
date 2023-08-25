@@ -2970,6 +2970,7 @@ app.controller("planillaAsistenciaController", function(){
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $("#selectListaCentrosDeCostos").select2(theme);
+    $("#selectListaCentrosDeCostosTodos").select2(theme);
   }
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -3030,7 +3031,8 @@ app.controller("planillaAsistenciaController", function(){
             splashOpen();
             var path = window.location.href.split('#/')[1];
             var parametros = {
-              "path": path
+              "path": path,
+              idsubcontrato: 0,
             }
             await $.ajax({
               url: 'controller/datosCentrosDeCostosPerfil.php',
@@ -3297,13 +3299,13 @@ app.controller("planillaAsistenciaController", function(){
             url: 'controller/datosCentrosDeCostosPerfil.php',
             type: 'post',
             dataType: 'json',
-            data: { path: window.location.href.split('#/')[1] },
+            data: { path: window.location.href.split('#/')[1], idsubcontrato: 0 },
             success: function (response) {
               console.log(4);
               var data = response.aaData;
               var html = "<option value='0'>Seleccione</option>";
               data.forEach((item) => {
-                html += `<option value="${item.DEFINICION}" subcontrato="${item.IDSUBCONTRATO ?? 0}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+                html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
               });
               $('#selectListaCentrosDeCostos').html(html);
             },
