@@ -174,9 +174,14 @@
         if (isset($row['FECHA_TERMINO'])) {
           if ($row['FECHA_TERMINO'] < $lstDiasSemana[0]['FECHA']) {
             $colBreak = -100;
-          }
-          if ($row['FECHA_TERMINO'] == $lstDiasSemana[0]['FECHA']) {
+          } else if ($row['FECHA_TERMINO'] == $lstDiasSemana[0]['FECHA']) {
             $colBreak = 0;
+          } else if ($row['FECHA_TERMINO'] > $lstDiasSemana[0]['FECHA'] && $row['FECHA_TERMINO'] < $lstDiasSemana[6]['FECHA']) {
+            for ($indice=0; $indice < count($lstDiasSemana); $indice++) {
+              if ($row['FECHA_TERMINO'] == $lstDiasSemana[$indice]['FECHA']) {
+                $colBreak = $indice;
+              }
+            }
           }
         }
 
