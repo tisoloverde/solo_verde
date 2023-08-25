@@ -9750,7 +9750,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
 }
 
 $('#selectListaCentrosDeCostos').on('change', function (e) {
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
   filtrosPlanilla();
 })
 
@@ -18202,6 +18202,11 @@ async function recargaBotonesPlanillaAsistencia(idEstructuraOperacion, semanaIni
 
 $("#selectListaEmpresa").on("change", async function (e) {
   e.stopImmediatePropagation();
+
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
   var theme = {
     theme: 'bootstrap4',
     width: $(this).data('width')
@@ -18238,6 +18243,10 @@ $("#selectListaEmpresa").on("change", async function (e) {
       if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         $("#selectListaCentrosDeCostos").select2(theme);
       }
+
+      setTimeout(() => {
+        $('#modalAlertasSplash').modal('hide');
+      }, 1000);
     },
   })
 });
