@@ -37,7 +37,7 @@
     $idConValid = buscarDiaValidoPersonalEstadoConcepto($cons);
     $idsConValidDescuento = buscarDiaValidoPersonalEstadoConcepto_Descontar($cons);
     $idsConNotValid = buscarDiasNoValidoPersonalEstadoConcepto($cons);
-    $idsConNotValid_Final = buscarDiasNoValidoPersonalEstadoConcepto_Final($cons);
+    $ids_DSR = buscarDiasNoValidoPersonalEstadoConcepto_Final($cons);
 
     $rows = [];
     if (is_array($lstPersonalCC)) {
@@ -176,12 +176,6 @@
             $colBreak = -100;
           } else if ($row['FECHA_TERMINO'] == $lstDiasSemana[0]['FECHA']) {
             $colBreak = 0;
-          } else if ($row['FECHA_TERMINO'] > $lstDiasSemana[0]['FECHA'] && $row['FECHA_TERMINO'] < $lstDiasSemana[6]['FECHA']) {
-            for ($indice=0; $indice < count($lstDiasSemana); $indice++) {
-              if ($row['FECHA_TERMINO'] == $lstDiasSemana[$indice]['FECHA']) {
-                $colBreak = $indice;
-              }
-            }
           }
         }
 
@@ -242,7 +236,7 @@
             if ($dia['FECHA'] < $row['FECHA_INGRESO']) {
               $colStart = $col;
             }
-            if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $idsConNotValid_Final)) {
+            if (in_array($found['IDPERSONAL_ESTADO_CONCEPTO'], $ids_DSR)) {
               $colBreak = $col;
             }
 
@@ -258,7 +252,7 @@
                 $select = $select . "</select>";
 
                 $ndias -= 1;
-              } else if ($col <= $colBreak) {
+              } else if ($col < $colBreak) { // <-- Antes era <=
                 $select = "<select id='planilla-select-col$col-$idPersonal' class='planilla-select-day'>";
                 $select = $select . "<option value='0'></option>";
                 foreach ($consClean as $con) {
