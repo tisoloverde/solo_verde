@@ -9,7 +9,7 @@
   $_SERVER['DB_PASS'] = 'JSciPp8ebWHm/6RcO4gfioauF+no7qcox395gz/gK7c=';
   $_SERVER['DB_CLAVE_EC'] = 'As233@sZ&eibhQZ#mIkV';
 
-  require($ruta . 'model/consultas_dashboard_cubo.php');
+  require($ruta . 'model/consultas.php');
 
   require 'phpSpreadsheet/vendor/autoload.php';
   require 'phpmailer/src/Exception.php';
