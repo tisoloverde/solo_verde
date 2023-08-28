@@ -1,0 +1,97 @@
+<div class="row" style="padding-left: 20pt; padding-right: 20pt;">
+  <div style="margin-bottom: 20pt; text-align: right;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <font style="font-weight: bold; font-size: 15pt; margin-left: 10pt;">
+            <span style="color: gray;" class="far fa-calendar-times">&nbsp;&nbsp;Listado de Desasignaciones</span>
+        </font>
+  </div>
+  <div style="margin-bottom: 20pt; text-align: left;" class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12">
+    <label class="labelComun">Periodo</label>
+    <select id="fechaDesasignacion" class="form-control" title="Fecha Desasignacion">
+    </select>
+  </div>
+  <div style="margin-bottom: 20pt; text-align: left;" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 input-group-sm">
+    <label style="font-weight: bold;">Mostrar desasignaciones Finalizadas/Anuladas</label>
+    <br>
+    <label class="switch" style="margin-top: 5pt; text-align: center;">
+      <input id="filtroEstadoDesasignacion" type="checkbox" title="Mostrar desasignaciones Finalizadas/Anuladas">
+      <span class="slider round"></span>
+    </label>
+  </div>
+    <div id="divTablaListadoDesasignacion" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt; text-align: left;">
+      <table id="tablaListadoDesasignacion" class="cell-border compact" style="width: 100%;">
+        <thead>
+          <tr>
+            <th class="celdaColor" style="border: 1pt solid white;">S</th>
+            <th class="celdaColor" style="border: 1pt solid white;">ID</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Patente</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Fecha</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Hora</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Tipo Veh.</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Bodega</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Rut Asig.</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Nombre Asig.</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Telefono</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Gerencia</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Subgerencia</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Cliente</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Estado</th>
+            <th class="celdaColor" style="border: 1pt solid white;">Check.</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaListadoDesasignacion" style="text-align: left;">
+
+        </tbody>
+      </table>
+    </div>
+ <!-- Botones -->
+ <div id="accionesDesasignacionFlota" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
+
+</div>
+
+<script>
+
+function randomTextoLoadJs(){
+  var str = '';
+  var ref = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST0123456789';
+  for (var i = 0; i < 8 ; i++)
+  {
+    str += ref.charAt(Math.floor(Math.random()*ref.length));
+  }
+  return str;
+}
+
+setTimeout(function(){
+var js = document.createElement('script');
+js.src = 'view/js/funciones.js?idLoad=298';
+document.getElementsByTagName('head')[0].appendChild(js);
+},500);
+</script>
+
+<!-- Activacion de botones segun el Estado de la Desasignacion -->
+<script>
+$('#tablaListadoDesasignacion tbody').on( 'click', 'tr', function () {
+    setTimeout(async function(){
+        var table = $('#tablaListadoDesasignacion').DataTable();
+        var data = table.rows('.selected').data();
+        if(data.length <= 0){
+            $("#anularDesasignacion").attr("disabled","disabled");
+            $("#subirPdfDesasignacion").attr("disabled","disabled");
+        }
+        else{
+            if(data[0].ESTADO === "Anulada"){
+            $("#anularDesasignacion").attr("disabled","disabled");
+            $("#subirPdfDesasignacion").attr("disabled","disabled");
+            }
+            else if(data[0].ESTADO === "Generada"){
+            $("#subirPdfDesasignacion").removeAttr("disabled");
+            $("#anularDesasignacion").removeAttr("disabled");
+            }
+            else if(data[0].ESTADO === "Finalizada"){
+            $("#anularDesasignacion").attr("disabled","disabled");
+            $("#subirPdfDesasignacion").attr("disabled","disabled");
+            }
+        }
+    },200);
+});
+</script>
+<!-- Fin de Activacion de botones segun el Estado de la Desasignacion -->

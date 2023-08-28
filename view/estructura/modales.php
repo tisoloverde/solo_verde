@@ -2476,121 +2476,6 @@ include "./modales/personal/update.php";
 </div>
 </div>
 
-<!-- MODAL CREAR DESASIGNACION VEHICULO -->
-<div id="modalDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog" role="document" style="min-width: 90%; width: 90%;">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <div>
-          <h5 style="color:gray;" id="tituloDesasignacionVehiculo"><span class="far fa-calendar-times"></span>&nbsp;&nbsp;Desasignar Vehiculo</h5><br>
-          <h5 style="color:red; font-weight: Semi-bold; font-size: 18px; margin-top: -20px;">Licencia:&nbsp;<span id="licenciaDesasignacionVehiculo"></span></h5><br>
-          <h5 style="color:red; font-weight: Semi-bold; font-size: 18px; margin-top: -30px;">Proyecto Colaborador:&nbsp;<span id="proyectoDesasignacionVehiculo"></span> </h5>
-					<input id="idAsigDesasignacionVehiculo" type="hidden" name="" value="">
-        </div>
-      </div>
-      <div id="bodyDesasignacionVehiculo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">DNI</label>
-            <input id="rutDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Nombre</label>
-            <input id="nombreDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Patente</label>
-            <input id="patenteDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Marca</label>
-            <input id="marcaDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Año</label>
-            <input id="anoDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Modelo</label>
-            <input id="modeloDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Teléfono</label>
-            <input id="telefonoDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Bodega</label>
-            <input id="bodegaDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Kilometraje</label>
-            <input id="kilometrajeDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Área de Negocio</label>
-            <input id="negocioDesasignacionVehiculo" class="form-control" type="text" value=" ">
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">Observación</label>
-            <textarea id="observacionDesasignacionVehiculo" class="form-control" rows="3" style="resize: none;" maxlength="1000"></textarea>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 25pt;">
-            <label style="font-weight: bold; color: black;">Chequeo de Elementos</label><br>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="row" id ="checkboxDesasigancion"></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="text-align: left;">
-        <button id="guardarDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL DEASIGNACION VEHICULO -->
-
-<!-- MODAL SUBIR PDF DESASIGNACION VEHICULO -->
-<div id="modalSubirPdfDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
-
-  <div class="modal-dialog  modal-xl" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-pdf"></span>&nbsp;&nbsp;
-          <span>Cargar PDF</span>
-          <br>
-          <span id="tituloSubirPdfDesasignacionVehiculo" style="font-size: 12pt;"></span>
-        </h5>
-      </div>
-      <div id="bodySubirPdfDesasignacionVehiculo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left; margin-bottom: 20pt;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
-            <label style="font-weight: bold;">PDF Checklist (firmado) <b><span id="spanChecklistDes" style="color:green;"></span></b> </label>
-            <div class="input-group">
-							<label class="input-group-btn">
-									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
-											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id="pdfCargaChecklistDes" style="display: none;">
-									</span>
-							</label>
-							<input disabled id="inputPdfChecklistDes" type="text" class="form-control" readonly>
-						</div>
-          </div>
-        </div>
-        <div class="modal-footer" style="text-align: left;">
-        <button id="guardarSubirPdfDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarSubirPdfDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL SUBIR PDF DESASIGNACION VEHICULO -->
-
 <div id="modalNuevaConfiguracion" class="modal modal-fullscreen fade" role="dialog" style="z-index: 1800;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -2930,36 +2815,6 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
-
-<!-- MODAL ANULAR DESASIGNACION VEHICULO -->
-<div id="modalAnularDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
-  <div class="modal-dialog  modal-lg" role="document">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-			<div class="modal-header">
-        <h5 style="color:gray;" id="tituloAnularDesasignacionVehiculo"><span class="far fa-window-close"></span>&nbsp;&nbsp;Anular Desasignación</h5>
-      </div>
-			<div id="bodyAnularDesasignacionVehiculo" class="modal-body alerta-modal-body">
-        <div class="row" style="text-align: left;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea Anular la Desasignación?</font>
-            <font style="font-weight: nomal; font-size: 14pt;"></br>Patente <i style="font-weight: normal; font-size: 14pt;" id="patenteAnularDesasignacion"></i> asignada a <i style="font-weight: normal; font-size: 14pt;" id="personalAnularDesasignacion"></i></font>
-          </div>
-        </div>
-      </div>
-			<div class="modal-footer" style="text-align: left;">
-        <button id="guardarAnularDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
-        <button id="cancelarAnularDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN MODAL ANULAR DESASIGNACION VEHICULO -->
 
 <!--- Modal Agendar OT -->
 <div id="modalAsignarAgendarOrden" class="modal modal-fullscreen fade" role="dialog">
@@ -11390,6 +11245,146 @@ include "./modales/personal/update.php";
     </div>
   </div>
 </div>
+
+<div id="modalDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog" role="document" style="min-width: 90%; width: 90%;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h5 style="color:gray;" id="tituloDesasignacionVehiculo"><span class="far fa-calendar-times"></span>&nbsp;&nbsp;Desasignar Vehiculo</h5><br>
+          <h5 style="color:red; font-weight: Semi-bold; font-size: 18px; margin-top: -20px;">Licencia:&nbsp;<span id="licenciaDesasignacionVehiculo"></span></h5><br>
+          <h5 style="color:red; font-weight: Semi-bold; font-size: 18px; margin-top: -30px;">Proyecto Colaborador:&nbsp;<span id="proyectoDesasignacionVehiculo"></span> </h5>
+					<input id="idAsigDesasignacionVehiculo" type="hidden" name="" value="">
+        </div>
+      </div>
+      <div id="bodyDesasignacionVehiculo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">DNI</label>
+            <input id="rutDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Nombre</label>
+            <input id="nombreDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Patente</label>
+            <input id="patenteDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Marca</label>
+            <input id="marcaDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Año</label>
+            <input id="anoDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Modelo</label>
+            <input id="modeloDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Teléfono</label>
+            <input id="telefonoDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Bodega</label>
+            <input id="bodegaDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Kilometraje</label>
+            <input id="kilometrajeDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Área de Negocio</label>
+            <input id="negocioDesasignacionVehiculo" class="form-control" type="text" value=" ">
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">Observación</label>
+            <textarea id="observacionDesasignacionVehiculo" class="form-control" rows="3" style="resize: none;" maxlength="1000"></textarea>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 25pt;">
+            <label style="font-weight: bold; color: black;">Chequeo de Elementos</label><br>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="row" id ="checkboxDesasigancion"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: left;">
+        <button id="guardarDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalAnularDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
+  <div class="modal-dialog  modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+			<div class="modal-header">
+        <h5 style="color:gray;" id="tituloAnularDesasignacionVehiculo"><span class="far fa-window-close"></span>&nbsp;&nbsp;Anular Desasignación</h5>
+      </div>
+			<div id="bodyAnularDesasignacionVehiculo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label style="font-weight: bold; color: gray; font-size: 14pt;"></label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <font style="font-weight: bold; font-size: 11pt;">¿Está seguro que desea Anular la Desasignación?</font>
+            <font style="font-weight: nomal; font-size: 14pt;"></br>Patente <i style="font-weight: normal; font-size: 14pt;" id="patenteAnularDesasignacion"></i> asignada a <i style="font-weight: normal; font-size: 14pt;" id="personalAnularDesasignacion"></i></font>
+          </div>
+        </div>
+      </div>
+			<div class="modal-footer" style="text-align: left;">
+        <button id="guardarAnularDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarAnularDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalSubirPdfDesasignacionVehiculo" class="modal modal-fullscreen fade" role="dialog">
+
+  <div class="modal-dialog  modal-xl" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color:gray; font-weight: bold;"><span class="fas fa-file-pdf"></span>&nbsp;&nbsp;
+          <span>Cargar PDF</span>
+          <br>
+          <span id="tituloSubirPdfDesasignacionVehiculo" style="font-size: 12pt;"></span>
+        </h5>
+      </div>
+      <div id="bodySubirPdfDesasignacionVehiculo" class="modal-body alerta-modal-body">
+        <div class="row" style="text-align: left; margin-bottom: 20pt;">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10pt;">
+            <label style="font-weight: bold;">PDF Checklist (firmado) <b><span id="spanChecklistDes" style="color:green;"></span></b> </label>
+            <div class="input-group">
+							<label class="input-group-btn">
+									<span id="sintomasSpanFoto" class="form-control btn btn-default btn-file" style="text-align: left; color: grey; border: 1px solid #c8c8c8;">
+											<span class="fas fa-file-pdf"></span>&nbsp;&nbsp;PDF<input type="file" id="pdfCargaChecklistDes" style="display: none;">
+									</span>
+							</label>
+							<input disabled id="inputPdfChecklistDes" type="text" class="form-control" readonly>
+						</div>
+          </div>
+        </div>
+        <div class="modal-footer" style="text-align: left;">
+        <button id="guardarSubirPdfDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary">Guardar</button>
+        <button id="cancelarSubirPdfDesasignacionVehiculo" style="margin-top: 10px; display: block;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Fin Flota -->
 
 <div id="modalConfirmaCierre" class="modal modal-fullscreen fade" role="dialog" style="z-index: 1800;">

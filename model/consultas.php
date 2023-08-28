@@ -7160,55 +7160,6 @@ function consultaAccionesVisibles($rutUser, $path) {
 	}
 }
 
-// Consulta Desasignacion Vehiculos
-function consultaDesasignacionVehiculo($rut,$path,$ano,$mes){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "CALL LISTADO_DESASIGNACIONES('{$rut}','{$path}','{$ano}','{$mes}')";
-		if ($row = $con->query($sql)) {
-			$return = array();
-			while($array = $row->fetch_array(MYSQLI_BOTH)){
-				$return[] = $array;
-			}
-			return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta Datos de Asignacion Validadas para Desasignacion
-function consultaAsignacionesValidadas(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT DISTINCT A.CODIGO, CONCAT(P.NOMBRES, P.APELLIDOS) 'NOMBRE', P.DNI
-						FROM PATENTE_PERSONAL PP
-						LEFT JOIN PERSONAL P
-						ON PP.IDPERSONAL = P.IDPERSONAL
-						LEFT JOIN PATENTE A
-						ON PP.IDPATENTE = A.IDPATENTE
-						LEFT JOIN PATENTE_DESASIGNACIONES PD
-						ON PP.IDPATENTE = PD.IDPATENTE
-						AND PD.IDPATENTE_ESTADO_DESASIGNACION NOT IN (SELECT IDPATENTE_ESTADO_DESASIGNACION FROM PATENTE_ESTADO_DESASIGNACION WHERE ESTADO = 'Generada')";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consulta Datos de Asignacion Validada Seleccionada para Desasignacion
 function consultaAsignacionValidadaSeleccionada($rutPer, $patente){
 	$con = conectar();
@@ -7257,146 +7208,6 @@ function consultaAsignacionValidadaSeleccionada($rutPer, $patente){
 	}
 }
 
-// Consulta Checkboxs para Desasignacion
-function consultaCheckboxDesasignacion($idAsig){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT paco.IDPATENTE_ASIGNACION_CHECKS, paco.DATO, pac.ITEM
-		FROM PATENTE_ASIGNACION_CHECKS_OK paco
-		LEFT JOIN PATENTE_ASIGNACION_CHECKS pac
-		ON pac.IDPATENTE_ASIGNACION_CHECKS = paco.IDPATENTE_ASIGNACION_CHECKS
-		WHERE paco.IDPATENTE_ASIGNACIONES = '{$idAsig}'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta para Desasignar Vehiculo (ingresar datos a tabla Patente_Desasignaciones)
-function desasignacionVehiculo($patente, $observacion, $kilometraje, $rutPersonal){
-	$con = conectar();
-	$con->query("START TRANSACTION");
-	if($con != 'No conectado'){
-		$sql = "CALL DESASIGNAR_VEHICULO('{$patente}','{$observacion}','{$kilometraje}', '{$rutPersonal}')";
-		if ($row = $con->query($sql)){
-			$con->query("COMMIT");
-			while($array = $row->fetch_assoc()){
-		$return[] = $array;
-		}
-		return $return;
-		} else {
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	} else {
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consultas para insertar Checkboxs para Desasignacion
-function insertarChecksboxDesasignacion($idDesasig, $id, $newEstado, $diferencia){
-    $con = conectar();
-    $con->query("START TRANSACTION");
-    if($con != 'No conectado'){
-      $sql = "INSERT INTO PATENTE_DESASIGNACION_CHECKS_OK(IDPATENTE_DESASIGNACIONES,IDPATENTE_ASIGNACION_CHECKS, DATO, DIFERENCIA)
-              VALUES
-              ('{$idDesasig}','{$id}','{$newEstado}','{$diferencia}')";
-      if ($con->query($sql)) {
-        $con->query("COMMIT");
-        return "Ok";
-      }
-      else{
-        // return $con->error;
-        $con->query("ROLLBACK");
-        return "Error";
-      }
-    }
-    else{
-      $con->query("ROLLBACK");
-      return "Error";
-    }
-}
-
-// Consultas Datos para Desasignacion
-function consultaDatosDesasignacion($idDesasig, $rutUsuario){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pa.IDPATENTE_DESASIGNACIONES, pa.FECHA, pa.OBSERVACION, p.CODIGO, p.KILOMETRAJE, p.AÑO 'ANO', p.FMANTENIMIENTO, pt.CHECKTIPO 'TIPOVEH',
-						pm.MARCA, pm.MODELO, initCap(CONCAT(p2.NOMBRES ,' ',p2.APELLIDOS)) 'NOMBRE', p2.DNI, p2.TELEFONO,
-						(SELECT u2.NOMBRE FROM USUARIO u2 where u2.RUT = '$rutUsuario') 'PERSONAL', a.COMUNA, CONCAT(s2.GERENCIA, ' - ', s2.SERVICIO, ' - ',
-						CASE WHEN c.CLIENTE IS NULL THEN '' ELSE c.CLIENTE END) 'NEGOCIO', pa.CONTADORCHECKLIST
-						FROM PATENTE_DESASIGNACIONES pa
-						LEFT JOIN PATENTE p
-						ON p.IDPATENTE = pa.IDPATENTE
-						LEFT JOIN PATENTE_TIPOVEHICULO pt
-						ON pt.IDPATENTE_TIPOVEHICULO = p.IDPATENTE_TIPOVEHICULO
-						LEFT JOIN PATENTE_MARCAMODELO pm
-						ON pm.IDPATENTE_MARCAMODELO = p.IDPATENTE_MARCAMODELO
-						LEFT JOIN PATENTE_PERSONAL PP
-						ON p.IDPATENTE = PP.IDPATENTE
-						LEFT JOIN PERSONAL p2
-						ON PP.IDPERSONAL = p2.IDPERSONAL
-						LEFT JOIN SUCURSAL s
-						ON pa.IDSUCURSAL = s.IDSUCURSAL
-						LEFT JOIN AREAFUNCIONAL a
-						ON s.IDAREAFUNCIONAL = a.IDAREAFUNCIONAL
-						LEFT JOIN ESTRUCTURA_OPERACION eo
-						ON pa.IDESTRUCTURA_OPERACION = eo.IDESTRUCTURA_OPERACION
-						LEFT JOIN SERVICIO s2
-						ON s2.IDSERVICIO = eo.IDSERVICIO
-						LEFT JOIN CLIENTE c
-						ON c.IDCLIENTE = eo.IDCLIENTE
-						WHERE pa.IDPATENTE_DESASIGNACIONES = '$idDesasig'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consultas Checksboxs de Desasignacion
-function consultaCheckboxsDesasignacion($idDesasig){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pac.ITEM, paco.DATO, paco.DIFERENCIA, pac.DESCONTABLE
-		FROM PATENTE_DESASIGNACION_CHECKS_OK paco
-		LEFT JOIN PATENTE_ASIGNACION_CHECKS pac
-		ON pac.IDPATENTE_ASIGNACION_CHECKS = paco.IDPATENTE_ASIGNACION_CHECKS
-		WHERE paco.IDPATENTE_DESASIGNACIONES = '$idDesasig'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Consulta para actualizar Desasignacion ingresando Checklist generado
 function actualizarDesasignacionChecklist($idDesasig, $pdfChecklist){
 	$con = conectar();
@@ -7405,27 +7216,6 @@ function actualizarDesasignacionChecklist($idDesasig, $pdfChecklist){
 		SET CHECKLIST = '" . $pdfChecklist . "',
 		CONTADORCHECKLIST = 1
 		WHERE IDPATENTE_DESASIGNACIONES = '" . $idDesasig . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-// Consulta para actualizar pdf y finalizar Desasignacion (Anular Asignacion)
-function desasignarVehiculo($idDesasig, $docPDFChecklist, $contadorChecklist, $patente, $rutPersonal){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "CALL DESASIGNACION_VEHICULO('{$idDesasig}','{$docPDFChecklist}','{$contadorChecklist}','{$patente}','{$rutPersonal}')";
 		if ($con->query($sql)) {
 			$con->query("COMMIT");
 			return "Ok";
@@ -7625,105 +7415,11 @@ function cargarZonasOrdenConfig($proyecto, $zona){
 	}
 }
 
-// Consulta para actualizar estado de  Asignacion (Validada)
-function anularDesasignacion($idDesasig){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "UPDATE PATENTE_DESASIGNACIONES
-		SET IDPATENTE_ESTADO_DESASIGNACION = (SELECT IDPATENTE_ESTADO_DESASIGNACION FROM PATENTE_ESTADO_DESASIGNACION WHERE ESTADO = 'Anulada' )
-		WHERE IDPATENTE_DESASIGNACIONES = '" . $idDesasig . "'";
-		if ($con->query($sql)) {
-			$con->query("COMMIT");
-			return "Ok";
-		}
-		else{
-			// return $con->error;
-			$con->query("ROLLBACK");
-			return "Error";
-		}
-	}
-	else{
-		$con->query("ROLLBACK");
-		return "Error";
-	}
-}
-
-//Selector de periodo desasignaciones
-function consultaSelectorPeriodosDesasignacion(){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT DATE_FORMAT(FECHA, '%Y-%m') 'PERIODO'
-						FROM PATENTE_DESASIGNACIONES
-						GROUP BY DATE_FORMAT(FECHA, '%Y-%m')
-						ORDER BY DATE_FORMAT(FECHA, '%Y-%m') DESC";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 //Datos de ordenes por fecha
 function consultaDatosOrdenesFecha($rut,$path,$fecha){
 	$con = conectar();
 	if($con != 'No conectado'){
 		$sql = "CALL ORDENES_LISTADO('{$rut}','{$path}','{$fecha}')";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-// Consulta Datos de Asignacion Validada Seleccionada para Desasignacion
-function consultaAsignacionValidadaSelectForPatemte($patente, $rut){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pa.IDPATENTE_ASIGNACIONES, pa.OBSERVACION, p.CODIGO, p.KILOMETRAJE, p.AÑO 'ANO', pt.CHECKTIPO 'TIPOVEH', pm.MARCA, pm.MODELO, initCap(CONCAT(p2.NOMBRES ,' ',p2.APELLIDOS)) 'NOMBRE',
-						p2.DNI, p2.TELEFONO, initCap(CONCAT(s.SUCURSAL, ' - ', a.COMUNA)) 'COMUNA', CONCAT(s2.GERENCIA, ' - ', s2.SERVICIO, ' - ',
-						CASE WHEN c.CLIENTE IS NULL THEN '' ELSE c.CLIENTE END) 'NEGOCIO', eo.NOMENCLATURA, pt.LICENCIA, p2.EMAIL
-						FROM PATENTE_ASIGNACIONES pa
-						LEFT JOIN PATENTE p
-						ON p.IDPATENTE = pa.IDPATENTE
-						LEFT JOIN PATENTE_TIPOVEHICULO pt
-						ON pt.IDPATENTE_TIPOVEHICULO = p.IDPATENTE_TIPOVEHICULO
-						LEFT JOIN PATENTE_MARCAMODELO pm
-						ON pm.IDPATENTE_MARCAMODELO = p.IDPATENTE_MARCAMODELO
-						LEFT JOIN PATENTE_PERSONAL PP
-						ON p.IDPATENTE = PP.IDPATENTE
-						AND pa.IDPATENTE_ASIGNACIONES = PP.IDASIGNACION
-						LEFT JOIN PERSONAL p2
-						ON PP.IDPERSONAL = p2.IDPERSONAL
-						LEFT JOIN SUCURSAL s
-						ON pa.IDSUCURSAL = s.IDSUCURSAL
-						LEFT JOIN AREAFUNCIONAL a
-						ON s.IDAREAFUNCIONAL = a.IDAREAFUNCIONAL
-						LEFT JOIN ESTRUCTURA_OPERACION eo
-						ON pa.IDESTRUCTURA_OPERACION = eo.IDESTRUCTURA_OPERACION
-						LEFT JOIN SERVICIO s2
-						ON s2.IDSERVICIO = eo.IDSERVICIO
-						LEFT JOIN CLIENTE c
-						ON c.IDCLIENTE = eo.IDCLIENTE
-						WHERE p2.DNI = '{$rut}'
-						AND p.CODIGO = '{$patente}'
-						AND PP.IDPATENTE IS NOT NULL
-						HAVING MAX(pa.IDPATENTE_ASIGNACIONES)";
 		if ($row = $con->query($sql)) {
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
 					$return[] = $array;
@@ -8675,28 +8371,6 @@ function eliminarOrdenTipo($folio){
 				$con->query("ROLLBACK");
 				return "Error";
 		}
-}
-
-// Consulta datos PDF para Desasignacion Vehiculos
-function consultaDatosPdfDesasignacionVehiculo($idDesasig){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT pd.CHECKLIST, pd.CONTADORCHECKLIST
-		FROM PATENTE_DESASIGNACIONES pd
-		WHERE pd.IDPATENTE_DESASIGNACIONES = '$idDesasig'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
 }
 
 //Tipos de ordenes por proyecto
@@ -11609,35 +11283,6 @@ function listadoComprasPeticiones(){
 	}
 }
 
-// Consultas Datos para Desasignacion
-function consultaIdAsigForDesasignacion($patente, $rutPersonal){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT MAX(PA.IDPATENTE_ASIGNACIONES) 'ID'
-		FROM PATENTE_ASIGNACIONES PA
-		LEFT JOIN PATENTE_ESTADO_ASIGNACION PE
-		ON PA.IDPATENTE_ESTADO_ASIGNACION = PE.IDPATENTE_ESTADO_ASIGNACION
-		WHERE PA.IDPATENTE = (SELECT IDPATENTE FROM PATENTE WHERE CODIGO = '{$patente}')
-		AND PA.IDPERSONAL = (SELECT IDPERSONAL FROM PERSONAL WHERE DNI = '{$rutPersonal}')
-		AND PE.ESTADO NOT IN
-		(
-			'Anulada'
-		)";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
 // Lista de checks de acuerdo al tipo de vehiculo
 function datosDocumPermisoObras($idz){
 	$con = conectar();
@@ -12401,30 +12046,6 @@ function datosPersonalFormulario($id){
 				LEFT JOIN PERSONAL p
 				ON fp.IDPERSONAL = p.IDPERSONAL
 				WHERE fp.IDFORMULARIO = '{$id}'";
-		if ($row = $con->query($sql)) {
-				while($array = $row->fetch_array(MYSQLI_BOTH)){
-					$return[] = $array;
-				}
-				return $return;
-		}
-		else{
-			return "Error";
-		}
-	}
-	else{
-		return "Error";
-	}
-}
-
-function datosEstadoCheckAsig($idAsigCheck,$idAsig){
-	$con = conectar();
-	if($con != 'No conectado'){
-		$sql = "SELECT paco.IDPATENTE_ASIGNACION_CHECKS, paco.DATO, pac.ITEM
-		FROM PATENTE_ASIGNACION_CHECKS_OK paco
-		LEFT JOIN PATENTE_ASIGNACION_CHECKS pac
-		ON pac.IDPATENTE_ASIGNACION_CHECKS = paco.IDPATENTE_ASIGNACION_CHECKS
-		WHERE paco.IDPATENTE_ASIGNACIONES = '{$idAsig}'
-		and paco.IDPATENTE_ASIGNACION_CHECKS = '{$idAsigCheck}'";
 		if ($row = $con->query($sql)) {
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
 					$return[] = $array;
@@ -16522,51 +16143,6 @@ WHERE U.RUT = '{$rutUser}'";
 					$con->query("ROLLBACK");
 					return "Error";
 					// return $sql;
-				}
-			}
-			else{
-				$con->query("ROLLBACK");
-				return "Error";
-			}
-		}
-
-		function actualizaEstadoPatenteAsignacionParaDesasignar($rut) {
-			$con = conectar();
-			$con->query("START TRANSACTION");
-			if($con != 'No conectado'){
-				$sql = "UPDATE PATENTE_ASIGNACIONES pa
-								LEFT JOIN PATENTE p
-								ON p.IDPATENTE = pa.IDPATENTE
-								LEFT JOIN PATENTE_TIPOVEHICULO pt
-								ON pt.IDPATENTE_TIPOVEHICULO = p.IDPATENTE_TIPOVEHICULO
-								LEFT JOIN PATENTE_MARCAMODELO pm
-								ON pm.IDPATENTE_MARCAMODELO = p.IDPATENTE_MARCAMODELO
-								LEFT JOIN PATENTE_PERSONAL PP
-								ON p.IDPATENTE = PP.IDPATENTE
-								AND pa.IDPATENTE_ASIGNACIONES = PP.IDASIGNACION
-								LEFT JOIN PERSONAL p2
-								ON PP.IDPERSONAL = p2.IDPERSONAL
-								LEFT JOIN SUCURSAL s
-								ON pa.IDSUCURSAL = s.IDSUCURSAL
-								LEFT JOIN AREAFUNCIONAL a
-								ON s.IDAREAFUNCIONAL = a.IDAREAFUNCIONAL
-								LEFT JOIN ESTRUCTURA_OPERACION eo
-								ON pa.IDESTRUCTURA_OPERACION = eo.IDESTRUCTURA_OPERACION
-								LEFT JOIN SERVICIO s2
-								ON s2.IDSERVICIO = eo.IDSERVICIO
-								LEFT JOIN CLIENTE c
-								ON c.IDCLIENTE = eo.IDCLIENTE
-								SET pa.IDPATENTE_ESTADO_ASIGNACION = 3
-								WHERE pa.IDPATENTE_ESTADO_ASIGNACION IN (SELECT IDPATENTE_ESTADO_ASIGNACION FROM PATENTE_ESTADO_ASIGNACION WHERE ESTADO IN ('Validada','Generada'))
-								AND p2.DNI = '{$rut}'
-								AND PP.IDPATENTE IS NOT NULL";
-				if ($con->query($sql)) {
-						$con->query("COMMIT");
-						return "Ok";
-				}
-				else{
-					$con->query("ROLLBACK");
-					return "Error";
 				}
 			}
 			else{
@@ -20966,7 +20542,7 @@ WHERE U.RUT = '{$rutUser}'";
 						while($array = $row->fetch_array(MYSQLI_BOTH)){
 							$return[] = $array;
 						}
-	
+
 						return $return;
 				}
 				else{
@@ -21119,7 +20695,7 @@ WHERE U.RUT = '{$rutUser}'";
 				return "Error";
 			}
 		}
-		
+
 		// YA MIGRADO FLOTA
 		function ingresarNotificacionAsignacionVeh($rutJefe, $tipo, $cuerpo, $url, $notificacion, $categoria){
 			$con = conectar();
@@ -21134,7 +20710,7 @@ WHERE U.RUT = '{$rutUser}'";
 				else{
 					return $sql;
 					$con->query("ROLLBACK");
-		
+
 				}
 			}
 			else{
@@ -21285,31 +20861,6 @@ WHERE U.RUT = '{$rutUser}'";
 			}
 		}
 
-		function eliminarPatentePersonal($rut, $patente){
-			$con = conectar();
-			if($con != 'No conectado'){
-				$sql = "DELETE
-						FROM PATENTE_PERSONAL
-						WHERE IDPATENTE IN
-						(
-							SELECT IDPATENTE
-							FROM PATENTE
-							WHERE CODIGO = '{$patente}'
-						)";
-				if($con->query($sql)){
-					$con->query("COMMIT");
-					return "Ok";
-				}else{
-					$con->query("ROLLBACK");
-					// return $con->error;
-									return "Error";
-				}
-			}else{
-				$con->query("ROLLBACK");
-				return "Error";
-			}
-		}
-
 		function disponibilizaPatenteAsignada($patente) {
 			$con = conectar();
 			$con->query("START TRANSACTION");
@@ -21455,6 +21006,442 @@ WHERE U.RUT = '{$rutUser}'";
 				$con->query("ROLLBACK");
 				return "Error";
 			}
+		}
+
+		function consultaDesasignacionVehiculo($rut,$path,$ano,$mes){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL LISTADO_DESASIGNACIONES('{$rut}','{$path}','{$ano}','{$mes}')";
+				if ($row = $con->query($sql)) {
+					$return = array();
+					while($array = $row->fetch_array(MYSQLI_BOTH)){
+						$return[] = $array;
+					}
+					return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaSelectorPeriodosDesasignacion(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT DATE_FORMAT(FECHA, '%Y-%m') 'PERIODO'
+								FROM PATENTE_DESASIGNACIONES
+								GROUP BY DATE_FORMAT(FECHA, '%Y-%m')
+								ORDER BY DATE_FORMAT(FECHA, '%Y-%m') DESC";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaAsignacionesValidadas(){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT DISTINCT A.CODIGO, CONCAT(P.NOMBRES, P.APELLIDOS) 'NOMBRE', P.DNI
+								FROM PATENTE_PERSONAL PP
+								LEFT JOIN PERSONAL P
+								ON PP.IDPERSONAL = P.IDPERSONAL
+								LEFT JOIN PATENTE A
+								ON PP.IDPATENTE = A.IDPATENTE
+								LEFT JOIN PATENTE_DESASIGNACIONES PD
+								ON PP.IDPATENTE = PD.IDPATENTE
+								AND PD.IDPATENTE_ESTADO_DESASIGNACION NOT IN (SELECT IDPATENTE_ESTADO_DESASIGNACION FROM PATENTE_ESTADO_DESASIGNACION WHERE ESTADO = 'Generada')";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaAsignacionValidadaSelectForPatemte($patente, $rut){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pa.IDPATENTE_ASIGNACIONES, pa.OBSERVACION, p.CODIGO, p.KILOMETRAJE, p.AÑO 'ANO', pt.CHECKTIPO 'TIPOVEH', pm.MARCA, pm.MODELO, initCap(CONCAT(p2.NOMBRES ,' ',p2.APELLIDOS)) 'NOMBRE',
+								p2.DNI, p2.TELEFONO, initCap(CONCAT(s.SUCURSAL, ' - ', a.COMUNA)) 'COMUNA', CONCAT(s2.GERENCIA, ' - ', s2.SERVICIO, ' - ',
+								CASE WHEN c.CLIENTE IS NULL THEN '' ELSE c.CLIENTE END) 'NEGOCIO', eo.NOMENCLATURA, pt.LICENCIA, p2.EMAIL
+								FROM PATENTE_ASIGNACIONES pa
+								LEFT JOIN PATENTE p
+								ON p.IDPATENTE = pa.IDPATENTE
+								LEFT JOIN PATENTE_TIPOVEHICULO pt
+								ON pt.IDPATENTE_TIPOVEHICULO = p.IDPATENTE_TIPOVEHICULO
+								LEFT JOIN PATENTE_MARCAMODELO pm
+								ON pm.IDPATENTE_MARCAMODELO = p.IDPATENTE_MARCAMODELO
+								LEFT JOIN PATENTE_PERSONAL PP
+								ON p.IDPATENTE = PP.IDPATENTE
+								AND pa.IDPATENTE_ASIGNACIONES = PP.IDASIGNACION
+								LEFT JOIN PERSONAL p2
+								ON PP.IDPERSONAL = p2.IDPERSONAL
+								LEFT JOIN SUCURSAL s
+								ON pa.IDSUCURSAL = s.IDSUCURSAL
+								LEFT JOIN AREAFUNCIONAL a
+								ON s.IDAREAFUNCIONAL = a.IDAREAFUNCIONAL
+								LEFT JOIN ESTRUCTURA_OPERACION eo
+								ON pa.IDESTRUCTURA_OPERACION = eo.IDESTRUCTURA_OPERACION
+								LEFT JOIN SERVICIO s2
+								ON s2.IDSERVICIO = eo.IDSERVICIO
+								LEFT JOIN CLIENTE c
+								ON c.IDCLIENTE = eo.IDCLIENTE
+								WHERE p2.DNI = '{$rut}'
+								AND p.CODIGO = '{$patente}'
+								AND PP.IDPATENTE IS NOT NULL
+								HAVING MAX(pa.IDPATENTE_ASIGNACIONES)";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaCheckboxDesasignacion($idAsig){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT paco.IDPATENTE_ASIGNACION_CHECKS, paco.DATO, pac.ITEM
+				FROM PATENTE_ASIGNACION_CHECKS_OK paco
+				LEFT JOIN PATENTE_ASIGNACION_CHECKS pac
+				ON pac.IDPATENTE_ASIGNACION_CHECKS = paco.IDPATENTE_ASIGNACION_CHECKS
+				WHERE paco.IDPATENTE_ASIGNACIONES = '{$idAsig}'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function datosEstadoCheckAsig($idAsigCheck,$idAsig){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT paco.IDPATENTE_ASIGNACION_CHECKS, paco.DATO, pac.ITEM
+				FROM PATENTE_ASIGNACION_CHECKS_OK paco
+				LEFT JOIN PATENTE_ASIGNACION_CHECKS pac
+				ON pac.IDPATENTE_ASIGNACION_CHECKS = paco.IDPATENTE_ASIGNACION_CHECKS
+				WHERE paco.IDPATENTE_ASIGNACIONES = '{$idAsig}'
+				and paco.IDPATENTE_ASIGNACION_CHECKS = '{$idAsigCheck}'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function actualizaEstadoPatenteAsignacionParaDesasignar($rut) {
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_ASIGNACIONES pa
+								LEFT JOIN PATENTE p
+								ON p.IDPATENTE = pa.IDPATENTE
+								LEFT JOIN PATENTE_TIPOVEHICULO pt
+								ON pt.IDPATENTE_TIPOVEHICULO = p.IDPATENTE_TIPOVEHICULO
+								LEFT JOIN PATENTE_MARCAMODELO pm
+								ON pm.IDPATENTE_MARCAMODELO = p.IDPATENTE_MARCAMODELO
+								LEFT JOIN PATENTE_PERSONAL PP
+								ON p.IDPATENTE = PP.IDPATENTE
+								AND pa.IDPATENTE_ASIGNACIONES = PP.IDASIGNACION
+								LEFT JOIN PERSONAL p2
+								ON PP.IDPERSONAL = p2.IDPERSONAL
+								LEFT JOIN SUCURSAL s
+								ON pa.IDSUCURSAL = s.IDSUCURSAL
+								LEFT JOIN AREAFUNCIONAL a
+								ON s.IDAREAFUNCIONAL = a.IDAREAFUNCIONAL
+								LEFT JOIN ESTRUCTURA_OPERACION eo
+								ON pa.IDESTRUCTURA_OPERACION = eo.IDESTRUCTURA_OPERACION
+								LEFT JOIN SERVICIO s2
+								ON s2.IDSERVICIO = eo.IDSERVICIO
+								LEFT JOIN CLIENTE c
+								ON c.IDCLIENTE = eo.IDCLIENTE
+								SET pa.IDPATENTE_ESTADO_ASIGNACION = 3
+								WHERE pa.IDPATENTE_ESTADO_ASIGNACION IN (SELECT IDPATENTE_ESTADO_ASIGNACION FROM PATENTE_ESTADO_ASIGNACION WHERE ESTADO IN ('Validada','Generada'))
+								AND p2.DNI = '{$rut}'
+								AND PP.IDPATENTE IS NOT NULL";
+				if ($con->query($sql)) {
+						$con->query("COMMIT");
+						return "Ok";
+				}
+				else{
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function insertarChecksboxDesasignacion($idDesasig, $id, $newEstado, $diferencia){
+		    $con = conectar();
+		    $con->query("START TRANSACTION");
+		    if($con != 'No conectado'){
+		      $sql = "INSERT INTO PATENTE_DESASIGNACION_CHECKS_OK(IDPATENTE_DESASIGNACIONES,IDPATENTE_ASIGNACION_CHECKS, DATO, DIFERENCIA)
+		              VALUES
+		              ('{$idDesasig}','{$id}','{$newEstado}','{$diferencia}')";
+		      if ($con->query($sql)) {
+		        $con->query("COMMIT");
+		        return "Ok";
+		      }
+		      else{
+		        // return $con->error;
+		        $con->query("ROLLBACK");
+		        return "Error";
+		      }
+		    }
+		    else{
+		      $con->query("ROLLBACK");
+		      return "Error";
+		    }
+		}
+
+		function consultaDatosDesasignacion($idDesasig, $rutUsuario){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pa.IDPATENTE_DESASIGNACIONES, pa.FECHA, pa.OBSERVACION, p.CODIGO, p.KILOMETRAJE, p.AÑO 'ANO', p.FMANTENIMIENTO, pt.CHECKTIPO 'TIPOVEH',
+								pm.MARCA, pm.MODELO, initCap(CONCAT(p2.NOMBRES ,' ',p2.APELLIDOS)) 'NOMBRE', p2.DNI, p2.TELEFONO,
+								(SELECT u2.NOMBRE FROM USUARIO u2 where u2.RUT = '$rutUsuario') 'PERSONAL', a.COMUNA, CONCAT(s2.GERENCIA, ' - ', s2.SERVICIO, ' - ',
+								CASE WHEN c.CLIENTE IS NULL THEN '' ELSE c.CLIENTE END) 'NEGOCIO', pa.CONTADORCHECKLIST
+								FROM PATENTE_DESASIGNACIONES pa
+								LEFT JOIN PATENTE p
+								ON p.IDPATENTE = pa.IDPATENTE
+								LEFT JOIN PATENTE_TIPOVEHICULO pt
+								ON pt.IDPATENTE_TIPOVEHICULO = p.IDPATENTE_TIPOVEHICULO
+								LEFT JOIN PATENTE_MARCAMODELO pm
+								ON pm.IDPATENTE_MARCAMODELO = p.IDPATENTE_MARCAMODELO
+								LEFT JOIN PATENTE_PERSONAL PP
+								ON p.IDPATENTE = PP.IDPATENTE
+								LEFT JOIN PERSONAL p2
+								ON PP.IDPERSONAL = p2.IDPERSONAL
+								LEFT JOIN SUCURSAL s
+								ON pa.IDSUCURSAL = s.IDSUCURSAL
+								LEFT JOIN AREAFUNCIONAL a
+								ON s.IDAREAFUNCIONAL = a.IDAREAFUNCIONAL
+								LEFT JOIN ESTRUCTURA_OPERACION eo
+								ON pa.IDESTRUCTURA_OPERACION = eo.IDESTRUCTURA_OPERACION
+								LEFT JOIN SERVICIO s2
+								ON s2.IDSERVICIO = eo.IDSERVICIO
+								LEFT JOIN CLIENTE c
+								ON c.IDCLIENTE = eo.IDCLIENTE
+								WHERE pa.IDPATENTE_DESASIGNACIONES = '$idDesasig'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaCheckboxsDesasignacion($idDesasig){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pac.ITEM, paco.DATO, paco.DIFERENCIA, pac.DESCONTABLE
+				FROM PATENTE_DESASIGNACION_CHECKS_OK paco
+				LEFT JOIN PATENTE_ASIGNACION_CHECKS pac
+				ON pac.IDPATENTE_ASIGNACION_CHECKS = paco.IDPATENTE_ASIGNACION_CHECKS
+				WHERE paco.IDPATENTE_DESASIGNACIONES = '$idDesasig'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function consultaIdAsigForDesasignacion($patente, $rutPersonal){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT MAX(PA.IDPATENTE_ASIGNACIONES) 'ID'
+				FROM PATENTE_ASIGNACIONES PA
+				LEFT JOIN PATENTE_ESTADO_ASIGNACION PE
+				ON PA.IDPATENTE_ESTADO_ASIGNACION = PE.IDPATENTE_ESTADO_ASIGNACION
+				WHERE PA.IDPATENTE = (SELECT IDPATENTE FROM PATENTE WHERE CODIGO = '{$patente}')
+				AND PA.IDPERSONAL = (SELECT IDPERSONAL FROM PERSONAL WHERE DNI = '{$rutPersonal}')
+				AND PE.ESTADO NOT IN
+				(
+					'Anulada'
+				)";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function desasignacionVehiculo($patente, $observacion, $kilometraje, $rutPersonal){
+			$con = conectar();
+			$con->query("START TRANSACTION");
+			if($con != 'No conectado'){
+				$sql = "CALL DESASIGNAR_VEHICULO('{$patente}','{$observacion}','{$kilometraje}', '{$rutPersonal}')";
+				if ($row = $con->query($sql)){
+					$con->query("COMMIT");
+					while($array = $row->fetch_assoc()){
+				$return[] = $array;
+				}
+				return $return;
+				} else {
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			} else {
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function anularDesasignacion($idDesasig){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "UPDATE PATENTE_DESASIGNACIONES
+				SET IDPATENTE_ESTADO_DESASIGNACION = (SELECT IDPATENTE_ESTADO_DESASIGNACION FROM PATENTE_ESTADO_DESASIGNACION WHERE ESTADO = 'Anulada' )
+				WHERE IDPATENTE_DESASIGNACIONES = '" . $idDesasig . "'";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function consultaDatosPdfDesasignacionVehiculo($idDesasig){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "SELECT pd.CHECKLIST, pd.CONTADORCHECKLIST
+				FROM PATENTE_DESASIGNACIONES pd
+				WHERE pd.IDPATENTE_DESASIGNACIONES = '$idDesasig'";
+				if ($row = $con->query($sql)) {
+						while($array = $row->fetch_array(MYSQLI_BOTH)){
+							$return[] = $array;
+						}
+						return $return;
+				}
+				else{
+					return "Error";
+				}
+			}
+			else{
+				return "Error";
+			}
+		}
+
+		function desasignarVehiculo($idDesasig, $docPDFChecklist, $contadorChecklist, $patente, $rutPersonal){
+			$con = conectar();
+			if($con != 'No conectado'){
+				$sql = "CALL DESASIGNACION_VEHICULO('{$idDesasig}','{$docPDFChecklist}','{$contadorChecklist}','{$patente}','{$rutPersonal}')";
+				if ($con->query($sql)) {
+					$con->query("COMMIT");
+					return "Ok";
+				}
+				else{
+					// return $con->error;
+					$con->query("ROLLBACK");
+					return "Error";
+				}
+			}
+			else{
+				$con->query("ROLLBACK");
+				return "Error";
+			}
+		}
+
+		function eliminarPatentePersonal($rut, $patente){
+        $con = conectar();
+        if($con != 'No conectado'){
+            $sql = "DELETE
+										FROM PATENTE_PERSONAL
+										WHERE IDPATENTE IN
+										(
+											SELECT IDPATENTE
+											FROM PATENTE
+											WHERE CODIGO = '{$patente}'
+										)";
+            if($con->query($sql)){
+                $con->query("COMMIT");
+                return "Ok";
+            }else{
+                $con->query("ROLLBACK");
+                // return $con->error;
+								return "Error";
+            }
+        }else{
+            $con->query("ROLLBACK");
+            return "Error";
+        }
 		}
 		// Fin Flota
 

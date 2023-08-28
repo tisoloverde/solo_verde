@@ -156,6 +156,11 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: "vm",
       templateUrl : "view/flota/asignacion.html?idLoad=96"
     })
+    .when("/desasignacionFlotaVehiculo", {
+      controller: "desasignacionController",
+      controllerAs: "vm",
+      templateUrl : "view/flota/desasignacion.html?idLoad=298"
+    })
     // Fin Flota
     .otherwise({redirectTo: '/home'});
 
@@ -6494,7 +6499,6 @@ app.controller("asignacionController", function(){
                 var table = $('#tablaListadoAsignacion').DataTable();
 
                 $('#contenido').show();
-                $('#menu-lateral').show();
                 $('#footer').parent().show();
                 $('#footer').show();
 
@@ -6565,6 +6569,241 @@ app.controller("asignacionController", function(){
               table.column('13').search( data ? data : '', true, false ).draw();
             }
           },1000);
+          marcarMenuActivo();
+          menuElegant();
+        },200);
+      }
+    }
+  });
+});
+
+app.controller("desasignacionController", function(){
+  clearInterval(lineaTiempo);
+  clearInterval(personalPropio);
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  setTimeout(function(){
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+  },200);
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path
+  }
+  $.ajax({
+    url:   'controller/accesoCorrecto.php',
+    type:  'post',
+    data: parametros,
+    success: function (response) {
+      // console.log(response);
+      if(response === "NO"){
+        alertasToast("No tiene acceso al módulo seleccionado, redirigiendo a módulo principal");
+        setTimeout(function(){
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          window.location.href = "?idLog=" + random + "#/login";
+        },1500);
+      }
+      else if(response === "DESCONECTADO"){
+          window.location.href = "#/home";
+      }
+      else{
+        setTimeout(async function(){
+          $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+          $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+          $('#modalAlertasSplash').modal('show');
+
+          await $.ajax({
+            url:   'controller/datosSelectorPeriodoDesasignaciones.php',
+            type:  'post',
+            success: function (response) {
+              var p = jQuery.parseJSON(response);
+              var cuerpoSelect = '';
+              if(p.aaData.length !== 0) {
+                for(var i = 0; i < p.aaData.length; i++){
+                  if(i == 0){
+                    cuerpoSelect += '<option select value="' + p.aaData[i].PERIODO + '">' + p.aaData[i].PERIODO + '</option>';
+                  }
+                  else{
+                    cuerpoSelect += '<option value="' + p.aaData[i].PERIODO + '">' + p.aaData[i].PERIODO + '</option>';
+                  }
+                }
+                $("#fechaDesasignacion").html(cuerpoSelect);
+              }
+              else{
+                cuerpoSelect = '<option value="' + moment().format('YYYY-MM').toString() + '">' + moment().format('YYYY-MM').toString() + '</option>';
+                $("#fechaDesasignacion").html(cuerpoSelect);
+              }
+            }
+          });
+
+          var path = window.location.href.split('#/')[1];
+          var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+          var parametros = {
+            "path": path,
+            "ano": $("#fechaDesasignacion").val().split("-")[0],
+            "mes": $("#fechaDesasignacion").val().split("-")[1]
+          }
+          if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $("#fechaDesasignacion").select2({
+                theme: 'bootstrap4', width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style', placeholder: $(this).data('placeholder'), allowClear: Boolean($(this).data('allow-clear')), closeOnSelect: !$(this).attr('multiple')
+            });
+          }
+
+          await $('#tablaListadoDesasignacion').DataTable( {
+              ajax: {
+                  url: "controller/datosDesasignacionVehiculo.php",
+                  type: 'POST',
+                  data: parametros,
+              },
+              columns: [
+                  { data: 'S'},
+                  { data: 'IDPATENTE_DESASIGNACIONES' },
+                  { data: 'CODIGO'},
+                  { data: 'FECHA'},
+                  { data: 'HORA' },
+                  { data: 'TIPO' },
+                  { data: 'COMUNA' },
+                  { data: 'DNI'},
+                  { data: 'PERSONAL'},
+                  { data: 'TELEFONO'},
+                  { data: 'SERVICIO' },
+                  { data: 'CLIENTE'},
+                  { data: 'ACTIVIDAD'},
+                  { data: 'ESTADO'},
+                  { data: 'CHECKLIST', className: "centerDataTable" }
+              ],
+              buttons: [
+                  {
+                    extend: 'excel',
+                    exportOptions: {
+                      columns: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14 ]
+                    },
+                    title: null,
+                    text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+                  }
+              ],
+              "columnDefs": [
+                {
+                  "width": "5px",
+                  "targets": 0
+                },
+                {
+                  "orderable": false,
+                  "className": 'select-checkbox',
+                  "targets": [ 0 ]
+                },
+              ],
+              "select": {
+                  style: 'single'
+              },
+              "scrollX": true,
+              // "responsive": {
+              //     details: {
+              //         renderer: function ( api, rowIdx, columns ) {
+              //             var data = $.map( columns, function ( col, i ) {
+              //                 return col.hidden ?
+              //                     '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+              //                         '<td style="font-weight: bold; min-width: 150px;">'+col.title+':'+'</td> '+
+              //                         '<td style="min-width: 150px; text-align: center;">'+col.data+'</td>'+
+              //                     '</tr>' :
+              //                     '';
+              //             } ).join('');
+              //
+              //             return data ?
+              //                 $('<table/>').append( data ) :
+              //                 false;
+              //         }
+              //     }
+              // },
+              "paging": true,
+              "ordering": true,
+              "scrollCollapse": true,
+              "info":     true,
+              "lengthMenu": [[largo], [largo]],
+              "dom": 'Bfrtip',
+              "language": {
+                "zeroRecords": "No hay datos disponibles",
+                "info": "Registro _START_ de _END_ de _TOTAL_",
+                "infoEmpty": "No hay datos disponibles",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                  },
+                  "search": "Buscar: ",
+                  "select": {
+                      "rows": "- %d registros seleccionados"
+                  },
+                  "infoFiltered": "(Filtrado de _MAX_ registros)"
+              },
+              "destroy": true,
+              "autoWidth": false,
+              "initComplete": function(){
+                var table = $('#tablaListadoDesasignacion').DataTable();
+                $('#contenido').show();
+                $('#footer').parent().show();
+                $('#footer').show();
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                  setTimeout(async function(){
+                    $('#tablaListadoDesasignacion').DataTable().columns.adjust();
+                  },500);
+                },2000);
+              }
+          });
+          await esconderMenu();
+          setTimeout( async function(){
+            var path = window.location.href.split('#/')[1];
+      		  var parametros = {
+      		    "path": path
+      		  }
+
+            await $.ajax({
+              url:   'controller/datosAccionesVisibles.php',
+              type:  'post',
+              data: parametros,
+              success: function (response) {
+                var p = jQuery.parseJSON(response);
+                if(p.aaData.length !== 0){
+                  for(var i = 0; i < p.aaData.length; i++) {
+                    if(p.aaData[i].VISIBLE == 1){
+                      if(p.aaData[i].ENABLE == 1){
+                        $("#accionesDesasignacionFlota").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                      else{
+                        $("#accionesDesasignacionFlota").append('<div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-xs-12" style="padding-right: 0;"><button disabled class="form-control btn btn-secondary botonComun" id="' + p.aaData[i].IDBOTON + '"><span class="' + p.aaData[i].ICONO + '"></span>&nbsp;&nbsp;' + p.aaData[i].TEXTO + '</button></div>');
+                      }
+                    }
+                  }
+                }
+              }
+            });
+
+            setTimeout(function(){
+              var js = document.createElement('script');
+              js.src = 'view/js/funciones.js?idLoad=298';
+              document.getElementsByTagName('head')[0].appendChild(js);
+            },500);
+
+            if ($('#filtroEstadoDesasignacion').prop('checked') ) {
+              var table = $("#tablaListadoDesasignacion").DataTable();
+              table.columns('13').search('').draw();
+            }
+            else{
+              var table = $("#tablaListadoDesasignacion").DataTable();
+
+              var val = [];
+
+              val.push("Generada");
+              val.push("En Revisión");
+
+              var data = val.join('|');
+
+              table.column('13').search( data ? data : '', true, false ).draw();
+            }
+          },1000);
+          marcarMenuActivo();
           menuElegant();
         },200);
       }

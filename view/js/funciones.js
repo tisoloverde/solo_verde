@@ -18001,6 +18001,958 @@ $("#guardarSubirPdfAsignacionVehiculo").unbind("click").click( async function(){
     },500);
   }
 });
+
+$('#filtroEstadoDesasignacion').on('change', function() {
+  if ($('#filtroEstadoDesasignacion').prop('checked') ) {
+    var table = $("#tablaListadoDesasignacion").DataTable();
+    table.columns('13').search('').draw();
+  }
+  else{
+    var table = $("#tablaListadoDesasignacion").DataTable();
+
+    var val = [];
+
+    val.push("Generada");
+    val.push("En Revisión");
+
+    var data = val.join('|');
+
+    table.column('13').search( data ? data : '', true, false ).draw();
+  }
+});
+
+$("#fechaDesasignacion").unbind("click").change(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var path = window.location.href.split('#/')[1];
+  var largo = Math.trunc(($(window).height() - ($(window).height()/100)*50)/30);
+  var parametros = {
+    "path": path,
+    "ano": $("#fechaDesasignacion").val().split("-")[0],
+    "mes": $("#fechaDesasignacion").val().split("-")[1]
+  }
+
+  await $('#tablaListadoDesasignacion').DataTable( {
+      ajax: {
+          url: "controller/datosDesasignacionVehiculo.php",
+          type: 'POST',
+          data: parametros,
+      },
+      columns: [
+          { data: 'S'},
+          { data: 'IDPATENTE_DESASIGNACIONES' },
+          { data: 'CODIGO'},
+          { data: 'FECHA'},
+          { data: 'HORA' },
+          { data: 'TIPO' },
+          { data: 'COMUNA' },
+          { data: 'DNI'},
+          { data: 'PERSONAL'},
+          { data: 'TELEFONO'},
+          { data: 'SERVICIO' },
+          { data: 'CLIENTE'},
+          { data: 'ACTIVIDAD'},
+          { data: 'ESTADO'},
+          { data: 'CHECKLIST', className: "centerDataTable" }
+      ],
+      buttons: [
+          {
+            extend: 'excel',
+            exportOptions: {
+              columns: [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14 ]
+            },
+            title: null,
+            text: '<span class="far fa-file-excel"></span>&nbsp;&nbsp;Excel'
+          }
+      ],
+      "columnDefs": [
+        {
+          "width": "5px",
+          "targets": 0
+        },
+        // {
+        //   "orderable": false,
+        //   "className": 'select-checkbox',
+        //   "targets": [ 0 ]
+        // },
+      ],
+      "select": {
+          style: 'single'
+      },
+      "scrollX": false,
+      "responsive": {
+          details: {
+              renderer: function ( api, rowIdx, columns ) {
+                  var data = $.map( columns, function ( col, i ) {
+                      return col.hidden ?
+                          '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+                              '<td style="font-weight: bold; min-width: 150px;">'+col.title+':'+'</td> '+
+                              '<td style="min-width: 150px; text-align: center;">'+col.data+'</td>'+
+                          '</tr>' :
+                          '';
+                  } ).join('');
+
+                  return data ?
+                      $('<table/>').append( data ) :
+                      false;
+              }
+          }
+      },
+      "paging": true,
+      "ordering": true,
+      "scrollCollapse": true,
+      "info":     true,
+      "lengthMenu": [[largo], [largo]],
+      "dom": 'Bfrtip',
+      "language": {
+        "zeroRecords": "No hay datos disponibles",
+        "info": "Registro _START_ de _END_ de _TOTAL_",
+        "infoEmpty": "No hay datos disponibles",
+        "paginate": {
+            "previous": "Anterior",
+            "next": "Siguiente"
+          },
+          "search": "Buscar: ",
+          "select": {
+              "rows": "- %d registros seleccionados"
+          },
+          "infoFiltered": "(Filtrado de _MAX_ registros)"
+      },
+      "destroy": true,
+      "autoWidth": false,
+      "initComplete": function(){
+        setTimeout(function(){
+          if ($('#filtroEstadoDesasignacion').prop('checked') ) {
+            var table = $("#tablaListadoDesasignacion").DataTable();
+            table.columns('13').search('').draw();
+          }
+          else{
+            var table = $("#tablaListadoDesasignacion").DataTable();
+
+            var val = [];
+
+            val.push("Generada");
+            val.push("En Revisión");
+
+            var data = val.join('|');
+
+            table.column('13').search( data ? data : '', true, false ).draw();
+          }
+          $('#modalAlertasSplash').modal('hide');
+        },500);
+      }
+  });
+});
+
+$("#agregarDesasignacion").unbind("click").click(async function(){
+  $("#guardarDesasignacionVehiculo").attr("disabled","disabled");
+  $("#patenteDesasignacionVehiculo").removeClass("is-invalid");
+  $("#rutDesasignacionVehiculo").removeClass("is-invalid");
+  $("#rutDesasignacionVehiculo").val("");
+  $("#nombreDesasignacionVehiculo").val("");
+  $("#patenteDesasignacionVehiculo").val("");
+  $("#marcaDesasignacionVehiculo").val("");
+  $("#anoDesasignacionVehiculo").val("");
+  $("#modeloDesasignacionVehiculo").val("");
+  $("#telefonoDesasignacionVehiculo").val("");
+  $("#bodegaDesasignacionVehiculo").val("");
+  $("#kilometrajeDesasignacionVehiculo").val("");
+  $("#kilometrajeDesasignacionVehiculo").removeClass("is-invalid");
+  $("#negocioDesasignacionVehiculo").val("");
+  $("#observacionDesasignacionVehiculo").val("");
+  $("#patenteDesasignacionVehiculo").removeAttr("disabled","disabled");
+  $("#rutDesasignacionVehiculo").removeAttr("disabled","disabled");
+  $("#nombreDesasignacionVehiculo").attr("disabled","disabled");
+  $("#marcaDesasignacionVehiculo").attr("disabled","disabled");
+  $("#anoDesasignacionVehiculo").attr("disabled","disabled");
+  $("#modeloDesasignacionVehiculo").attr("disabled","disabled");
+  $("#telefonoDesasignacionVehiculo").attr("disabled","disabled");
+  $("#bodegaDesasignacionVehiculo").attr("disabled","disabled");
+  $("#negocioDesasignacionVehiculo").attr("disabled","disabled");
+  $("#licenciaDesasignacionVehiculo").html("");
+  $("#proyectoDesasignacionVehiculo").html("");
+  $("#checkboxDesasigancion").html("");
+  $("#rutDesasignacionVehiculo").removeClass("is-invalid");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  await $.ajax({
+    url:   'controller/datosAsignacionesValidadas.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      if(p.aaData.length !== 0){
+        var listaPersonalUsuario = [];
+        for(var i = 0; i < p.aaData.length; i++) {
+          listaPersonalUsuario.push(p.aaData[i].DNI + ' - ' + p.aaData[i].NOMBRE + ' - ' + p.aaData[i].CODIGO);
+        }
+        $('#rutDesasignacionVehiculo').autocomplete({
+          // req will contain an object with a "term" property that contains the value
+          // currently in the text input.  responseFn should be invoked with the options
+          // to display to the user.
+          source: function (req, responseFn) {
+            // Escape any RegExp meaningful characters such as ".", or "^" from the
+            // keyed term.
+            var term = $.ui.autocomplete.escapeRegex(req.term),
+              // '^' is the RegExp character to match at the beginning of the string.
+              // 'i' tells the RegExp to do a case insensitive match.
+              matcher = new RegExp(term, 'i'),
+              // Loop over the options and selects only the ones that match the RegExp.
+              matches = $.grep(listaPersonalUsuario, function (item) {
+                return matcher.test(item);
+              });
+            // Return the matched options.
+            responseFn(matches);
+          }
+        });
+      }
+    }
+  });
+
+  await $.ajax({
+    url:   'controller/datosAsignacionesValidadas.php',
+    type:  'post',
+    success: function (response) {
+      var p = jQuery.parseJSON(response);
+      if(p.aaData.length !== 0){
+        var listaPersonalUsuario = [];
+        for(var i = 0; i < p.aaData.length; i++) {
+          listaPersonalUsuario.push(p.aaData[i].CODIGO + ' - ' + p.aaData[i].NOMBRE + ' - ' + p.aaData[i].DNI);
+        }
+        $('#patenteDesasignacionVehiculo').autocomplete({
+          // req will contain an object with a "term" property that contains the value
+          // currently in the text input.  responseFn should be invoked with the options
+          // to display to the user.
+          source: function (req, responseFn) {
+            // Escape any RegExp meaningful characters such as ".", or "^" from the
+            // keyed term.
+            var term = $.ui.autocomplete.escapeRegex(req.term),
+              // '^' is the RegExp character to match at the beginning of the string.
+              // 'i' tells the RegExp to do a case insensitive match.
+              matcher = new RegExp(term, 'i'),
+              // Loop over the options and selects only the ones that match the RegExp.
+              matches = $.grep(listaPersonalUsuario, function (item) {
+                return matcher.test(item);
+              });
+            // Return the matched options.
+            responseFn(matches);
+          }
+        });
+      }
+    }
+  });
+
+  setTimeout(function(){
+    var h = $(window).height() - 240;
+    $("#bodyDesasignacionVehiculo").css("height",h);
+    $("#modalDesasignacionVehiculo").modal("show");
+    $('#modalAlertasSplash').modal('hide');
+    setTimeout(function(){
+      $('#bodyDesasignacionVehiculo').animate({ scrollTop: 0 }, 'fast');
+    },200);
+  },500);
+});
+
+$("#patenteDesasignacionVehiculo").focusout(function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  patente = $("#patenteDesasignacionVehiculo").val().split(" - ")[0];
+  rut = $("#patenteDesasignacionVehiculo").val().split(" - ")[2];
+  if(patente.length > 5){
+    $('#modalDesasignacionVehiculo').modal('hide');
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    rut = $("#patenteDesasignacionVehiculo").val().split(" - ")[2];
+    var parametros = {
+      "patente": patente,
+      "rut": rut
+    }
+    $.ajax({
+      url:   'controller/datosAsignacionValidadaSelectForPatente.php',
+      type:  'post',
+      data: parametros,
+      success: function (response3) {
+        if(response3.localeCompare("Sin datos") != 0 && response3 != ""){
+          var p3 = jQuery.parseJSON(response3);
+          $("#rutDesasignacionVehiculo").val(rut);
+          $("#guardarDesasignacionVehiculo").removeAttr("disabled");
+          $("#rutDesasignacionVehiculo").attr("disabled","disabled");
+          $("#nombreDesasignacionVehiculo").val(p3.aaData[0].NOMBRE);
+          $("#nombreDesasignacionVehiculo").attr("disabled","disabled");
+          $("#patenteDesasignacionVehiculo").val(p3.aaData[0].CODIGO);
+          $("#marcaDesasignacionVehiculo").val(p3.aaData[0].MARCA);
+          $("#marcaDesasignacionVehiculo").attr("disabled","disabled");
+          $("#anoDesasignacionVehiculo").val(p3.aaData[0].ANO);
+          $("#anoDesasignacionVehiculo").attr("disabled","disabled");
+          $("#modeloDesasignacionVehiculo").val(p3.aaData[0].MODELO);
+          $("#modeloDesasignacionVehiculo").attr("disabled","disabled");
+          $("#telefonoDesasignacionVehiculo").val(p3.aaData[0].TELEFONO);
+          $("#telefonoDesasignacionVehiculo").attr("disabled","disabled");
+          $("#bodegaDesasignacionVehiculo").val(p3.aaData[0].COMUNA);
+          $("#bodegaDesasignacionVehiculo").attr("disabled","disabled");
+          $("#kilometrajeDesasignacionVehiculo").val(p3.aaData[0].KILOMETRAJE);
+          $("#negocioDesasignacionVehiculo").val(p3.aaData[0].NEGOCIO);
+          $("#negocioDesasignacionVehiculo").attr("disabled","disabled");
+          $("#observacionDesasignacionVehiculo").val(p3.aaData[0].OBSERVACION);
+          $("#proyectoDesasignacionVehiculo").html(p3.aaData[0].NEGOCIO + ' - ' + p3.aaData[0].NOMENCLATURA);
+          $("#licenciaDesasignacionVehiculo").html(p3.aaData[0].LICENCIA);
+
+          idAsig = p3.aaData[0].IDPATENTE_ASIGNACIONES;
+          $("#idAsigDesasignacionVehiculo").val(idAsig);
+          var param = {
+            "idAsig" : idAsig
+          }
+          $.ajax({
+            url:   'controller/datosCheckboxDesasignacion.php',
+            type:  'post',
+            data: param,
+            success: function (response2) {
+              var p2 = jQuery.parseJSON(response2);
+              if(p2.aaData.length !== 0){
+                var cuerpoC = '';
+                for(i = 0; i < p2.aaData.length; i++){
+                  if(p2.aaData[i].DATO === "Si"){
+                    cuerpoC += '<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 input-group-sm" style="margin-top: 10pt;">';
+                    cuerpoC += '<label class="switch"><input name="checkDesasignacion" value="' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '" type="checkbox" checked="checked"><span class="slider round"></span></label>&nbsp;&nbsp;<label>' + p2.aaData[i].ITEM + ' <span style="color:red;" id="valor' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '"></span></label>';
+                    cuerpoC += '</div>';
+                  }
+                  else{
+                    cuerpoC += '<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 input-group-sm" style="margin-top: 10pt;">';
+                    cuerpoC += '<label class="switch"><input name="checkDesasignacion" value="' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '" type="checkbox"><span class="slider round"></span></label>&nbsp;&nbsp;<label>' + p2.aaData[i].ITEM + ' <span style="color:red;" id="valor' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '"></span></label>';
+                    cuerpoC += '</div>';
+                  }
+                }
+                $("#checkboxDesasigancion").html(cuerpoC);
+
+                setTimeout(function(){
+                  $('input[name="checkDesasignacion"]').on('change', function(e) {
+                    e.stopImmediatePropagation();
+
+                    var bug= $(this).val();
+                    if( $(this).is(':checked') ){
+                      var dato = 'Si';
+                    }else{
+                      var dato = 'No';
+                    }
+
+                    var para = {
+                      "idAsigCheck": bug,
+                      "idAsig": $("#idAsigDesasignacionVehiculo").val(),
+                    }
+                    $.ajax({
+                      url:   'controller/datosEstadoCheckAsig.php',
+                      type:  'post',
+                      data: para,
+                      success: function (res) {
+                        if(res.localeCompare("Sin datos") != 0 && res != ""){
+                          var p3 = jQuery.parseJSON(res);
+                          if(p3.aaData[0].DATO != dato){
+                            $("#valor" + bug).html("<span class='fas fa-exclamation-triangle'></span>");
+                            $("#valor" + bug).attr("name","D");
+                          }else{
+                            $("#valor" + bug).html("");
+                            $("#valor" + bug).attr("name","");
+                          }
+                        }
+                      }
+                    });
+                  });
+                },500);
+              }
+            }
+          });
+
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalDesasignacionVehiculo').modal('show');
+          },500);
+        }
+        else{
+          $.ajax({
+            url:   'controller/datosChequeaPatente.php',
+            type:  'post',
+            data: parametros,
+            success: function (response2) {
+              if(response2.localeCompare("Sin datos") != 0 && response2 != ""){
+                $('#modalAlertasSplash').modal('hide');
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/info.png' class='splash_load'><br/>La patente ingresada no está asignada a ningún colaborador");
+                $("#patenteDesasignacionVehiculo").val("");
+                $("#patenteDesasignacionVehiculo").addClass("is-invalid");
+                setTimeout(function(){
+                  $('#modalDesasignacionVehiculo').modal('show');
+                },500);
+              }
+              else{
+                $('#modalAlertasSplash').modal('hide');
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/info.png' class='splash_load'><br/>La patente ingresada no es válida o no pertenece a la empresa");
+                $("#patenteDesasignacionVehiculo").val("");
+                $("#patenteDesasignacionVehiculo").addClass("is-invalid");
+                setTimeout(function(){
+                  $('#modalDesasignacionVehiculo').modal('show');
+                },500);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#rutDesasignacionVehiculo").focusout(async function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  $("#idAsigDesasignacionVehiculo").val("");
+  vari = $("#rutDesasignacionVehiculo").val().split(" - ")[0];
+  varp = $("#rutDesasignacionVehiculo").val().split(" - ")[2];
+  if (vari.length > 8){
+    $('#modalDesasignacionVehiculo').modal('hide');
+    $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+    $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+    $('#modalAlertasSplash').modal('show');
+    var parametrosRut = {
+      "rut": $.trim(vari.replace('.','').replace('.','')),
+      "patente": varp
+    }
+    await $.ajax({
+      url:   'controller/datosAsignacionValidadaSelect.php',
+      type:  'post',
+      data: parametrosRut,
+      success: function (response3) {
+        if(response3.localeCompare("Sin datos") != 0 && response3 != ""){
+          var p3 = jQuery.parseJSON(response3);
+          $("#rutDesasignacionVehiculo").val(vari);
+          $("#guardarDesasignacionVehiculo").removeAttr("disabled");
+          $("#nombreDesasignacionVehiculo").val(p3.aaData[0].NOMBRE);
+          $("#nombreDesasignacionVehiculo").attr("disabled","disabled");
+          $("#patenteDesasignacionVehiculo").val(p3.aaData[0].CODIGO);
+          $("#marcaDesasignacionVehiculo").val(p3.aaData[0].MARCA);
+          $("#marcaDesasignacionVehiculo").attr("disabled","disabled");
+          $("#anoDesasignacionVehiculo").val(p3.aaData[0].ANO);
+          $("#anoDesasignacionVehiculo").attr("disabled","disabled");
+          $("#modeloDesasignacionVehiculo").val(p3.aaData[0].MODELO);
+          $("#modeloDesasignacionVehiculo").attr("disabled","disabled");
+          $("#telefonoDesasignacionVehiculo").val(p3.aaData[0].TELEFONO);
+          $("#telefonoDesasignacionVehiculo").attr("disabled","disabled");
+          $("#bodegaDesasignacionVehiculo").val(p3.aaData[0].COMUNA);
+          $("#bodegaDesasignacionVehiculo").attr("disabled","disabled");
+          $("#kilometrajeDesasignacionVehiculo").val(p3.aaData[0].KILOMETRAJE);
+          $("#negocioDesasignacionVehiculo").val(p3.aaData[0].NEGOCIO);
+          $("#negocioDesasignacionVehiculo").attr("disabled","disabled");
+          $("#observacionDesasignacionVehiculo").val(p3.aaData[0].OBSERVACION);
+          $("#proyectoDesasignacionVehiculo").html(p3.aaData[0].NEGOCIO + ' - ' + p3.aaData[0].NOMENCLATURA);
+          $("#licenciaDesasignacionVehiculo").html(p3.aaData[0].LICENCIA);
+          idAsig = p3.aaData[0].IDPATENTE_ASIGNACIONES;
+          $("#idAsigDesasignacionVehiculo").val(idAsig);
+          var param = {
+            "idAsig" : idAsig
+          }
+          $.ajax({
+            url:   'controller/datosCheckboxDesasignacion.php',
+            type:  'post',
+            data: param,
+            success: function (response2) {
+              var p2 = jQuery.parseJSON(response2);
+              if(p2.aaData.length !== 0){
+                var cuerpoC = '';
+                for(i = 0; i < p2.aaData.length; i++){
+                  if(p2.aaData[i].DATO === "Si"){
+                    cuerpoC += '<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 input-group-sm" style="margin-top: 10pt;">';
+                    cuerpoC += '<label class="switch"><input name="checkDesasignacion" value="' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '" type="checkbox" checked="checked"><span class="slider round"></span></label>&nbsp;&nbsp;<label>' + p2.aaData[i].ITEM + ' <span style="color:red;" id="valor' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '"></span></label>';
+                    cuerpoC += '</div>';
+                  }
+                  else{
+                    cuerpoC += '<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12 input-group-sm" style="margin-top: 10pt;">';
+                    cuerpoC += '<label class="switch"><input name="checkDesasignacion" value="' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '" type="checkbox"><span class="slider round"></span></label>&nbsp;&nbsp;<label>' + p2.aaData[i].ITEM + ' <span style="color:red;" id="valor' + p2.aaData[i].IDPATENTE_ASIGNACION_CHECKS + '"></span></label>';
+                    cuerpoC += '</div>';
+                  }
+                }
+                $("#checkboxDesasigancion").html(cuerpoC);
+
+                setTimeout(function(){
+                  $('input[name="checkDesasignacion"]').on('change', function(e) {
+                    e.stopImmediatePropagation();
+
+                    var bug= $(this).val();
+                    if( $(this).is(':checked') ){
+                      var dato = 'Si';
+                    }else{
+                      var dato = 'No';
+                    }
+
+                    var para = {
+                      "idAsigCheck": bug,
+                      "idAsig": $("#idAsigDesasignacionVehiculo").val(),
+                    }
+                    $.ajax({
+                      url:   'controller/datosEstadoCheckAsig.php',
+                      type:  'post',
+                      data: para,
+                      success: function (res) {
+                        if(res.localeCompare("Sin datos") != 0 && res != ""){
+                          var p3 = jQuery.parseJSON(res);
+                          if(p3.aaData[0].DATO != dato){
+                            $("#valor" + bug).html("<span class='fas fa-exclamation-triangle'></span>");
+                            $("#valor" + bug).attr("name","D");
+                          }else{
+                            $("#valor" + bug).html("");
+                            $("#valor" + bug).attr("name","");
+                          }
+                        }
+                      }
+                    });
+                  });
+                },500);
+              }
+            }
+          });
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+            $('#modalDesasignacionVehiculo').modal('show');
+          },500);
+        }
+        else{
+          $.ajax({
+            url:   'controller/datosChequeaPersonal.php',
+            type:  'post',
+            data: parametrosRut,
+            success: function (response2) {
+              if(response2.localeCompare("Sin datos") != 0 && response2 != ""){
+                $('#modalAlertasSplash').modal('hide');
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El DNI ingresado no tiene asignado ningún vehículo");
+                $("#rutDesasignacionVehiculo").val("");
+                $("#rutDesasignacionVehiculo").addClass("is-invalid");
+                setTimeout(function(){
+                  $('#modalDesasignacionVehiculo').modal('show');
+                },500);
+              }
+              else{
+                $('#modalAlertasSplash').modal('hide');
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El DNI es inválido o no pertenece a la empresa");
+                $("#rutDesasignacionVehiculo").val("");
+                $("#rutDesasignacionVehiculo").addClass("is-invalid");
+                setTimeout(function(){
+                  $('#modalDesasignacionVehiculo').modal('show');
+                },500);
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+$("#kilometrajeDesasignacionVehiculo").focusout(async function(e){
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  patente = $("#patenteDesasignacionVehiculo").val();
+  rut = $("#rutDesasignacionVehiculo").val();
+  var parametrosPatente = {
+    "patente" : patente,
+    "rut": rut
+  }
+  await $.ajax({
+    url:   'controller/datosAsignacionValidadaSelectForPatente.php',
+    type:  'post',
+    data: parametrosPatente,
+    success: function (response3) {
+      var p3 = jQuery.parseJSON(response3);
+      var kil = p3.aaData[0].KILOMETRAJE;
+      if(parseInt($("#kilometrajeDesasignacionVehiculo").val()) < parseInt(kil) || $("#kilometrajeDesasignacionVehiculo").val().length == 0){
+        $("#kilometrajeDesasignacionVehiculo").val(kil);
+        $("#kilometrajeDesasignacionVehiculo").addClass("is-invalid");
+        var random = Math.round(Math.random() * (1000000 - 1) + 1);
+        alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No puede ingresar un kilometraje menor al del sistema");
+      }
+    }
+  });
+});
+
+$("#kilometrajeDesasignacionVehiculo").on('input', function(){
+  $(this).removeClass("is-invalid");
+});
+
+$("#rutDesasignacionVehiculo").on('input', function(){
+  $(this).removeClass("is-invalid");
+  $("#kilometrajeDesasignacionVehiculo").removeClass("is-invalid");
+  $("#guardarDesasignacionVehiculo").attr("disabled","disabled");
+  $("#patenteDesasignacionVehiculo").removeClass("is-invalid");
+  $("#nombreDesasignacionVehiculo").val("");
+  $("#patenteDesasignacionVehiculo").val("");
+  $("#marcaDesasignacionVehiculo").val("");
+  $("#anoDesasignacionVehiculo").val("");
+  $("#modeloDesasignacionVehiculo").val("");
+  $("#telefonoDesasignacionVehiculo").val("");
+  $("#bodegaDesasignacionVehiculo").val("");
+  $("#kilometrajeDesasignacionVehiculo").val("");
+  $("#negocioDesasignacionVehiculo").val("");
+  $("#observacionDesasignacionVehiculo").val("");
+  $("#patenteDesasignacionVehiculo").removeAttr("disabled","disabled");
+  $("#nombreDesasignacionVehiculo").attr("disabled","disabled");
+  $("#marcaDesasignacionVehiculo").attr("disabled","disabled");
+  $("#anoDesasignacionVehiculo").attr("disabled","disabled");
+  $("#modeloDesasignacionVehiculo").attr("disabled","disabled");
+  $("#telefonoDesasignacionVehiculo").attr("disabled","disabled");
+  $("#bodegaDesasignacionVehiculo").attr("disabled","disabled");
+  $("#negocioDesasignacionVehiculo").attr("disabled","disabled");
+  $("#licenciaDesasignacionVehiculo").html("");
+  $("#proyectoDesasignacionVehiculo").html("");
+  $("#checkboxDesasigancion").html("");
+});
+
+$("#patenteDesasignacionVehiculo").on('input', function(){
+  $(this).removeClass("is-invalid");
+  $("#kilometrajeDesasignacionVehiculo").removeClass("is-invalid");
+  $("#guardarDesasignacionVehiculo").attr("disabled","disabled");
+  $("#rutDesasignacionVehiculo").removeClass("is-invalid");
+  $("#rutDesasignacionVehiculo").val("");
+  $("#nombreDesasignacionVehiculo").val("");
+  $("#marcaDesasignacionVehiculo").val("");
+  $("#anoDesasignacionVehiculo").val("");
+  $("#modeloDesasignacionVehiculo").val("");
+  $("#telefonoDesasignacionVehiculo").val("");
+  $("#bodegaDesasignacionVehiculo").val("");
+  $("#kilometrajeDesasignacionVehiculo").val("");
+  $("#negocioDesasignacionVehiculo").val("");
+  $("#observacionDesasignacionVehiculo").val("");
+  $("#rutDesasignacionVehiculo").removeAttr("disabled","disabled");
+  $("#nombreDesasignacionVehiculo").attr("disabled","disabled");
+  $("#marcaDesasignacionVehiculo").attr("disabled","disabled");
+  $("#anoDesasignacionVehiculo").attr("disabled","disabled");
+  $("#modeloDesasignacionVehiculo").attr("disabled","disabled");
+  $("#telefonoDesasignacionVehiculo").attr("disabled","disabled");
+  $("#bodegaDesasignacionVehiculo").attr("disabled","disabled");
+  $("#negocioDesasignacionVehiculo").attr("disabled","disabled");
+  $("#licenciaDesasignacionVehiculo").html("");
+  $("#proyectoDesasignacionVehiculo").html("");
+  $("#checkboxDesasigancion").html("");
+});
+
+$("#guardarDesasignacionVehiculo").unbind('click').click( async function(){
+  var checkbox = new Array();
+  $('#checkboxDesasigancion input[type=checkbox]').each(function(){
+    var item = {};
+    item.id = this.value;
+    item.status = this.checked;
+    item.span = $("#valor" + $(this).val()).attr("name");
+    checkbox.push(item);
+  });
+
+  var toPost = JSON.stringify(checkbox);
+
+  parametros = {
+    "rutPersonal": $.trim($("#rutDesasignacionVehiculo").val().replace('.','').replace('.','')),
+    "Patente": $("#patenteDesasignacionVehiculo").val(),
+    "observacion": $("#observacionDesasignacionVehiculo").val(),
+    "kilometraje": $("#kilometrajeDesasignacionVehiculo").val(),
+  }
+  $("#modalDesasignacionVehiculo").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  await $.ajax({
+    url: "controller/desasignacionVehiculo.php",
+    type: 'POST',
+    data: parametros,
+    success:  async function (response) {
+      var p = jQuery.parseJSON(response);
+      parametros1 = {
+        "checkboxs" : toPost,
+        "idDesasig": Number(p[0]['LAST_INSERT_ID()']),
+      }
+      await $.ajax({
+        url: "controller/ingresaCheckboxDesasignacion.php",
+        type:"POST",
+        data: parametros1,
+        success: async function (res1){
+          await $.ajax({
+            url: "controller/generaPDF/desasignacionChecklistVehiculo.php?idLoad=298",
+            type: "POST",
+            data:{
+              "idDesasig": Number(p[0]['LAST_INSERT_ID()']),
+              "url": window.location.toString().split("?")[0],
+              "patente": $("#patenteDesasignacionVehiculo").val(),
+              "rutPersonal": $.trim($("#rutDesasignacionVehiculo").val().replace('.','').replace('.',''))
+            },
+            success: function (res2){
+              window.open(window.location.toString().split("#/")[0].split('?')[0] + '/controller/repositorio/flota/desasignaciones' + res2, '_blank');
+              var p = res2.split(",");
+              if(response.localeCompare("Sin datos")!= 0 && response != ""){
+                if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+                  var table = $('#tablaListadoDesasignacion').DataTable();
+                  table.ajax.reload();
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Vehículo Desasignado correctamente");
+                  $("#anularDesasignacion").attr("disabled","disabled");
+                  $("#subirPdfDesasignacion").attr("disabled","disabled");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+                else{
+                  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                  alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al desasignar Vehiculo, si el problema persiste favor comuniquese con soporte");
+                  setTimeout(function(){
+                    $('#modalAlertasSplash').modal('hide');
+                  },500);
+                }
+              }
+              else{
+                var random = Math.round(Math.random() * (1000000 - 1) + 1);
+                alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al desasignar Vehiculo, si el problema persiste favor comuniquese con soporte");
+                setTimeout(function(){
+                  $('#modalAlertasSplash').modal('hide');
+                },500);
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+async function pdf_Desasig_Vehiculo(pdf){
+  if( !/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    window.open(window.location.toString().split("#/")[0].split('?')[0] + 'controller/repositorio/flota/desasignaciones/' + pdf, '_blank');
+  }
+}
+
+$("#pdfCargaChecklistDes" ).on('change', function(e){
+  var file = e.target.files[0].name; // agarramos solo el nombre([0].name) del array que tiene tamaño, fecha y mas
+  $("#inputPdfChecklistDes").val(file);
+  $("#inputPdfChecklistDes").removeClass("is-invalid");
+});
+
+$("#anularDesasignacion").unbind('click').click(function(){
+  var table = $('#tablaListadoDesasignacion').DataTable();
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+      return item.CODIGO;
+  });
+  var personal = $.map(table.rows('.selected').data(), function (item) {
+    return item.PERSONAL;
+  });
+
+  $("#patenteAnularDesasignacion").html(patente);
+  $("#personalAnularDesasignacion").html(personal);
+  $('#modalAnularDesasignacionVehiculo').modal('show');
+});
+
+$("#guardarAnularDesasignacionVehiculo").unbind('click').click(async function(){
+  var table = $('#tablaListadoDesasignacion').DataTable();
+  var idDesasig = $.map(table.rows('.selected').data(), function (item) {
+      return item.IDPATENTE_DESASIGNACIONES;
+  });
+  var dni = $.map(table.rows('.selected').data(), function (item) {
+    return item.DNI;
+  });
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+    return item.CODIGO;
+  });
+  var personal = $.map(table.rows('.selected').data(), function (item) {
+    return item.PERSONAL;
+  });
+  parametros = {
+    "idDesasig": idDesasig[0],
+    "dni": dni[0],
+    "personal": personal[0],
+    "patente": patente[0],
+  }
+  $("#modalAnularDesasignacionVehiculo").modal("hide");
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  await $.ajax({
+    url:   'controller/anularDesasignacionVehiculo.php',
+    type:  'post',
+    data:  parametros,
+    success:  function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+            var table = $('#tablaListadoDesasignacion').DataTable();
+            table.ajax.reload()
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Desasignación Anulada correctamente");
+            $("#anularDesasignacion").attr("disabled","disabled");
+            $("#subirPdfDesasignacion").attr("disabled","disabled");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+        else{
+            var random = Math.round(Math.random() * (1000000 - 1) + 1);
+            alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al Anular la Desasignacion");
+            setTimeout(function(){
+              $('#modalAlertasSplash').modal('hide');
+            },500);
+        }
+      }else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al Anular la Desasignacion");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+      }
+    }
+  });
+  $('#modalAnularDesasignacionVehiculo').modal('hide');
+});
+
+$("#pdfCargaChecklistDes" ).on('change', function(e){
+  var file = e.target.files[0].name; // agarramos solo el nombre([0].name) del array que tiene tamaño, fecha y mas
+  $("#inputPdfChecklistDes").val(file);
+  $("#inputPdfChecklistDes").removeClass("is-invalid");
+});
+
+$("#subirPdfDesasignacion").unbind("click").click(async function(){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  var table = $('#tablaListadoDesasignacion').DataTable();
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+    return item.CODIGO;
+  });
+  var idDesasig = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_DESASIGNACIONES;
+  });
+
+  $("#tituloSubirPdfDesasignacionVehiculo").html('Patente: ' + patente);
+
+  var parametros = {
+    "idDesasig" : idDesasig[0]
+  }
+  await $.ajax({
+    url:   'controller/datosPdfDesasignacionVehiculo.php',
+    type:  'post',
+    data: parametros,
+    success: function (response3) {
+      var p3 = jQuery.parseJSON(response3);
+      checklist = p3.aaData[0].CHECKLIST;
+      contadorChecklist = p3.aaData[0].CONTADORCHECKILIST;
+    }
+  });
+
+  if(contadorChecklist == null || contadorChecklist == 1){
+    $("#inputPdfChecklistDes").val(checklist);
+    $("#spanChecklistDes").html("<font> </font>");
+    $("#pdfCargaChecklistDes").removeAttr("disabled");
+  }
+  else{
+    $("#spanChecklistDes").html("<font>  ¡PDF Cargado! </font>");
+    $("#inputPdfChecklistDes").val(checklist);
+    $("#pdfCargaChecklistDes").attr("disabled","disabled");
+  }
+
+  $("#pdfCargaChecklistDes").val('');
+  $("#inputPdfChecklistDes").removeClass("is-invalid");
+
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+    $("#modalSubirPdfDesasignacionVehiculo").modal("show");
+  },500);
+});
+
+$("#guardarSubirPdfDesasignacionVehiculo").unbind("click").click(async function(){
+  var table = $('#tablaListadoDesasignacion').DataTable();
+  var idDesasig = $.map(table.rows('.selected').data(), function (item) {
+    return item.IDPATENTE_DESASIGNACIONES;
+  });
+  var patente = $.map(table.rows('.selected').data(), function (item) {
+    return item.CODIGO;
+  });
+  var rutPersonal = $.map(table.rows('.selected').data(), function (item) {
+    return item.DNI;
+  });
+  var personal = $.map(table.rows('.selected').data(), function (item) {
+    return item.PERSONAL;
+  });
+
+  var parametros = {
+    "idDesasig" : idDesasig[0]
+  }
+  await $.ajax({
+    url:   'controller/datosPdfDesasignacionVehiculo.php',
+    type:  'post',
+    data: parametros,
+    success: function (response3) {
+      var p3 = jQuery.parseJSON(response3);
+      contadorChecklist = p3.aaData[0].CONTADORCHECKILIST;
+    }
+  });
+
+if(($("#inputPdfChecklistDes").val() != '' && contadorChecklist != 2)){
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+  $("#modalSubirPdfDesasignacionVehiculo").modal("hide");
+
+  var formdata = new FormData();
+  formdata.append('idDesasig',idDesasig);
+  formdata.append('patente',patente);
+  formdata.append('rutPersonal',rutPersonal);
+  formdata.append('personal',personal);
+  formdata.append('pdfChecklist',$("#pdfCargaChecklistDes")[0].files[0]);
+
+  $.ajax({
+    url: "controller/ingresaPdfDesasignacion.php",
+    type: 'POST',
+    data: formdata,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      var p = response.split(",");
+      if(response.localeCompare("Sin datos")!= 0 && response != ""){
+        if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
+          var table = $('#tablaListadoDesasignacion').DataTable();
+          table.ajax.reload();
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>PDF cargado correctamente");
+          $("#anularDesasignacion").attr("disabled","disabled");
+          $("#subirPdfDesasignacion").attr("disabled","disabled");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al cargar PDF, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+        }
+        else{
+          var random = Math.round(Math.random() * (1000000 - 1) + 1);
+          alertasToast("<img src='view/img/error.gif' class='splash_load'><br/>Error al cargar PDF, si el problema persiste favor comuniquese con soporte");
+          setTimeout(function(){
+            $('#modalAlertasSplash').modal('hide');
+          },500);
+        }
+      }
+  });
+}
+else{
+  if(contadorChecklist != 2){
+    $("#inputPdfChecklistDes").addClass("is-invalid");
+  }
+  var random = Math.round(Math.random() * (1000000 - 1) + 1);
+  alertasToast("<img src='view/img/info.png' class='splash_load'><br/>No se ha cargado ningun PDF");
+  setTimeout(function(){
+    $('#modalAlertasSplash').modal('hide');
+  },500);
+}
+});
+
 // Fin Flota
 
 $("#cerrarPlanillaAsistencia").on("click", async function (e) {

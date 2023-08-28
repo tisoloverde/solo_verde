@@ -30,11 +30,8 @@ ob_start();
 		<td style="max-width: 640px; min-width: 640px; width: 640px; ">
 			<table style="margin-top: 10px;">
 				<tr>
-					<td style="max-width: 160px; min-width: 160px; width: 160px;"><img style="margin-left: 0px; height: 30px; min-height: 30px; max-height: 30px; margin-top:"
-						<?php
-							echo "src='" . $_POST['url'] .  "controller/cargarLogo.php?url=" . $_POST['url'] . "'";
-						?>
-					></td>
+					<td style="max-width: 160px; min-width: 160px; width: 160px;">
+						<img style="margin-left: 0px; height: 30px; min-height: 30px; max-height: 30px; margin-top:" src="../../view/img/logoInformes.jpg"></td>
 					<td style="max-width: 358px; min-width: 358px; width: 358px; ">
 						<table style="margin-top: 30px;">
 							<TR>
@@ -199,7 +196,7 @@ ob_start();
 												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check.png"></td>';
 											}
 											else{
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;">&nbsp;</td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="no_check.png"></td>';
 											}
 									echo '
 										</td>
@@ -224,7 +221,7 @@ ob_start();
 												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check.png"></td>';
 											}
 											else{
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;">&nbsp;</td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="no_check.png"></td>';
 											}
 									echo '
 										</td>
@@ -249,7 +246,7 @@ ob_start();
 												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="check.png"></td>';
 											}
 											else{
-												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;">&nbsp;</td>';
+												echo '<td style="border: 1px solid black; width: 3px; max-width: 3px; text-align: center;"><img style="height: 10px; min-height: 10px; max-height: 10px; width: 10px; min-width: 10px; max-width: 10px;" src="no_check.png"></td>';
 											}
 									echo '
 										</td>
