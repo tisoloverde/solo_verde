@@ -44,7 +44,6 @@
   $detalle[] = array('IDPERSONAL','RUT','NOMBRES','CLASIFICACION','SIGLA_CLASIFICACION','FECHA_INGRESO','FECHA_TERMINO','CECO','NOMENCLATURA','FECHA_MARCA','MES','ANO','SIGLA','DESCRIPCION_SIGLA','CONCEPTO','PAGADO_NOPAGADO','ESTADO');
 
   for($i = 0; $i < count($row); $i++){
-    //print_r($row[$i]);
       $detalle[] = array($row[$i]['IDPERSONAL'],	$row[$i]['DNI'],	$row[$i]['NOMBRES'],	$row[$i]['CLASIFICACION'],	$row[$i]['SIGLA CLASIFICACION'],	$row[$i]['FECHA_INGRESO'], $row[$i]['FECHA_TERMINO'],	$row[$i]['CECO'], $row[$i]['NOMENCLATURA'], $row[$i]['FECHA_MARCA'], $row[$i]['MES'], $row[$i]['AÑO'], $row[$i]['SIGLA'], $row[$i]['DESCRIPCION SIGLA'], $row[$i]['CONCEPTO'], $row[$i]['PAGADO_NOPAGADO'], $row[$i]['ESTADO']);      
   }
   //Generamos archivo excel
