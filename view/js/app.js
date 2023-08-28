@@ -3221,6 +3221,46 @@ app.controller("planillaAsistenciaController", function(){
                   alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El valor ingresado no cumple con el patrón YYYY-MM");
                 }
               }
+              else if($("#tipoInformeGeneraInformeRexmas1").val() == "validacionMensual"){
+                var fecha = $("#mesGeneraInformeRexmas1").val();
+                var formatoValido = /^\d{4}-\d{2}$/.test(fecha);
+                var fechaValida = false;
+
+                if (formatoValido) {
+                  var partes = fecha.split('-');
+                  var year = parseInt(partes[0]);
+                  var month = parseInt(partes[1]);
+                  fechaValida = (year >= 2000 && year <= 2035 && month >= 1 && month <= 12);
+                }
+
+                if (formatoValido && fechaValida) {
+                  $(this).removeClass('is-invalid');
+                  $("#modalGeneraInformeRexmas1").modal("hide");
+
+                  splashOpen();
+
+                  var parametros2 = {
+                    "ceco": $("#cecoGeneraInformeRexmas1").val(),
+                    "anoMes": $("#mesGeneraInformeRexmas1").val(),
+                    "tipo": $("#tipoInformeGeneraInformeRexmas1").val()
+                  }
+
+                  $.ajax({
+                    url:   'controller/solicitudInformeRexmas.php',
+                    type:  'post',
+                    data: parametros2,
+                    success: function (response) {
+                      setTimeout(function(){
+                        $("#modalAlertasSplash").modal("hide");
+                        alertasToast("<img src='view/img/check.gif' class='splash_load'><br/>Informe solicitado, una vez generado será enviado a su e-mail registrado");
+                      },500);
+                    }
+                  });
+                } else {
+                  $(this).addClass('is-invalid');
+                  alertasToast("<img src='view/img/info.png' class='splash_load'><br/>El valor ingresado no cumple con el patrón YYYY-MM");
+                }
+              }              
             }
           });
 
@@ -3234,7 +3274,7 @@ app.controller("planillaAsistenciaController", function(){
               $("#selTipoInformeGeneraInformeRexmas1").hide();
             }
 
-            if($("#tipoInformeGeneraInformeRexmas1").val() == "generalMensual"){
+            if($("#tipoInformeGeneraInformeRexmas1").val() == "generalMensual" || $("#tipoInformeGeneraInformeRexmas1").val() == "validacionMensual"){
               $("#rangoGeneraInformeRexmas1").parent().hide();
               $("#mesGeneraInformeRexmas1").parent().show();
             }
