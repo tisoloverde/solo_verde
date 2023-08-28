@@ -36,9 +36,10 @@
 
   $logFile = fopen($ruta . "/controller/repositorio/temp/Informe_Validacion_Mensual_" . $anoMes . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
-  fclose($logFile);
 
   $row = datosDashboardCubo($ceco,$anoMes);
+  fwrite($logFile, $row) or die("Error escribiendo en el archivo");
+  fclose($logFile);
 
   $detalle = array();
   $detalle[] = array('IDPERSONAL','DNI','NOMBRES','CLASIFICACION','SIGLA_CLASIFICACION','FECHA_INGRESO','FECHA_TERMINO','CECO','NOMENCLATURA','FECHA_MARCA','MES','ANO','SIGLA','DESCRIPCION_SIGLA','CONCEPTO','PAGADO_NOPAGADO','ESTADO');
