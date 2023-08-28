@@ -36,18 +36,17 @@
 
   $logFile = fopen($ruta . "/controller/repositorio/temp/Informe_Validacion_Mensual_" . $anoMes . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
-
-  $row = datosDashboardCubo($ceco,$anoMes);
-  fwrite($logFile, $row) or die("Error escribiendo en el archivo");
   fclose($logFile);
+  
+  $row = datosDashboardCubo($ceco,$anoMes);
 
   $detalle = array();
-  $detalle[] = array('IDPERSONAL','DNI','NOMBRES','CLASIFICACION','SIGLA_CLASIFICACION','FECHA_INGRESO','FECHA_TERMINO','CECO','NOMENCLATURA','FECHA_MARCA','MES','ANO','SIGLA','DESCRIPCION_SIGLA','CONCEPTO','PAGADO_NOPAGADO','ESTADO');
+  $detalle[] = array('IDPERSONAL','RUT','NOMBRES','CLASIFICACION','SIGLA_CLASIFICACION','FECHA_INGRESO','FECHA_TERMINO','CECO','NOMENCLATURA','FECHA_MARCA','MES','ANO','SIGLA','DESCRIPCION_SIGLA','CONCEPTO','PAGADO_NOPAGADO','ESTADO');
 
   for($i = 0; $i < count($row); $i++){
-      $detalle[] = array($row[$i][0],	$row[$i][1],	$row[$i][2],	$row[$i][3],	$row[$i][4],	$row[$i][5],	$row[$i][6], $row[$i][7],	$row[$i][8], $row[$i][9], $row[$i][10], $row[$i][11], $row[$i][12], $row[$i][13], $row[$i][14], $row[$i][15], $row[$i][16]);
+    //print_r($row[$i]);
+      $detalle[] = array($row[$i]['IDPERSONAL'],	$row[$i]['DNI'],	$row[$i]['NOMBRES'],	$row[$i]['CLASIFICACION'],	$row[$i]['SIGLA CLASIFICACION'],	$row[$i]['FECHA_INGRESO'], $row[$i]['FECHA_TERMINO'],	$row[$i]['CECO'], $row[$i]['NOMENCLATURA'], $row[$i]['FECHA_MARCA'], $row[$i]['MES'], $row[$i]['AÑO'], $row[$i]['SIGLA'], $row[$i]['DESCRIPCION SIGLA'], $row[$i]['CONCEPTO'], $row[$i]['PAGADO_NOPAGADO'], $row[$i]['ESTADO']);      
   }
-
   //Generamos archivo excel
   $excel = new Spreadsheet();
 
