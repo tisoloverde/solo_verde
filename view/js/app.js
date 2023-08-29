@@ -3325,7 +3325,15 @@ app.controller("planillaAsistenciaController", function(){
             type: 'get',
             dataType: 'json',
             success: function (response) {
-              console.log(3);
+              var html = "<div style='display: flex; flex-direction: column;'>";
+              response.aaData.estadoConcepto.forEach((itm) => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ededed;">
+                  <span>${itm.SIGLA}</span>
+                  <span>${itm.PERSONAL_ESTADO_CONCEPTO}</span>
+                </div>`;
+              });
+              html += "</div>"
+              $("#glosarioContenido").html(html);
               _COMUNES_PLANILLA = response.aaData;
             },
           });
@@ -3489,8 +3497,6 @@ app.controller("planillaAsistenciaController", function(){
                       {
                         text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Glosario',
                         action: function ( e, dt, node, config ) {
-                          console.log('--mostrear modal--')
-                          console.log(_COMUNES_PLANILLA);
                           $("#modalGlosario").modal("show");
                         },
                       },
