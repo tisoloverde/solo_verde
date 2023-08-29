@@ -3248,10 +3248,28 @@ async function listDotacionPeriodos() {
   })
 }
 
-async function listDotacionLugares() {
+async function listDotacionEmpresas() {
+  $.ajax({
+    url: 'controller/datosSubcontratistas.php',
+    type: 'post',
+    dataType: 'json',
+    data: { path: window.location.href.split('#/')[1] },
+    success: function (response) {
+      var data = response.aaData;
+      var html = "<option value='0'>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.IDSUBCONTRATO}">${item.NOMBRE_SUBCONTRATO}</option>`;
+      });
+      $('#selectListaEmpresa').html(html);
+    },
+  })
+}
+
+async function listDotacionLugares(idEmpresa) {
   $.ajax({
     url: 'controller/datosCentrosDeCostos.php',
-    type: 'get',
+    type: 'post',
+    data: { idsubcontrato: idEmpresa },
     dataType: 'json',
     success: function (response) {
       _LAST_ID_DOTACION = Number(response.idLastDotacion);
@@ -3366,13 +3384,66 @@ function getCodigoYNombreCC() {
   return [id, aux[aux.length - 1]];
 }
 
+$('#selectListaEmpresa').on('change', async function (e) {
+  e.stopImmediatePropagation();
+  
+  $("#modalAlertasSplash").modal({backdrop: 'static', keyboard: false});
+  $("#textoModalSplash").html("<img src='view/img/logo_home.png' class='splash_charge_logo'><img src='view/img/loading6.gif' class='splash_charge_logo' style='margin-top: -50px;'>");
+  $('#modalAlertasSplash').modal('show');
+
+  var theme = {
+    theme: 'bootstrap4',
+    width: $(this).data('width')
+      ? $(this).data('width')
+      : $(this).hasClass('w-100')
+        ? '100%'
+        : 'style',
+    placeholder: $(this).data('placeholder'),
+    allowClear: Boolean($(this).data('allow-clear')),
+    closeOnSelect: !$(this).attr('multiple'),
+    // sorter: data => data.sort((a, b) => b.text.localeCompare(a.text))
+  }
+
+  var idSubcontratista = $("#selectListaEmpresa").val();
+
+  var path = window.location.href.split('#/')[1];
+  var parametros = {
+    "path": path,
+    idsubcontrato: idSubcontratista,
+  }
+  await $.ajax({
+    url: 'controller/datosCentrosDeCostos.php',
+    type: 'post',
+    data: parametros,
+    dataType: 'json',
+    success: function (response) {
+      _LAST_ID_DOTACION = Number(response.idLastDotacion);
+
+      var data = response.aaData;
+      var html = "<option selected value='select' disabled>Seleccione</option>";
+      data.forEach((item) => {
+        html += `<option value="${item.DEFINICION}">${item.DEFINICION} - ${item.NOMENCLATURA}</option>`;
+      });
+      $('#selectListaLugares').html(html);
+
+      if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        $("#selectListaLugares").select2(theme);
+      }
+
+      setTimeout(() => {
+        $('#modalAlertasSplash').modal('hide');
+      }, 1000);
+    },
+  })
+})
+
 $('#selectListaPeriodos').on('change', function (e) {
   e.stopImmediatePropagation();
   filtrosDotacion();
 })
 
 $('#selectListaLugares').on('change', function (e) {
-  e.stopImmediatePropagation();
+  // e.stopImmediatePropagation();
   filtrosDotacion();
 })
 

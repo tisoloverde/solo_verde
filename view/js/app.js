@@ -801,6 +801,10 @@ app.controller("dotacionController", function(){
   loading(true);
 
   if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    $("#selectListaEmpresa").select2(theme);
+  }
+
+  if(!/AppMovil|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     $("#selectListaPeriodos").select2(theme);
   }
 
@@ -819,7 +823,8 @@ app.controller("dotacionController", function(){
         window.location.href = "#/home";
       } else {
         setTimeout(async function() {
-          await listDotacionLugares();
+          await listDotacionEmpresas();
+          await listDotacionLugares('0');
           await listDotacionPeriodos();
           await listComunesDotacion();
           await listDotacion('null', 'null');
