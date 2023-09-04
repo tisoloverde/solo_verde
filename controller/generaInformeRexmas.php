@@ -23,11 +23,18 @@
   $ceco = $_SERVER['argv'][3];
   $fechaIni = $_SERVER['argv'][4];
   $fechaFin = $_SERVER['argv'][5];
-  $nombreDoc = 'Carga_Rexmas_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
-  $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
+  if ($ceco=-1){
+    $nombreDoc = 'Carga_Rexmas_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
+    $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";}
+  else{
+    $nombreDoc = 'Carga_Rexmas_' . $fechaIni . '_' . $fechaFin ."_". $ceco . "_" . $rut . '_' . $hora . ".csv";
+    $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin ."_". $ceco . "_" . $rut . '_' . $hora . ".csv";
+  }
+
+  
   $delimiter = ";";
 
-  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  $logFile = fopen($ruta . "/controller/repositorio/temp/Carga_Rexmas_" . $fechaIni . '_' . $fechaFin ."_". $ceco . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
   fclose($logFile);
 

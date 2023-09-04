@@ -30,11 +30,18 @@
   $email = $_SERVER['argv'][2];
   $ceco = $_SERVER['argv'][3];
   $anoMes = $_SERVER['argv'][4];
-  $nombreDoc = 'General_Rexmas_Mensual_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
-  $nombreDoc2 = 'General_Rexmas_Mensual_UTF8_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
+  if ($ceco=-1){
+    $nombreDoc = 'General_Rexmas_Mensual_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
+    $nombreDoc2 = 'General_Rexmas_Mensual_UTF8_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";  
+  }
+  else{
+    $nombreDoc = 'General_Rexmas_Mensual_' . $anoMes ."_". $ceco . "_" . $rut . '_' . $hora . ".xlsx";
+    $nombreDoc2 = 'General_Rexmas_Mensual_UTF8_' . $anoMes ."_". $ceco . "_" . $rut . '_' . $hora . ".xlsx";
+  }
+  
   $delimiter = ";";
 
-  $logFile = fopen($ruta . "/controller/repositorio/temp/General_Rexmas_" . $anoMes . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
+  $logFile = fopen($ruta . "/controller/repositorio/temp/General_Rexmas_" . $anoMes ."_". $ceco . "_" . $rut . '_' . $hora . "_log.txt", 'a') or die("Error creando archivo");
   fwrite($logFile, "\n".date("Y-m-d H:i:s")." ============= Inicio proceso =============") or die("Error escribiendo en el archivo");
   fclose($logFile);
 
