@@ -23,7 +23,7 @@
   $ceco = $_SERVER['argv'][3];
   $fechaIni = $_SERVER['argv'][4];
   $fechaFin = $_SERVER['argv'][5];
-  if ($ceco=-1){
+  if ($ceco ==-1){
     $nombreDoc = 'Carga_Rexmas_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";
     $nombreDoc2 = 'Carga_Rexmas_UTF8_' . $fechaIni . '_' . $fechaFin . "_" . $rut . '_' . $hora . ".csv";}
   else{

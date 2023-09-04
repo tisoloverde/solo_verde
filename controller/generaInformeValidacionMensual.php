@@ -30,7 +30,7 @@
   $email = $_SERVER['argv'][2];
   $ceco = $_SERVER['argv'][3];
   $anoMes = $_SERVER['argv'][4];
-  if ($ceco=-1){
+  if ($ceco ==-1){
     $nombreDoc =  'Informe_Validacion_Mensual_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
     $nombreDoc2 = 'Informe_Validacion_Mensual_UTF8_' . $anoMes . "_" . $rut . '_' . $hora . ".xlsx";
   }
