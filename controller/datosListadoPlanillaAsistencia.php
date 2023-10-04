@@ -4,25 +4,7 @@
   require('./utils/functions.php');
   session_start();
 
-  set_time_limit(180); // 1 minuto (en segundos)
-
-	if (count($_POST) >= 0) {
-    // POST
-    $offset = $_POST['start'];
-    $limit = $_POST['length'];
-    $idEstructuraOperacion = $_POST['idEstructuraOperacion'];
-    $fecIni = $_POST['fecIni'];
-    $fecFin = $_POST['fecFin'];
-    $auxIni = $_POST['auxIni'];
-    $auxFin = $_POST['auxFin'];
-    $diaFinMes = $_POST['diaFinMes'];
-    $search = $_POST['search']['value'];
-    $sortCol = $_POST['order'][0]['column'];
-    $sortOrd = $_POST['order'][0]['dir'];
-
-    // DB
-    $total_general = consultaListaACTHistorialCOUNT2($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
-    $total_temporal = consultaListaACTHistorialCOUNT2Temporal($idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
+  set_time_limit(180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180180n, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search);
     $lstPersonalCC = consultaListaACTHistorial2($offset, $limit, $idEstructuraOperacion, $fecIni, $fecFin, $auxIni, $auxFin, $diaFinMes, $search, sanitizePlanillaCol($sortCol), $sortOrd);
     $sql = [];
     $lstPersonalEstado = consultaListaPersonalEstado($fecIni, $fecFin);
