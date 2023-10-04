@@ -9455,7 +9455,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
       url: "controller/datosListadoPlanillaAsistencia.php",
       type: 'POST',
       data: { idEstructuraOperacion, fecIni, fecFin, auxIni, auxFin, diaFinMes },
-      timeout: 60000,
+      timeout: 360000,
       dataFilter: function(data) {
         _DATA_PLANILLA = JSON.parse(data).aaData.map((item) => ({ DIAS_PLANILLA: [], ...item }));
         return data;
