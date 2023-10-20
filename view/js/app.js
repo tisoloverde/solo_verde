@@ -3822,13 +3822,14 @@ app.controller("indicadorAusentismoController", function(){
               data.forEach((item) => {
                 html += `%EE%80%80${item.DEFINICION}`;
               });
-              $('#textofiltro').val(html);            
+              $('#textofiltro').html(html);            
             },
           });
-          console.log( $('#textofiltro').val());
+          console.log(document.getElementById('textofiltro').innerHTML);
           //$('#textofiltro').attr('visible','none');          
         },200); 
-        textofiltro= $('#textofiltro').val();   
+        console.log(document.getElementById('textofiltro').innerHTML);
+        textofiltro=document.getElementById('textofiltro').innerHTML;   
         
 
         var mesesArray = {
