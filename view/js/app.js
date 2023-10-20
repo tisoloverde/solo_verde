@@ -3807,9 +3807,8 @@ app.controller("indicadorAusentismoController", function(){
         var parametros = {
           "path": path,
           idsubcontrato: 0,
-        }
-        
-        $.ajax({
+        }        
+        $.ajax({          
           url: 'controller/datosCentrosDeCostosPerfil.php',
           type: 'post',
           dataType: 'json',
@@ -3820,11 +3819,10 @@ app.controller("indicadorAusentismoController", function(){
             data.forEach((item) => {
               html += `%EE%80%80${item.DEFINICION}`;
             });
-            $('#textofiltro').val(html);            
+           this.textofiltro = html;            
           },
         });
-        textofiltro=$('#textofiltro').val();
-        console.log(textofiltro);
+        console.log(this.textofiltro);
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
