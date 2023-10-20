@@ -3777,6 +3777,7 @@ app.controller("indicadorAusentismoController", function(){
   var parametros = {
     "path": path
   }
+  var textofiltro ='';
   $.ajax({
     url:   'controller/accesoCorrecto.php',
     type:  'post',
@@ -3797,7 +3798,7 @@ app.controller("indicadorAusentismoController", function(){
         $('#contenido').show();
         $('#footer').parent().show();
         $('#footer').show();
-        var textofiltro ='';
+        
 
         // var params = {
         //   "ds46.usuario": response
