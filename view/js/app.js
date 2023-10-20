@@ -3808,10 +3808,9 @@ app.controller("indicadorAusentismoController", function(){
         var parametros = {
           "path": path,
           idsubcontrato: 0,
-        }      
-        var that = this;
-        setTimeout(function(){
-          $.ajax({          
+        }
+        setTimeout(async function(){
+          await $.ajax({          
             url: 'controller/datosCentrosDeCostosPerfil.php',
             type: 'post',
             dataType: 'json',
@@ -3822,54 +3821,61 @@ app.controller("indicadorAusentismoController", function(){
               data.forEach((item) => {
                 html += `%EE%80%80${item.DEFINICION}`;
               });
-              $('#textofiltro').html(html);            
+              // $('#textofiltro').html(html);
+              // console.log(1);
+              // console.log($('#textofiltro').html());
+              textofiltro = html;
+                
+        
+              var mesesArray = {
+                "1":	"1%20-%20Enero",
+                "2":	"2%20-%20Febrero",
+                "3":	"3%20-%20Marzo",
+                "4":	"4%20-%20Abril",
+                "5":	"5%20-%20Mayo",
+                "6":	"6%20-%20Junio",
+                "7":	"7%20-%20Julio",
+                "8":	"8%20-%20Agosto",
+                "9":	"9%20-%20Septiembre",
+                "10":	"10%20-%20Octubre",
+                "11":	"11%20-%20Noviembre",
+                "12":	"12%20-%20Diciembre"
+              }
+      
+              var d = new Date();
+              var ano = d.getFullYear();
+              var mes = d.getMonth();
+              var textourl = 'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df19":"' + textofiltro
+              + '","df5":"include%EE%80%801%EE%80%80IN%EE%80%80' + ano.toString() 
+              + '","df6":"include%EE%80%800%EE%80%80IN%EE%80%80' + mesesArray[mes.toString()] 
+              + '","df7":"include%EE%80%800%EE%80%80IN%EE%80%80Mensual"}';
+              // console.log(3)
+              console.log(textourl);
+                            
+              setTimeout(function(){
+                // console.log(2);                
+                // console.log($('#textofiltro').html());
+                //textofiltro=document.getElementById('textofiltro').innerHTML;           
+                $("#ausentismoBI").attr("src",textourl);
+                $("#ausentismoBI").attr("width","98%");
+                $("#ausentismoBI").attr("height",$(window).height()-30);
+                setTimeout(function(){
+                  loading(false);
+                },2000);
+              },3000);
+              setTimeout(async function(){
+                marcarMenuActivo();
+              },2000);              
+              
             },
           });
-          console.log(document.getElementById('textofiltro').innerHTML);
-          //$('#textofiltro').attr('visible','none');          
-        },200); 
-        console.log(document.getElementById('textofiltro').innerHTML);
-        textofiltro=document.getElementById('textofiltro').innerHTML;   
+        },500);
         
-
-        var mesesArray = {
-          "1":	"1%20-%20Enero",
-          "2":	"2%20-%20Febrero",
-          "3":	"3%20-%20Marzo",
-          "4":	"4%20-%20Abril",
-          "5":	"5%20-%20Mayo",
-          "6":	"6%20-%20Junio",
-          "7":	"7%20-%20Julio",
-          "8":	"8%20-%20Agosto",
-          "9":	"9%20-%20Septiembre",
-          "10":	"10%20-%20Octubre",
-          "11":	"11%20-%20Noviembre",
-          "12":	"12%20-%20Diciembre"
-        }
-
-        var d = new Date();
-        var ano = d.getFullYear();
-        var mes = d.getMonth();
-        var textourl = 'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df19":"' + textofiltro
-        + '","df5":"include%EE%80%801%EE%80%80IN%EE%80%80' + ano.toString() 
-        + '","df6":"include%EE%80%800%EE%80%80IN%EE%80%80' + mesesArray[mes.toString()] 
-        + '","df7":"include%EE%80%800%EE%80%80IN%EE%80%80Mensual"}';
-        console.log(textourl);
 
 
 //        $("#ausentismoBI").attr("src",'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df19":"include%EE%80%800%EE%80%80IN%EE%80%80322%EE%80%80327%EE%80%80352%EE%80%80356","df5":"include%EE%80%801%EE%80%80IN%EE%80%80' + ano.toString() + '","df6":"include%EE%80%800%EE%80%80IN%EE%80%80' + mesesArray[mes.toString()] + '","df7":"include%EE%80%800%EE%80%80IN%EE%80%80Mensual"}');
-        $("#ausentismoBI").attr("src",textourl);
 
-        setTimeout(function(){
-          $("#ausentismoBI").attr("width","98%");
-          $("#ausentismoBI").attr("height",$(window).height()-30);
-          setTimeout(function(){
-            loading(false);
-          },2000);
-        },2000);
-        setTimeout(async function(){
-          marcarMenuActivo();
-        },2000);
+       
       }
     }
   });
