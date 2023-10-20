@@ -3821,7 +3821,7 @@ app.controller("indicadorAusentismoController", function(){
             data.forEach((item) => {
               html += `%EE%80%80${item.DEFINICION}`;
             });
-           that.textofiltro = html;            
+            $('#textofiltro').val(html);            
           },
         });
         console.log(that.textofiltro);
