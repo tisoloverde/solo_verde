@@ -3824,7 +3824,7 @@ app.controller("indicadorAusentismoController", function(){
             $('#textofiltro').html(html);            
           },
         });
-        console.log($('#textofiltro').html(html));
+        console.log($('#textofiltro').html());
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
