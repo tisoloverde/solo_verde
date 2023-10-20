@@ -3777,7 +3777,7 @@ app.controller("indicadorAusentismoController", function(){
   var parametros = {
     "path": path
   }
-  
+  var textofiltro ='';
   $.ajax({    
     url:   'controller/accesoCorrecto.php',
     type:  'post',
@@ -3798,7 +3798,7 @@ app.controller("indicadorAusentismoController", function(){
         $('#contenido').show();
         $('#footer').parent().show();
         $('#footer').show();
-        var textofiltro ='';
+       
         
 
         // var params = {
@@ -3808,7 +3808,8 @@ app.controller("indicadorAusentismoController", function(){
         var parametros = {
           "path": path,
           idsubcontrato: 0,
-        }        
+        }      
+        var that = this;  
         $.ajax({          
           url: 'controller/datosCentrosDeCostosPerfil.php',
           type: 'post',
@@ -3820,10 +3821,10 @@ app.controller("indicadorAusentismoController", function(){
             data.forEach((item) => {
               html += `%EE%80%80${item.DEFINICION}`;
             });
-           this.textofiltro = html;            
+           that.textofiltro = html;            
           },
         });
-        console.log(this.textofiltro);
+        console.log(that.textofiltro);
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
