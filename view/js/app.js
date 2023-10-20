@@ -3797,6 +3797,7 @@ app.controller("indicadorAusentismoController", function(){
         $('#contenido').show();
         $('#footer').parent().show();
         $('#footer').show();
+        var textofiltro ='';
 
         // var params = {
         //   "ds46.usuario": response
@@ -3806,7 +3807,7 @@ app.controller("indicadorAusentismoController", function(){
           "path": path,
           idsubcontrato: 0,
         }
-        var textofiltro ='';
+        
         $.ajax({
           url: 'controller/datosCentrosDeCostosPerfil.php',
           type: 'post',
@@ -3818,11 +3819,11 @@ app.controller("indicadorAusentismoController", function(){
             data.forEach((item) => {
               html += `%EE%80%80${item.DEFINICION}`;
             });
-            var textofiltro =html.toString();
+            textofiltro =html.toString();
             console.log(textofiltro);
           },
         });
-        
+        console.log(textofiltro);
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
