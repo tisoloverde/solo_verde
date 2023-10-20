@@ -3817,9 +3817,10 @@ app.controller("indicadorAusentismoController", function(){
             data.forEach((item) => {
               html += `%EE%80%80${item.DEFINICION}`;
             });
+            console.log(html);
           },
         });
-        console.log(html);
+        
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
