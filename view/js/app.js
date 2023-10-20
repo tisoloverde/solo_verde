@@ -3801,7 +3801,7 @@ app.controller("indicadorAusentismoController", function(){
         // var params = {
         //   "ds46.usuario": response
         // };
-        var path = window.location.href.split('#/')[1];
+        var path = 'planillaAsistencia'// window.location.href.split('#/')[1];
         var parametros = {
           "path": path,
           idsubcontrato: 0,
