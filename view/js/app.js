@@ -3801,6 +3801,25 @@ app.controller("indicadorAusentismoController", function(){
         // var params = {
         //   "ds46.usuario": response
         // };
+        var path = window.location.href.split('#/')[1];
+        var parametros = {
+          "path": path,
+          idsubcontrato: 0,
+        }
+        $.ajax({
+          url: 'controller/datosCentrosDeCostosPerfil.php',
+          type: 'post',
+          dataType: 'json',
+          data: parametros,
+          success: function (response) {
+            var data = response.aaData;
+            var html = "include%EE%80%800%EE%80%80IN";
+            data.forEach((item) => {
+              html += `%EE%80%80${item.DEFINICION}`;
+            });
+          },
+        });
+        console.log(html);
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
@@ -3821,7 +3840,7 @@ app.controller("indicadorAusentismoController", function(){
         var ano = d.getFullYear();
         var mes = d.getMonth();
 
-        $("#ausentismoBI").attr("src",'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df19":"include%EE%80%800%EE%80%80IN%EE%80%80153%EE%80%80159","df5":"include%EE%80%801%EE%80%80IN%EE%80%80' + ano.toString() + '","df6":"include%EE%80%800%EE%80%80IN%EE%80%80' + mesesArray[mes.toString()] + '","df7":"include%EE%80%800%EE%80%80IN%EE%80%80Mensual"}');
+        $("#ausentismoBI").attr("src",'https://lookerstudio.google.com/embed/u/0/reporting/1d0af53c-4379-4b05-8955-2d45d4a7860b/page/SAyWD?params={"df19":"' + html.toString() + '","df5":"include%EE%80%801%EE%80%80IN%EE%80%80' + ano.toString() + '","df6":"include%EE%80%800%EE%80%80IN%EE%80%80' + mesesArray[mes.toString()] + '","df7":"include%EE%80%800%EE%80%80IN%EE%80%80Mensual"}');
 
         setTimeout(function(){
           $("#ausentismoBI").attr("width","98%");
