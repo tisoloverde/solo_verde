@@ -3821,10 +3821,10 @@ app.controller("indicadorAusentismoController", function(){
             data.forEach((item) => {
               html += `%EE%80%80${item.DEFINICION}`;
             });
-            $('#textofiltro').val(html);            
+            $('#textofiltro').html(html);            
           },
         });
-        console.log(that.textofiltro);
+        console.log($('#textofiltro').html(html));
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
