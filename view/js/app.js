@@ -3809,24 +3809,27 @@ app.controller("indicadorAusentismoController", function(){
           "path": path,
           idsubcontrato: 0,
         }      
-        var that = this;  
-        $.ajax({          
-          url: 'controller/datosCentrosDeCostosPerfil.php',
-          type: 'post',
-          dataType: 'json',
-          data: parametros,
-          success: function (response) {
-            var data = response.aaData;
-            var html = "include%EE%80%800%EE%80%80IN";
-            data.forEach((item) => {
-              html += `%EE%80%80${item.DEFINICION}`;
-            });
-            $('#textofiltro').html(html);            
-          },
-        });
-        //console.log($('#textofiltro').html());
-        $('#textofiltro').attr('visible','none');
-        textofiltro=$('#textofiltro').html();
+        var that = this;
+        setTimeout(function(){
+          $.ajax({          
+            url: 'controller/datosCentrosDeCostosPerfil.php',
+            type: 'post',
+            dataType: 'json',
+            data: parametros,
+            success: function (response) {
+              var data = response.aaData;
+              var html = "include%EE%80%800%EE%80%80IN";
+              data.forEach((item) => {
+                html += `%EE%80%80${item.DEFINICION}`;
+              });
+              $('#textofiltro').html(html);            
+            },
+          });
+          //console.log($('#textofiltro').html());
+          //$('#textofiltro').attr('visible','none');
+          textofiltro=document.getElementById('textofiltro').innerHTML;
+        },200); 
+        
 
         var mesesArray = {
           "1":	"1%20-%20Enero",
