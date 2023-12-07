@@ -6,8 +6,8 @@
       $con = conectar();
       if($con != "No conectado"){
 
-          $sql = "CALL DASHBOARD_1_SOLO_VERDE()";
-
+//          $sql = "CALL DASHBOARD_1_SOLO_VERDE()";
+            $sql = "SELECT * FROM DOTACION_EQUIVALENTE_REPORTE ";
           if ($row = $con->query($sql)) {
           $return = array();
           while ($array = $row->fetch_array(MYSQLI_ASSOC)) {
