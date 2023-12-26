@@ -16985,7 +16985,7 @@ WHERE U.RUT = '{$rutUser}'";
 				CONCAT('Semana ', semana_del_anio, ' del ', anio_calendario, ' (', semana_inicio, ' al ', semana_fin, ')') AS LABEL,
 				(SELECT current_date() BETWEEN semana_inicio AND semana_fin) AS ES_ACTUAL
 			FROM CALENDARIO
-			GROUP BY anio_calendario, semana_del_anio;";
+			GROUP BY anio_calendario, semana_del_anio, semana_inicio;";
 			if ($row = $con->query($sql)) {
 				$return = array();
 				while($array = $row->fetch_array(MYSQLI_BOTH)){
