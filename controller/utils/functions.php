@@ -55,7 +55,7 @@
       $val = 0;
       if ($sigla == 'PMM' || $sigla == 'PMT' || $sigla == 'FMD' || $sigla == 'PMD' || $sigla == 'FMM' || $sigla == 'FMT') {
         $val = 0.5;
-      } else if ($sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR' || $sigla == 'PER' || $sigla == 'FLT' || $sigla == 'ELI') {
+      } else if ($sigla == 'LIC' || $sigla == 'LAC' || $sigla == 'DSR' || $sigla == 'PER' || $sigla == 'FLT' || $sigla == 'ELI' || $sigla == 'PSN' ) {
         $val = 1;
       } else {
         $val = 0;

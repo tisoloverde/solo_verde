@@ -634,6 +634,7 @@ $("#loginSystem-submit").unbind('click').click(function(e){
         "url" : URLactual.toString(),
         "gc": gc
     };
+    
     $.ajax({
         data:  parametros,
         url:   'controller/datosUsuarioConectado.php',
@@ -9448,7 +9449,7 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
   var diaFinMes = auxFinMes.format('YYYY-MM-DD');
 
   var table = await _TABLE_PLANILLA.DataTable({
-    serverSide: true,
+    serverSide: false,
     processing: true,
     search: { return: true },
     ajax: {
@@ -9522,10 +9523,42 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
         }
       },
       {
+        text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Deseleccionar todo',
+        action: function ( e, dt, node, config ) {
+          var table = $('#tablaListadoPlanillaAsistencia').DataTable();
+       
+  				setTimeout(function(){
+            var datos = table.rows().data();
+            console.log(datos.length);
+            for(var i = 0; i < datos.length; i++){
+              //console.log(i);
+              ponerDiasEnblanco(i);
+            }
+          },100);
+          table.rows().deselect();
+          setTimeout(async function(){
+            var table2 = $('#tablaListadoPlanillaAsistencia').DataTable();
+            var datos2 = table2.rows('.selected').data();
+            if(table2.rows('.selected').data().length > 0){
+              if(table2.rows('.selected').data().length > 1){
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              }
+              else{
+                $("#editarPlanillaAsistencia").removeAttr("disabled");
+              }
+            }
+            else{
+              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+            }
+          },100);
+        }
+      },
+      {
         text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Glosario',
         action: function ( e, dt, node, config ) {
           console.log('--mostrear modal--')
           console.log(_COMUNES_PLANILLA);
+          $("#modalGlosario").modal("show");
         },
       },
     ],
@@ -9539,7 +9572,8 @@ async function listPlanillaAsistencia(idEstructuraOperacion, fecIni, fecFin, idE
       { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23] },
     ],
     scrollX: true,
-    paging: true,
+    paging: false,
+    scrollY:'50vh',
     ordering: true,
     scrollCollapse: true,
     info: true,
@@ -10276,6 +10310,31 @@ function ponerDiasEn1s(indexes) {
       var idx = item - 14;
       _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].push({ id: idPec, fecha: _DIAS_PLANILLA[idx]['fecha']});
       _DATA_PLANILLA[planillaIdx]['__isEdited'] = true;
+    }
+  });
+}
+
+_TABLE_PLANILLA.DataTable().on('deselect', function (e, dt, type, indexes) {
+  ponerDiasEnblanco(indexes);
+});
+
+function ponerDiasEnblanco(indexes) {  
+  var found = _COMUNES_PLANILLA.estadoConcepto.find((item) => `${item.SIGLA}` == "1");
+
+  var rowData = _TABLE_PLANILLA.DataTable().rows(indexes).data().toArray();
+  var idPersonal = rowData[0]["IDPERSONAL"];
+  var lst = [14, 15, 16, 17, 18, 19, 20];
+  lst.forEach((item) => {
+    var aux = $(`#planilla-select-col${item}-${idPersonal}`).val();
+    if (aux == 21) {
+      $(`#planilla-select-col${item}-${idPersonal}`).val(0);
+
+      var idPec = found.IDPERSONAL_ESTADO_CONCEPTO;
+      var planillaIdx = _DATA_PLANILLA.findIndex(({ IDPERSONAL }) => `${IDPERSONAL}` == `${idPersonal}`)
+
+      var idx = item - 14;
+      _DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].splice(0,_DATA_PLANILLA[planillaIdx]['__DIAS_PLN'].length);
+      _DATA_PLANILLA[planillaIdx]['__isEdited'] = false;
     }
   });
 }

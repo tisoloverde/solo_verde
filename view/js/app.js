@@ -3421,7 +3421,7 @@ app.controller("planillaAsistenciaController", function(){
                   $('#selectListaSemanas').html(html);
 
                   await $('#tablaListadoPlanillaAsistencia').DataTable({
-                    serverSide: true,
+                    serverSide: false,
                     processing: true,
                     search: { return: true },
                     ajax: {
@@ -3495,6 +3495,38 @@ app.controller("planillaAsistenciaController", function(){
                         }
                       },
                       {
+                        text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Deseleccionar todo',
+                        action: function ( e, dt, node, config ) {
+                          var table = $('#tablaListadoPlanillaAsistencia').DataTable();
+  
+                          setTimeout(function(){
+                            var datos = table.rows().data();
+                            console.log(datos.length);                            
+                            for(var i = 0; i < datos.length; i++){
+                              console.log(i);
+                              ponerDiasEnblanco(i);
+                            }
+                          },100);
+                          table.rows().deselect();
+                          setTimeout(async function(){
+                            var table2 = $('#tablaListadoPlanillaAsistencia').DataTable();
+                            var datos2 = table2.rows('.selected').data();
+                            if(table2.rows('.selected').data().length > 0){
+                              if(table2.rows('.selected').data().length > 1){
+                                $("#editarPlanillaAsistencia").removeAttr("disabled");
+                              }
+                              else{
+                                $("#editarPlanillaAsistencia").removeAttr("disabled");
+                              }
+                            }
+                            else{
+                              $("#editarPlanillaAsistencia").attr("disabled", "disabled");
+                            }
+                          },100);
+                        }  
+                      },                      
+
+                      {
                         text: '<span class="fas fa-check-double"></span>&nbsp;&nbsp;Glosario',
                         action: function ( e, dt, node, config ) {
                           $("#modalGlosario").modal("show");
@@ -3511,7 +3543,8 @@ app.controller("planillaAsistenciaController", function(){
                       { orderable: false, targets: [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23] },
                     ],
                     scrollX: true,
-                    paging: true,
+                    paging: false,
+                    scrollY:'50vh',
                     ordering: true,
                     scrollCollapse: true,
                     info: true,
