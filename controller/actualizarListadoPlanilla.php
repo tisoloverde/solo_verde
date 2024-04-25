@@ -7,6 +7,8 @@
     $dataUpd = $_POST['array'];
 
     $res = [];
+    set_time_limit(2400); // 1 minuto (en segundos)
+
 
     foreach ($dataUpd as $item) {
       $idPersonal = $item['IDPERSONAL'];
