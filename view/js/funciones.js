@@ -15930,7 +15930,7 @@ $("#guardarAgregarMantencion").unbind('click').click(function(){
               success:  async function (response) {
                 var p = jQuery.parseJSON(response);
                 await $.ajax({
-                  url: "controller/generaPDF/agendaMantencion.php?idLoad=99",
+                  url: "controller/generaPDF/agendaMantencion.php?idLoad=101",
                   type: "POST",
                   data:{
                     "idMantencion": Number(p[0]['LAST_INSERT_ID()']),
@@ -17693,7 +17693,7 @@ $("#guardarAsignacionVehiculo").unbind('click').click( async function(){
         },
         success: async function (res1){
           await $.ajax({
-            url: "controller/generaPDF/asignacionChecklistVehiculo.php?idLoad=99",
+            url: "controller/generaPDF/asignacionChecklistVehiculo.php?idLoad=101",
             type: "POST",
             data:{
               "idAsig": Number(p[0]['LAST_INSERT_ID()']),
@@ -18074,7 +18074,7 @@ $("#guardarSubirPdfAsignacionVehiculo").unbind("click").click( async function(){
           if(p[0].localeCompare("Sin datos") != 0 && p[0] != ""){
             // generamos pdf Asignacion
             $.ajax({
-              url: "controller/generaPDF/asignacionVehiculo.php?idLoad=99",
+              url: "controller/generaPDF/asignacionVehiculo.php?idLoad=101",
               type: "POST",
               data:{
                 "idAsig": idAsig[0],
@@ -18804,7 +18804,7 @@ $("#guardarDesasignacionVehiculo").unbind('click').click( async function(){
         data: parametros1,
         success: async function (res1){
           await $.ajax({
-            url: "controller/generaPDF/desasignacionChecklistVehiculo.php?idLoad=99",
+            url: "controller/generaPDF/desasignacionChecklistVehiculo.php?idLoad=101",
             type: "POST",
             data:{
               "idDesasig": Number(p[0]['LAST_INSERT_ID()']),

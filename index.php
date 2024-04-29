@@ -70,15 +70,15 @@
     <script src="view/js/fullcalendar5.js"></script>
     <script src="view/js/locales/es.js"></script>
 
-    <link rel="stylesheet" href="view/css/style.css?idLoad=99">
+    <link rel="stylesheet" href="view/css/style.css?idLoad=101">
 
-    <script src="view/js/helpers/constants.js?idLoad=99"></script>
-    <script src="view/js/helpers/config.js?idLoad=99"></script>
-    <script src="view/js/helpers/validations.js?idLoad=99"></script>
-    <script src="view/js/helpers/functions.js?idLoad=99"></script>
+    <script src="view/js/helpers/constants.js?idLoad=101"></script>
+    <script src="view/js/helpers/config.js?idLoad=101"></script>
+    <script src="view/js/helpers/validations.js?idLoad=101"></script>
+    <script src="view/js/helpers/functions.js?idLoad=101"></script>
 
-    <script src="view/js/funciones.js?idLoad=99"></script>
-    <script src="view/js/app.js?idLoad=99"></script>
+    <script src="view/js/funciones.js?idLoad=101"></script>
+    <script src="view/js/app.js?idLoad=101"></script>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb15rFHKSkFxmZbQIo6KVes2-GR3N-LcQ&libraries=places&callback">
     </script>
@@ -90,7 +90,7 @@
   <header>
   </header>
   <body ng-app="WPApp">
-    <div id="modales" ng-include="'view/estructura/modales.php?idLoad=99'">
+    <div id="modales" ng-include="'view/estructura/modales.php?idLoad=101'">
   	</div>
     <nav class="navbar navbar-expand-md navbar-dark bg-custom fixed-top" style="display: none;">
       <a class="navbar-brand" href="#">
