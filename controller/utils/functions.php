@@ -68,7 +68,7 @@
   function buscarDiasNoValidoPersonalEstadoConcepto($cons) {
     $idsConValid = [];
     foreach($cons as $con) {
-      if ($con['SIGLA'] == 'LIC' || $con['SIGLA'] == 'LAC' || $con['SIGLA'] == 'DSR' || $con['SIGLA'] == 'V'  || $con['SIGLA'] == 'ELI' || $con['SIGLA'] == 'PAD') {
+      if ($con['SIGLA'] == 'LIC' || $con['SIGLA'] == 'LAC' || $con['SIGLA'] == 'DSR' || $con['SIGLA'] == 'V'  || $con['SIGLA'] == 'PAD') {
         $idsConValid[] = $con['IDPERSONAL_ESTADO_CONCEPTO'];
       }
     }
